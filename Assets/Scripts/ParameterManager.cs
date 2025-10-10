@@ -1,0 +1,68 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System;
+
+/// <summary>
+/// プレイヤーと所持ユニットのパラメーターを管理する
+/// </summary>
+public class ParameterManager : Singleton<ParameterManager>
+{
+    //プレイヤーのステータスと初期値
+    public int maxUnitPossession = 3;       //最大ユニット所持数
+
+    public int point = 6;                   //初期ポイント数
+    public int maxInstallation = 4;         //ユニット最大配置数
+    public int sameUnitMaxInstallation = 1; //同じユニットの最大配置数
+
+    [Space(10)]
+
+    //所持しているユニットごとのステータス
+    public UnitStatus[] unitStatus;
+
+    void Awake()
+    {
+        //シーンを遷移しても残る
+        if (gameObject.transform.parent != null) gameObject.transform.parent = null;
+        if (this != Instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
+
+        //ユニットのデータ読み込み用オブジェクトを生成
+        GameObject units = new GameObject();
+        units.name = "UnitsData";
+        units.AddComponent<UnitsData>();
+    }
+
+    /// <summary>
+    /// ユニットを新しく入手する　引数でユニットのIDを指定
+    /// </summary>
+    public void AddUnit(int id)
+    {
+        //最大ユニット所持数に達している場合は増やせない
+        if (unitStatus.Length >= maxUnitPossession) return;
+
+        int index = unitStatus.Length;
+        Array.Resize(ref unitStatus, index + 1);
+        unitStatus[index] = new UnitStatus();
+
+        //IDに対応したユニットのステータスを読み込み
+        unitStatus[index].id = id;                                 //どのユニットかを示すID
+        unitStatus[index].role = UnitsData.Instance.unit[id].role; //ロール　0がDPS、1がタンク、2がサポート
+
+        unitStatus[index].lv = 1;  //レベル
+        unitStatus[index].exp = 0; //所持経験値
+
+        unitStatus[index].cost = UnitsData.Instance.unit[id].cost;     //設置時のコスト
+        unitStatus[index].recast = UnitsData.Instance.unit[id].recast; //再配置までの時間
+
+        unitStatus[index].hp = UnitsData.Instance.unit[id].hp;             //耐久値（最大HP）
+        unitStatus[index].value = UnitsData.Instance.unit[id].value;       //DPSの場合は攻撃力、サポートの場合は回復量、ポイント増加量など
+        unitStatus[index].interval = UnitsData.Instance.unit[id].interval; //行動速度（攻撃、回復をする間隔）
+        unitStatus[index].distance = UnitsData.Instance.unit[id].distance; //攻撃、回復の射程
+        unitStatus[index].range = UnitsData.Instance.unit[id].range;       //範囲攻撃の範囲
+    }
+}
