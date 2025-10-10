@@ -28,7 +28,7 @@ public class UnitsData : Singleton<UnitsData>
         unit[index].hp = 10;             //耐久値（最大HP）
         unit[index].value = 4;           //DPSの場合は攻撃力、サポートの場合は回復量、ポイント増加量など
         unit[index].interval = 2;        //行動速度（攻撃、回復をする間隔）
-        unit[index].distance = 10;       //攻撃、回復の射程
+        unit[index].distance = 6;       //攻撃、回復の射程
         unit[index].range = 0;           //範囲攻撃の範囲
         unit[index].placeRoad = false;   //敵が通る道に配置できるか
         unit[index].lvUpStatus = "distance"; //レベルアップ時に上がるステータス（変数名を入れる）
@@ -45,7 +45,7 @@ public class UnitsData : Singleton<UnitsData>
         unit[index].hp = 50;
         unit[index].value = 1;
         unit[index].interval = 1;
-        unit[index].distance = 3;
+        unit[index].distance = 1;
         unit[index].range = 0;
         unit[index].placeRoad = true;
         unit[index].lvUpStatus = "hp";
