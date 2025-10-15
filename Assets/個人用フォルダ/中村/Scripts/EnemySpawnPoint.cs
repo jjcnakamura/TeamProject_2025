@@ -43,13 +43,17 @@ public class EnemySpawnPoint : MonoBehaviour
     {
         if (endSpawn) yield break;
 
-        //敵のステータスを決定
+        //敵のステータスを設定
         GameObject enemy = enemyStatus[spawnIndex].prefab;
-        Vector3 spawnPos = new Vector3(transform.position.x, enemyStatus[spawnIndex].prefab.transform.position.y, transform.position.z);
-
         Enemy_Base enemyBase = enemy.GetComponent<Enemy_Base>();
-        enemyBase.spawnPoint = this;
 
+        //位置と角度を設定
+        enemyBase.spawnPoint = this;
+        Vector3 spawnPos = new Vector3(transform.position.x, enemyStatus[spawnIndex].prefab.transform.position.y, transform.position.z);
+        Quaternion targetDir = Quaternion.LookRotation(routePoint[0] - spawnPos);
+        Quaternion spawnDir = new Quaternion(enemy.transform.rotation.x, targetDir.y, enemy.transform.rotation.z, targetDir.w);
+
+        //パラメータを設定
         enemyBase.maxHp = enemyStatus[spawnIndex].hp;
         enemyBase.hp = enemyBase.maxHp;
         enemyBase.value = enemyStatus[spawnIndex].value;
@@ -62,7 +66,9 @@ public class EnemySpawnPoint : MonoBehaviour
         for (int i = 0; i < enemyStatus[spawnIndex].spawnNum; i++)
         {
             //敵のインスタンスを生成
-            Instantiate(enemy).transform.position = spawnPos;
+            GameObject instance = Instantiate(enemy);
+            instance.transform.position = spawnPos;
+            instance.transform.rotation = spawnDir;
 
             //一定時間待つ
             waitCoroutine = true;
