@@ -60,7 +60,12 @@ public class UnitZone : MonoBehaviour
                             BattleManager.Instance.LetgoUnit();
                             onMouseObj.SetActive(onMouse);
                         }
-                    } 
+                    }
+                    else
+                    {
+                        BattleManager.Instance.LetgoUnit();
+                        onMouseObj.SetActive(false);
+                    }
                 }
                 //置いているユニットを削除する処理
                 else
