@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class EnemySpawnPoint : MonoBehaviour
 {
+    public Route[] routePoint;
+    float spawnPosY;
+
+    [Space(20)]
+
     [SerializeField] Status[] enemyStatus;
 
     float[] spawnTime;
     int spawnIndex;
-
-    public Vector3[] routePoint { get; private set; }
 
     bool waitCoroutine;
     bool endSpawn;
@@ -24,12 +27,20 @@ public class EnemySpawnPoint : MonoBehaviour
         }
 
         //敵のルートを配列に格納
-        routePoint = new Vector3[transform.childCount + 1];
-        for (int i = 0; i < transform.childCount; i++)
+        for (int i = 0; i < routePoint.Length; i++)
         {
-            routePoint[i] = transform.GetChild(i).position;
+            routePoint[i].pos = new Vector3[routePoint[i].pointObj.Length + 1];
+
+            int j;
+            for (j = 0; j < routePoint[i].pointObj.Length; j++)
+            {
+                routePoint[i].pos[j] = routePoint[i].pointObj[j].transform.position;
+            }
+            routePoint[i].pos[j] = BattleManager.Instance.playerSide.transform.position;
         }
-        routePoint[routePoint.Length - 1] = BattleManager.Instance.playerSide.transform.position;
+
+        //出現時の高さを取得
+        spawnPosY = transform.GetChild(0).position.y;
     }
 
     void Update()
@@ -49,8 +60,8 @@ public class EnemySpawnPoint : MonoBehaviour
 
         //位置と角度を設定
         enemyBase.spawnPoint = this;
-        Vector3 spawnPos = new Vector3(transform.position.x, enemyStatus[spawnIndex].prefab.transform.position.y, transform.position.z);
-        Quaternion targetDir = Quaternion.LookRotation(routePoint[0] - spawnPos);
+        Vector3 spawnPos = new Vector3(transform.position.x, spawnPosY, transform.position.z);
+        Quaternion targetDir = Quaternion.LookRotation(routePoint[enemyStatus[spawnIndex].routeIndex].pos[0] - spawnPos);
         Quaternion spawnDir = new Quaternion(enemy.transform.rotation.x, targetDir.y, enemy.transform.rotation.z, targetDir.w);
 
         //パラメータを設定
@@ -61,6 +72,8 @@ public class EnemySpawnPoint : MonoBehaviour
         enemyBase.distance = enemyStatus[spawnIndex].distance;
         enemyBase.range = enemyStatus[spawnIndex].range;
         enemyBase.moveSpeed = enemyStatus[spawnIndex].moveSpeed;
+
+        enemyBase.routeIndex = enemyStatus[spawnIndex].routeIndex;
 
 
         for (int i = 0; i < enemyStatus[spawnIndex].spawnNum; i++)
@@ -85,6 +98,7 @@ public class EnemySpawnPoint : MonoBehaviour
     public struct Status
     {
         [SerializeField, Label("敵のPrefab")] public GameObject prefab;
+        [SerializeField, Label("どのルートを通るか")] public int routeIndex;
         [SerializeField, Label("出現までの時間")] public float spawnTime;
         [SerializeField, Label("出現する間隔")] public float spawnInterval;
         [SerializeField, Label("出現数")] public int spawnNum;
@@ -97,5 +111,13 @@ public class EnemySpawnPoint : MonoBehaviour
         public float distance;
         public float range;
         public float moveSpeed;
+    }
+
+    //
+    [System.Serializable]
+    public struct Route
+    {
+        public GameObject[] pointObj;
+        [System.NonSerialized] public Vector3[] pos;
     }
 }

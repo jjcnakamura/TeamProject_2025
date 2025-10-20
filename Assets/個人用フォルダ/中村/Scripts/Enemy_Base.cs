@@ -15,7 +15,8 @@ public class Enemy_Base : MonoBehaviour
 
     //次に進む場所に関する変数
     public EnemySpawnPoint spawnPoint;
-    int routeIndex = 0;
+    public int routeIndex;
+    int currentRoute = 0;
 
     //向く方向に関する変数
     float rotateSpeed = 8f;
@@ -24,12 +25,20 @@ public class Enemy_Base : MonoBehaviour
     //状態を表すフラグ
     bool isMove = true, isRotation, isTarget;
 
+    /// <summary>
+    /// ダメージを受ける処理　引数でダメージ量を指定
+    /// </summary>
+    public void Damage(int damage)
+    {
+
+    }
+
     void FixedUpdate()
     {
         //プレイヤーの陣地に向かって移動する処理
         if (isMove)
         {
-            Vector3 targetPos = new Vector3(spawnPoint.routePoint[routeIndex].x, transform.position.y, spawnPoint.routePoint[routeIndex].z);
+            Vector3 targetPos = new Vector3(spawnPoint.routePoint[routeIndex].pos[currentRoute].x, transform.position.y, spawnPoint.routePoint[routeIndex].pos[currentRoute].z);
 
             if (transform.position != targetPos)
             {
@@ -38,13 +47,13 @@ public class Enemy_Base : MonoBehaviour
             else
             {
                 //次のルートポイントへ
-                if (routeIndex < spawnPoint.routePoint.Length - 1)
+                if (currentRoute < spawnPoint.routePoint[routeIndex].pos.Length - 1)
                 {
-                    routeIndex++;
+                    currentRoute++;
                     //向きを変更
                     if (!isTarget)
                     {
-                        Quaternion targetDir = Quaternion.LookRotation(spawnPoint.routePoint[routeIndex] - transform.position);
+                        Quaternion targetDir = Quaternion.LookRotation(spawnPoint.routePoint[routeIndex].pos[currentRoute] - transform.position);
                         Quaternion lookDir = new Quaternion(transform.rotation.x, targetDir.y, transform.rotation.z, targetDir.w);
                         DirectionChange(lookDir);
                     }
@@ -66,6 +75,9 @@ public class Enemy_Base : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 次に向く報告を指定　第２引数をtrueにするとその位置を優先して向く
+    /// </summary>
     public void DirectionChange(Quaternion targetDir, bool targetChange = false)
     {
         dir = targetDir;

@@ -21,6 +21,7 @@ public class ParameterManager : Singleton<ParameterManager>
 
     //所持しているユニットごとのステータス
     public UnitStatus[] unitStatus;
+    public int[] battleUnitId;      //戦闘で使用するユニットの番号
 
     void Awake()
     {
