@@ -16,18 +16,24 @@ public class BattleManager : Singleton<BattleManager>
     public int point;
 
     //ユニットのパラメーター用変数
-    BattleUnit_Base[] battleUnitStatus;         //配置されている各ユニットのステータス
-    [SerializeField] GameObject testUnit;       //ユニットの配置テスト用
-    [SerializeField] GameObject unitPullZone;   //ユニットを持ってくるボタンの集まり
-    [SerializeField] PullUnit unitPullButton;   //ユニットを持ってくるボタン
+    BattleUnit_Base[] battleUnitStatus; //配置されている各ユニットのステータス
+    [Space(10)] [SerializeField] GameObject testUnit;           //ユニットの配置テスト用
+    [Space(10)] [SerializeField] GameObject unitPullZone;       //ユニットを持ってくるボタンの集まり
+    [SerializeField] PullUnit unitPullButton;                   //ユニットを持ってくるボタン
     Vector3 pullUnitSizeOffset = new Vector3(0.4f, 0.4f, 0.4f); //ユニットを持った場合にかけるサイズ補正
     GameObject dragUnit;                        //現在ドラッグしているユニット
     int dragUnitIndex;                          //ドラッグしているユニットの要素番号
     [SerializeField] GameObject unitZoneParent; //ユニットの配置場所の親オブジェクト
+    [SerializeField] GameObject floorParent;    //敵が通る道の親オブジェクト
     UnitZone[] unitZone;                        //ユニットの配置場所
+    //現在ドラッグしているユニットがどこに配置できるか
+    public bool place_UnitZone { get; private set; }
+    public bool place_Floor { get; private set; }
 
+    //敵出現の時間をカウントするタイマー
     public float timer_EnemySpawn { get; private set; }
 
+    //ゲームの状態を表すフラグ
     public bool isMainGame, isClear, isGameOver, isUnitDrag, isOnMouseUnitZone;
 
     void Start()
@@ -65,11 +71,18 @@ public class BattleManager : Singleton<BattleManager>
         }
 
         //ユニットの配置場所を取得
-        unitZone = new UnitZone[unitZoneParent.transform.childCount];
-        for (int i = 0; i < unitZone.Length; i++)
+        int unitZoneNum = unitZoneParent.transform.childCount;
+        unitZone = new UnitZone[unitZoneNum + floorParent.transform.childCount];
+        for (int i = 0; i < unitZoneNum; i++)
         {
             unitZone[i] = unitZoneParent.transform.GetChild(i).GetComponent<UnitZone>();
             unitZone[i].index = i;
+            unitZone[i].unitZone = true;
+        }
+        for (int i = unitZoneNum; i < unitZone.Length; i++)
+        {
+            unitZone[i] = floorParent.transform.GetChild(i - unitZoneNum).GetComponent<UnitZone>();
+            unitZone[i].index = i; 
         }
         //ユニットの配置場所の数に合わせて配置可能ユニット数を決定
         battleUnitStatus = new BattleUnit_Base[unitZone.Length];
@@ -100,12 +113,19 @@ public class BattleManager : Singleton<BattleManager>
         dragUnit = Instantiate(testUnit);
         dragUnit.transform.localScale -= pullUnitSizeOffset;
         dragUnit.transform.rotation = new Quaternion(0, 180f, 0, 0);
+
+        //どこに配置出来るか（仮）
+        place_UnitZone = true;
+        place_Floor = false;
     }
     //ドラッグしているユニットを離す
     public void LetgoUnit()
     {
         Destroy(dragUnit);
         isUnitDrag = false;
+
+        place_UnitZone = false;
+        place_Floor = false;
     }
     //ユニットを配置する
     public void PlaceUnit(int zoneIndex)
@@ -115,6 +135,8 @@ public class BattleManager : Singleton<BattleManager>
 
         battleUnitStatus[zoneIndex] = dragUnit.GetComponent<BattleUnit_Base>();
 
+        place_UnitZone = false;
+        place_Floor = false;
         isUnitDrag = false;
     }
     //配置されているユニットを削除
@@ -123,6 +145,7 @@ public class BattleManager : Singleton<BattleManager>
         if (!unitZone[zoneIndex].placed) return;
 
         battleUnitStatus[zoneIndex].Out();
+        battleUnitStatus[zoneIndex] = null;
     }
 
     public void Damage()

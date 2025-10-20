@@ -1,15 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class MouseManager : Singleton<MouseManager>
 {
     //マウスの座標
     public Vector3 mousePos { get; private set; }
     public Vector3 worldPos { get; private set; }
-
-    //現在マウスが当たっているオブジェクト
-    HashSet<GameObject> currentMouseHits = new HashSet<GameObject>();
 
     //マウスのRayに衝突しているClickObjタグ付きオブジェクト
     public RaycastHit mouseRayHits { get; private set; }
@@ -26,35 +24,22 @@ public class MouseManager : Singleton<MouseManager>
         //マウスの位置からRayを飛ばす
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit[] hits = Physics.RaycastAll(ray, 100f);
-        //今フレームでヒットしたRay衝突オブジェクト
-        HashSet<GameObject> newHits = new HashSet<GameObject>();
+
+        //TagがClickObjのオブジェクトのみ参照
+        var clickables = hits
+            .Where(h => h.collider.CompareTag("ClickObj"))
+            .OrderBy(h => h.distance)  //手前（距離が短い）順にソート
+            .ToArray();
 
         //OnMouseEnter
-        foreach (RaycastHit hit in hits)
+        if (clickables.Length > 0)
         {
-            //クリック可能オブジェクトにマウスが乗った場合
-            if (hit.collider.CompareTag("ClickObj"))
-            {
-                newHits.Add(hit.collider.gameObject);
-
-                //新しくマウスが乗ったオブジェクト（前フレームにはなかった）
-                if (!currentMouseHits.Contains(hit.collider.gameObject))
-                {
-                    mouseRayHits = hit;
-                }
-            }
+            mouseRayHits = clickables[0];
         }
         //OnMouseExit
-        foreach (GameObject old in currentMouseHits)
+        else
         {
-            //クリック可能オブジェクトからマウスが離れた場合
-            if (!newHits.Contains(old))
-            {
-                mouseRayHits = new RaycastHit();
-            }
+            mouseRayHits = new RaycastHit();
         }
-
-        //状態を更新
-        currentMouseHits = newHits;
     }
 }

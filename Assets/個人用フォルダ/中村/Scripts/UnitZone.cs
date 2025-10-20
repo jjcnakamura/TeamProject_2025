@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ユニットをステージに配置する処理
+/// ユニットをステージに配置できるか判定する処理
 /// </summary>
 public class UnitZone : MonoBehaviour
 {
-    public int index;      //どの配置場所か
+    public int index;       //どの配置場所か
+    public bool unitZone;   //敵の通る道ではないユニット設置専用の場所か
+
+    [Space(10)]
     public bool placed;    //配置済みか
 
-    BoxCollider col;       //Collider
-
-    GameObject unitPointObj; //ユニットの設置場所
+    BoxCollider col;         //Collider
+    GameObject unitPointObj; //ユニット設置時の位置
     public Vector3 unitPoint { get; private set; }
 
     GameObject onMouseObj; //マウスホバー時に出現するオブジェクト
@@ -42,20 +44,23 @@ public class UnitZone : MonoBehaviour
                 //ドラッグしているユニットを置く処理
                 if (BattleManager.Instance.isUnitDrag)
                 {
-                    if (!placed)
+                    if (unitZone && BattleManager.Instance.place_UnitZone || !unitZone && BattleManager.Instance.place_Floor)
                     {
-                        BattleManager.Instance.PlaceUnit(index);
-                        onMouse = false;
-                        onMouseObj.SetActive(onMouse);
+                        if (!placed)
+                        {
+                            BattleManager.Instance.PlaceUnit(index);
+                            onMouse = false;
+                            onMouseObj.SetActive(onMouse);
 
-                        placeOnMouse = true;
-                        placed = true;
-                    }
-                    else
-                    {
-                        BattleManager.Instance.LetgoUnit();
-                        onMouseObj.SetActive(onMouse);
-                    }
+                            placeOnMouse = true;
+                            placed = true;
+                        }
+                        else
+                        {
+                            BattleManager.Instance.LetgoUnit();
+                            onMouseObj.SetActive(onMouse);
+                        }
+                    } 
                 }
                 //置いているユニットを削除する処理
                 else
@@ -77,8 +82,17 @@ public class UnitZone : MonoBehaviour
             if (!placeOnMouse)
             {
                 onMouse = true;
-                if (BattleManager.Instance.isUnitDrag && !placed || !BattleManager.Instance.isUnitDrag && placed)
+                if (BattleManager.Instance.isUnitDrag && !placed)
+                {
+                    if (unitZone && BattleManager.Instance.place_UnitZone || !unitZone && BattleManager.Instance.place_Floor)
+                    {
+                        onMouseObj.SetActive(onMouse);
+                    }     
+                }
+                else if (!BattleManager.Instance.isUnitDrag && placed)
+                {
                     onMouseObj.SetActive(onMouse);
+                }
 
                 BattleManager.Instance.isOnMouseUnitZone = true;
             }   
@@ -93,68 +107,4 @@ public class UnitZone : MonoBehaviour
             BattleManager.Instance.isOnMouseUnitZone = false;
         }
     }
-
-    //OnMouse関数の代わりにRayを使う
-
-    /*
-    void OnMouseOver()
-    {
-        //ドラッグしているユニットを置く処理
-        if (Input.GetKeyUp(KeyCode.Mouse0) && BattleManager.Instance.isUnitDrag)
-        {
-            if (!placed)
-            {
-                BattleManager.Instance.PlaceUnit(index);
-                onMouse = false;
-                onMouseObj.SetActive(onMouse);
-
-                placed = true;
-            }
-            else
-            {
-                BattleManager.Instance.LetgoUnit();
-                onMouseObj.SetActive(onMouse);
-            }
-        }
-    }
-
-    void OnMouseUpAsButton()
-    {
-        //置いているユニットを削除する処理
-        if (Input.GetKeyUp(KeyCode.Mouse0) && !BattleManager.Instance.isUnitDrag)
-        {
-            if (placed && onMouse)
-            {
-                BattleManager.Instance.OutUnit(index);
-                onMouse = false;
-                onMouseObj.SetActive(onMouse);
-
-                placed = false;
-            }
-        }
-    }
-
-    void OnMouseEnter()
-    {
-        if (BattleManager.Instance.isUnitDrag && !placed || !BattleManager.Instance.isUnitDrag && placed)
-        {
-            onMouse = true;
-            onMouseObj.SetActive(onMouse);
-        }
-        else if (BattleManager.Instance.isUnitDrag)
-        {
-            onMouse = true;
-        }
-        
-        BattleManager.Instance.isOnMouseUnitZone = true;
-    }
-
-    void OnMouseExit()
-    {
-        onMouse = false;
-        onMouseObj.SetActive(onMouse);
-
-        BattleManager.Instance.isOnMouseUnitZone = false;
-    }
-    */
 }

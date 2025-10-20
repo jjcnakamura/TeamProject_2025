@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class PullUnit : MonoBehaviour
 {
-    public int index; //どのユニットか
+    public int index;           //どのユニットか
 
     void Awake()
     {
