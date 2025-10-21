@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 4782872058123386143}
   - component: {fileID: 240579805814298295}
   m_Layer: 0
-  m_Name: Unit_0_ShortAttack
+  m_Name: Unit_TargettAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

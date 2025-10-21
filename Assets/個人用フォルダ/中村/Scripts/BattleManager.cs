@@ -20,7 +20,7 @@ public class BattleManager : Singleton<BattleManager>
 
     //ユニットのパラメーター用変数
     BattleUnit_Base[] battleUnitStatus; //配置されている各ユニットのステータス
-    [Space(10)] [SerializeField] GameObject testUnit;           //ユニットの配置テスト用
+    GameObject[] battleUnitPrefab;                              //ボタンから生成されるユニットのPrefab
     [Space(10)] [SerializeField] GameObject unitPullZone;       //ユニットを持ってくるボタンの集まり
     [SerializeField] PullUnit unitPullButton;                   //ユニットを持ってくるボタン
     Vector3 pullUnitSizeOffset = new Vector3(0.4f, 0.4f, 0.4f); //ユニットを持った場合にかけるサイズ補正
@@ -66,9 +66,17 @@ public class BattleManager : Singleton<BattleManager>
         maxPoint = ParameterManager.Instance.point;
         point = maxPoint;
 
+        //使用するユニットのPrefabを読み込み
+        battleUnitPrefab = new GameObject[ParameterManager.Instance.unitStatus.Length];
+        GameObject[] loadUnits = Resources.LoadAll<GameObject>("Units");
+        for (int i = 0; i < battleUnitPrefab.Length; i++)
+        {
+            battleUnitPrefab[i] = loadUnits[ParameterManager.Instance.unitStatus[i].id];
+        }
+
         //ユニットを持ってくるボタンをUI上に配置
         foreach (Transform n in unitPullZone.transform) Destroy(n.gameObject); //全ての子オブジェクトを削除
-        for (int i = 0; i < ParameterManager.Instance.unitStatus.Length; i++)
+        for (int i = 0; i < battleUnitPrefab.Length; i++)
         {
             //インスタンスを生成
             PullUnit instance = Instantiate(unitPullButton);
@@ -124,7 +132,7 @@ public class BattleManager : Singleton<BattleManager>
         isUnitDrag = true;
 
         dragUnitIndex = unitIndex;
-        dragUnit = Instantiate(testUnit);
+        dragUnit = Instantiate(battleUnitPrefab[unitIndex]);
         dragUnit.transform.localScale -= pullUnitSizeOffset;
         dragUnit.transform.rotation = new Quaternion(0, 180f, 0, 0);
 
