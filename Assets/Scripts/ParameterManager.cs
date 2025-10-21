@@ -55,20 +55,23 @@ public class ParameterManager : Singleton<ParameterManager>
         unitStatus[index] = new UnitStatus();
 
         //IDに対応したユニットのステータスを読み込み
-        unitStatus[index].id = id;                                 //どのユニットかを示すID
-        unitStatus[index].role = UnitsData.Instance.unit[id].role; //ロール　0がDPS、1がタンク、2がサポート
+        unitStatus[index].id = id;                                         //どのユニットかを示すID
+        unitStatus[index].role = UnitsData.Instance.unit[id].role;         //ロール　0がDPS、1がタンク、2がサポート
 
-        unitStatus[index].lv = 1;  //レベル
-        unitStatus[index].exp = 0; //所持経験値
+        unitStatus[index].lv = 1;                                          //レベル
+        unitStatus[index].exp = 0;                                         //所持経験値
 
-        unitStatus[index].cost = UnitsData.Instance.unit[id].cost;     //設置時のコスト
-        unitStatus[index].recast = UnitsData.Instance.unit[id].recast; //再配置までの時間
+        unitStatus[index].cost = UnitsData.Instance.unit[id].cost;         //設置時のコスト
+        unitStatus[index].recast = UnitsData.Instance.unit[id].recast;     //再配置までの時間
 
         unitStatus[index].hp = UnitsData.Instance.unit[id].hp;             //耐久値（最大HP）
         unitStatus[index].value = UnitsData.Instance.unit[id].value;       //DPSの場合は攻撃力、サポートの場合は回復量、ポイント増加量など
         unitStatus[index].interval = UnitsData.Instance.unit[id].interval; //行動速度（攻撃、回復をする間隔）
         unitStatus[index].distance = UnitsData.Instance.unit[id].distance; //攻撃、回復の射程
         unitStatus[index].range = UnitsData.Instance.unit[id].range;       //範囲攻撃の範囲
+
+        unitStatus[index].place_UnitZone = UnitsData.Instance.unit[id].place_UnitZone; //ユニットの配置場所に置けるか
+        unitStatus[index].place_Floor = UnitsData.Instance.unit[id].place_Floor;       //敵の通り道に置けるか
     }
 
     /// <summary>
@@ -77,19 +80,22 @@ public class ParameterManager : Singleton<ParameterManager>
     [System.Serializable]
     public struct UnitStatus
     {
-        public int id;      //どのユニットかを示すID
-        public int role;    //ロール　0がDPS、1がタンク、2がサポート
+        public int id;              //どのユニットかを示すID
+        public int role;            //ロール　0がDPS、1がタンク、2がサポート
 
-        public int lv;      //レベル
-        public int exp;     //所持経験値
+        public int lv;              //レベル
+        public int exp;             //所持経験値
 
-        public int cost;    //設置時のコスト
-        public int recast;  //再配置までの時間
+        public int cost;            //設置時のコスト
+        public int recast;          //再配置までの時間
 
-        public int hp;      //耐久値（最大HP）
-        public int value;   //DPSの場合は攻撃力、サポートの場合は回復量、ポイント増加量など
-        public float interval; //行動速度（攻撃、回復をする間隔）
-        public float distance; //攻撃、回復の射程
-        public float range;    //範囲攻撃の範囲
+        public int hp;              //耐久値（最大HP）
+        public int value;           //DPSの場合は攻撃力、サポートの場合は回復量、ポイント増加量など
+        public float interval;      //行動速度（攻撃、回復をする間隔）
+        public float distance;      //攻撃、回復の射程
+        public float range;         //範囲攻撃の範囲
+
+        public bool place_UnitZone; //ユニットの配置場所に置けるか
+        public bool place_Floor;    //敵の通り道に置けるか
     }
 }
