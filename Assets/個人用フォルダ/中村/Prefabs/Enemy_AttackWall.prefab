@@ -1,5 +1,58 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &144791733571453895
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1143168872210352556}
+  - component: {fileID: 4162204888533172892}
+  m_Layer: 0
+  m_Name: Col_AttackZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1143168872210352556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144791733571453895}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6323630615116929910}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4162204888533172892
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144791733571453895}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1760612489582911489
 GameObject:
   m_ObjectHideFlags: 0
@@ -33,6 +86,7 @@ Transform:
   m_Children:
   - {fileID: 4955246435308414768}
   - {fileID: 4346530004015845618}
+  - {fileID: 1143168872210352556}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5534862144651143572
@@ -47,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9566881a5be555849afe474d5b3f21e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  col_Body: {fileID: 6583723336096949774}
   maxHp: 10
   hp: 10
   value: 2
@@ -54,7 +109,14 @@ MonoBehaviour:
   distance: 1
   range: 0
   moveSpeed: 2
+  knockBackTime: 0
   spawnPoint: {fileID: 0}
+  routeIndex: 0
+  isMove: 1
+  isRotation: 0
+  isTarget: 0
+  isKnockBack: 0
+  isDead: 0
 --- !u!54 &5707407257947704373
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -93,8 +155,8 @@ GameObject:
   - component: {fileID: 4346530004015845618}
   - component: {fileID: 6583723336096949774}
   m_Layer: 0
-  m_Name: Collider
-  m_TagString: Untagged
+  m_Name: Col_Body
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

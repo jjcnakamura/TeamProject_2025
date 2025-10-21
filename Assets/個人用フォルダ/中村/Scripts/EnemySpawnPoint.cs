@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawnPoint : MonoBehaviour
 {
     public Route[] routePoint;
-    float spawnPosY;
+    Vector3 spawnPos;
 
     [Space(20)]
 
@@ -16,6 +16,10 @@ public class EnemySpawnPoint : MonoBehaviour
 
     bool waitCoroutine;
     bool endSpawn;
+
+    [Space(20)]
+
+    [SerializeField] GameObject spawnPoint; //敵の出現位置;
 
     void Start()
     {
@@ -39,8 +43,8 @@ public class EnemySpawnPoint : MonoBehaviour
             routePoint[i].pos[j] = BattleManager.Instance.playerSide.transform.position;
         }
 
-        //出現時の高さを取得
-        spawnPosY = transform.GetChild(0).position.y;
+        //出現時の位置を取得
+        spawnPos = spawnPoint.transform.position;
     }
 
     void Update()
@@ -60,7 +64,6 @@ public class EnemySpawnPoint : MonoBehaviour
 
         //位置と角度を設定
         enemyBase.spawnPoint = this;
-        Vector3 spawnPos = new Vector3(transform.position.x, spawnPosY, transform.position.z);
         Quaternion targetDir = Quaternion.LookRotation(routePoint[enemyStatus[spawnIndex].routeIndex].pos[0] - spawnPos);
         Quaternion spawnDir = new Quaternion(enemy.transform.rotation.x, targetDir.y, enemy.transform.rotation.z, targetDir.w);
 
@@ -72,6 +75,7 @@ public class EnemySpawnPoint : MonoBehaviour
         enemyBase.distance = enemyStatus[spawnIndex].distance;
         enemyBase.range = enemyStatus[spawnIndex].range;
         enemyBase.moveSpeed = enemyStatus[spawnIndex].moveSpeed;
+        enemyBase.knockBackTime = enemyStatus[spawnIndex].knockBackTime;
 
         enemyBase.routeIndex = enemyStatus[spawnIndex].routeIndex;
 
@@ -111,6 +115,7 @@ public class EnemySpawnPoint : MonoBehaviour
         public float distance;
         public float range;
         public float moveSpeed;
+        public float knockBackTime;
     }
 
     //

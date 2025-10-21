@@ -48,8 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc9f312846352fb44aab2cb480191cf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  routePointObj: []
+  routePoint: []
   enemyStatus: []
+  spawnPoint: {fileID: 9130093981421230575}
 --- !u!33 &6710528708195327371
 MeshFilter:
   m_ObjectHideFlags: 0

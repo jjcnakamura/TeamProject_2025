@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Enemy_Base : MonoBehaviour
 {
+    [Header("Enemy_Base")]
+
+    //Collider
+    public BoxCollider col_Body;
+
     //ゲーム中のパラメーター
     public int maxHp;
     public int hp;
@@ -12,6 +17,13 @@ public class Enemy_Base : MonoBehaviour
     public float distance;
     public float range;
     public float moveSpeed;
+    public float knockBackTime;
+
+    //攻撃の対象にしているユニット
+    BattleUnit_Base battleUnit_Base;
+
+    //タイマー
+    float timer_KnockBack;
 
     //次に進む場所に関する変数
     public EnemySpawnPoint spawnPoint;
@@ -23,20 +35,73 @@ public class Enemy_Base : MonoBehaviour
     Quaternion dir;
 
     //状態を表すフラグ
-    bool isMove = true, isRotation, isTarget;
-
-    /// <summary>
-    /// ダメージを受ける処理　引数でダメージ量を指定
-    /// </summary>
-    public void Damage(int damage)
-    {
-
-    }
+    public bool isMove = true, isRotation, isTarget, isKnockBack, isDead;
 
     void FixedUpdate()
     {
-        //プレイヤーの陣地に向かって移動する処理
-        if (isMove)
+        KnockBack();
+        DeadCheck();
+        Move();
+    }
+
+    //ダメージ
+    public bool Damage(int damage)
+    {
+        if (isDead) return true;
+
+        hp = Mathf.Max(hp - damage, 0);
+        timer_KnockBack = 0;
+        isKnockBack = true;
+
+        //HPが0になった場合死亡
+        isDead = (hp <= 0);
+        if (isDead)
+        {
+            col_Body.gameObject.SetActive(false);
+            isMove = false;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    void KnockBack()
+    {
+        if (!isKnockBack) return;
+
+        if (timer_KnockBack < knockBackTime)
+        {
+            timer_KnockBack += Time.fixedDeltaTime;
+
+            //仮のダメージモーション
+            transform.eulerAngles += new Vector3(0, 1000 * Time.fixedDeltaTime, 0);
+        }
+        else
+        {
+            //仮のダメージモーション
+            Quaternion targetDir = Quaternion.LookRotation(spawnPoint.routePoint[routeIndex].pos[currentRoute] - transform.position);
+            Quaternion lookDir = new Quaternion(transform.rotation.x, targetDir.y, transform.rotation.z, targetDir.w);
+            DirectionChange(lookDir);
+
+            timer_KnockBack = 0;
+            isKnockBack = false;
+        }
+    }
+    //死亡している場合は自身を削除する
+    void DeadCheck()
+    {
+        if (isDead && !isKnockBack)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    //プレイヤーの陣地に向かって移動する処理
+    void Move()
+    {
+        if (isMove && !isKnockBack)
         {
             Vector3 targetPos = new Vector3(spawnPoint.routePoint[routeIndex].pos[currentRoute].x, transform.position.y, spawnPoint.routePoint[routeIndex].pos[currentRoute].z);
 
@@ -74,7 +139,6 @@ public class Enemy_Base : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, dir, rotateSpeed);
         }
     }
-
     /// <summary>
     /// 次に向く報告を指定　第２引数をtrueにするとその位置を優先して向く
     /// </summary>

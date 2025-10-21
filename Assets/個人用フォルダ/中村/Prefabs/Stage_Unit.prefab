@@ -52,6 +52,7 @@ MonoBehaviour:
   index: 0
   unitZone: 0
   placed: 0
+  unitPointObj: {fileID: 4909678242581968975}
 --- !u!65 &1785482603633872443
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -11,17 +11,21 @@ public class UnitZone : MonoBehaviour
     public bool unitZone;   //敵の通る道ではないユニット設置専用の場所か
 
     [Space(10)]
+
     public bool placed;    //配置済みか
 
+    [Space(10)]
+
+    [SerializeField] GameObject unitPointObj; //ユニット設置時の位置
+
     BoxCollider col;         //Collider
-    GameObject unitPointObj; //ユニット設置時の位置
     public Vector3 unitPoint { get; private set; }
 
     GameObject onMouseObj; //マウスホバー時に出現するオブジェクト
     bool onMouse;          //マウスホバー中か
     bool placeOnMouse;     //ユニット配置後にマウスホバー中か
 
-    void Awake()
+    void Start()
     {
         col = GetComponent<BoxCollider>();
 

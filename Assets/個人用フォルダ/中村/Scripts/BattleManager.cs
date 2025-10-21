@@ -7,11 +7,14 @@ using UnityEngine;
 /// </summary>
 public class BattleManager : Singleton<BattleManager>
 {
-    public GameObject playerSide;
+    //各Canvas
+    [SerializeField] GameObject canvasParent;
+    GameObject[] canvas;
 
     //プレイヤーのパラメーター用変数
+    public GameObject playerSide;
     int maxPlayerHp;
-    [Space(10)]  public int playerHp;
+    public int playerHp;
     int maxPoint;
     public int point;
 
@@ -38,13 +41,24 @@ public class BattleManager : Singleton<BattleManager>
 
     void Start()
     {
+        //Canvasの表示
+        canvas = new GameObject[canvasParent.transform.childCount];
+        for (int i = 0; i < canvas.Length; i++)
+        {
+            canvas[i] = canvasParent.transform.GetChild(i).gameObject;
+            canvas[i].SetActive(i == 0);
+        }
+
         //フラグを設定
         isMainGame = true;
 
-        //デバッグ用　初期キャラ3体をロード
+        //デバッグ用　キャラをロード
+        ParameterManager.Instance.maxUnitPossession = 5;
         ParameterManager.Instance.AddUnit(0);
-        ParameterManager.Instance.AddUnit(1);
-        ParameterManager.Instance.AddUnit(2);
+        ParameterManager.Instance.AddUnit(0);
+        ParameterManager.Instance.AddUnit(0);
+        ParameterManager.Instance.AddUnit(0);
+        ParameterManager.Instance.AddUnit(0);
 
         //プレイヤーの初期パラメーターを設定
         maxPlayerHp = ParameterManager.Instance.hp;
@@ -133,7 +147,22 @@ public class BattleManager : Singleton<BattleManager>
         dragUnit.transform.localScale += pullUnitSizeOffset;
         dragUnit.transform.position = unitZone[zoneIndex].unitPoint;
 
+        int unitIndex = dragUnitIndex;
+
+        //ステータスを読み込み
         battleUnitStatus[zoneIndex] = dragUnit.GetComponent<BattleUnit_Base>();
+        battleUnitStatus[zoneIndex].zoneIndex = zoneIndex;
+        battleUnitStatus[zoneIndex].role = ParameterManager.Instance.unitStatus[unitIndex].role;
+        battleUnitStatus[zoneIndex].cost = ParameterManager.Instance.unitStatus[unitIndex].cost;
+        battleUnitStatus[zoneIndex].recast = ParameterManager.Instance.unitStatus[unitIndex].recast;
+        battleUnitStatus[zoneIndex].maxHp = ParameterManager.Instance.unitStatus[unitIndex].hp;
+        battleUnitStatus[zoneIndex].hp = ParameterManager.Instance.unitStatus[unitIndex].hp;
+        battleUnitStatus[zoneIndex].value = ParameterManager.Instance.unitStatus[unitIndex].value;
+        battleUnitStatus[zoneIndex].interval = ParameterManager.Instance.unitStatus[unitIndex].interval;
+        battleUnitStatus[zoneIndex].distance = ParameterManager.Instance.unitStatus[unitIndex].distance;
+        battleUnitStatus[zoneIndex].range = ParameterManager.Instance.unitStatus[unitIndex].range;
+
+        battleUnitStatus[zoneIndex].isBattle = true;
 
         place_UnitZone = false;
         place_Floor = false;
