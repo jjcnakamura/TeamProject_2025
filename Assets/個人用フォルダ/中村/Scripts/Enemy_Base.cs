@@ -140,7 +140,7 @@ public class Enemy_Base : MonoBehaviour
         }
     }
     /// <summary>
-    /// 次に向く報告を指定　第２引数をtrueにするとその位置を優先して向く
+    /// 次に向く報向を指定　第２引数をtrueにするとその位置を優先して向く
     /// </summary>
     public void DirectionChange(Quaternion targetDir, bool targetChange = false)
     {

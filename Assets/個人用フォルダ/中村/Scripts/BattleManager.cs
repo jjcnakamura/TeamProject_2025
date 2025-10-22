@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// 戦闘シーンの管理用
@@ -11,60 +13,59 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] GameObject canvasParent;
     GameObject[] canvas;
 
+    [Space(10)]
+
     //プレイヤーのパラメーター用変数
-    public GameObject playerSide;
+    public GameObject playerSide;                //プレイヤーの陣地（タワーに当たる場所）
+    [SerializeField] TextMeshProUGUI text_Point; //ポイント用テキスト
     int maxPlayerHp;
     public int playerHp;
     int maxPoint;
     public int point;
 
+    int pointUpVal = 1;     //時間で増加するポイント数
+    float pointUpTime = 1f; //ポイントの時間増加にかかる秒数
+    float timer_PointUp;    //ポイントの時間増加ようタイマー
+
+    [Space(10)]
+
     //ユニットのパラメーター用変数
-    BattleUnit_Base[] battleUnitStatus; //配置されている各ユニットのステータス
-    GameObject[] battleUnitPrefab;                              //ボタンから生成されるユニットのPrefab
-    [Space(10)] [SerializeField] GameObject unitPullZone;       //ユニットを持ってくるボタンの集まり
+    [SerializeField] GameObject unitPullButtonParent;           //ユニットを持ってくるボタンの親オブジェクト
     [SerializeField] PullUnit unitPullButton;                   //ユニットを持ってくるボタン
+    GameObject[] battleUnitPrefab;                              //ボタンから生成されるユニットのPrefab
     Vector3 pullUnitSizeOffset = new Vector3(0.4f, 0.4f, 0.4f); //ユニットを持った場合にかけるサイズ補正
-    GameObject dragUnit;                        //現在ドラッグしているユニット
-    int dragUnitIndex;                          //ドラッグしているユニットの要素番号
-    [SerializeField] GameObject unitZoneParent; //ユニットの配置場所の親オブジェクト
-    [SerializeField] GameObject floorParent;    //敵が通る道の親オブジェクト
-    UnitZone[] unitZone;                        //ユニットの配置場所
-    //現在ドラッグしているユニットがどこに配置できるか
-    public bool place_UnitZone { get; private set; }
-    public bool place_Floor { get; private set; }
+    GameObject dragUnit;                              //現在ドラッグしているユニット
+    int dragUnitIndex;                                //ドラッグしているユニットの要素番号
+    [SerializeField] GameObject unitZoneParent;       //ユニットの配置場所の親オブジェクト
+    [SerializeField] GameObject floorParent;          //敵が通る道の親オブジェクト
+    UnitZone[] unitZone;                              //ユニットの配置場所
+    public bool place_UnitZone { get; private set; }  //現在ドラッグしているユニットがどこに配置できるか
+    public bool place_Floor { get; private set; }     //現在ドラッグしているユニットがどこに配置できるか
+
+    BattleUnit_Base[] battleUnitStatus;               //配置されている各ユニットのステータス
+    [System.NonSerialized] public int[] unitCost;     //各ユニットのコスト
+    [System.NonSerialized] public float[] unitRecast; //各ユニットのリキャスト
 
     //敵出現の時間をカウントするタイマー
     public float timer_EnemySpawn { get; private set; }
 
     //ゲームの状態を表すフラグ
-    public bool isMainGame, isClear, isGameOver, isUnitDrag, isOnMouseUnitZone;
+    public bool isMainGame, isClear, isGameOver, isUnitDrag, isUnitPlace, isOnMouseUnitZone;
 
     void Start()
     {
-        //Canvasの表示
-        canvas = new GameObject[canvasParent.transform.childCount];
-        for (int i = 0; i < canvas.Length; i++)
-        {
-            canvas[i] = canvasParent.transform.GetChild(i).gameObject;
-            canvas[i].SetActive(i == 0);
-        }
-
-        //フラグを設定
-        isMainGame = true;
-
         //デバッグ用　キャラをロード
         ParameterManager.Instance.maxUnitPossession = 5;
         ParameterManager.Instance.AddUnit(0);
-        ParameterManager.Instance.AddUnit(0);
-        ParameterManager.Instance.AddUnit(0);
-        ParameterManager.Instance.AddUnit(0);
-        ParameterManager.Instance.AddUnit(0);
+        ParameterManager.Instance.AddUnit(1);
+        ParameterManager.Instance.AddUnit(2);
 
         //プレイヤーの初期パラメーターを設定
         maxPlayerHp = ParameterManager.Instance.hp;
         playerHp = maxPlayerHp;
         maxPoint = ParameterManager.Instance.point;
         point = maxPoint;
+        text_Point.text = point.ToString();
 
         //使用するユニットのPrefabを読み込み
         battleUnitPrefab = new GameObject[ParameterManager.Instance.unitStatus.Length];
@@ -75,21 +76,26 @@ public class BattleManager : Singleton<BattleManager>
         }
 
         //ユニットを持ってくるボタンをUI上に配置
-        foreach (Transform n in unitPullZone.transform) Destroy(n.gameObject); //全ての子オブジェクトを削除
+        foreach (Transform n in unitPullButtonParent.transform) Destroy(n.gameObject); //全ての子オブジェクトを削除
+        unitCost = new int[battleUnitPrefab.Length];
+        unitRecast = new float[battleUnitPrefab.Length];
         for (int i = 0; i < battleUnitPrefab.Length; i++)
         {
             //インスタンスを生成
-            PullUnit instance = Instantiate(unitPullButton);
-            instance.transform.SetParent(unitPullZone.transform);
+            PullUnit pullUnit = Instantiate(unitPullButton);
+            pullUnit.transform.SetParent(unitPullButtonParent.transform);
 
             //サイズが崩れないように調整
-            RectTransform rect = instance.GetComponent<RectTransform>();
+            RectTransform rect = pullUnit.GetComponent<RectTransform>();
             rect.localPosition = new Vector3(rect.localPosition.x, rect.localPosition.y, 0);
-            instance.transform.rotation = new Quaternion();
-            instance.transform.localScale = new Vector3(1, 1, 1);
+            pullUnit.transform.rotation = new Quaternion();
+            pullUnit.transform.localScale = new Vector3(1, 1, 1);
 
-            //キャラを割り当て
-            instance.index = i;
+            //キャラID、コスト、リキャストを割り当て
+            pullUnit.index = i;
+            pullUnit.text_Cost.text = ParameterManager.Instance.unitStatus[i].cost.ToString();
+            unitCost[i] = ParameterManager.Instance.unitStatus[i].cost;
+            unitRecast[i] = ParameterManager.Instance.unitStatus[i].recast;
         }
 
         //ユニットの配置場所を取得
@@ -108,10 +114,23 @@ public class BattleManager : Singleton<BattleManager>
         }
         //ユニットの配置場所の数に合わせて配置可能ユニット数を決定
         battleUnitStatus = new BattleUnit_Base[unitZone.Length];
+
+        //Canvasの表示
+        canvas = new GameObject[canvasParent.transform.childCount];
+        for (int i = 0; i < canvas.Length; i++)
+        {
+            canvas[i] = canvasParent.transform.GetChild(i).gameObject;
+            canvas[i].SetActive(i == 0);
+        }
+
+        //フラグを設定
+        isMainGame = true;
     }
 
     void Update()
     {
+        if (!isMainGame) return; //メインゲーム中でなければ戻る
+
         //ユニットドラッグ中の処理
         if (isUnitDrag)
         {
@@ -123,7 +142,10 @@ public class BattleManager : Singleton<BattleManager>
 
     void FixedUpdate()
     {
-        timer_EnemySpawn += Time.fixedDeltaTime;
+        if (!isMainGame) return; //メインゲーム中でなければ戻る
+
+        PointUp();                               //ポイントの時間増加
+        timer_EnemySpawn += Time.fixedDeltaTime; //敵の出現時間カウント
     }
 
     //ユニットを選ぶ
@@ -136,18 +158,18 @@ public class BattleManager : Singleton<BattleManager>
         dragUnit.transform.localScale -= pullUnitSizeOffset;
         dragUnit.transform.rotation = new Quaternion(0, 180f, 0, 0);
 
-        //どこに配置出来るか（仮）
-        place_UnitZone = true;
-        place_Floor = false;
+        //どこに配置出来るか
+        place_UnitZone = ParameterManager.Instance.unitStatus[unitIndex].place_UnitZone;
+        place_Floor = ParameterManager.Instance.unitStatus[unitIndex].place_Floor;
     }
     //ドラッグしているユニットを離す
     public void LetgoUnit()
     {
         Destroy(dragUnit);
-        isUnitDrag = false;
-
+        
         place_UnitZone = false;
         place_Floor = false;
+        isUnitDrag = false;
     }
     //ユニットを配置する
     public void PlaceUnit(int zoneIndex)
@@ -161,8 +183,6 @@ public class BattleManager : Singleton<BattleManager>
         battleUnitStatus[zoneIndex] = dragUnit.GetComponent<BattleUnit_Base>();
         battleUnitStatus[zoneIndex].zoneIndex = zoneIndex;
         battleUnitStatus[zoneIndex].role = ParameterManager.Instance.unitStatus[unitIndex].role;
-        battleUnitStatus[zoneIndex].cost = ParameterManager.Instance.unitStatus[unitIndex].cost;
-        battleUnitStatus[zoneIndex].recast = ParameterManager.Instance.unitStatus[unitIndex].recast;
         battleUnitStatus[zoneIndex].maxHp = ParameterManager.Instance.unitStatus[unitIndex].hp;
         battleUnitStatus[zoneIndex].hp = ParameterManager.Instance.unitStatus[unitIndex].hp;
         battleUnitStatus[zoneIndex].value = ParameterManager.Instance.unitStatus[unitIndex].value;
@@ -172,10 +192,29 @@ public class BattleManager : Singleton<BattleManager>
 
         battleUnitStatus[zoneIndex].isBattle = true;
 
+        //コスト分のポイントを減らす
+        PointChange(-ParameterManager.Instance.unitStatus[unitIndex].cost);
+
         place_UnitZone = false;
         place_Floor = false;
         isUnitDrag = false;
+
+        isUnitPlace = true;
     }
+    //ポイントの時間増加
+    void PointUp()
+    {
+        if (timer_PointUp < pointUpTime)
+        {
+            timer_PointUp += Time.fixedDeltaTime;
+        }
+        else
+        {
+            timer_PointUp = 0;
+            PointChange(pointUpVal);
+        }
+    }
+
     //配置されているユニットを削除
     public void OutUnit(int zoneIndex)
     {
@@ -184,7 +223,13 @@ public class BattleManager : Singleton<BattleManager>
         battleUnitStatus[zoneIndex].Out();
         battleUnitStatus[zoneIndex] = null;
     }
-
+    //ポイントを増減する
+    public void PointChange(int val)
+    {
+        point = Mathf.Min(Mathf.Max(point + val, 0), 999); //最大値は999
+        text_Point.text = point.ToString();
+    }
+    //プレイヤー（タワー）へのダメージ
     public void Damage()
     {
         if (!isMainGame) return;

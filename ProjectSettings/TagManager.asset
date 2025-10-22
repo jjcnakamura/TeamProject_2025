@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ClickObj
   - Unit
+  - Unit_Wall
   - Enemy
   layers:
   - Default

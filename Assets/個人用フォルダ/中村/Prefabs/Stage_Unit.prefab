@@ -53,6 +53,8 @@ MonoBehaviour:
   unitZone: 0
   placed: 0
   unitPointObj: {fileID: 4909678242581968975}
+  col: {fileID: 1785482603633872443}
+  onMouseObj: {fileID: 5278171953395656932}
 --- !u!65 &1785482603633872443
 BoxCollider:
   m_ObjectHideFlags: 0

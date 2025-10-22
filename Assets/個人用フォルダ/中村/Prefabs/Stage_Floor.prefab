@@ -135,6 +135,8 @@ MonoBehaviour:
   index: 0
   unitZone: 0
   placed: 0
+  unitPointObj: {fileID: 1374303437091073786}
+  onMouseObj: {fileID: 5602284305369902207}
 --- !u!65 &7483783996615357892
 BoxCollider:
   m_ObjectHideFlags: 0

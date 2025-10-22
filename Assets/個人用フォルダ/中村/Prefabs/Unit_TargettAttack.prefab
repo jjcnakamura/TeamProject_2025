@@ -210,8 +210,9 @@ MonoBehaviour:
   range: 0
   isBattle: 0
   col_AttackZone: {fileID: 6159815254199643059}
-  isTarget: 0
   isStart: 0
+  isTarget: 0
+  isInterval: 0
 --- !u!1 &6454394667079372870
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,7 +226,7 @@ GameObject:
   - component: {fileID: 1648671835549697014}
   m_Layer: 0
   m_Name: Col_Body
-  m_TagString: Untagged
+  m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

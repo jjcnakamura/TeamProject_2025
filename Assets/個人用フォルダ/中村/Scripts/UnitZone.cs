@@ -10,18 +10,15 @@ public class UnitZone : MonoBehaviour
     public int index;       //どの配置場所か
     public bool unitZone;   //敵の通る道ではないユニット設置専用の場所か
 
-    [Space(10)]
-
     public bool placed;    //配置済みか
 
     [Space(10)]
 
     [SerializeField] GameObject unitPointObj; //ユニット設置時の位置
-
-    BoxCollider col;         //Collider
+    BoxCollider col;                          //Collider
     public Vector3 unitPoint { get; private set; }
 
-    GameObject onMouseObj; //マウスホバー時に出現するオブジェクト
+    [SerializeField] GameObject onMouseObj; //マウスホバー時に出現するオブジェクト
     bool onMouse;          //マウスホバー中か
     bool placeOnMouse;     //ユニット配置後にマウスホバー中か
 
@@ -29,11 +26,9 @@ public class UnitZone : MonoBehaviour
     {
         col = GetComponent<BoxCollider>();
 
-        onMouseObj = transform.GetChild(1).gameObject;
         onMouse = false;
         onMouseObj.SetActive(onMouse);
 
-        unitPointObj = transform.GetChild(0).gameObject;
         unitPoint = unitPointObj.transform.position;
         Destroy(unitPointObj);
     }

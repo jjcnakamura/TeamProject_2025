@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 全てユニットが戦闘中に持つパラメーター
+/// </summary>
 public class BattleUnit_Base : MonoBehaviour
 {
     [Header("BattleUnit_Base")]
@@ -15,9 +18,6 @@ public class BattleUnit_Base : MonoBehaviour
     public int zoneIndex;  //どこに配置されているか
 
     public int role;
-    public int cost;
-    public int recast;
-
     public int maxHp;
     public int hp;
     public int value;
