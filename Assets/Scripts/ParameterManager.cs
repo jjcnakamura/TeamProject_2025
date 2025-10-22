@@ -35,11 +35,11 @@ public class ParameterManager : Singleton<ParameterManager>
         DontDestroyOnLoad(gameObject);
 
         //ユニットと敵のデータ読み込み用オブジェクトを生成
-        GameObject loadData = new GameObject();
-        loadData.name = "LoadData";
-        loadData.AddComponent<UnitsData>();
-        loadData.AddComponent<EnemiesData>();
-        loadData.transform.SetParent(transform);
+        //GameObject loadData = new GameObject();
+        //loadData.name = "LoadData";
+        //loadData.AddComponent<UnitsData>();
+        //loadData.AddComponent<EnemiesData>();
+        //loadData.transform.SetParent(transform);
     }
 
     /// <summary>

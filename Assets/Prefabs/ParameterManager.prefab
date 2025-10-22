@@ -1,0 +1,184 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1337315617194881622
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2449776413659443509}
+  - component: {fileID: 6477252183249920738}
+  m_Layer: 0
+  m_Name: EnemiesData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2449776413659443509
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337315617194881622}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6626079133884096303}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6477252183249920738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337315617194881622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8680b206fe8a6a1419c31f68bb71feba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy:
+  - name: "\u58C1\u6BBA\u3059\u3088"
+    info: "\u30BF\u30F3\u30AF\u306E\u307F\u306B\u653B\u6483\u3059\u308B"
+    actId: 0
+--- !u!1 &6232713011055238563
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6626079133884096303}
+  - component: {fileID: 774782394608683653}
+  m_Layer: 0
+  m_Name: ParameterManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6626079133884096303
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6232713011055238563}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2683888934025368644}
+  - {fileID: 2449776413659443509}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &774782394608683653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6232713011055238563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c35d33c9a668c4b93727feedf1e46d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 10
+  maxUnitPossession: 3
+  point: 6
+  maxInstallation: 4
+  sameUnitMaxInstallation: 1
+  unitStatus: []
+  battleUnitId: 
+--- !u!1 &6851509003010325641
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2683888934025368644}
+  - component: {fileID: 8491522983328464750}
+  m_Layer: 0
+  m_Name: UnitsData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2683888934025368644
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6851509003010325641}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6626079133884096303}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8491522983328464750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6851509003010325641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c95f862f4e6afc4d9935a86035144a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unit:
+  - name: "\u9060\u8DDD\u96E2\u30DE\u30F3"
+    role: 0
+    cost: 16
+    recast: 20
+    hp: 10
+    value: 4
+    interval: 2
+    distance: 6
+    range: 0
+    place_UnitZone: 1
+    place_Floor: 0
+    lvUpStatus: distance
+  - name: "\u653B\u6483\u58C1\u30DE\u30F3"
+    role: 1
+    cost: 10
+    recast: 20
+    hp: 50
+    value: 1
+    interval: 1
+    distance: 1
+    range: 0
+    place_UnitZone: 0
+    place_Floor: 1
+    lvUpStatus: hp
+  - name: "\u30DD\u30A4\u30F3\u30C8\u5897\u52A0\u30DE\u30F3"
+    role: 2
+    cost: 6
+    recast: 15
+    hp: 20
+    value: 6
+    interval: 10
+    distance: 0
+    range: 0
+    place_UnitZone: 1
+    place_Floor: 0
+    lvUpStatus: value
