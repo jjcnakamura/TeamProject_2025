@@ -26,6 +26,8 @@ public class UnitsData : Singleton<UnitsData>
     [System.Serializable]
     public struct Status
     {
+        public GameObject prefab;   //キャラのPrefab
+        public Sprite sprite;       //キャラの画像
         public string name;         //キャラ名
         public int role;            //ロール　0がDPS、1がタンク、2がサポート
         public int cost;            //設置時のコスト

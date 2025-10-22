@@ -55,6 +55,9 @@ public class ParameterManager : Singleton<ParameterManager>
         unitStatus[index] = new UnitStatus();
 
         //IDに対応したユニットのステータスを読み込み
+        unitStatus[index].prefab = UnitsData.Instance.unit[id].prefab;     //キャラのPrefab
+        unitStatus[index].sprite = UnitsData.Instance.unit[id].sprite;     //キャラの画像
+
         unitStatus[index].id = id;                                         //どのユニットかを示すID
         unitStatus[index].role = UnitsData.Instance.unit[id].role;         //ロール　0がDPS、1がタンク、2がサポート
 
@@ -80,6 +83,9 @@ public class ParameterManager : Singleton<ParameterManager>
     [System.Serializable]
     public struct UnitStatus
     {
+        public GameObject prefab;   //キャラのPrefab
+        public Sprite sprite;       //キャラの画像
+
         public int id;              //どのユニットかを示すID
         public int role;            //ロール　0がDPS、1がタンク、2がサポート
 

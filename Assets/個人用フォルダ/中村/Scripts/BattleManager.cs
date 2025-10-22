@@ -69,10 +69,9 @@ public class BattleManager : Singleton<BattleManager>
 
         //使用するユニットのPrefabを読み込み
         battleUnitPrefab = new GameObject[ParameterManager.Instance.unitStatus.Length];
-        GameObject[] loadUnits = Resources.LoadAll<GameObject>("Units");
         for (int i = 0; i < battleUnitPrefab.Length; i++)
         {
-            battleUnitPrefab[i] = loadUnits[ParameterManager.Instance.unitStatus[i].id];
+            battleUnitPrefab[i] = ParameterManager.Instance.unitStatus[i].prefab;
         }
 
         //ユニットを持ってくるボタンをUI上に配置

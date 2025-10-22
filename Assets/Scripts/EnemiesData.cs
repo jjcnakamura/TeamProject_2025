@@ -26,8 +26,9 @@ public class EnemiesData : Singleton<EnemiesData>
     [System.Serializable]
     public struct Status
     {
-        public string name;
-        public string info;
-        public int actId;
+        public GameObject prefab; //“G‚ÌPrefab
+        public Sprite sprite;     //“G‚Ì‰æ‘œ
+        public string name;       //“G‚Ì–¼‘O
+        public string info;       //“G‚Ìî•ñ
     }
 }
