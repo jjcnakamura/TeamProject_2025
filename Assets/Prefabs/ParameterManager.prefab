@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit:
-  - prefab: {fileID: 2482288343578748128, guid: f6b8133f166a16448ad2ca2cbe0fe03a, type: 3}
+  - prefab: {fileID: 2482288343578748128, guid: d81ebf3a60f6cab499f289573ad871fc, type: 3}
     sprite: {fileID: 0}
     name: "\u9060\u8DDD\u96E2\u30DE\u30F3"
     role: 0
@@ -168,11 +168,25 @@ MonoBehaviour:
     hp: 10
     value: 4
     interval: 2
-    distance: 6
+    distance: 18
     range: 0
     place_UnitZone: 1
     place_Floor: 0
     lvUpStatus: distance
+  - prefab: {fileID: 2482288343578748128, guid: f6b8133f166a16448ad2ca2cbe0fe03a, type: 3}
+    sprite: {fileID: 0}
+    name: "\u8FD1\u8DDD\u96E2\u30DE\u30F3"
+    role: 0
+    cost: 12
+    recast: 20
+    hp: 10
+    value: 6
+    interval: 2
+    distance: 6
+    range: 0
+    place_UnitZone: 1
+    place_Floor: 0
+    lvUpStatus: value
   - prefab: {fileID: 2482288343578748128, guid: 70d81715b05b5da42b0e317ed007dd59, type: 3}
     sprite: {fileID: 0}
     name: "\u653B\u6483\u58C1\u30DE\u30F3"
@@ -183,6 +197,20 @@ MonoBehaviour:
     value: 1
     interval: 1
     distance: 3
+    range: 0
+    place_UnitZone: 0
+    place_Floor: 1
+    lvUpStatus: hp
+  - prefab: {fileID: 2482288343578748128, guid: 39e91c49cc8d3664e9767bd2fa7b65ac, type: 3}
+    sprite: {fileID: 0}
+    name: "\u9632\u5FA1\u58C1\u30DE\u30F3"
+    role: 2
+    cost: 18
+    recast: 30
+    hp: 80
+    value: 0
+    interval: 0
+    distance: 0
     range: 0
     place_UnitZone: 0
     place_Floor: 1
