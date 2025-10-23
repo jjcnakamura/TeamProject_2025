@@ -33,7 +33,7 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
     {
         base.FixedUpdate(); //基底クラスのFixedUpdate
 
-        if (!isBattle) return; //戦闘中でない場合は戻る
+        if (!isBattle || !BattleManager.Instance.isMainGame) return; //戦闘中でない場合は戻る
 
         Attack();
         Interval();
@@ -42,7 +42,7 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
     //敵をターゲット、ターゲット解除
     public void Target(Collider targetCol = null)
     {
-        if (!isBattle) return; //戦闘中でない場合は戻る
+        if (!isBattle || !BattleManager.Instance.isMainGame) return; //戦闘中でない場合は戻る
 
         if (!isTarget)
         {

@@ -34,7 +34,7 @@ public class BattleUnit_Base : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if (!isBattle) return; //í“¬’†‚Å‚È‚¢ê‡‚Í–ß‚é
+        if (!isBattle || !BattleManager.Instance.isMainGame) return; //í“¬’†‚Å‚È‚¢ê‡‚Í–ß‚é
 
         DeadCheck();
         Rotate();
@@ -43,7 +43,7 @@ public class BattleUnit_Base : MonoBehaviour
     //ƒ_ƒ[ƒW
     public bool Damage(int damage)
     {
-        if (!isBattle) return false; //í“¬’†‚Å‚È‚¢ê‡‚Í–ß‚é
+        if (!isBattle || !BattleManager.Instance.isMainGame) return false; //í“¬’†‚Å‚È‚¢ê‡‚Í–ß‚é
         if (isDead) return true;
 
         hp = Mathf.Max(hp - damage, 0);

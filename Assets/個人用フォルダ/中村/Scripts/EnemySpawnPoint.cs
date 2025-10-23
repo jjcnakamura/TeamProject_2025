@@ -32,6 +32,9 @@ public class EnemySpawnPoint : MonoBehaviour
 
             //出現時間を配列に格納
             spawnTime[i] = enemyStatus[i].spawnTime;
+
+            //敵の総出現数をカウント
+            BattleManager.Instance.nowEnemyNum += enemyStatus[i].spawnNum;
         }
 
         //敵のルートを配列に格納

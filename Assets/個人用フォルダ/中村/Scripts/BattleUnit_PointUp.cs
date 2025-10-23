@@ -13,7 +13,7 @@ public class BattleUnit_PointUp : BattleUnit_Base
     {
         base.FixedUpdate(); //Šî’êƒNƒ‰ƒX‚ÌFixedUpdate
 
-        if (!isBattle) return; //í“¬’†‚Å‚È‚¢ê‡‚Í–ß‚é
+        if (!isBattle || !BattleManager.Instance.isMainGame) return; //í“¬’†‚Å‚È‚¢ê‡‚Í–ß‚é
 
         PointUp();
     }

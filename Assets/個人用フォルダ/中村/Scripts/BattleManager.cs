@@ -17,15 +17,21 @@ public class BattleManager : Singleton<BattleManager>
 
     //プレイヤーのパラメーター用変数
     public GameObject playerSide;                //プレイヤーの陣地（タワーに当たる場所）
+    [SerializeField] TextMeshProUGUI text_Hp;    //プレイヤー（タワー）のHP用テキスト
     [SerializeField] TextMeshProUGUI text_Point; //ポイント用テキスト
+    public TextMeshProUGUI text_EnemyNum;        //現在の敵の数用テキスト
     int maxPlayerHp;
     public int playerHp;
     int maxPoint;
     public int point;
 
+    [Space(10)]
+
+    public int nowEnemyNum; //現在の敵の数
+
     int pointUpVal = 1;     //時間で増加するポイント数
     float pointUpTime = 1f; //ポイントの時間増加にかかる秒数
-    float timer_PointUp;    //ポイントの時間増加ようタイマー
+    float timer_PointUp;    //ポイントの時間増加用タイマー
 
     [Space(10)]
 
@@ -65,9 +71,12 @@ public class BattleManager : Singleton<BattleManager>
         //プレイヤーの初期パラメーターを設定
         maxPlayerHp = ParameterManager.Instance.hp;
         playerHp = maxPlayerHp;
+        text_Hp.text = playerHp.ToString();
         maxPoint = ParameterManager.Instance.point;
         point = maxPoint;
         text_Point.text = point.ToString();
+
+        text_EnemyNum.text = nowEnemyNum.ToString();
 
         //使用するユニットのPrefabを読み込み
         battleUnitPrefab = new GameObject[ParameterManager.Instance.unitStatus.Length];
@@ -132,11 +141,12 @@ public class BattleManager : Singleton<BattleManager>
     {
         if (!isMainGame) return; //メインゲーム中でなければ戻る
 
+        ClearCheck(); //敵を全て倒したらクリアにする
+
         //ユニットドラッグ中の処理
         if (isUnitDrag)
         {
             dragUnit.transform.position = MouseManager.Instance.worldPos;
-
             if (Input.GetKeyUp(KeyCode.Mouse0) && !isOnMouseUnitZone) LetgoUnit();
         }
     }
@@ -215,6 +225,32 @@ public class BattleManager : Singleton<BattleManager>
             PointChange(pointUpVal);
         }
     }
+    //敵を全て倒したか判定
+    void ClearCheck()
+    {
+        if (isClear) return;
+
+        //敵の数が0になったらクリア
+        if (nowEnemyNum <= 0) Clear();
+    }
+    //ステージクリア
+    void Clear()
+    {
+        isMainGame = false;
+        isClear = true;
+
+        //ステージクリア画面を表示
+        canvas[1].SetActive(true);
+    }
+    //ゲームオーバー
+    void GameOver()
+    {
+        isMainGame = false;
+        isGameOver = true;
+
+        //ゲームオーバー画面を表示
+        canvas[2].SetActive(true);
+    }
 
     //配置されているユニットを削除
     public void OutUnit(int zoneIndex)
@@ -237,15 +273,16 @@ public class BattleManager : Singleton<BattleManager>
     {
         if (!isMainGame) return;
 
-        playerHp--;
-        Debug.Log("ダメージ");
+        playerHp = Mathf.Max(playerHp - 1, 0);
+        text_Hp.text = playerHp.ToString();
 
-        if (playerHp < 0)
+        //HPが0になったらゲームオーバー
+        if (playerHp <= 0)
         {
             isMainGame = false;
             isGameOver = true;
 
-            Debug.Log("ゲームオーバー");
+            GameOver();
         }
     }
 }

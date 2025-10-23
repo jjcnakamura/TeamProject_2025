@@ -101,6 +101,8 @@ public class Enemy_Base : MonoBehaviour
     {
         if (isDead && !isKnockBack)
         {
+            BattleManager.Instance.nowEnemyNum--;
+            BattleManager.Instance.text_EnemyNum.text = BattleManager.Instance.nowEnemyNum.ToString();
             Destroy(gameObject);
         }
     }
@@ -134,6 +136,8 @@ public class Enemy_Base : MonoBehaviour
                 {
                     //プレイヤーにダメージを与えて消滅
                     BattleManager.Instance.Damage();
+                    BattleManager.Instance.nowEnemyNum--;
+                    BattleManager.Instance.text_EnemyNum.text = BattleManager.Instance.nowEnemyNum.ToString();
                     Destroy(gameObject);
                 }
             }
