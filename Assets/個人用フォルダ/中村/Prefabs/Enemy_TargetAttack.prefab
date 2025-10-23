@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1143168872210352556}
+  - component: {fileID: 3552913836212679477}
   - component: {fileID: 4162204888533172892}
   m_Layer: 0
   m_Name: Col_AttackZone
@@ -32,6 +33,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6323630615116929910}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3552913836212679477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144791733571453895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c512c7320657bf4f86c8ef7d028dbe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy_TargetAttack: {fileID: 5534862144651143572}
 --- !u!65 &4162204888533172892
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -65,7 +79,7 @@ GameObject:
   - component: {fileID: 5534862144651143572}
   - component: {fileID: 5707407257947704373}
   m_Layer: 0
-  m_Name: Enemy_AttackWall
+  m_Name: Enemy_TargetAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   col_Body: {fileID: 6583723336096949774}
+  model: {fileID: 3223563699998819171}
   maxHp: 10
   hp: 10
   value: 2
@@ -112,11 +127,16 @@ MonoBehaviour:
   knockBackTime: 0
   spawnPoint: {fileID: 0}
   routeIndex: 0
+  currentRoute: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
   isKnockBack: 0
   isDead: 0
+  col_AttackZone: {fileID: 4162204888533172892}
+  attackWall: 0
+  attackUnitZone: 0
+  isInterval: 0
 --- !u!54 &5707407257947704373
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -153,6 +173,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4346530004015845618}
+  - component: {fileID: 2642806894774833271}
   - component: {fileID: 6583723336096949774}
   m_Layer: 0
   m_Name: Col_Body
@@ -176,6 +197,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6323630615116929910}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2642806894774833271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2966657939161301187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c1ba51e8eefead4088a07712ea764ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 5534862144651143572}
 --- !u!65 &6583723336096949774
 BoxCollider:
   m_ObjectHideFlags: 0

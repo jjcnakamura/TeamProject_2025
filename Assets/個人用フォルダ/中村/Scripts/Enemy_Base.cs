@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 全ての敵が戦闘中に持つパラメーター
+/// </summary>
 public class Enemy_Base : MonoBehaviour
 {
     [Header("Enemy_Base")]
@@ -19,25 +22,27 @@ public class Enemy_Base : MonoBehaviour
     public float moveSpeed;
     public float knockBackTime;
 
-    //攻撃の対象にしているユニット
-    BattleUnit_Base battleUnit_Base;
-
     //タイマー
     float timer_KnockBack;
 
     //次に進む場所に関する変数
     public EnemySpawnPoint spawnPoint;
     public int routeIndex;
-    int currentRoute = 0;
+    public int currentRoute = 0;
 
     //向く方向に関する変数
     float rotateSpeed = 8f;
     Quaternion dir;
 
     //状態を表すフラグ
-    public bool isMove = true, isRotation, isTarget, isKnockBack, isDead;
+    public bool isMove, isRotation, isTarget, isKnockBack, isStatusChange, isDead;
 
-    void FixedUpdate()
+    void Start()
+    {
+        isMove = true;
+    }
+
+    protected virtual void FixedUpdate()
     {
         KnockBack();
         DeadCheck();
@@ -97,7 +102,6 @@ public class Enemy_Base : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
     //プレイヤーの陣地に向かって移動する処理
     void Move()
     {
@@ -133,7 +137,7 @@ public class Enemy_Base : MonoBehaviour
             }
         }
 
-        //向きを変更（動かない）
+        //向きを変更
         if (isRotation)
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, dir, rotateSpeed);
@@ -145,7 +149,7 @@ public class Enemy_Base : MonoBehaviour
     public void DirectionChange(Quaternion targetDir, bool targetChange = false)
     {
         dir = targetDir;
-        isTarget = targetChange;
+        if (targetChange) isTarget = true;
 
         isRotation = true;
     }

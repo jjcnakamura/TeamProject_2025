@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4634727374821315743, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
       propertyPath: m_Name
-      value: 2_PointUp
+      value: Unit_PointUp
       objectReference: {fileID: 0}
     - target: {fileID: 4782872058123386143, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
       propertyPath: m_LocalPosition.x
@@ -71,7 +71,7 @@ PrefabInstance:
     - target: {fileID: 7527673645746094430, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
       propertyPath: unit
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8177530379686395242}
     m_RemovedComponents:
     - {fileID: 240579805814298295, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
     m_RemovedGameObjects: []

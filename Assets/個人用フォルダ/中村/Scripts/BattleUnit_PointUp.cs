@@ -9,8 +9,10 @@ public class BattleUnit_PointUp : BattleUnit_Base
     //タイマー
     float timer_Interval;
 
-    void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate(); //基底クラスのFixedUpdate
+
         if (!isBattle) return; //戦闘中でない場合は戻る
 
         PointUp();

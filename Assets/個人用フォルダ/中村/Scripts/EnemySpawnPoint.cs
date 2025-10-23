@@ -23,10 +23,14 @@ public class EnemySpawnPoint : MonoBehaviour
 
     void Start()
     {
-        //“GoŒ»‚Ü‚Å‚ÌŠÔ‚ğ”z—ñ‚ÉŠi”[
+        //“G‚Ìî•ñ‚ğ”z—ñ‚ÉŠi”[
         spawnTime = new float[enemyStatus.Length];
-        for (int i = 0; i < spawnTime.Length; i++)
+        for (int i = 0; i < enemyStatus.Length; i++)
         {
+            //“G‚ÌPrefab‚ğEnemiesData‚©‚çæ“¾
+            enemyStatus[i].prefab = EnemiesData.Instance.enemy[enemyStatus[i].id].prefab;
+
+            //oŒ»ŠÔ‚ğ”z—ñ‚ÉŠi”[
             spawnTime[i] = enemyStatus[i].spawnTime;
         }
 
@@ -49,6 +53,8 @@ public class EnemySpawnPoint : MonoBehaviour
 
     void Update()
     {
+        if (!BattleManager.Instance.isMainGame) return; //ƒƒCƒ“ƒQ[ƒ€’†‚Å‚È‚¯‚ê‚Î–ß‚é
+
         if (endSpawn || waitCoroutine) return;
 
         if (BattleManager.Instance.timer_EnemySpawn > spawnTime[spawnIndex]) StartCoroutine("Spawn");
@@ -79,7 +85,6 @@ public class EnemySpawnPoint : MonoBehaviour
 
         enemyBase.routeIndex = enemyStatus[spawnIndex].routeIndex;
 
-
         for (int i = 0; i < enemyStatus[spawnIndex].spawnNum; i++)
         {
             //“G‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬
@@ -101,7 +106,7 @@ public class EnemySpawnPoint : MonoBehaviour
     [System.Serializable]
     public struct Status
     {
-        [SerializeField, Label("“G‚ÌPrefab")] public GameObject prefab;
+        [SerializeField, Label("“G‚ÌID")] public int id;
         [SerializeField, Label("‚Ç‚Ìƒ‹[ƒg‚ğ’Ê‚é‚©")] public int routeIndex;
         [SerializeField, Label("oŒ»‚Ü‚Å‚ÌŠÔ")] public float spawnTime;
         [SerializeField, Label("oŒ»‚·‚éŠÔŠu")] public float spawnInterval;
@@ -116,9 +121,11 @@ public class EnemySpawnPoint : MonoBehaviour
         public float range;
         public float moveSpeed;
         public float knockBackTime;
+
+        [System.NonSerialized] public GameObject prefab; //“G‚ÌPrefab
     }
 
-    //
+    //“G‚Ìƒ‹[ƒg‚ğŠi”[‚·‚é\‘¢‘Ì
     [System.Serializable]
     public struct Route
     {

@@ -35,6 +35,8 @@ public class UnitZone : MonoBehaviour
 
     void Update()
     {
+        if (!BattleManager.Instance.isMainGame) return; //ƒƒCƒ“ƒQ[ƒ€’†‚Å‚È‚¯‚ê‚Î–ß‚é
+
         //OnMouseOver
         if (onMouse)
         {

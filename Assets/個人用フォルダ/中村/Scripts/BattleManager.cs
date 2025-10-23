@@ -55,7 +55,7 @@ public class BattleManager : Singleton<BattleManager>
     void Start()
     {
         //デバッグ用　キャラをロード
-        ParameterManager.Instance.maxUnitPossession = 5;
+        ParameterManager.Instance.maxUnitPossession = 3;
         ParameterManager.Instance.AddUnit(0);
         ParameterManager.Instance.AddUnit(1);
         ParameterManager.Instance.AddUnit(2);

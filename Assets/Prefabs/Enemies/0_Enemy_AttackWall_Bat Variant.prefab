@@ -639,6 +639,10 @@ PrefabInstance:
       value: Enemy_AttackWall_Bat Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5534862144651143572, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
+      propertyPath: attackWall
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5534862144651143572, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 0}

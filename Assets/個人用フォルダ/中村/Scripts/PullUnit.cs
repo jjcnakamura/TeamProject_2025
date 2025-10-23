@@ -49,6 +49,8 @@ public class PullUnit : MonoBehaviour
 
     void Update()
     {
+        if (!BattleManager.Instance.isMainGame) return; //メインゲーム中でなければ戻る
+
         //コスト用のポイントが足りていない場合はtrueになる
         isNoPoint = (BattleManager.Instance.point < BattleManager.Instance.unitCost[index]) ? true : false;
 
@@ -87,6 +89,8 @@ public class PullUnit : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!BattleManager.Instance.isMainGame) return; //メインゲーム中でなければ戻る
+
         //リキャスト時間をカウント
         if (isRecast)
         {

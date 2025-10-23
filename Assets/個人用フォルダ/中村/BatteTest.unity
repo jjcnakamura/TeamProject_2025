@@ -2912,6 +2912,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1094035184375601238, guid: bb47a44f09c7cd347868cc79dfa1f612, type: 3}
+      propertyPath: enemyStatus.Array.data[1].id
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1094035184375601238, guid: bb47a44f09c7cd347868cc79dfa1f612, type: 3}
       propertyPath: enemyStatus.Array.data[0].value
       value: 2
       objectReference: {fileID: 0}
@@ -2922,14 +2926,14 @@ PrefabInstance:
     - target: {fileID: 1094035184375601238, guid: bb47a44f09c7cd347868cc79dfa1f612, type: 3}
       propertyPath: enemyStatus.Array.data[0].prefab
       value: 
-      objectReference: {fileID: 1760612489582911489, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
+      objectReference: {fileID: 6332577239119937932, guid: a1566b8f749366a47837da8ddb9d6134, type: 3}
     - target: {fileID: 1094035184375601238, guid: bb47a44f09c7cd347868cc79dfa1f612, type: 3}
       propertyPath: enemyStatus.Array.data[1].prefab
       value: 
       objectReference: {fileID: 6332577239119937932, guid: a1566b8f749366a47837da8ddb9d6134, type: 3}
     - target: {fileID: 1094035184375601238, guid: bb47a44f09c7cd347868cc79dfa1f612, type: 3}
       propertyPath: enemyStatus.Array.data[0].distance
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1094035184375601238, guid: bb47a44f09c7cd347868cc79dfa1f612, type: 3}
       propertyPath: enemyStatus.Array.data[0].interval
@@ -2941,7 +2945,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094035184375601238, guid: bb47a44f09c7cd347868cc79dfa1f612, type: 3}
       propertyPath: enemyStatus.Array.data[1].distance
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1094035184375601238, guid: bb47a44f09c7cd347868cc79dfa1f612, type: 3}
       propertyPath: enemyStatus.Array.data[1].interval

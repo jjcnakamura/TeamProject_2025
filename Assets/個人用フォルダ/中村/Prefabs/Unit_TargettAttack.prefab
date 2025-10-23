@@ -198,10 +198,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   col_Body: {fileID: 1648671835549697014}
+  model: {fileID: 6471128793069397704}
   zoneIndex: 0
   role: 0
-  cost: 0
-  recast: 0
   maxHp: 0
   hp: 0
   value: 0
@@ -209,9 +208,11 @@ MonoBehaviour:
   distance: 0
   range: 0
   isBattle: 0
+  isTarget: 0
+  isRotation: 0
+  isDead: 0
   col_AttackZone: {fileID: 6159815254199643059}
   isStart: 0
-  isTarget: 0
   isInterval: 0
 --- !u!1 &6454394667079372870
 GameObject:

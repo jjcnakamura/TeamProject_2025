@@ -17,7 +17,7 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
     float timer_Interval;
 
     //状態を表すフラグ
-    public bool isStart, isTarget, isInterval;
+    public bool isStart, isInterval;
 
     void Update()
     {
@@ -29,8 +29,10 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
         }
     }
 
-    void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate(); //基底クラスのFixedUpdate
+
         if (!isBattle) return; //戦闘中でない場合は戻る
 
         Attack();
@@ -48,7 +50,9 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
             {
                 targetEnemyCol = targetCol;
                 targetEnemy = targetCol.transform.parent.GetComponent<Enemy_Base>();
+
                 isTarget = true;
+                isRotation = true;
             }
         }
         else
@@ -57,7 +61,9 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
             {
                 targetEnemyCol = null;
                 targetEnemy = null;
+
                 isTarget = false;
+                isRotation = false;
             }
         }
     }
@@ -66,6 +72,11 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
     void Attack()
     {
         if (!isTarget || targetEnemy == null) return;
+
+        //狙う敵の方向を向く
+        Quaternion targetDir = Quaternion.LookRotation(targetEnemy.transform.position - transform.position);
+        Quaternion lookDir = new Quaternion(transform.rotation.x, targetDir.y, transform.rotation.z, targetDir.w);
+        DirectionChange(lookDir);
 
         if (!isInterval)
         {
