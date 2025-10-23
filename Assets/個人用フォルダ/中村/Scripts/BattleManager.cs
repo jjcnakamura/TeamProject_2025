@@ -223,6 +223,8 @@ public class BattleManager : Singleton<BattleManager>
 
         battleUnitStatus[zoneIndex].Out();
         battleUnitStatus[zoneIndex] = null;
+
+        unitZone[zoneIndex].placed = false;
     }
     //ƒ|ƒCƒ“ƒg‚ğ‘Œ¸‚·‚é
     public void PointChange(int val)

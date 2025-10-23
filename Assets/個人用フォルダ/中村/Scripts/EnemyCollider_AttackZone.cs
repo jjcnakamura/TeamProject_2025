@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyCollider_AttackZone : MonoBehaviour
 {
     [SerializeField] Enemy_TargetAttack enemy_TargetAttack;
+    [SerializeField] Enemy_StatusChange enemy_StatusChange;
 
     void OnTriggerStay(Collider other)
     {
@@ -16,6 +17,18 @@ public class EnemyCollider_AttackZone : MonoBehaviour
             {
                 enemy_TargetAttack.Target(other);
             }
+        }
+
+        //周り敵のにバフをかける敵の処理
+        if (enemy_StatusChange != null)
+        {
+
+        }
+
+        //周りのユニットにデバフをかける敵の処理
+        if (enemy_StatusChange != null)
+        {
+
         }
     }
 
@@ -29,6 +42,18 @@ public class EnemyCollider_AttackZone : MonoBehaviour
             {
                 enemy_TargetAttack.Target(other);
             }
+        }
+
+        //周りの敵にバフをかける敵の処理
+        if (enemy_StatusChange != null)
+        {
+
+        }
+
+        //周りのユニットにデバフをかける敵の処理
+        if (enemy_StatusChange != null)
+        {
+
         }
     }
 }

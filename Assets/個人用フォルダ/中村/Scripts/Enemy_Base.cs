@@ -12,6 +12,8 @@ public class Enemy_Base : MonoBehaviour
     //Collider
     public BoxCollider col_Body;
 
+    [Space(10)]
+
     //ゲーム中のパラメーター
     public int maxHp;
     public int hp;

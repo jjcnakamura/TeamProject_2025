@@ -77,7 +77,7 @@ public class UnitZone : MonoBehaviour
                         onMouse = false;
                         onMouseObj.SetActive(onMouse);
 
-                        placed = false;
+                        //placed = false;
                     }
                 }
             }
