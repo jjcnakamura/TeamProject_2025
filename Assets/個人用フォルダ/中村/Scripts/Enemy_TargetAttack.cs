@@ -8,6 +8,7 @@ public class Enemy_TargetAttack : Enemy_Base
 
     //Collider
     public BoxCollider col_AttackZone;
+    public BoxCollider col_AttackZone_Wall;
 
     [Space(10)]
 
@@ -30,11 +31,10 @@ public class Enemy_TargetAttack : Enemy_Base
     {
         base.Start(); //基底クラスのStart
 
-        //Colliderのサイズを決める
+        //Colliderの位置とサイズを決める
         col_AttackZone.size = new Vector3(distance, col_Body.size.y, distance);
-
-        //壁役ユニットを狙う用のColliderを生成する
-        if (attackWall) GenerateAttackWallCollider();
+        col_AttackZone_Wall.center = new Vector3(0f, 0f, 1f);
+        col_AttackZone_Wall.size = new Vector3(1f, col_AttackZone.size.y, 1f);
     }
 
     protected override void FixedUpdate()
@@ -83,7 +83,6 @@ public class Enemy_TargetAttack : Enemy_Base
             }
         }
     }
-
     //攻撃
     void Attack()
     {
@@ -123,25 +122,5 @@ public class Enemy_TargetAttack : Enemy_Base
                 isInterval = false;
             }
         }
-    }
-
-    //壁役ユニットを狙う用のColliderを生成する
-    void GenerateAttackWallCollider()
-    {
-        GameObject atkWallObj = new GameObject();
-        atkWallObj.name = "Col_AttackZone_Wall";
-
-        atkWallObj.transform.SetParent(transform);
-        atkWallObj.transform.position = col_AttackZone.transform.position;
-        atkWallObj.transform.rotation = new Quaternion();
-        atkWallObj.transform.localScale = new Vector3(1f, 1f, 1f);
-
-        BoxCollider atkWallCol = atkWallObj.AddComponent<BoxCollider>();
-        atkWallCol.isTrigger = true;
-        atkWallCol.center = new Vector3(0f, 0f, 1f);
-        atkWallCol.size = new Vector3(1f, col_AttackZone.size.y, 1f);
-
-        EnemyCollider_AttackZone_Wall atkWallColComponent = atkWallObj.AddComponent<EnemyCollider_AttackZone_Wall>();
-        atkWallColComponent.enemy_TargetAttack = this;
     }
 }

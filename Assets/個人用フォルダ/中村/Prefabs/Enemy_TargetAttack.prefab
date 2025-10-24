@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy_TargetAttack: {fileID: 5534862144651143572}
+  enemy_StatusChange: {fileID: 0}
 --- !u!65 &4162204888533172892
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -53,6 +54,74 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 144791733571453895}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &388670646913404629
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4940521896062336236}
+  - component: {fileID: 2675285824663481564}
+  - component: {fileID: 2935647149635249123}
+  m_Layer: 0
+  m_Name: Col_AttackZone_Wall
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4940521896062336236
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388670646913404629}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6323630615116929910}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2675285824663481564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388670646913404629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 951bf308f188c7d49b23ad1833dea8ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy_TargetAttack: {fileID: 5534862144651143572}
+  enemy_StatusChange: {fileID: 0}
+--- !u!65 &2935647149635249123
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388670646913404629}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -101,6 +170,7 @@ Transform:
   - {fileID: 4955246435308414768}
   - {fileID: 4346530004015845618}
   - {fileID: 1143168872210352556}
+  - {fileID: 4940521896062336236}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5534862144651143572
@@ -116,9 +186,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   col_Body: {fileID: 6583723336096949774}
-  model: {fileID: 3223563699998819171}
   maxHp: 10
   hp: 10
+  defaultValue: 0
   value: 2
   interval: 2
   distance: 1
@@ -132,8 +202,12 @@ MonoBehaviour:
   isRotation: 0
   isTarget: 0
   isKnockBack: 0
+  isBuff: 0
+  isDebuff: 0
+  isDeadCheck: 0
   isDead: 0
   col_AttackZone: {fileID: 4162204888533172892}
+  col_AttackZone_Wall: {fileID: 2935647149635249123}
   attackWall: 0
   attackUnitZone: 0
   isInterval: 0

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemyCollider_AttackZone_Wall : MonoBehaviour
 {
-    public Enemy_TargetAttack enemy_TargetAttack { private get; set; }
+    [SerializeField] Enemy_TargetAttack enemy_TargetAttack;
+    [SerializeField] Enemy_StatusChange enemy_StatusChange;
 
     void OnTriggerStay(Collider other)
     {
@@ -15,6 +16,16 @@ public class EnemyCollider_AttackZone_Wall : MonoBehaviour
             if (other.transform.tag == "Unit_Wall" && enemy_TargetAttack.attackWall && !enemy_TargetAttack.isTarget)
             {
                 enemy_TargetAttack.Target(other);
+            }
+        }
+
+        //ステータスを変化させるユニットの処理
+        if (enemy_StatusChange != null)
+        {
+            //壁ユニットが前方に来た場合
+            if (other.transform.tag == "Unit_Wall" && !enemy_StatusChange.isCollisionWallUnit)
+            {
+                enemy_StatusChange.CollisionWallUnit(other);
             }
         }
     }
@@ -28,6 +39,16 @@ public class EnemyCollider_AttackZone_Wall : MonoBehaviour
             if (other.transform.tag == "Unit_Wall" && enemy_TargetAttack.attackWall && enemy_TargetAttack.isTarget)
             {
                 enemy_TargetAttack.Target(other);
+            }
+        }
+
+        //ステータスを変化させるユニットの処理
+        if (enemy_StatusChange != null)
+        {
+            //壁ユニットが前方に来た場合
+            if (other.transform.tag == "Unit_Wall" && enemy_StatusChange.isCollisionWallUnit)
+            {
+                enemy_StatusChange.CollisionWallUnit(other);
             }
         }
     }

@@ -82,6 +82,14 @@ PrefabInstance:
       propertyPath: enemy
       value: 
       objectReference: {fileID: 5719656364548725469}
+    - target: {fileID: 2675285824663481564, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
+      propertyPath: enemy_StatusChange
+      value: 
+      objectReference: {fileID: 5719656364548725469}
+    - target: {fileID: 2675285824663481564, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
+      propertyPath: enemy_TargetAttack
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3552913836212679477, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
       propertyPath: enemy_StatusChange
       value: 
@@ -202,9 +210,17 @@ MonoBehaviour:
   isKnockBack: 0
   isBuff: 0
   isDebuff: 0
+  isDeadCheck: 0
   isDead: 0
   buff: 1
   col_AttackZone: {fileID: 8524251427523617553}
+  col_AttackZone_Wall: {fileID: 7436187692878447214}
+  isDeadCheck_StatusChange: 0
+--- !u!65 &7436187692878447214 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 2935647149635249123, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
+  m_PrefabInstance: {fileID: 5732843498596688269}
+  m_PrefabAsset: {fileID: 0}
 --- !u!65 &8524251427523617553 stripped
 BoxCollider:
   m_CorrespondingSourceObject: {fileID: 4162204888533172892, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}

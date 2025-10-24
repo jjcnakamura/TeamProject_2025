@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4634727374821315743, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
       propertyPath: m_Name
-      value: Unit_PointUp
+      value: 6_Unit_PointUp
       objectReference: {fileID: 0}
     - target: {fileID: 4782872058123386143, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
       propertyPath: m_LocalPosition.x
@@ -64,10 +64,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 14e991f9403ed9e469138d072de82ba7, type: 2}
-    - target: {fileID: 6454394667079372870, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
-      propertyPath: m_TagString
-      value: Unit_Wall
-      objectReference: {fileID: 0}
     - target: {fileID: 7527673645746094430, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
       propertyPath: unit
       value: 
@@ -103,11 +99,17 @@ MonoBehaviour:
   role: 0
   maxHp: 0
   hp: 0
+  defaultValue: 0
   value: 0
   interval: 0
   distance: 0
   range: 0
   isBattle: 0
+  isRotation: 0
+  isTarget: 0
+  isBuff: 0
+  isDebuff: 0
+  isDead: 0
 --- !u!65 &8413363649107456905 stripped
 BoxCollider:
   m_CorrespondingSourceObject: {fileID: 1648671835549697014, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
