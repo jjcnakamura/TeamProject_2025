@@ -19,8 +19,10 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
     //状態を表すフラグ
     public bool isStart, isInterval;
 
-    void Update()
+    protected override void Update()
     {
+        base.Update(); //基底クラスのUpdate
+
         //最初にステージ上に配置された場合にColliderのサイズを決める
         if (!isStart && isBattle)
         {

@@ -39,11 +39,17 @@ public class BattleUnit_Base : MonoBehaviour
     //ó‘Ô‚ğ•\‚·ƒtƒ‰ƒO
     public bool isBattle, isRotation, isTarget, isBuff, isDebuff, isDead;
 
-    protected virtual void FixedUpdate()
+    protected virtual void Update()
     {
         if (!isBattle || !BattleManager.Instance.isMainGame) return; //í“¬’†‚Å‚È‚¢ê‡‚Í–ß‚é
 
         DeadCheck();
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        if (!isBattle || !BattleManager.Instance.isMainGame) return; //í“¬’†‚Å‚È‚¢ê‡‚Í–ß‚é
+
         Rotate();
     }
 

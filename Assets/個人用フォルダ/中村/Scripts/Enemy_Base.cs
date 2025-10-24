@@ -52,12 +52,18 @@ public class Enemy_Base : MonoBehaviour
         isDeadCheck = true;
     }
 
+    protected virtual void Update()
+    {
+        if (!BattleManager.Instance.isMainGame) return; //メインゲーム中でなければ戻る
+
+        DeadCheck();
+    }
+
     protected virtual void FixedUpdate()
     {
         if (!BattleManager.Instance.isMainGame) return; //メインゲーム中でなければ戻る
 
         KnockBack();
-        DeadCheck();
         Move();
     }
 
@@ -243,7 +249,9 @@ public class Enemy_Base : MonoBehaviour
 
         if (isDead && !isKnockBack)
         {
-            BattleManager.Instance.nowEnemyNum--;
+            isDeadCheck = false;
+
+            BattleManager.Instance.nowEnemyNum = Mathf.Max(BattleManager.Instance.nowEnemyNum - 1, 0);
             BattleManager.Instance.text_EnemyNum.text = BattleManager.Instance.nowEnemyNum.ToString();
             Destroy(gameObject);
         }
@@ -278,8 +286,6 @@ public class Enemy_Base : MonoBehaviour
                 {
                     //プレイヤーにダメージを与えて死亡
                     BattleManager.Instance.Damage();
-                    BattleManager.Instance.nowEnemyNum--;
-                    BattleManager.Instance.text_EnemyNum.text = BattleManager.Instance.nowEnemyNum.ToString();
                     isDead = true;
                 }
             }

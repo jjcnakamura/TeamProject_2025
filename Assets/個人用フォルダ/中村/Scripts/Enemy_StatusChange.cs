@@ -15,6 +15,8 @@ public class Enemy_StatusChange : Enemy_Base
     List<Enemy_Base> buffEnemy = new List<Enemy_Base>();
     List<BattleUnit_Base> debuffUnit = new List<BattleUnit_Base>();
 
+    public bool isDeadCheck_StatusChange;
+
     protected override void Start()
     {
         base.Start(); //基底クラスのStart
@@ -24,11 +26,12 @@ public class Enemy_StatusChange : Enemy_Base
 
         //基底クラスで死亡の判定をしない
         isDeadCheck = false;
+        isDeadCheck_StatusChange = true;
     }
 
-    protected override void FixedUpdate()
+    protected override void Update()
     {
-        base.FixedUpdate(); //基底クラスのFixedUpdate
+        base.Update(); //基底クラスのUpdate
 
         DeadCheck_StatusChange();
     }
@@ -87,12 +90,14 @@ public class Enemy_StatusChange : Enemy_Base
     //死亡している場合はステータスの変化を解除
     void DeadCheck_StatusChange()
     {
+        if (!isDeadCheck_StatusChange) return;
+
         if (isDead)
         {
             //バフを解除
             for (int i = debuffUnit.Count - 1; i >= 0; i--)
             {
-                //buffEnemy[i].StatusChange(value, false);
+                buffEnemy[i].StatusChange(defaultValue, false);
             }
             //デバフを解除
             for (int i = debuffUnit.Count - 1; i >= 0; i--)
@@ -102,6 +107,7 @@ public class Enemy_StatusChange : Enemy_Base
 
             isDead = true;
             isDeadCheck = true;
+            isDeadCheck_StatusChange = false;
         }
     }
 }
