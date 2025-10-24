@@ -28,7 +28,7 @@ public class BattleUnit_PointUp : BattleUnit_Base
         else
         {
             //ポイントを上昇してインターバル開始
-            BattleManager.Instance.PointChange(value);
+            BattleManager.Instance.PointChange(defaultValue);
             timer_Interval = 0;
         }
     }

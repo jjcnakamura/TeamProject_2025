@@ -186,6 +186,7 @@ MonoBehaviour:
   col_Body: {fileID: 1500037000240121731}
   maxHp: 0
   hp: 0
+  defaultValue: 0
   value: 0
   interval: 0
   distance: 0
@@ -199,5 +200,13 @@ MonoBehaviour:
   isRotation: 0
   isTarget: 0
   isKnockBack: 0
-  isStatusChange: 0
+  isBuff: 0
+  isDebuff: 0
   isDead: 0
+  buff: 1
+  col_AttackZone: {fileID: 8524251427523617553}
+--- !u!65 &8524251427523617553 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 4162204888533172892, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
+  m_PrefabInstance: {fileID: 5732843498596688269}
+  m_PrefabAsset: {fileID: 0}

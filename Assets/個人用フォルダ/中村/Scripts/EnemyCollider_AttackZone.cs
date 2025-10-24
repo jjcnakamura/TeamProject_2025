@@ -10,7 +10,7 @@ public class EnemyCollider_AttackZone : MonoBehaviour
     void OnTriggerStay(Collider other)
     {
         //射程に入ったユニットエリアのユニットをターゲットする敵の処理
-        if (enemy_TargetAttack != null)
+        if (enemy_TargetAttack != null && other != enemy_TargetAttack.col_Body)
         {
             //ユニットが攻撃の射程内に入った場合
             if (other.transform.tag == "Unit" && enemy_TargetAttack.attackUnitZone && !enemy_TargetAttack.isTarget)
@@ -19,23 +19,31 @@ public class EnemyCollider_AttackZone : MonoBehaviour
             }
         }
 
-        //周り敵のにバフをかける敵の処理
-        if (enemy_StatusChange != null)
+        //周り敵にバフをかける敵の処理
+        if (enemy_StatusChange != null && other != enemy_StatusChange.col_Body)
         {
-
+            //敵がバフの射程内に入った場合
+            if (other.transform.tag == "Enemy")
+            {
+                enemy_StatusChange.Buff(other, true); ;
+            }
         }
 
         //周りのユニットにデバフをかける敵の処理
-        if (enemy_StatusChange != null)
+        if (enemy_StatusChange != null && other != enemy_StatusChange.col_Body)
         {
-
+            //ユニットがデバフの射程内に入った場合
+            if (other.transform.tag == "Unit" || other.transform.tag == "Unit_Wall")
+            {
+                enemy_StatusChange.Debuff(other, true);
+            }
         }
     }
 
     void OnTriggerExit(Collider other)
     {
         //射程に入ったユニットエリアのユニットをターゲットする敵の処理
-        if (enemy_TargetAttack != null)
+        if (enemy_TargetAttack != null && other != enemy_TargetAttack.col_Body)
         {
             //ユニットが攻撃の射程外に出た場合
             if (other.transform.tag == "Unit" && enemy_TargetAttack.attackUnitZone && !enemy_TargetAttack.isTarget)
@@ -45,15 +53,23 @@ public class EnemyCollider_AttackZone : MonoBehaviour
         }
 
         //周りの敵にバフをかける敵の処理
-        if (enemy_StatusChange != null)
+        if (enemy_StatusChange != null && other != enemy_StatusChange.col_Body)
         {
-
+            //敵がバフの射程外に出た場合
+            if (other.transform.tag == "Enemy")
+            {
+                enemy_StatusChange.Buff(other, false); ;
+            }
         }
 
         //周りのユニットにデバフをかける敵の処理
-        if (enemy_StatusChange != null)
+        if (enemy_StatusChange != null && other != enemy_StatusChange.col_Body)
         {
-
+            //ユニットがデバフの射程外に出た場合
+            if (other.transform.tag == "Unit" || other.transform.tag == "Unit_Wall")
+            {
+                enemy_StatusChange.Debuff(other, false);
+            }
         }
     }
 }

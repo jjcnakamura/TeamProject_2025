@@ -26,8 +26,10 @@ public class Enemy_TargetAttack : Enemy_Base
     //状態を表すフラグ
     public bool isInterval;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start(); //基底クラスのStart
+
         //Colliderのサイズを決める
         col_AttackZone.size = new Vector3(distance, col_Body.size.y, distance);
 
@@ -38,6 +40,8 @@ public class Enemy_TargetAttack : Enemy_Base
     protected override void FixedUpdate()
     {
         base.FixedUpdate(); //基底クラスのFixedUpdate
+
+        if (!BattleManager.Instance.isMainGame) return; //メインゲーム中でなければ戻る
 
         Attack();
         Interval();
@@ -124,7 +128,7 @@ public class Enemy_TargetAttack : Enemy_Base
     //壁役ユニットを狙う用のColliderを生成する
     void GenerateAttackWallCollider()
     {
-        GameObject atkWallObj = Instantiate(new GameObject());
+        GameObject atkWallObj = new GameObject();
         atkWallObj.name = "Col_AttackZone_Wall";
 
         atkWallObj.transform.SetParent(transform);

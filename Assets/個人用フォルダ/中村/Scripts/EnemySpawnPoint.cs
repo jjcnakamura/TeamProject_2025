@@ -14,7 +14,7 @@ public class EnemySpawnPoint : MonoBehaviour
     float[] spawnTime;
     int spawnIndex;
 
-    bool waitCoroutine;
+    //bool waitCoroutine;
     bool endSpawn;
 
     [Space(20)]
@@ -58,37 +58,40 @@ public class EnemySpawnPoint : MonoBehaviour
     {
         if (!BattleManager.Instance.isMainGame) return; //メインゲーム中でなければ戻る
 
-        if (endSpawn || waitCoroutine) return;
-
-        if (BattleManager.Instance.timer_EnemySpawn > spawnTime[spawnIndex]) StartCoroutine("Spawn");
+        if (!endSpawn && BattleManager.Instance.timer_EnemySpawn > spawnTime[spawnIndex]) StartCoroutine(Spawn());
     }
 
     IEnumerator Spawn()
     {
         if (endSpawn) yield break;
 
+        int index = spawnIndex;
+        spawnIndex++;
+        if (spawnIndex >= enemyStatus.Length) endSpawn = true;
+
         //敵のステータスを設定
-        GameObject enemy = enemyStatus[spawnIndex].prefab;
+        GameObject enemy = enemyStatus[index].prefab;
         Enemy_Base enemyBase = enemy.GetComponent<Enemy_Base>();
 
         //位置と角度を設定
         enemyBase.spawnPoint = this;
-        Quaternion targetDir = Quaternion.LookRotation(routePoint[enemyStatus[spawnIndex].routeIndex].pos[0] - spawnPos);
+        Quaternion targetDir = Quaternion.LookRotation(routePoint[enemyStatus[index].routeIndex].pos[0] - spawnPos);
         Quaternion spawnDir = new Quaternion(enemy.transform.rotation.x, targetDir.y, enemy.transform.rotation.z, targetDir.w);
 
         //パラメータを設定
-        enemyBase.maxHp = enemyStatus[spawnIndex].hp;
+        enemyBase.maxHp = enemyStatus[index].hp;
         enemyBase.hp = enemyBase.maxHp;
-        enemyBase.value = enemyStatus[spawnIndex].value;
-        enemyBase.interval = enemyStatus[spawnIndex].interval;
-        enemyBase.distance = enemyStatus[spawnIndex].distance;
-        enemyBase.range = enemyStatus[spawnIndex].range;
-        enemyBase.moveSpeed = enemyStatus[spawnIndex].moveSpeed;
-        enemyBase.knockBackTime = enemyStatus[spawnIndex].knockBackTime;
+        enemyBase.value = enemyStatus[index].value;
+        enemyBase.defaultValue = enemyBase.value;
+        enemyBase.interval = enemyStatus[index].interval;
+        enemyBase.distance = enemyStatus[index].distance;
+        enemyBase.range = enemyStatus[index].range;
+        enemyBase.moveSpeed = enemyStatus[index].moveSpeed;
+        enemyBase.knockBackTime = enemyStatus[index].knockBackTime;
 
-        enemyBase.routeIndex = enemyStatus[spawnIndex].routeIndex;
+        enemyBase.routeIndex = enemyStatus[index].routeIndex;
 
-        for (int i = 0; i < enemyStatus[spawnIndex].spawnNum; i++)
+        for (int i = 0; i < enemyStatus[index].spawnNum; i++)
         {
             //敵のインスタンスを生成
             GameObject instance = Instantiate(enemy);
@@ -96,13 +99,8 @@ public class EnemySpawnPoint : MonoBehaviour
             instance.transform.rotation = spawnDir;
 
             //一定時間待つ
-            waitCoroutine = true;
-            yield return new WaitForSeconds(enemyStatus[spawnIndex].spawnInterval);
-            waitCoroutine = false;
+            yield return new WaitForSeconds(enemyStatus[index].spawnInterval);
         }
-        
-        spawnIndex++;
-        if (spawnIndex >= enemyStatus.Length) endSpawn = true;
     }
 
     //ステータスの構造体

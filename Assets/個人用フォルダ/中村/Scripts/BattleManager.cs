@@ -141,14 +141,8 @@ public class BattleManager : Singleton<BattleManager>
     {
         if (!isMainGame) return; //メインゲーム中でなければ戻る
 
+        DragUnit();   //ユニットドラッグ中の処理
         ClearCheck(); //敵を全て倒したらクリアにする
-
-        //ユニットドラッグ中の処理
-        if (isUnitDrag)
-        {
-            dragUnit.transform.position = MouseManager.Instance.worldPos;
-            if (Input.GetKeyUp(KeyCode.Mouse0) && !isOnMouseUnitZone) LetgoUnit();
-        }
     }
 
     void FixedUpdate()
@@ -196,6 +190,7 @@ public class BattleManager : Singleton<BattleManager>
         battleUnitStatus[zoneIndex].role = ParameterManager.Instance.unitStatus[unitIndex].role;
         battleUnitStatus[zoneIndex].maxHp = ParameterManager.Instance.unitStatus[unitIndex].hp;
         battleUnitStatus[zoneIndex].hp = ParameterManager.Instance.unitStatus[unitIndex].hp;
+        battleUnitStatus[zoneIndex].defaultValue = ParameterManager.Instance.unitStatus[unitIndex].value;
         battleUnitStatus[zoneIndex].value = ParameterManager.Instance.unitStatus[unitIndex].value;
         battleUnitStatus[zoneIndex].interval = ParameterManager.Instance.unitStatus[unitIndex].interval;
         battleUnitStatus[zoneIndex].distance = ParameterManager.Instance.unitStatus[unitIndex].distance;
@@ -211,6 +206,17 @@ public class BattleManager : Singleton<BattleManager>
         isUnitDrag = false;
 
         isUnitPlace = true;
+    }
+
+    //
+    void DragUnit()
+    {
+        if (!isUnitDrag) return;
+
+        {
+            dragUnit.transform.position = MouseManager.Instance.worldPos;
+            if (Input.GetKeyUp(KeyCode.Mouse0) && !isOnMouseUnitZone) LetgoUnit();
+        }
     }
     //ポイントの時間増加
     void PointUp()
