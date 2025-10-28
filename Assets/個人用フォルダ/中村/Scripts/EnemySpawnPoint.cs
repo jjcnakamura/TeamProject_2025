@@ -70,33 +70,40 @@ public class EnemySpawnPoint : MonoBehaviour
         if (spawnIndex >= enemyStatus.Length) endSpawn = true;
 
         //敵のステータスを設定
-        GameObject enemy = enemyStatus[index].prefab;
-        Enemy_Base enemyBase = enemy.GetComponent<Enemy_Base>();
+        Enemy_Base enemy = enemyStatus[index].prefab.GetComponent<Enemy_Base>();
 
         //位置と角度を設定
-        enemyBase.spawnPoint = this;
+        enemy.spawnPoint = this;
         Quaternion targetDir = Quaternion.LookRotation(routePoint[enemyStatus[index].routeIndex].pos[0] - spawnPos);
         Quaternion spawnDir = new Quaternion(enemy.transform.rotation.x, targetDir.y, enemy.transform.rotation.z, targetDir.w);
 
         //パラメータを設定
-        enemyBase.maxHp = enemyStatus[index].hp;
-        enemyBase.hp = enemyBase.maxHp;
-        enemyBase.value = enemyStatus[index].value;
-        enemyBase.defaultValue = enemyBase.value;
-        enemyBase.interval = enemyStatus[index].interval;
-        enemyBase.distance = enemyStatus[index].distance;
-        enemyBase.range = enemyStatus[index].range;
-        enemyBase.moveSpeed = enemyStatus[index].moveSpeed;
-        enemyBase.knockBackTime = enemyStatus[index].knockBackTime;
+        enemy.maxHp = enemyStatus[index].hp;
+        enemy.hp = enemy.maxHp;
+        enemy.value = enemyStatus[index].value;
+        enemy.defaultValue = enemy.value;
+        enemy.interval = enemyStatus[index].interval;
+        enemy.distance = enemyStatus[index].distance;
+        enemy.range = enemyStatus[index].range;
+        enemy.moveSpeed = enemyStatus[index].moveSpeed;
+        enemy.knockBackTime = enemyStatus[index].knockBackTime;
 
-        enemyBase.routeIndex = enemyStatus[index].routeIndex;
+        enemy.routeIndex = enemyStatus[index].routeIndex;
 
         for (int i = 0; i < enemyStatus[index].spawnNum; i++)
         {
             //敵のインスタンスを生成
-            GameObject instance = Instantiate(enemy);
+            Enemy_Base instance = Instantiate(enemy);
             instance.transform.position = spawnPos;
             instance.transform.rotation = spawnDir;
+
+            //HPバーを生成
+            Hpbar hpbar = Instantiate(BattleManager.Instance.hpbarPrefab).GetComponent<Hpbar>();
+            hpbar.transform.SetParent(BattleManager.Instance.hpbarParent.transform);
+            hpbar.transform.localScale = new Vector3(1f, 1f, 1f);
+            hpbar.transform.localRotation = new Quaternion();
+            hpbar.targetEnemy = instance;
+            instance.hpbarObj = hpbar.gameObject;
 
             //一定時間待つ
             yield return new WaitForSeconds(enemyStatus[index].spawnInterval);

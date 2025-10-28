@@ -34,7 +34,10 @@ public class BattleUnit_Base : MonoBehaviour
     List<int> buffValue = new List<int>();
     List<int> debuffValue = new List<int>();
     int maxBuffValue, minDebuffValue;
-    int buffNum, deBuffNum;  
+    int buffNum, deBuffNum;
+
+    //HPバー
+    [System.NonSerialized] public GameObject hpbarObj;
 
     //状態を表すフラグ
     public bool isBattle, isRotation, isTarget, isBuff, isDebuff, isDead;
@@ -227,6 +230,7 @@ public class BattleUnit_Base : MonoBehaviour
     /// </summary>
     public void Out()
     {
+        Destroy(hpbarObj);
         Destroy(gameObject);
     }
     /// <summary>

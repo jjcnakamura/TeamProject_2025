@@ -52,6 +52,12 @@ public class BattleManager : Singleton<BattleManager>
     [System.NonSerialized] public int[] unitCost;     //各ユニットのコスト
     [System.NonSerialized] public float[] unitRecast; //各ユニットのリキャスト
 
+    [Space(10)]
+
+    //ユニットと敵のHP用変数
+    public GameObject hpbarParent;
+    public GameObject hpbarPrefab;
+
     //敵出現の時間をカウントするタイマー
     public float timer_EnemySpawn { get; private set; }
 
@@ -130,7 +136,7 @@ public class BattleManager : Singleton<BattleManager>
         for (int i = 0; i < canvas.Length; i++)
         {
             canvas[i] = canvasParent.transform.GetChild(i).gameObject;
-            canvas[i].SetActive(i == 0);
+            canvas[i].SetActive(i <= 1);
         }
 
         //フラグを設定
@@ -198,6 +204,14 @@ public class BattleManager : Singleton<BattleManager>
 
         battleUnitStatus[zoneIndex].isBattle = true;
 
+        //HPバーを生成
+        Hpbar battleUnitHpbar = Instantiate(hpbarPrefab).GetComponent<Hpbar>();
+        battleUnitHpbar.transform.SetParent(hpbarParent.transform);
+        battleUnitHpbar.transform.localScale = new Vector3(1f, 1f, 1f);
+        battleUnitHpbar.transform.localRotation = new Quaternion();
+        battleUnitHpbar.targetUnit = battleUnitStatus[zoneIndex];
+        battleUnitStatus[zoneIndex].hpbarObj = battleUnitHpbar.gameObject;
+
         //コスト分のポイントを減らす
         PointChange(-ParameterManager.Instance.unitStatus[unitIndex].cost);
 
@@ -208,12 +222,12 @@ public class BattleManager : Singleton<BattleManager>
         isUnitPlace = true;
     }
 
-    //
+    //ユニットドラッグ中の処理
     void DragUnit()
     {
-        if (!isUnitDrag) return;
-
+        if (isUnitDrag)
         {
+            //ユニットをマウスに追従させる
             dragUnit.transform.position = MouseManager.Instance.worldPos;
             if (Input.GetKeyUp(KeyCode.Mouse0) && !isOnMouseUnitZone) LetgoUnit();
         }
@@ -246,7 +260,7 @@ public class BattleManager : Singleton<BattleManager>
         isClear = true;
 
         //ステージクリア画面を表示
-        canvas[1].SetActive(true);
+        canvas[2].SetActive(true);
     }
     //ゲームオーバー
     void GameOver()
@@ -255,7 +269,7 @@ public class BattleManager : Singleton<BattleManager>
         isGameOver = true;
 
         //ゲームオーバー画面を表示
-        canvas[2].SetActive(true);
+        canvas[3].SetActive(true);
     }
 
     //配置されているユニットを削除

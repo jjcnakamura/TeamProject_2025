@@ -40,6 +40,9 @@ public class Enemy_Base : MonoBehaviour
     int maxBuffValue, minDebuffValue;
     int buffNum, deBuffNum;
 
+    //HPバー
+    [System.NonSerialized] public GameObject hpbarObj;
+
     //タイマー
     float timer_KnockBack;
 
@@ -253,6 +256,7 @@ public class Enemy_Base : MonoBehaviour
 
             BattleManager.Instance.nowEnemyNum = Mathf.Max(BattleManager.Instance.nowEnemyNum - 1, 0);
             BattleManager.Instance.text_EnemyNum.text = BattleManager.Instance.nowEnemyNum.ToString();
+            Destroy(hpbarObj);
             Destroy(gameObject);
         }
     }
