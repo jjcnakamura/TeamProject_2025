@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9566881a5be555849afe474d5b3f21e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 3223563699998819171}
   col_Body: {fileID: 6583723336096949774}
   maxHp: 10
   hp: 10

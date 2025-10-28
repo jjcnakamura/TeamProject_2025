@@ -9,8 +9,8 @@ public class BattleUnit_Base : MonoBehaviour
 {
     [Header("BattleUnit_Base")]
 
-    //Collider
-    public BoxCollider col_Body;
+    public GameObject model;     //3Dƒ‚ƒfƒ‹
+    public BoxCollider col_Body; //Collider
 
     [Space(10)]
 

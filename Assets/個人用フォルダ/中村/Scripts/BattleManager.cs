@@ -40,6 +40,7 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] PullUnit unitPullButton;                   //ユニットを持ってくるボタン
     GameObject[] battleUnitPrefab;                              //ボタンから生成されるユニットのPrefab
     Vector3 pullUnitSizeOffset = new Vector3(0.4f, 0.4f, 0.4f); //ユニットを持った場合にかけるサイズ補正
+    float dragTimeScale = 0.4f;                       //ユニットをドラッグしている時の時間が進む速度
     GameObject dragUnit;                              //現在ドラッグしているユニット
     int dragUnitIndex;                                //ドラッグしているユニットの要素番号
     [SerializeField] GameObject unitZoneParent;       //ユニットの配置場所の親オブジェクト
@@ -172,12 +173,18 @@ public class BattleManager : Singleton<BattleManager>
         //どこに配置出来るか
         place_UnitZone = ParameterManager.Instance.unitStatus[unitIndex].place_UnitZone;
         place_Floor = ParameterManager.Instance.unitStatus[unitIndex].place_Floor;
+
+        //時間を遅くする
+        Time.timeScale = dragTimeScale;
     }
     //ドラッグしているユニットを離す
     public void LetgoUnit()
     {
         Destroy(dragUnit);
-        
+
+        //時間の速さを戻す
+        Time.timeScale = 1f;
+
         place_UnitZone = false;
         place_Floor = false;
         isUnitDrag = false;
@@ -214,6 +221,9 @@ public class BattleManager : Singleton<BattleManager>
 
         //コスト分のポイントを減らす
         PointChange(-ParameterManager.Instance.unitStatus[unitIndex].cost);
+
+        //時間の速さを戻す
+        Time.timeScale = 1f;
 
         place_UnitZone = false;
         place_Floor = false;

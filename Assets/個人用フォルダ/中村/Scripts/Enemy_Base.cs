@@ -9,8 +9,8 @@ public class Enemy_Base : MonoBehaviour
 {
     [Header("Enemy_Base")]
 
-    //Collider
-    public BoxCollider col_Body;
+    public GameObject model;     //3Dモデル
+    public BoxCollider col_Body; //Collider
 
     [Space(10)]
 
@@ -102,14 +102,12 @@ public class Enemy_Base : MonoBehaviour
             timer_KnockBack += Time.fixedDeltaTime;
 
             //仮のダメージモーション
-            transform.eulerAngles += new Vector3(0, 1000 * Time.fixedDeltaTime, 0);
+            model.transform.eulerAngles += new Vector3(0, 1000 * Time.fixedDeltaTime, 0);
         }
         else
         {
             //仮のダメージモーション
-            Quaternion targetDir = Quaternion.LookRotation(spawnPoint.routePoint[routeIndex].pos[currentRoute] - transform.position);
-            Quaternion lookDir = new Quaternion(transform.rotation.x, targetDir.y, transform.rotation.z, targetDir.w);
-            DirectionChange(lookDir);
+            model.transform.eulerAngles = transform.eulerAngles;
 
             timer_KnockBack = 0;
             isKnockBack = false;
