@@ -57,9 +57,9 @@ public class Enemy_Base : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (!BattleManager.Instance.isMainGame) return; //メインゲーム中でなければ戻る
-
         DeadCheck();
+
+        if (!BattleManager.Instance.isMainGame) return; //メインゲーム中でなければ戻る
     }
 
     protected virtual void FixedUpdate()

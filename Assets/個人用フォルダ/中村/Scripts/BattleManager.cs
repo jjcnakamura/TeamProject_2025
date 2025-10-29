@@ -59,7 +59,14 @@ public class BattleManager : Singleton<BattleManager>
     public GameObject hpbarParent;
     public GameObject hpbarPrefab;
 
-    //敵出現の時間をカウントするタイマー
+    [Space(10)]
+
+    //敵のルート表示用変数
+    public GameObject enemyRouteArrow;
+    public int preEnemySpawnTime = 4;
+    public int enemyRouteActiveTime = 3;
+
+    //敵出現のdisplay時間をカウントするタイマー
     public float timer_EnemySpawn { get; private set; }
 
     //ゲームの状態を表すフラグ
@@ -139,6 +146,7 @@ public class BattleManager : Singleton<BattleManager>
             canvas[i] = canvasParent.transform.GetChild(i).gameObject;
             canvas[i].SetActive(i <= 1);
         }
+        canvasParent.SetActive(true);
 
         //フラグを設定
         isMainGame = true;
