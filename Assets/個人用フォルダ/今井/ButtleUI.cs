@@ -5,12 +5,21 @@ using UnityEngine.EventSystems;
 
 public class ShowOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private GameObject targetUI; // 表示・非表示するUI
-    [SerializeField] private GameObject ImageUI;
+    [SerializeField] private GameObject targetUI; // 表示・非表示するUI。小さい方
+    [SerializeField] private GameObject ImageUI;//大きい方
+    StageInfo stageInfo;
+    public GameObject DESTROY;
 
+    void Start()
+    {
+        stageInfo = this.GetComponent<StageInfo>();
+    }
     void Update()
     {
-
+        if(stageInfo.Start == true)
+        {
+            Destroy(DESTROY);
+        }
     }
 
     // マウスが乗った時
@@ -18,8 +27,8 @@ public class ShowOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if (targetUI != null)
             targetUI.SetActive(true);
-        if (ImageUI == true)
-            targetUI.SetActive(false);
+        /*if (ImageUI != false)
+            targetUI.SetActive(false);*/
     }
 
     // マウスが離れた時

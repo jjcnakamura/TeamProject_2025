@@ -19,19 +19,19 @@ public class StageInfo : MonoBehaviour
     public int Enemyint;//敵の数
     public TextMeshProUGUI[] StageInfoText;
     public bool StageEnd;
+    public bool FloorEnd;
 
     void Update()
     {
         StageInfoText[0].text = StageName; //何をするかをテキストで反映
         StageInfoText[1].text = StageNaiyou;//内容
+        image[0].SetActive(Start);
         if (StageName == "バトル")//バトルステージの時は表示
         {
             StageInfoText[1].text = Enemyint.ToString();
         }
-
-        if (Start == true)//ステージをが始まる前
+        if (StageEnd == true && FloorEnd == true)//仮
         {
-            image[0].SetActive(true);//イメージ用
 
         }
         if (StageEnd == true)//自分のステージが終わったら消える処理

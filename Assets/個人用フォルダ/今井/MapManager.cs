@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
 
 
 public class MapManager : MonoBehaviour
@@ -20,23 +20,63 @@ public class MapManager : MonoBehaviour
     public int max = 5;//ステージ最大数
     public int min = 2;//ステージ最小数
 
+    public GameObject[] Charactermen;
     public int[] UnitUpGold;//必要ゴールド数
     public int Gold;//(仮)
+    public bool gameStartflg;
+    public GameObject Map;
+
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
     private void Start()
     {
+        gameStartflg = false;
         MakeRoute(); //仮
     }
     void Update()
     {
-        GoNextStage();
-        DontDestroyOnLoad(gameObject);
+        if (gameStartflg == true)
+        {
+            //MakeRoute();
+        }
+        if (Input.GetKeyDown(KeyCode.X)) ParameterManager.Instance.AddUnit(0);
+        if (Input.GetKeyDown(KeyCode.C)) ParameterManager.Instance.AddUnit(1);
+        if (Input.GetKeyDown(KeyCode.V)) ParameterManager.Instance.AddUnit(2);
+        if (Input.GetKeyDown(KeyCode.B)) ParameterManager.Instance.AddUnit(3);
+        if (Input.GetKeyDown(KeyCode.N)) ParameterManager.Instance.AddUnit(4);
+        if (Input.GetKeyDown(KeyCode.Space)) MakeRoute();
+        if (nextStage.childCount == 0)
+        {
+            GoNextStage();
+        }
+    }
+    public void NextFloor()//フロアを進める処理
+    {
+        floor = floor + 1;
+        foreach (GameObject parent in MapRoute)
+        {
+            if (parent == null) continue;
+
+            foreach (Transform child in parent.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+    }
+    public void CharaCheck(GameObject i)//最初のキャラクターを決める　ボタン用
+    {
+
+        i.SetActive(i);
     }
 
     public void GoNextStage() //決めたルートのステージを進める処理
     {
         Transform child = nextStage.GetChild(0);
         StageInfo stageinfo = child.GetComponent<StageInfo>();
+
         if (nextStage != null)
         {
             if (stageinfo != null)
@@ -44,13 +84,13 @@ public class MapManager : MonoBehaviour
                 stageinfo.Start = true;
                 Debug.Log("今回は" + stageinfo.Stage + "の" + stageinfo.namber + "です");
             }
-            else
-            {
-                Debug.Log("何も情報なし");
-            }
+        }
+        else
+        {
+            Debug.Log("何も情報なし");
         }
     }
-    public void OnButtonPressed(Transform Pos)//ボタンに入っているルートで決める
+    public void OnButtonPressed(Transform Pos)//ボタンに入っているルートを決めて一つステージを持ってくる
     {
         if (Pos == null)
         {
@@ -179,7 +219,7 @@ public class MapManager : MonoBehaviour
     {
         ParameterManager.Instance.hp += 1;//（仮）
     }
-    public void UnitLevelUpBottun()
+    public void UnitLevelUpBottun()//キャラクターのレベルあげる所
     {
         if (Gold >= UnitUpGold[unitStatus.lv])
         {
@@ -200,5 +240,11 @@ public class MapManager : MonoBehaviour
     public void LoadScene(int i)//シーンを流す用　ボタン用
     {
         SceneManager.LoadScene(i);
+    }
+    public void GameStart(GameObject i)//ゲームスタート　ボタン用
+    {
+        gameStartflg = true;
+        Map.SetActive(true);
+        i.gameObject.SetActive(false);
     }
 }

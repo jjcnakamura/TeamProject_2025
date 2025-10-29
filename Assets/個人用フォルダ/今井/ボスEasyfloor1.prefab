@@ -1062,6 +1062,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetUI: {fileID: 4849006297794740799}
+  ImageUI: {fileID: 0}
 --- !u!114 &2821751304470246674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1076,7 +1077,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Start: 0
   Stage: 0
-  Name: 1
+  namber: 0
   StageName: "\u30D0\u30C8\u30EB"
   StageNaiyou: 
   image:
@@ -1086,3 +1087,4 @@ MonoBehaviour:
   - {fileID: 2154971739680070859}
   - {fileID: 8815825969280817378}
   StageEnd: 0
+  FloorEnd: 1
