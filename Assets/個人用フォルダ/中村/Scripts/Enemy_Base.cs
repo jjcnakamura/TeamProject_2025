@@ -148,7 +148,7 @@ public class Enemy_Base : MonoBehaviour
                 }
 
                 //エフェクトを表示
-                buffObj.SetActive(true);
+                if (buffObj != null) buffObj.SetActive(true);
 
                 isBuff = true;
             }
@@ -193,7 +193,7 @@ public class Enemy_Base : MonoBehaviour
                     value = Mathf.Max(defaultValue + val + minDebuffValue, 1);
 
                     //エフェクトを非表示
-                    buffObj.SetActive(false);
+                    if (buffObj != null) buffObj.SetActive(false);
 
                     isBuff = false;
                 }
@@ -217,7 +217,7 @@ public class Enemy_Base : MonoBehaviour
                 }
 
                 //エフェクトを表示
-                debuffObj.SetActive(true);
+                if (debuffObj != null) debuffObj.SetActive(true);
 
                 isDebuff = true;
             }
@@ -262,7 +262,7 @@ public class Enemy_Base : MonoBehaviour
                     value = defaultValue + maxBuffValue;
 
                     //エフェクトを非表示
-                    debuffObj.SetActive(false);
+                    if (debuffObj != null) debuffObj.SetActive(false);
 
                     isDebuff = false;
                 }
