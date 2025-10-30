@@ -18,7 +18,8 @@ public class BattleUnit_Base : MonoBehaviour
     [Space(10)]
 
     //ゲーム中のパラメーター
-    public int zoneIndex;  //どこに配置されているか
+    public int unitIndex; //どのユニットか
+    public int zoneIndex; //どこに配置されているか
 
     public int role;
     public int maxHp;

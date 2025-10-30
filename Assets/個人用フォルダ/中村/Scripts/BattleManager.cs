@@ -16,12 +16,17 @@ public class BattleManager : Singleton<BattleManager>
     [Space(10)]
 
     //プレイヤーのパラメーター用変数
-    public GameObject playerSide;                //プレイヤーの陣地（タワーに当たる場所）
-    [SerializeField] TextMeshProUGUI text_Hp;    //プレイヤー（タワー）のHP用テキスト
-    [SerializeField] TextMeshProUGUI text_Point; //ポイント用テキスト
-    public TextMeshProUGUI text_EnemyNum;        //現在の敵の数用テキスト
+    public GameObject playerSide;                         //プレイヤーの陣地（タワーに当たる場所）
+    [SerializeField] TextMeshProUGUI text_Hp;             //プレイヤー（タワー）のHP用テキスト
+    [SerializeField] TextMeshProUGUI text_UnitNum;        //配置しているユニット数用テキスト
+    [SerializeField] TextMeshProUGUI text_SameMaxUnitNum; //同じユニットの最大配置数用テキスト
+    [SerializeField] TextMeshProUGUI text_Point;          //ポイント用テキスト
+    public TextMeshProUGUI text_EnemyNum;                 //現在の敵の数用テキスト
     int maxPlayerHp;
     public int playerHp;
+    public int battleUnitNum;
+    int maxInstallation;
+    int sameUnitMaxInstallation;
     int maxPoint;
     public int point;
 
@@ -40,18 +45,21 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] PullUnit unitPullButton;                   //ユニットを持ってくるボタン
     GameObject[] battleUnitPrefab;                              //ボタンから生成されるユニットのPrefab
     Vector3 pullUnitSizeOffset = new Vector3(0.4f, 0.4f, 0.4f); //ユニットを持った場合にかけるサイズ補正
-    float dragTimeScale = 0.4f;                       //ユニットをドラッグしている時の時間が進む速度
-    GameObject dragUnit;                              //現在ドラッグしているユニット
-    int dragUnitIndex;                                //ドラッグしているユニットの要素番号
-    [SerializeField] GameObject unitZoneParent;       //ユニットの配置場所の親オブジェクト
-    [SerializeField] GameObject floorParent;          //敵が通る道の親オブジェクト
-    UnitZone[] unitZone;                              //ユニットの配置場所
-    public bool place_UnitZone { get; private set; }  //現在ドラッグしているユニットがどこに配置できるか
-    public bool place_Floor { get; private set; }     //現在ドラッグしているユニットがどこに配置できるか
+    float dragTimeScale = 0.4f;                             //ユニットをドラッグしている時の時間が進む速度
+    GameObject dragUnit;                                    //現在ドラッグしているユニット
+    int dragUnitIndex;                                      //ドラッグしているユニットの要素番号
+    int[] unitInstallationCount;                            //ユニットの配置数カウント
+    public bool[] unitMaxInstallation { get; private set; } //ユニットが最大配置数に達しているか
 
-    BattleUnit_Base[] battleUnitStatus;               //配置されている各ユニットのステータス
-    [System.NonSerialized] public int[] unitCost;     //各ユニットのコスト
-    [System.NonSerialized] public float[] unitRecast; //各ユニットのリキャスト
+    [SerializeField] GameObject unitZoneParent;             //ユニットの配置場所の親オブジェクト
+    [SerializeField] GameObject floorParent;                //敵が通る道の親オブジェクト
+    UnitZone[] unitZone;                                    //ユニットの配置場所
+    public bool place_UnitZone { get; private set; }        //現在ドラッグしているユニットがどこに配置できるか
+    public bool place_Floor { get; private set; }           //現在ドラッグしているユニットがどこに配置できるか
+
+    BattleUnit_Base[] battleUnitStatus;                     //配置されている各ユニットのステータス
+    [System.NonSerialized] public int[] unitCost;           //各ユニットのコスト
+    [System.NonSerialized] public float[] unitRecast;       //各ユニットのリキャスト
 
     [Space(10)]
 
@@ -70,12 +78,13 @@ public class BattleManager : Singleton<BattleManager>
     public float timer_EnemySpawn { get; private set; }
 
     //ゲームの状態を表すフラグ
-    public bool isMainGame, isClear, isGameOver, isUnitDrag, isUnitPlace, isOnMouseUnitZone;
+    public bool isMainGame, isClear, isGameOver, isMaxInstallation, isUnitDrag, isUnitPlace, isOnMouseUnitZone;
 
     void Start()
     {
-        //デバッグ用　キャラをロード
+        //デバッグ用　初期ステータスを設定
         ParameterManager.Instance.maxUnitPossession = 5;
+        ParameterManager.Instance.sameUnitMaxInstallation = 3;
         ParameterManager.Instance.AddUnit(0);
         ParameterManager.Instance.AddUnit(1);
         ParameterManager.Instance.AddUnit(2);
@@ -86,6 +95,10 @@ public class BattleManager : Singleton<BattleManager>
         maxPlayerHp = ParameterManager.Instance.hp;
         playerHp = maxPlayerHp;
         text_Hp.text = playerHp.ToString();
+        maxInstallation = ParameterManager.Instance.maxInstallation;
+        text_UnitNum.text = battleUnitNum.ToString() + " / " + maxInstallation.ToString();
+        sameUnitMaxInstallation = ParameterManager.Instance.sameUnitMaxInstallation;
+        text_SameMaxUnitNum.text = "MaxUnit : " + sameUnitMaxInstallation;
         maxPoint = ParameterManager.Instance.point;
         point = maxPoint;
         text_Point.text = point.ToString();
@@ -138,6 +151,8 @@ public class BattleManager : Singleton<BattleManager>
         }
         //ユニットの配置場所の数に合わせて配置可能ユニット数を決定
         battleUnitStatus = new BattleUnit_Base[unitZone.Length];
+        unitInstallationCount = new int[unitZone.Length];
+        unitMaxInstallation = new bool[unitZone.Length];
 
         //Canvasの表示
         canvas = new GameObject[canvasParent.transform.childCount];
@@ -207,6 +222,7 @@ public class BattleManager : Singleton<BattleManager>
 
         //ステータスを読み込み
         battleUnitStatus[zoneIndex] = dragUnit.GetComponent<BattleUnit_Base>();
+        battleUnitStatus[zoneIndex].unitIndex = unitIndex;
         battleUnitStatus[zoneIndex].zoneIndex = zoneIndex;
         battleUnitStatus[zoneIndex].role = ParameterManager.Instance.unitStatus[unitIndex].role;
         battleUnitStatus[zoneIndex].maxHp = ParameterManager.Instance.unitStatus[unitIndex].hp;
@@ -232,6 +248,15 @@ public class BattleManager : Singleton<BattleManager>
 
         //時間の速さを戻す
         Time.timeScale = 1f;
+
+        //現在のユニット配置数を増やしてUIに反映
+        battleUnitNum++;
+        text_UnitNum.text = battleUnitNum.ToString() + " / " + maxInstallation.ToString();
+
+        //ユニットの配置数をカウント、最大の場合はこれ以上配置できなくする
+        isMaxInstallation = (battleUnitNum >= maxInstallation) ? true : false;
+        unitInstallationCount[unitIndex] = Mathf.Min(unitInstallationCount[unitIndex] + 1, sameUnitMaxInstallation);
+        if (unitInstallationCount[unitIndex] >= sameUnitMaxInstallation) unitMaxInstallation[unitIndex] = true;
 
         place_UnitZone = false;
         place_Floor = false;
@@ -295,6 +320,16 @@ public class BattleManager : Singleton<BattleManager>
     {
         if (!unitZone[zoneIndex].placed) return;
 
+        //現在のユニット配置数を減らしてUIに反映
+        battleUnitNum--;
+        text_UnitNum.text = battleUnitNum.ToString() + " / " + maxInstallation.ToString();
+
+        //ユニットの配置数をカウント
+        isMaxInstallation = (battleUnitNum >= maxInstallation) ? true : false;
+        unitInstallationCount[battleUnitStatus[zoneIndex].unitIndex] = Mathf.Max(unitInstallationCount[0] - 1, 0);
+        unitMaxInstallation[battleUnitStatus[zoneIndex].unitIndex] = false;
+
+        //ユニットを削除
         battleUnitStatus[zoneIndex].Out();
         battleUnitStatus[zoneIndex] = null;
 

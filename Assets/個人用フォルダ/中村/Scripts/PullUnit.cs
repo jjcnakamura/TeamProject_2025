@@ -29,7 +29,7 @@ public class PullUnit : MonoBehaviour
     float timer_Recast;                               //リキャスト用タイマー
 
     //状態を表すフラグ
-    bool isNoPoint, isRecast, isDrag;
+    bool isNoPull, isRecast, isDrag;
 
     void Start()
     {
@@ -51,16 +51,19 @@ public class PullUnit : MonoBehaviour
     {
         if (!BattleManager.Instance.isMainGame) return; //メインゲーム中でなければ戻る
 
-        //コスト用のポイントが足りていない場合はtrueになる
-        isNoPoint = (BattleManager.Instance.point < BattleManager.Instance.unitCost[index]) ? true : false;
+        //コスト用のポイントが足りていない、またはユニットの配置数が最大の場合はtrueになる
+        isNoPull = (BattleManager.Instance.point < BattleManager.Instance.unitCost[index] ||
+                    BattleManager.Instance.isMaxInstallation ||
+                    BattleManager.Instance.unitMaxInstallation[index]) ?
+                    true : false;
 
         //クリック不可能フラグが立っている場合は位置を下げ、クリック不可能オブジェクトを表示
-        if  (isNoPoint && !noClickWindow.activeSelf || isRecast && !noClickWindow.activeSelf)
+        if  (isNoPull && !noClickWindow.activeSelf || isRecast && !noClickWindow.activeSelf)
         {
             image.localPosition = noClickPos;
             noClickWindow.SetActive(true);
         }
-        else if (!isNoPoint && !isRecast && noClickWindow.activeSelf)
+        else if (!isNoPull && !isRecast && noClickWindow.activeSelf)
         {
             image.localPosition = defaultPos;
             noClickWindow.SetActive(false);
@@ -110,7 +113,7 @@ public class PullUnit : MonoBehaviour
     //マウスクリックでユニットを持つ
     void OnMouseDown()
     {
-        if (isNoPoint || isRecast || isDrag) return;
+        if (isNoPull || isRecast || isDrag) return;
 
         BattleManager.Instance.PullUnit(index);
         isDrag = true;
