@@ -82,8 +82,11 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
 
         if (!isInterval)
         {
-            //攻撃してインターバル開始
+            //攻撃
             bool dead = targetEnemy.Damage(value);
+            //エフェクトを敵の位置に生成
+            Instantiate(effect).transform.position = targetEnemy.transform.position;
+            //インターバル開始
             timer_Interval = 0;
             isInterval = true;
 

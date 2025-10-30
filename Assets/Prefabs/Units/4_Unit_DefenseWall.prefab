@@ -94,11 +94,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ca68e5e0327f445bbdd3d76da5c33e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  model: {fileID: 4318132627793925815}
   col_Body: {fileID: 8413363649107456905}
+  effect: {fileID: 1334071670866236, guid: 89e2315b9dc772e4b8004312a2f740f9, type: 3}
+  effect_Buff: {fileID: 1881552412633134, guid: cd2212416cb1fc84e945d11655f1b6e5, type: 3}
+  effect_Debuff: {fileID: 1881552412633134, guid: ac6cc6f0170229b41addd57a34c0f181, type: 3}
   zoneIndex: 0
   role: 0
   maxHp: 0
   hp: 0
+  defaultValue: 0
   value: 0
   interval: 0
   distance: 0
@@ -106,8 +111,14 @@ MonoBehaviour:
   isBattle: 0
   isRotation: 0
   isTarget: 0
-  isStatusChange: 0
+  isBuff: 0
+  isDebuff: 0
   isDead: 0
+--- !u!1 &4318132627793925815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6471128793069397704, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
+  m_PrefabInstance: {fileID: 7071504520334438527}
+  m_PrefabAsset: {fileID: 0}
 --- !u!65 &8413363649107456905 stripped
 BoxCollider:
   m_CorrespondingSourceObject: {fileID: 1648671835549697014, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}

@@ -8,9 +8,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 240579805814298295, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
+      propertyPath: effect
+      value: 
+      objectReference: {fileID: 1575721338728490, guid: 614798357ad983e40b76f694cd8b443a, type: 3}
     - target: {fileID: 4634727374821315743, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
       propertyPath: m_Name
-      value: 0_ShortAttack Variant
+      value: 0_Unit_LongAttack
       objectReference: {fileID: 0}
     - target: {fileID: 4782872058123386143, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
       propertyPath: m_LocalPosition.x

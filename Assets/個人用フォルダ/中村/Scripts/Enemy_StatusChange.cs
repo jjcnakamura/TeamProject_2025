@@ -54,6 +54,14 @@ public class Enemy_StatusChange : Enemy_Base
 
         if (flag)
         {
+            for (int i = buffEnemy.Count - 1; i >= 0; i--)
+            {
+                if (buffEnemy[i] == targetEnemy)
+                {
+                    return;
+                }
+            }
+
             targetEnemy.StatusChange(defaultValue, true);
             buffEnemy.Add(targetEnemy);
         }
@@ -81,6 +89,14 @@ public class Enemy_StatusChange : Enemy_Base
 
         if (flag)
         {
+            for (int i = debuffUnit.Count - 1; i >= 0; i--)
+            {
+                if (debuffUnit[i] == targetUnit)
+                {
+                    return;
+                }
+            }
+
             targetUnit.StatusChange(-defaultValue, true);
             debuffUnit.Add(targetUnit);
         }
@@ -144,7 +160,7 @@ public class Enemy_StatusChange : Enemy_Base
             if (buff)
             {
                 //ƒoƒt‚ð‰ðœ
-                for (int i = debuffUnit.Count - 1; i >= 0; i--)
+                for (int i = buffEnemy.Count - 1; i >= 0; i--)
                 {
                     buffEnemy[i].StatusChange(defaultValue, false);
                 }

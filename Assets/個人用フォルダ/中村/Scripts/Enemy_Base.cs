@@ -9,8 +9,11 @@ public class Enemy_Base : MonoBehaviour
 {
     [Header("Enemy_Base")]
 
-    public GameObject model;     //3Dモデル
-    public BoxCollider col_Body; //Collider
+    public GameObject model;         //3Dモデル
+    public BoxCollider col_Body;     //Collider
+    public GameObject effect;        //攻撃や回復のエフェクト
+    public GameObject effect_Buff;   //バフ中のエフェクト
+    public GameObject effect_Debuff; //デバフ中のエフェクト
 
     [Space(10)]
 
@@ -39,6 +42,7 @@ public class Enemy_Base : MonoBehaviour
     List<int> debuffValue = new List<int>();
     int maxBuffValue, minDebuffValue;
     int buffNum, deBuffNum;
+    GameObject buffObj, debuffObj;
 
     //HPバー
     [System.NonSerialized] public GameObject hpbarObj;
@@ -51,6 +55,16 @@ public class Enemy_Base : MonoBehaviour
 
     protected virtual void Start()
     {
+        //バフ、デバフ用のエフェクトを生成
+        buffObj = Instantiate(effect_Buff);
+        buffObj.transform.position = transform.position;
+        buffObj.transform.SetParent(transform);
+        buffObj.SetActive(false);
+        debuffObj = Instantiate(effect_Debuff);
+        debuffObj.transform.position = transform.position;
+        debuffObj.transform.SetParent(transform);
+        debuffObj.SetActive(false);
+
         isMove = true;
         isDeadCheck = true;
     }
@@ -133,6 +147,9 @@ public class Enemy_Base : MonoBehaviour
                     value = Mathf.Max(defaultValue + val + minDebuffValue, 1);
                 }
 
+                //エフェクトを表示
+                buffObj.SetActive(true);
+
                 isBuff = true;
             }
             //バフを解除する
@@ -175,6 +192,9 @@ public class Enemy_Base : MonoBehaviour
                     maxBuffValue = 0;
                     value = Mathf.Max(defaultValue + val + minDebuffValue, 1);
 
+                    //エフェクトを非表示
+                    buffObj.SetActive(false);
+
                     isBuff = false;
                 }
             }
@@ -195,6 +215,9 @@ public class Enemy_Base : MonoBehaviour
                     minDebuffValue = val;
                     value = Mathf.Max(defaultValue + val + maxBuffValue, 1);
                 }
+
+                //エフェクトを表示
+                debuffObj.SetActive(true);
 
                 isDebuff = true;
             }
@@ -237,6 +260,9 @@ public class Enemy_Base : MonoBehaviour
                 {
                     minDebuffValue = 0;
                     value = defaultValue + maxBuffValue;
+
+                    //エフェクトを非表示
+                    debuffObj.SetActive(false);
 
                     isDebuff = false;
                 }

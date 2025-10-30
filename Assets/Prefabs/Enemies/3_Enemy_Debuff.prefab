@@ -81,7 +81,7 @@ PrefabInstance:
     - target: {fileID: 2642806894774833271, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
       propertyPath: enemy
       value: 
-      objectReference: {fileID: 5719656364548725469}
+      objectReference: {fileID: 0}
     - target: {fileID: 2675285824663481564, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
       propertyPath: enemy_StatusChange
       value: 
@@ -193,19 +193,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 7148128306930737902}
   col_Body: {fileID: 1500037000240121731}
-  maxHp: 0
-  hp: 0
-  defaultValue: 0
-  value: 0
+  effect: {fileID: 1334071670866236, guid: 89e2315b9dc772e4b8004312a2f740f9, type: 3}
+  effect_Buff: {fileID: 1881552412633134, guid: cd2212416cb1fc84e945d11655f1b6e5, type: 3}
+  effect_Debuff: {fileID: 1881552412633134, guid: ac6cc6f0170229b41addd57a34c0f181, type: 3}
+  maxHp: 10
+  hp: 10
+  defaultValue: 1
+  value: 1
   interval: 0
-  distance: 0
+  distance: 8
   range: 0
-  moveSpeed: 0
-  knockBackTime: 0
+  moveSpeed: 2
+  knockBackTime: 1
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
-  isMove: 0
+  isMove: 1
   isRotation: 0
   isTarget: 0
   isKnockBack: 0

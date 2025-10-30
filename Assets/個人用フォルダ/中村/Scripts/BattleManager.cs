@@ -63,8 +63,8 @@ public class BattleManager : Singleton<BattleManager>
 
     //敵のルート表示用変数
     public GameObject enemyRouteArrow;
-    public int preEnemySpawnTime = 4;
-    public int enemyRouteActiveTime = 3;
+    public float preEnemySpawnTime = 5;
+    public float enemyRouteActiveTime = 4;
 
     //敵出現のdisplay時間をカウントするタイマー
     public float timer_EnemySpawn { get; private set; }

@@ -97,6 +97,7 @@ public class EnemySpawnPoint : MonoBehaviour
 
         //敵のルートを指定した秒数表示
         GenerateRouteLine(index);
+        float mod = BattleManager.Instance.enemyRouteActiveTime % 1f;
         for (int i = 0; i < BattleManager.Instance.enemyRouteActiveTime; i++)
         {
             routeLineParent[index].SetActive(true);
@@ -104,6 +105,8 @@ public class EnemySpawnPoint : MonoBehaviour
             routeLineParent[index].SetActive(false);
             yield return new WaitForSeconds(0.5f);
         }
+        routeLineParent[index].SetActive(false);
+        yield return new WaitForSeconds(mod);
         GenerateRouteLine(index, true);
         yield return new WaitForSeconds(BattleManager.Instance.preEnemySpawnTime - BattleManager.Instance.enemyRouteActiveTime);
 

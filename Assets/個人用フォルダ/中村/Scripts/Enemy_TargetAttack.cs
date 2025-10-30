@@ -92,8 +92,11 @@ public class Enemy_TargetAttack : Enemy_Base
         {
             if (!isInterval)
             {
-                //攻撃してインターバル開始
+                //攻撃
                 bool dead = targetUnit.Damage(value);
+                //エフェクトを攻撃ユニットの位置に生成
+                Instantiate(effect).transform.position = targetUnit.transform.position;
+                //インターバル開始
                 timer_Interval = 0;
                 isInterval = true;
 

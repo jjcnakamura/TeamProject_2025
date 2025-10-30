@@ -199,6 +199,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 6471128793069397704}
   col_Body: {fileID: 1648671835549697014}
+  effect: {fileID: 1334071670866236, guid: 89e2315b9dc772e4b8004312a2f740f9, type: 3}
+  effect_Buff: {fileID: 1881552412633134, guid: cd2212416cb1fc84e945d11655f1b6e5, type: 3}
+  effect_Debuff: {fileID: 1881552412633134, guid: ac6cc6f0170229b41addd57a34c0f181, type: 3}
   zoneIndex: 0
   role: 0
   maxHp: 0
