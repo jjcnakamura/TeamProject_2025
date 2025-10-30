@@ -73,25 +73,33 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
     //攻撃
     void Attack()
     {
-        if (!isTarget || targetEnemy == null) return;
+        if (!isTarget) return;
 
-        //狙う敵の方向を向く
-        Quaternion targetDir = Quaternion.LookRotation(targetEnemy.transform.position - transform.position);
-        Quaternion lookDir = new Quaternion(transform.rotation.x, targetDir.y, transform.rotation.z, targetDir.w);
-        DirectionChange(lookDir);
-
-        if (!isInterval)
+        if (targetEnemy != null)
         {
-            //攻撃
-            bool dead = targetEnemy.Damage(value);
-            //エフェクトを敵の位置に生成
-            Instantiate(effect).transform.position = targetEnemy.transform.position;
-            //インターバル開始
-            timer_Interval = 0;
-            isInterval = true;
+            //狙う敵の方向を向く
+            Quaternion targetDir = Quaternion.LookRotation(targetEnemy.transform.position - transform.position);
+            Quaternion lookDir = new Quaternion(transform.rotation.x, targetDir.y, transform.rotation.z, targetDir.w);
+            DirectionChange(lookDir);
 
-            //敵がダメージで死亡した場合はターゲットを止める
-            if (dead) Target();
+            if (!isInterval)
+            {
+                //攻撃
+                bool dead = targetEnemy.Damage(value);
+                //エフェクトを敵の位置に生成
+                Instantiate(effect).transform.position = targetEnemy.transform.position;
+                //インターバル開始
+                timer_Interval = 0;
+                isInterval = true;
+
+                //敵がダメージで死亡した場合はターゲットを止める
+                if (dead) Target();
+            }
+        }
+        else
+        {
+            //敵が存在しない場合はターゲットを止める
+            Target();
         }
     }
     //攻撃のインターバル
