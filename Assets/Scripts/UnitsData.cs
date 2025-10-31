@@ -31,6 +31,7 @@ public class UnitsData : Singleton<UnitsData>
         public string name;         //キャラ名
         public int role;            //ロール　0がDPS、1がタンク、2がサポート
         public int cost;            //設置時のコスト
+        public int upCost;          //同じユニットを複数置く場合のコスト増加量
         public int recast;          //再配置までの時間
         public int hp;              //耐久値（最大HP）
         public int value;           //DPSの場合は攻撃力、サポートの場合は回復量、ポイント増加量など

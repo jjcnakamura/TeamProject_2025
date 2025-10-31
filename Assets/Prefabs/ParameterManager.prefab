@@ -164,6 +164,7 @@ MonoBehaviour:
     name: "\u9060\u8DDD\u96E2\u30DE\u30F3"
     role: 0
     cost: 16
+    upCost: 6
     recast: 20
     hp: 10
     value: 4
@@ -178,6 +179,7 @@ MonoBehaviour:
     name: "\u8FD1\u8DDD\u96E2\u30DE\u30F3"
     role: 0
     cost: 12
+    upCost: 6
     recast: 20
     hp: 10
     value: 6
@@ -192,6 +194,7 @@ MonoBehaviour:
     name: "\u653B\u6483\u58C1\u30DE\u30F3"
     role: 1
     cost: 10
+    upCost: 9
     recast: 20
     hp: 50
     value: 1
@@ -206,6 +209,7 @@ MonoBehaviour:
     name: "\u9632\u5FA1\u58C1\u30DE\u30F3"
     role: 2
     cost: 18
+    upCost: 9
     recast: 30
     hp: 80
     value: 0
@@ -220,6 +224,7 @@ MonoBehaviour:
     name: "\u30DD\u30A4\u30F3\u30C8\u5897\u52A0\u30DE\u30F3"
     role: 2
     cost: 6
+    upCost: 3
     recast: 15
     hp: 20
     value: 6

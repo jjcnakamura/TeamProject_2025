@@ -65,6 +65,7 @@ public class ParameterManager : Singleton<ParameterManager>
         unitStatus[index].exp = 0;                                         //所持経験値
 
         unitStatus[index].cost = UnitsData.Instance.unit[id].cost;         //設置時のコスト
+        unitStatus[index].upCost = UnitsData.Instance.unit[id].upCost;     //同じユニットを複数置く場合のコスト増加量
         unitStatus[index].recast = UnitsData.Instance.unit[id].recast;     //再配置までの時間
 
         unitStatus[index].hp = UnitsData.Instance.unit[id].hp;             //耐久値（最大HP）
@@ -93,6 +94,7 @@ public class ParameterManager : Singleton<ParameterManager>
         public int exp;             //所持経験値
 
         public int cost;            //設置時のコスト
+        public int upCost;          //同じユニットを複数置く場合のコスト増加量
         public int recast;          //再配置までの時間
 
         public int hp;              //耐久値（最大HP）

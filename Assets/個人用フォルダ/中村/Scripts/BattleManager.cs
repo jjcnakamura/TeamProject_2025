@@ -42,7 +42,8 @@ public class BattleManager : Singleton<BattleManager>
 
     //ユニットのパラメーター用変数
     [SerializeField] GameObject unitPullButtonParent;           //ユニットを持ってくるボタンの親オブジェクト
-    [SerializeField] PullUnit unitPullButton;                   //ユニットを持ってくるボタン
+    [SerializeField] PullUnit unitPullButtonPrefab;             //ユニットを持ってくるボタン
+    [SerializeField] PullUnit[] unitPullButton;                 //ユニットを持ってくるボタン
     GameObject[] battleUnitPrefab;                              //ボタンから生成されるユニットのPrefab
     Vector3 pullUnitSizeOffset = new Vector3(0.4f, 0.4f, 0.4f); //ユニットを持った場合にかけるサイズ補正
     float dragTimeScale = 0.4f;                             //ユニットをドラッグしている時の時間が進む速度
@@ -114,23 +115,24 @@ public class BattleManager : Singleton<BattleManager>
 
         //ユニットを持ってくるボタンをUI上に配置
         foreach (Transform n in unitPullButtonParent.transform) Destroy(n.gameObject); //全ての子オブジェクトを削除
+        unitPullButton = new PullUnit[battleUnitPrefab.Length];
         unitCost = new int[battleUnitPrefab.Length];
         unitRecast = new float[battleUnitPrefab.Length];
         for (int i = 0; i < battleUnitPrefab.Length; i++)
         {
             //インスタンスを生成
-            PullUnit pullUnit = Instantiate(unitPullButton);
-            pullUnit.transform.SetParent(unitPullButtonParent.transform);
+            unitPullButton[i] = Instantiate(unitPullButtonPrefab);
+            unitPullButton[i].transform.SetParent(unitPullButtonParent.transform);
 
             //サイズが崩れないように調整
-            RectTransform rect = pullUnit.GetComponent<RectTransform>();
+            RectTransform rect = unitPullButton[i].GetComponent<RectTransform>();
             rect.localPosition = new Vector3(rect.localPosition.x, rect.localPosition.y, 0);
-            pullUnit.transform.rotation = new Quaternion();
-            pullUnit.transform.localScale = new Vector3(1, 1, 1);
+            unitPullButton[i].transform.rotation = new Quaternion();
+            unitPullButton[i].transform.localScale = new Vector3(1, 1, 1);
 
             //キャラID、コスト、リキャストを割り当て
-            pullUnit.index = i;
-            pullUnit.text_Cost.text = ParameterManager.Instance.unitStatus[i].cost.ToString();
+            unitPullButton[i].index = i;
+            unitPullButton[i].text_Cost.text = ParameterManager.Instance.unitStatus[i].cost.ToString();
             unitCost[i] = ParameterManager.Instance.unitStatus[i].cost;
             unitRecast[i] = ParameterManager.Instance.unitStatus[i].recast;
         }
@@ -243,8 +245,10 @@ public class BattleManager : Singleton<BattleManager>
         battleUnitHpbar.targetUnit = battleUnitStatus[zoneIndex];
         battleUnitStatus[zoneIndex].hpbarObj = battleUnitHpbar.gameObject;
 
-        //コスト分のポイントを減らす
-        PointChange(-ParameterManager.Instance.unitStatus[unitIndex].cost);
+        //コスト分のポイントを減らして再配置のコストを増やしてUIに反映
+        PointChange(-unitCost[unitIndex]);
+        unitCost[unitIndex] += ParameterManager.Instance.unitStatus[unitIndex].upCost;
+        unitPullButton[unitIndex].text_Cost.text = unitCost[unitIndex].ToString();
 
         //時間の速さを戻す
         Time.timeScale = 1f;
@@ -319,6 +323,10 @@ public class BattleManager : Singleton<BattleManager>
     public void OutUnit(int zoneIndex)
     {
         if (!unitZone[zoneIndex].placed) return;
+
+        //同ユニットの配置コストを減らしてUIに反映
+        unitCost[battleUnitStatus[zoneIndex].unitIndex] -= ParameterManager.Instance.unitStatus[battleUnitStatus[zoneIndex].unitIndex].upCost;
+        unitPullButton[battleUnitStatus[zoneIndex].unitIndex].text_Cost.text = unitCost[battleUnitStatus[zoneIndex].unitIndex].ToString();
 
         //現在のユニット配置数を減らしてUIに反映
         battleUnitNum--;
