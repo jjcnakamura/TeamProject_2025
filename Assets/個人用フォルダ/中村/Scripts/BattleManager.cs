@@ -206,6 +206,9 @@ public class BattleManager : Singleton<BattleManager>
             targetAttack.mesh_AttackZone.enabled = true;
         }
 
+        //ボタンを非表示
+        unitPullButtonParent.SetActive(false);
+
         //どこに配置出来るか
         place_UnitZone = ParameterManager.Instance.unitStatus[unitIndex].place_UnitZone;
         place_Floor = ParameterManager.Instance.unitStatus[unitIndex].place_Floor;
@@ -220,6 +223,9 @@ public class BattleManager : Singleton<BattleManager>
 
         //時間の速さを戻す
         Time.timeScale = 1f;
+
+        //ボタンを再表示
+        unitPullButtonParent.SetActive(true);
 
         place_UnitZone = false;
         place_Floor = false;
@@ -262,6 +268,9 @@ public class BattleManager : Singleton<BattleManager>
         {
             targetAttack.mesh_AttackZone.enabled = false;
         }
+
+        //ボタンを再表示
+        unitPullButtonParent.SetActive(true);
 
         //コスト分のポイントを減らして再配置のコストを増やしてUIに反映
         PointChange(-unitCost[unitIndex]);

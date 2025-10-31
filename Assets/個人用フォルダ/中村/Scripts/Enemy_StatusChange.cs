@@ -28,7 +28,7 @@ public class Enemy_StatusChange : Enemy_Base
         base.Start(); //基底クラスのStart
 
         //Colliderの位置とサイズを決める
-        col_AttackZone.transform.localScale = new Vector3(distance, col_Body.size.y, distance);
+        col_AttackZone.transform.localScale = new Vector3(distance, col_AttackZone.transform.localScale.y, distance);
         mesh_AttackZone = col_AttackZone.GetComponent<MeshRenderer>();
         mesh_AttackZone.enabled = false;
 
