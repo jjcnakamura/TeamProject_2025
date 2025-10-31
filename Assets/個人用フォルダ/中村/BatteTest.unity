@@ -4440,7 +4440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1094035184375601238, guid: bb47a44f09c7cd347868cc79dfa1f612, type: 3}
       propertyPath: enemyStatus.Array.data[2].distance
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1094035184375601238, guid: bb47a44f09c7cd347868cc79dfa1f612, type: 3}
       propertyPath: enemyStatus.Array.data[2].interval

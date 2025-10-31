@@ -196,6 +196,16 @@ public class BattleManager : Singleton<BattleManager>
         dragUnit.transform.localScale -= pullUnitSizeOffset;
         dragUnit.transform.rotation = new Quaternion(0, 180f, 0, 0);
 
+        //Colliderのサイズを決定、攻撃範囲を表示
+        BattleUnit_TargetAttack targetAttack = dragUnit.GetComponent<BattleUnit_TargetAttack>();
+        if (targetAttack != null)
+        {
+            targetAttack.col_AttackZone.transform.localScale = new Vector3(ParameterManager.Instance.unitStatus[unitIndex].distance,
+                                                                           targetAttack.col_AttackZone.transform.localScale.y,
+                                                                           ParameterManager.Instance.unitStatus[unitIndex].distance);
+            targetAttack.mesh_AttackZone.enabled = true;
+        }
+
         //どこに配置出来るか
         place_UnitZone = ParameterManager.Instance.unitStatus[unitIndex].place_UnitZone;
         place_Floor = ParameterManager.Instance.unitStatus[unitIndex].place_Floor;
@@ -245,6 +255,13 @@ public class BattleManager : Singleton<BattleManager>
         battleUnitHpbar.transform.localRotation = new Quaternion();
         battleUnitHpbar.targetUnit = battleUnitStatus[zoneIndex];
         battleUnitStatus[zoneIndex].hpbarObj = battleUnitHpbar.gameObject;
+
+        //攻撃範囲を非表示
+        BattleUnit_TargetAttack targetAttack = dragUnit.GetComponent<BattleUnit_TargetAttack>();
+        if (targetAttack != null)
+        {
+            targetAttack.mesh_AttackZone.enabled = false;
+        }
 
         //コスト分のポイントを減らして再配置のコストを増やしてUIに反映
         PointChange(-unitCost[unitIndex]);

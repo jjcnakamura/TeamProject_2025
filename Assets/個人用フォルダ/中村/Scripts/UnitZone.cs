@@ -47,7 +47,8 @@ public class UnitZone : MonoBehaviour
         if (!unitDrag && BattleManager.Instance.isUnitDrag)
         {
             unitDrag = true;
-            placeGuide.SetActive(unitZone && BattleManager.Instance.place_UnitZone || !unitZone && BattleManager.Instance.place_Floor);
+            placeGuide.SetActive(!placed && unitZone && BattleManager.Instance.place_UnitZone ||
+                                 !placed && !unitZone && BattleManager.Instance.place_Floor);
         }
         else if (unitDrag && !BattleManager.Instance.isUnitDrag)
         {
