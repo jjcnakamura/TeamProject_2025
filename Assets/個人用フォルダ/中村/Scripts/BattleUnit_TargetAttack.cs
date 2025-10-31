@@ -7,7 +7,8 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
     [Header("BattleUnit_TargetAttack")]
 
     //Collider
-    public BoxCollider col_AttackZone;
+    public CapsuleCollider col_AttackZone;
+    public MeshRenderer mesh_AttackZone;
 
     //攻撃の対象にしている敵
     Collider targetEnemyCol;
@@ -18,18 +19,6 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
 
     //状態を表すフラグ
     public bool isStart, isInterval;
-
-    protected override void Update()
-    {
-        base.Update(); //基底クラスのUpdate
-
-        //最初にステージ上に配置された場合にColliderのサイズを決める
-        if (!isStart && isBattle)
-        {
-            col_AttackZone.size = new Vector3(distance, col_Body.size.y, distance);
-            isStart = true;
-        }
-    }
 
     protected override void FixedUpdate()
     {

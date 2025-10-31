@@ -169,7 +169,7 @@ MonoBehaviour:
     hp: 10
     value: 4
     interval: 2
-    distance: 18
+    distance: 14
     range: 0
     place_UnitZone: 1
     place_Floor: 0

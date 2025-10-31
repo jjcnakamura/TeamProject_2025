@@ -7,8 +7,9 @@ public class Enemy_TargetAttack : Enemy_Base
     [Header("Enemy_TargetAttack")]
 
     //Collider
-    public BoxCollider col_AttackZone;
+    public CapsuleCollider col_AttackZone;
     public BoxCollider col_AttackZone_Wall;
+    [System.NonSerialized] MeshRenderer mesh_AttackZone;
 
     [Space(10)]
 
@@ -32,9 +33,12 @@ public class Enemy_TargetAttack : Enemy_Base
         base.Start(); //基底クラスのStart
 
         //Colliderの位置とサイズを決める
-        col_AttackZone.size = new Vector3(distance, col_Body.size.y, distance);
+        col_AttackZone.transform.localScale = new Vector3(distance, col_Body.size.y, distance);
+        mesh_AttackZone = col_AttackZone.GetComponent<MeshRenderer>();
+        mesh_AttackZone.enabled = false;
+
         col_AttackZone_Wall.center = new Vector3(0f, 0f, 1f);
-        col_AttackZone_Wall.size = new Vector3(1f, col_AttackZone.size.y, 1f);
+        col_AttackZone_Wall.size = new Vector3(1f, col_Body.size.y, 1f);
     }
 
     protected override void FixedUpdate()
