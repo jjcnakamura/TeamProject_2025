@@ -85,6 +85,7 @@ public class BattleManager : Singleton<BattleManager>
     {
         //デバッグ用　初期ステータスを設定
         ParameterManager.Instance.maxUnitPossession = 5;
+        ParameterManager.Instance.maxInstallation = 10;
         ParameterManager.Instance.sameUnitMaxInstallation = 3;
         ParameterManager.Instance.AddUnit(0);
         ParameterManager.Instance.AddUnit(1);

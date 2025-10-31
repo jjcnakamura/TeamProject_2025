@@ -18,13 +18,19 @@ public class UnitZone : MonoBehaviour
     BoxCollider col;                          //Collider
     public Vector3 unitPoint { get; private set; }
 
+    [SerializeField] GameObject placeGuide; //ユニットドラッグ中に設置可能かを示すオブジェクト
     [SerializeField] GameObject onMouseObj; //マウスホバー時に出現するオブジェクト
+
+    bool unitDrag;         //ユニットがドラッグされているか
     bool onMouse;          //マウスホバー中か
     bool placeOnMouse;     //ユニット配置後にマウスホバー中か
 
     void Start()
     {
         col = GetComponent<BoxCollider>();
+
+        unitDrag = false;
+        placeGuide.SetActive(false);
 
         onMouse = false;
         onMouseObj.SetActive(onMouse);
@@ -36,6 +42,18 @@ public class UnitZone : MonoBehaviour
     void Update()
     {
         if (!BattleManager.Instance.isMainGame) return; //メインゲーム中でなければ戻る
+
+        //ユニットがドラッグされた場合は配置可能の表示を出す
+        if (!unitDrag && BattleManager.Instance.isUnitDrag)
+        {
+            unitDrag = true;
+            placeGuide.SetActive(unitZone && BattleManager.Instance.place_UnitZone || !unitZone && BattleManager.Instance.place_Floor);
+        }
+        else if (unitDrag && !BattleManager.Instance.isUnitDrag)
+        {
+            unitDrag = false;
+            placeGuide.SetActive(false);
+        }
 
         //OnMouseOver
         if (onMouse)
