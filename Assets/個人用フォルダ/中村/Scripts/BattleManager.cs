@@ -98,7 +98,7 @@ public class BattleManager : Singleton<BattleManager>
         maxInstallation = ParameterManager.Instance.maxInstallation;
         text_UnitNum.text = battleUnitNum.ToString() + " / " + maxInstallation.ToString();
         sameUnitMaxInstallation = ParameterManager.Instance.sameUnitMaxInstallation;
-        text_SameMaxUnitNum.text = "MaxUnit : " + sameUnitMaxInstallation;
+        text_SameMaxUnitNum.text = "同ユニット\n配置可数 : " + sameUnitMaxInstallation;
         maxPoint = ParameterManager.Instance.point;
         point = maxPoint;
         text_Point.text = point.ToString();
