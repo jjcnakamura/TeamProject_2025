@@ -47,7 +47,7 @@ public class BattleManager : Singleton<BattleManager>
     GameObject[] battleUnitPrefab;                              //ボタンから生成されるユニットのPrefab
     Vector3 pullUnitSizeOffset = new Vector3(0.7f, 0.7f, 0.7f); //ユニットを持った場合にかけるサイズ補正
     float dragTimeScale = 0.4f;                             //ユニットをドラッグしている時の時間が進む速度
-    GameObject dragUnit;                                    //現在ドラッグしているユニット
+    public GameObject dragUnit { get; private set; }        //現在ドラッグしているユニット
     int dragUnitIndex;                                      //ドラッグしているユニットの要素番号
     int[] unitInstallationCount;                            //ユニットの配置数カウント
     public bool[] unitMaxInstallation { get; private set; } //ユニットが最大配置数に達しているか
@@ -81,7 +81,7 @@ public class BattleManager : Singleton<BattleManager>
     //ゲームの状態を表すフラグ
     public bool isMainGame, isClear, isGameOver, isMaxInstallation, isUnitDrag, isUnitPlace, isOnMouseUnitZone;
 
-    void Start()
+    void Awake()
     {
         //デバッグ用　初期ステータスを設定
         ParameterManager.Instance.maxUnitPossession = 5;
@@ -92,7 +92,10 @@ public class BattleManager : Singleton<BattleManager>
         ParameterManager.Instance.AddUnit(2);
         ParameterManager.Instance.AddUnit(3);
         ParameterManager.Instance.AddUnit(4);
+    }
 
+    void Start()
+    {
         //プレイヤーの初期パラメーターを設定
         maxPlayerHp = ParameterManager.Instance.hp;
         playerHp = maxPlayerHp;
@@ -324,6 +327,9 @@ public class BattleManager : Singleton<BattleManager>
         isMainGame = false;
         isClear = true;
 
+        //時間の速さを戻す
+        Time.timeScale = 1f;
+
         //ステージクリア画面を表示
         canvas[2].SetActive(true);
     }
@@ -332,6 +338,9 @@ public class BattleManager : Singleton<BattleManager>
     {
         isMainGame = false;
         isGameOver = true;
+
+        //時間の速さを戻す
+        Time.timeScale = 1f;
 
         //ゲームオーバー画面を表示
         canvas[3].SetActive(true);

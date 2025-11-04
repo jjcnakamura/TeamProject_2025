@@ -64,6 +64,25 @@ public class PullUnit : MonoBehaviour
         }
         downAlpha = (Mathf.Min(downAlpha, 255) > 0) ? Mathf.Min(downAlpha, 255) / 255 : (Mathf.Min(downAlpha, 255) * -1) / 255;
 
+        //ユニット名を読み込み(仮)
+        for (int i = 0; i < texts.Length; i++)
+        {
+            if (texts[i].text == "Unit\nImage")
+            {
+                texts[i].text = "";
+                string uName = ParameterManager.Instance.unitStatus[index].name;
+                int loop = (uName.Length / 4 > 0) ? (uName.Length / 4) + 1 : 0;
+                for (int j = 0; j < loop; j++)
+                {
+                    int removeNum = (uName.Length >= 4) ? 4 : uName.Length;
+                    texts[i].text += uName.Substring(0, removeNum);
+                    texts[i].text += (j < loop - 1) ? "\n" : "";
+                    uName = uName.Remove(0, removeNum);
+                }
+                break;
+            }
+        }
+
         isEnabled = true;
     }
 
@@ -145,6 +164,8 @@ public class PullUnit : MonoBehaviour
     //マウスクリックでユニットを持つ
     void OnMouseDown()
     {
+        if (!BattleManager.Instance.isMainGame) return; //メインゲーム中でなければ戻る
+
         if (isNoPull || isRecast || isDrag) return;
 
         //全ての子オブジェクトを非表示
@@ -156,6 +177,8 @@ public class PullUnit : MonoBehaviour
     //マウスが離れた場合
     void OnMouseExit()
     {
+        if (!BattleManager.Instance.isMainGame) return; //メインゲーム中でなければ戻る
+
         if (isDrag && !isEnabled)
         {
             //全ての子オブジェクトを再表示

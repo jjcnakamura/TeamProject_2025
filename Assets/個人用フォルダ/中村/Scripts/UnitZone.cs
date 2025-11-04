@@ -21,9 +21,13 @@ public class UnitZone : MonoBehaviour
     [SerializeField] GameObject placeGuide; //ユニットドラッグ中に設置可能かを示すオブジェクト
     [SerializeField] GameObject onMouseObj; //マウスホバー時に出現するオブジェクト
 
+    //Colliderの範囲を表示するユニット
+    BattleUnit_TargetAttack targetAttack;
+
     bool unitDrag;         //ユニットがドラッグされているか
     bool onMouse;          //マウスホバー中か
     bool placeOnMouse;     //ユニット配置後にマウスホバー中か
+    bool colliderDisplay;  //Colliderを表示するか
 
     void Start()
     {
@@ -68,6 +72,14 @@ public class UnitZone : MonoBehaviour
                     {
                         if (!placed)
                         {
+                            //Colliderを表示するオブジェクトならコンポーネントを取得
+                            targetAttack = BattleManager.Instance.dragUnit.GetComponent<BattleUnit_TargetAttack>();
+                            if (targetAttack != null)
+                            {
+                                targetAttack.mesh_AttackZone.enabled = false;
+                                colliderDisplay = true;
+                            }
+
                             BattleManager.Instance.PlaceUnit(index);
                             onMouse = false;
                             onMouseObj.SetActive(onMouse);
@@ -96,6 +108,13 @@ public class UnitZone : MonoBehaviour
                         onMouse = false;
                         onMouseObj.SetActive(onMouse);
 
+                        //Colliderを表示するオブジェクトを削除
+                        if (colliderDisplay)
+                        {
+                            targetAttack = null;
+                            colliderDisplay = false;
+                        }
+
                         //placed = false;
                     }
                 }
@@ -107,6 +126,8 @@ public class UnitZone : MonoBehaviour
             if (!placeOnMouse)
             {
                 onMouse = true;
+
+                //ユニットドラッグ中のマウスホバー中の表示
                 if (BattleManager.Instance.isUnitDrag && !placed)
                 {
                     if (unitZone && BattleManager.Instance.place_UnitZone || !unitZone && BattleManager.Instance.place_Floor)
@@ -114,9 +135,19 @@ public class UnitZone : MonoBehaviour
                         onMouseObj.SetActive(onMouse);
                     }     
                 }
+                //ユニットが配置されている時のマウスホバー中の表示
                 else if (!BattleManager.Instance.isUnitDrag && placed)
                 {
                     onMouseObj.SetActive(onMouse);
+
+                    //Colliderを表示するオブジェクトなら表示
+                    if (colliderDisplay)
+                    {
+                        if (targetAttack != null)
+                        {
+                            targetAttack.mesh_AttackZone.enabled = true;
+                        }
+                    }
                 }
 
                 BattleManager.Instance.isOnMouseUnitZone = true;
@@ -128,6 +159,15 @@ public class UnitZone : MonoBehaviour
             placeOnMouse = false;
             onMouse = false;
             onMouseObj.SetActive(onMouse);
+
+            //Colliderを表示するオブジェクトなら非表示
+            if (colliderDisplay)
+            {
+                if (targetAttack != null)
+                {
+                    targetAttack.mesh_AttackZone.enabled = false;
+                }
+            }
 
             BattleManager.Instance.isOnMouseUnitZone = false;
         }
