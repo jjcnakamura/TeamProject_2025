@@ -59,10 +59,12 @@ public class Enemy_Base : MonoBehaviour
         buffObj = Instantiate(effect_Buff);
         buffObj.transform.position = transform.position;
         buffObj.transform.SetParent(transform);
+        buffObj.transform.localScale = effect_Buff.transform.localScale;
         buffObj.SetActive(false);
         debuffObj = Instantiate(effect_Debuff);
         debuffObj.transform.position = transform.position;
         debuffObj.transform.SetParent(transform);
+        debuffObj.transform.localScale = effect_Debuff.transform.localScale;
         debuffObj.SetActive(false);
 
         isMove = true;
