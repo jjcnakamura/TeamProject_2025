@@ -36,6 +36,7 @@ public class EnemySpawnPoint : MonoBehaviour
             spawnTime[i] = Mathf.Max(enemyStatus[i].spawnTime - BattleManager.Instance.preEnemySpawnTime, 0);
             //敵の総出現数をカウント
             BattleManager.Instance.nowEnemyNum += enemyStatus[i].spawnNum;
+            BattleManager.Instance.text_EnemyNum.text = BattleManager.Instance.nowEnemyNum.ToString();
         }
 
         //敵のルートの表示数を確保

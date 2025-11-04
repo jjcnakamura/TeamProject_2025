@@ -21,7 +21,7 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] TextMeshProUGUI text_UnitNum;        //配置しているユニット数用テキスト
     [SerializeField] TextMeshProUGUI text_SameMaxUnitNum; //同じユニットの最大配置数用テキスト
     [SerializeField] TextMeshProUGUI text_Point;          //ポイント用テキスト
-    public TextMeshProUGUI text_EnemyNum;                 //現在の敵の数用テキスト
+    public           TextMeshProUGUI text_EnemyNum;       //現在の敵の数用テキスト
     int maxPlayerHp;
     public int playerHp;
     public int battleUnitNum;
@@ -45,8 +45,9 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] PullUnit unitPullButtonPrefab;             //ユニットを持ってくるボタン
     [SerializeField] PullUnit[] unitPullButton;                 //ユニットを持ってくるボタン
     GameObject[] battleUnitPrefab;                              //ボタンから生成されるユニットのPrefab
-    Vector3 pullUnitSizeOffset = new Vector3(0.7f, 0.7f, 0.7f); //ユニットを持った場合にかけるサイズ補正
+    Vector3 pullUnitSizeOffset = new Vector3(0.4f, 0.4f, 0.4f); //ユニットを持った場合にかけるサイズ補正
     float dragTimeScale = 0.4f;                             //ユニットをドラッグしている時の時間が進む速度
+    float preTimeScale;                                     //前の時間が進む速度
     public GameObject dragUnit { get; private set; }        //現在ドラッグしているユニット
     int dragUnitIndex;                                      //ドラッグしているユニットの要素番号
     int[] unitInstallationCount;                            //ユニットの配置数カウント
@@ -79,10 +80,13 @@ public class BattleManager : Singleton<BattleManager>
     public float timer_EnemySpawn { get; private set; }
 
     //ゲームの状態を表すフラグ
-    public bool isMainGame, isClear, isGameOver, isMaxInstallation, isUnitDrag, isUnitPlace, isOnMouseUnitZone;
+    public bool isMainGame, isClear, isGameOver, isPause, isMaxInstallation, isUnitDrag, isUnitPlace, isOnMouseUnitZone;
 
     void Awake()
     {
+        //FPSを固定
+        Application.targetFrameRate = 60;
+
         //デバッグ用　初期ステータスを設定
         ParameterManager.Instance.maxUnitPossession = 5;
         ParameterManager.Instance.maxInstallation = 10;
@@ -107,8 +111,6 @@ public class BattleManager : Singleton<BattleManager>
         maxPoint = ParameterManager.Instance.point;
         point = maxPoint;
         text_Point.text = point.ToString();
-
-        text_EnemyNum.text = nowEnemyNum.ToString();
 
         //使用するユニットのPrefabを読み込み
         battleUnitPrefab = new GameObject[ParameterManager.Instance.unitStatus.Length];
@@ -214,6 +216,7 @@ public class BattleManager : Singleton<BattleManager>
         place_Floor = ParameterManager.Instance.unitStatus[unitIndex].place_Floor;
 
         //時間を遅くする
+        preTimeScale = Time.timeScale;
         Time.timeScale = dragTimeScale;
     }
     //ドラッグしているユニットを離す
@@ -222,7 +225,7 @@ public class BattleManager : Singleton<BattleManager>
         Destroy(dragUnit);
 
         //時間の速さを戻す
-        Time.timeScale = 1f;
+        Time.timeScale = preTimeScale;
 
         place_UnitZone = false;
         place_Floor = false;
@@ -272,7 +275,7 @@ public class BattleManager : Singleton<BattleManager>
         unitPullButton[unitIndex].text_Cost.text = unitCost[unitIndex].ToString();
 
         //時間の速さを戻す
-        Time.timeScale = 1f;
+        Time.timeScale = preTimeScale;
 
         //現在のユニット配置数を増やしてUIに反映
         battleUnitNum++;
@@ -391,6 +394,38 @@ public class BattleManager : Singleton<BattleManager>
             isGameOver = true;
 
             GameOver();
+        }
+    }
+
+    /// <summary>
+    /// ポーズボタン
+    /// </summary>
+    public void Pause()
+    {
+        //ポーズ開始
+        if (!isPause)
+        {
+            isPause = true;
+            isMainGame = false;
+
+            //時間を止める
+            preTimeScale = Time.timeScale;
+            Time.timeScale = 0f;
+
+            //ポーズ画面を表示
+            canvas[4].SetActive(true);
+        }
+        //ポーズ終了
+        else
+        {
+            //時間の速さを戻す
+            Time.timeScale = preTimeScale;
+
+            //ポーズ画面を非表示
+            canvas[4].SetActive(false);
+
+            isPause = false;
+            isMainGame = true;
         }
     }
 }

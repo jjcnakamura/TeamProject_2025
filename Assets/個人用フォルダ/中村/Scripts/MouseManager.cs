@@ -5,6 +5,9 @@ using System.Linq;
 
 public class MouseManager : Singleton<MouseManager>
 {
+    //RayをSceneビュー上で表示するか
+    [SerializeField] bool viewRay = false;
+
     //マウスの座標
     public Vector3 mousePos { get; private set; }
     public Vector3 worldPos { get; private set; }
@@ -17,7 +20,7 @@ public class MouseManager : Singleton<MouseManager>
         //マウスカーソルの座標を格納
         mousePos = Input.mousePosition;
         //スクリーン座標をワールド座標に変換
-        worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 5f));
+        worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 10f));
 
         ////////////////////////////////////////////////////////////////////////////////////
 
@@ -40,6 +43,13 @@ public class MouseManager : Singleton<MouseManager>
         else
         {
             mouseRayHits = new RaycastHit();
+        }
+
+        //デバッグ用 Rayを表示
+        if (viewRay)
+        {
+            float maxDistance = 20;
+            Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.green, 5, false);
         }
     }
 }
