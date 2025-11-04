@@ -45,7 +45,7 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] PullUnit unitPullButtonPrefab;             //ユニットを持ってくるボタン
     [SerializeField] PullUnit[] unitPullButton;                 //ユニットを持ってくるボタン
     GameObject[] battleUnitPrefab;                              //ボタンから生成されるユニットのPrefab
-    Vector3 pullUnitSizeOffset = new Vector3(0.4f, 0.4f, 0.4f); //ユニットを持った場合にかけるサイズ補正
+    Vector3 pullUnitSizeOffset = new Vector3(0.7f, 0.7f, 0.7f); //ユニットを持った場合にかけるサイズ補正
     float dragTimeScale = 0.4f;                             //ユニットをドラッグしている時の時間が進む速度
     GameObject dragUnit;                                    //現在ドラッグしているユニット
     int dragUnitIndex;                                      //ドラッグしているユニットの要素番号
@@ -206,9 +206,6 @@ public class BattleManager : Singleton<BattleManager>
             targetAttack.mesh_AttackZone.enabled = true;
         }
 
-        //ボタンを非表示
-        unitPullButtonParent.SetActive(false);
-
         //どこに配置出来るか
         place_UnitZone = ParameterManager.Instance.unitStatus[unitIndex].place_UnitZone;
         place_Floor = ParameterManager.Instance.unitStatus[unitIndex].place_Floor;
@@ -223,9 +220,6 @@ public class BattleManager : Singleton<BattleManager>
 
         //時間の速さを戻す
         Time.timeScale = 1f;
-
-        //ボタンを再表示
-        unitPullButtonParent.SetActive(true);
 
         place_UnitZone = false;
         place_Floor = false;
@@ -268,9 +262,6 @@ public class BattleManager : Singleton<BattleManager>
         {
             targetAttack.mesh_AttackZone.enabled = false;
         }
-
-        //ボタンを再表示
-        unitPullButtonParent.SetActive(true);
 
         //コスト分のポイントを減らして再配置のコストを増やしてUIに反映
         PointChange(-unitCost[unitIndex]);

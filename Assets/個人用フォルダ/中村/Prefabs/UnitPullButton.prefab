@@ -483,8 +483,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
-  image: {fileID: 2336023500322757226}
   noClickOffsetY: 20
+  rect: {fileID: 2336023500322757226}
+  images:
+  - {fileID: 710394742886510490}
+  - {fileID: 6026979269059410194}
+  texts:
+  - {fileID: 7740580447696784904}
+  - {fileID: 8061601227852436313}
+  - {fileID: 20422977340859279}
+  downAlpha: 128
   text_Cost: {fileID: 8061601227852436313}
   text_RecastTime: {fileID: 20422977340859279}
   noClickWindow: {fileID: 6939608905966362161}

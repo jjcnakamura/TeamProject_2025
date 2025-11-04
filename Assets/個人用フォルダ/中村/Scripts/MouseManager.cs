@@ -17,7 +17,7 @@ public class MouseManager : Singleton<MouseManager>
         //マウスカーソルの座標を格納
         mousePos = Input.mousePosition;
         //スクリーン座標をワールド座標に変換
-        worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 10f));
+        worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 5f));
 
         ////////////////////////////////////////////////////////////////////////////////////
 
