@@ -84,9 +84,6 @@ public class BattleManager : Singleton<BattleManager>
 
     void Awake()
     {
-        //FPSを固定
-        Application.targetFrameRate = 60;
-
         //デバッグ用　初期ステータスを設定
         ParameterManager.Instance.maxUnitPossession = 5;
         ParameterManager.Instance.maxInstallation = 10;
@@ -100,6 +97,9 @@ public class BattleManager : Singleton<BattleManager>
 
     void Start()
     {
+        //FPSを固定
+        Application.targetFrameRate = 60;
+
         //プレイヤーの初期パラメーターを設定
         maxPlayerHp = ParameterManager.Instance.hp;
         playerHp = maxPlayerHp;
@@ -327,10 +327,13 @@ public class BattleManager : Singleton<BattleManager>
     //ステージクリア
     void Clear()
     {
+        //ユニットをドラッグしていたら離す
+        LetgoUnit();
+
         isMainGame = false;
         isClear = true;
 
-        //時間の速さを戻す
+        //時間の速さを等速に
         Time.timeScale = 1f;
 
         //ステージクリア画面を表示
@@ -339,10 +342,13 @@ public class BattleManager : Singleton<BattleManager>
     //ゲームオーバー
     void GameOver()
     {
+        //ユニットをドラッグしていたら離す
+        LetgoUnit();
+
         isMainGame = false;
         isGameOver = true;
 
-        //時間の速さを戻す
+        //時間の速さを等速に
         Time.timeScale = 1f;
 
         //ゲームオーバー画面を表示
