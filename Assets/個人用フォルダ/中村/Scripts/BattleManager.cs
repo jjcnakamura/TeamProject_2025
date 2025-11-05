@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
@@ -46,8 +47,6 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] PullUnit[] unitPullButton;                 //ユニットを持ってくるボタン
     GameObject[] battleUnitPrefab;                              //ボタンから生成されるユニットのPrefab
     Vector3 pullUnitSizeOffset = new Vector3(0.4f, 0.4f, 0.4f); //ユニットを持った場合にかけるサイズ補正
-    float dragTimeScale = 0.4f;                             //ユニットをドラッグしている時の時間が進む速度
-    float preTimeScale;                                     //前の時間が進む速度
     public BattleUnit_Base dragUnit { get; private set; }   //現在ドラッグしているユニット
     int dragUnitIndex;                                      //ドラッグしているユニットの要素番号
     int[] unitInstallationCount;                            //ユニットの配置数カウント
@@ -76,11 +75,19 @@ public class BattleManager : Singleton<BattleManager>
     public float preEnemySpawnTime = 5;
     public float enemyRouteActiveTime = 4;
 
+    [Space(10)]
+
+    //時間の進む速度に関する変数
+    [SerializeField] float dragTimeScale = 0.4f;    //ユニットドラッグ中の時間が進む速度
+    [SerializeField] float speedUpTimeScale = 1.5f; //時間加速中の時間が進む速度
+    [SerializeField] GameObject speedUpImage;       //時間加速中に表示されるオブジェクト
+    float preTimeScale;                             //前の時間が進む速度
+
     //敵出現のdisplay時間をカウントするタイマー
     public float timer_EnemySpawn { get; private set; }
 
     //ゲームの状態を表すフラグ
-    public bool isMainGame, isClear, isGameOver, isPause, isMaxInstallation, isUnitDrag, isUnitPlace, isOnMouseUnitZone;
+    public bool isMainGame, isClear, isGameOver, isPause, isSpeedUp, isMaxInstallation, isUnitDrag, isUnitPlace, isOnMouseUnitZone;
 
     void Awake()
     {
@@ -170,6 +177,8 @@ public class BattleManager : Singleton<BattleManager>
             canvas[i].SetActive(i <= 1);
         }
         canvasParent.SetActive(true);
+
+        speedUpImage.SetActive(false);
 
         //フラグを設定
         isMainGame = true;
@@ -328,6 +337,7 @@ public class BattleManager : Singleton<BattleManager>
         //ユニットをドラッグしていたら離す
         LetgoUnit();
 
+        isSpeedUp = false;
         isMainGame = false;
         isClear = true;
 
@@ -343,6 +353,7 @@ public class BattleManager : Singleton<BattleManager>
         //ユニットをドラッグしていたら離す
         LetgoUnit();
 
+        isSpeedUp = false;
         isMainGame = false;
         isGameOver = true;
 
@@ -394,10 +405,34 @@ public class BattleManager : Singleton<BattleManager>
         //HPが0になったらゲームオーバー
         if (playerHp <= 0)
         {
-            isMainGame = false;
-            isGameOver = true;
-
             GameOver();
+        }
+    }
+
+    /// <summary>
+    /// 時間の進みを速くするボタン
+    /// </summary>
+    public void SpeedUp()
+    {
+        //時間加速開始
+        if (!isSpeedUp)
+        {
+            //時間を速くする
+            Time.timeScale = speedUpTimeScale;
+
+            speedUpImage.SetActive(true);
+
+            isSpeedUp = true;
+        }
+        //時間加速終了
+        else
+        {
+            //時間の速さを等速に
+            Time.timeScale = 1f;
+
+            speedUpImage.SetActive(false);
+
+            isSpeedUp = false;
         }
     }
 
@@ -431,5 +466,13 @@ public class BattleManager : Singleton<BattleManager>
             isPause = false;
             isMainGame = true;
         }
+    }
+
+    /// <summary>
+    /// ステージをリトライするボタン
+    /// </summary>
+    public void Retry()
+    {
+        FadeManager.Instance.LoadSceneIndex(SceneManager.GetActiveScene().buildIndex, 0.5f);
     }
 }
