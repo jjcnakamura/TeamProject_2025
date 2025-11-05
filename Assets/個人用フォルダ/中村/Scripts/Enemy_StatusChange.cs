@@ -8,17 +8,14 @@ public class Enemy_StatusChange : Enemy_Base
 
     [SerializeField,Label("バフをかける（falseだとデバフ）")] public bool buff;
 
-    //Collider
-    public CapsuleCollider col_AttackZone;
-    public BoxCollider col_AttackZone_Wall;
-    [System.NonSerialized] MeshRenderer mesh_AttackZone;
-
     //ステータスを変化させている敵、ユニットのコンポーネント
     List<Enemy_Base> buffEnemy = new List<Enemy_Base>();
     List<BattleUnit_Base> debuffUnit = new List<BattleUnit_Base>();
 
-    //前方にいる壁ユニットのCollider
+    //前方にいる壁ユニット
     Collider wallUnitCol;
+    BattleUnit_Base wallUnit;
+    int targetPosIndex;
 
     //状態を表すフラグ
     public bool isCollisionWallUnit, isDeadCheck_StatusChange;
@@ -29,11 +26,6 @@ public class Enemy_StatusChange : Enemy_Base
 
         //Colliderの位置とサイズを決める
         col_AttackZone.transform.localScale = new Vector3(distance, col_AttackZone.transform.localScale.y, distance);
-        mesh_AttackZone = col_AttackZone.GetComponent<MeshRenderer>();
-        mesh_AttackZone.enabled = false;
-
-        col_AttackZone_Wall.center = new Vector3(0f, 0f, 1f);
-        col_AttackZone_Wall.size = new Vector3(1f, col_Body.size.y, 1f);
 
         //基底クラスで死亡の判定をしない
         isDeadCheck = false;
@@ -126,8 +118,44 @@ public class Enemy_StatusChange : Enemy_Base
             if (wallUnitCol == null)
             {
                 wallUnitCol = col;
+                wallUnit = wallUnitCol.transform.parent.GetComponent<BattleUnit_Base>();
+
+                if (wallUnit != null)
+                {
+                    //ユニットがターゲットされている数によって自身の位置を決める
+                    targetPosIndex = wallUnit.beingTarget.Length;
+                    for (int i = 0; i < wallUnit.beingTarget.Length; i++)
+                    {
+                        //ターゲット場所が空いている場合はその位置に
+                        if (!wallUnit.beingTarget[i])
+                        {
+                            wallUnit.beingTarget[i] = true;
+                            targetPosIndex = i;
+                            break;
+                        }
+                    }
+                    //targetPosIndexによって位置を決める
+                    if (targetPosIndex <= 0)
+                    {
+                        targetPos = col_AttackZone_Wall.transform.position;
+                    }
+                    else if (targetPosIndex == 1)
+                    {
+                        targetPos = (transform.position + col_AttackZone_Wall.transform.position) / 2;
+                    }
+                    else
+                    {
+                        targetPos = transform.position;
+                    }
+                }
+                else
+                {
+                    wallUnit = null;
+                    return;
+                }
 
                 isCollisionWallUnit = true;
+                isTarget = true;
                 isMove = false;
             }
         }
@@ -136,21 +164,33 @@ public class Enemy_StatusChange : Enemy_Base
             if (col == wallUnitCol || col == null || wallUnitCol)
             {
                 wallUnitCol = null;
+                wallUnit = null;
+
+                if (wallUnit != null)
+                {
+                    //ユニットのターゲットフラグを外す
+                    if (targetPosIndex < wallUnit.beingTarget.Length) wallUnit.beingTarget[targetPosIndex] = false;
+                    targetPosIndex = 0;
+                }
 
                 isCollisionWallUnit = false;
+                isTarget = false;
                 isMove = true;
             }
         }
     }
 
-    //前方にいる壁ユニットが死亡したか判定する
+    //前方にいる壁ユニットが存在するか判定する
     void WallUnitCollisionCheck()
     {
         if (!isCollisionWallUnit) return;
 
-        if (wallUnitCol == null)
+        if (wallUnit == null)
         {
+            wallUnitCol = null;
+
             isCollisionWallUnit = false;
+            isTarget = false;
             isMove = true;
         }
     }
@@ -168,7 +208,6 @@ public class Enemy_StatusChange : Enemy_Base
                 {
                     buffEnemy[i].StatusChange(defaultValue, false);
                 }
-
             }
             else
             {

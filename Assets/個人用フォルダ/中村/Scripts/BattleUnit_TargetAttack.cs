@@ -6,10 +6,6 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
 {
     [Header("BattleUnit_TargetAttack")]
 
-    //Collider
-    public CapsuleCollider col_AttackZone;
-    public MeshRenderer mesh_AttackZone;
-
     //UŒ‚‚Ì‘ÎÛ‚É‚µ‚Ä‚¢‚é“G
     Collider targetEnemyCol;
     Enemy_Base targetEnemy;

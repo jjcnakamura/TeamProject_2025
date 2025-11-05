@@ -27,7 +27,7 @@ public class PullUnit : MonoBehaviour
 
     [Space(10)]
 
-    public TextMeshProUGUI text_Cost;       //コストを表すテキスト
+    public TextMeshProUGUI text_Cost;                 //コストを表すテキスト
     [SerializeField] TextMeshProUGUI text_RecastTime; //リキャスト時間を表すテキスト
     [SerializeField] GameObject noClickWindow;        //クリック不可能な場合に表示するオブジェクト
 

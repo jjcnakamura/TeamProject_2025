@@ -9,11 +9,13 @@ public class BattleUnit_Base : MonoBehaviour
 {
     [Header("BattleUnit_Base")]
 
-    public GameObject model;         //3Dモデル
-    public BoxCollider col_Body;     //Collider
-    public GameObject effect;        //攻撃や回復のエフェクト
-    public GameObject effect_Buff;   //バフ中のエフェクト
-    public GameObject effect_Debuff; //デバフ中のエフェクト
+    public GameObject model;               //3Dモデル
+    public BoxCollider col_Body;           //喰らい判定のCollider
+    public CapsuleCollider col_AttackZone; //攻撃範囲のCollider
+    public MeshRenderer mesh_AttackZone;   //攻撃範囲のMesh
+    public GameObject effect;              //攻撃や回復のエフェクト
+    public GameObject effect_Buff;         //バフ中のエフェクト
+    public GameObject effect_Debuff;       //デバフ中のエフェクト
 
     [Space(10)]
 
@@ -43,6 +45,9 @@ public class BattleUnit_Base : MonoBehaviour
 
     //HPバー
     [System.NonSerialized] public GameObject hpbarObj;
+
+    //自信をターゲットしている敵の数（3体以内の場合は位置をずらす）
+    [System.NonSerialized] public bool[] beingTarget = new bool[3];
 
     //状態を表すフラグ
     public bool isBattle, isRotation, isTarget, isBuff, isDebuff, isDead;

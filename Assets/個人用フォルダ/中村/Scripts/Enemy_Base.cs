@@ -9,11 +9,13 @@ public class Enemy_Base : MonoBehaviour
 {
     [Header("Enemy_Base")]
 
-    public GameObject model;         //3Dモデル
-    public BoxCollider col_Body;     //Collider
-    public GameObject effect;        //攻撃や回復のエフェクト
-    public GameObject effect_Buff;   //バフ中のエフェクト
-    public GameObject effect_Debuff; //デバフ中のエフェクト
+    public GameObject model;                //3Dモデル
+    public BoxCollider col_Body;            //喰らい判定のCollider
+    public CapsuleCollider col_AttackZone;  //攻撃範囲のCollider
+    public BoxCollider col_AttackZone_Wall; //壁に対する攻撃範囲のCollider
+    public GameObject effect;               //攻撃や回復のエフェクト
+    public GameObject effect_Buff;          //バフ中のエフェクト
+    public GameObject effect_Debuff;        //デバフ中のエフェクト
 
     [Space(10)]
 
@@ -32,6 +34,9 @@ public class Enemy_Base : MonoBehaviour
     public EnemySpawnPoint spawnPoint;
     public int routeIndex;
     public int currentRoute = 0;
+
+    //ユニットなどをターゲットする場合の変数
+    [System.NonSerialized] public Vector3 targetPos;
 
     //向く方向に関する変数
     float rotateSpeed = 8f;
@@ -55,6 +60,11 @@ public class Enemy_Base : MonoBehaviour
 
     protected virtual void Start()
     {
+        //Colliderの位置とサイズを決める
+        col_AttackZone_Wall.transform.localPosition = new Vector3(0, 0, 1);
+        col_AttackZone_Wall.transform.localScale = new Vector3(1, 1, 1);
+        col_AttackZone_Wall.size = new Vector3(1, col_Body.size.y, 1.2f);
+
         //バフ、デバフ用のエフェクトを生成
         buffObj = Instantiate(effect_Buff);
         buffObj.transform.position = transform.position;
@@ -289,13 +299,16 @@ public class Enemy_Base : MonoBehaviour
     //プレイヤーの陣地に向かって移動する処理
     void Move()
     {
-        if (isMove && !isKnockBack && !isDead)
-        {
-            Vector3 targetPos = new Vector3(spawnPoint.routePoint[routeIndex].pos[currentRoute].x, transform.position.y, spawnPoint.routePoint[routeIndex].pos[currentRoute].z);
+        if (isKnockBack || isDead) return;
 
-            if (transform.position != targetPos)
+        //ルート通りに進む
+        if (isMove)
+        {
+            Vector3 nextPos = new Vector3(spawnPoint.routePoint[routeIndex].pos[currentRoute].x, transform.position.y, spawnPoint.routePoint[routeIndex].pos[currentRoute].z);
+
+            if (transform.position != nextPos)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.fixedDeltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, nextPos, moveSpeed * Time.fixedDeltaTime);
             }
             else
             {
@@ -320,7 +333,12 @@ public class Enemy_Base : MonoBehaviour
                 }
             }
         }
-
+        //ターゲットに向かう
+        else if (isTarget)
+        {
+            Vector3 nextPos = new Vector3(targetPos.x, transform.position.y, targetPos.z);
+            transform.position = Vector3.MoveTowards(transform.position, nextPos, moveSpeed * Time.fixedDeltaTime);
+        }
         //向きを変更
         if (isRotation)
         {

@@ -48,7 +48,7 @@ public class BattleManager : Singleton<BattleManager>
     Vector3 pullUnitSizeOffset = new Vector3(0.4f, 0.4f, 0.4f); //ユニットを持った場合にかけるサイズ補正
     float dragTimeScale = 0.4f;                             //ユニットをドラッグしている時の時間が進む速度
     float preTimeScale;                                     //前の時間が進む速度
-    public GameObject dragUnit { get; private set; }        //現在ドラッグしているユニット
+    public BattleUnit_Base dragUnit { get; private set; }   //現在ドラッグしているユニット
     int dragUnitIndex;                                      //ドラッグしているユニットの要素番号
     int[] unitInstallationCount;                            //ユニットの配置数カウント
     public bool[] unitMaxInstallation { get; private set; } //ユニットが最大配置数に達しているか
@@ -197,18 +197,17 @@ public class BattleManager : Singleton<BattleManager>
         isUnitDrag = true;
 
         dragUnitIndex = unitIndex;
-        dragUnit = Instantiate(battleUnitPrefab[unitIndex]);
+        dragUnit = Instantiate(battleUnitPrefab[unitIndex]).GetComponent<BattleUnit_Base>();
         dragUnit.transform.localScale -= pullUnitSizeOffset;
         dragUnit.transform.rotation = new Quaternion(0, 180f, 0, 0);
 
         //Colliderのサイズを決定、攻撃範囲を表示
-        BattleUnit_TargetAttack targetAttack = dragUnit.GetComponent<BattleUnit_TargetAttack>();
-        if (targetAttack != null)
+        if (dragUnit.col_AttackZone != null && dragUnit.mesh_AttackZone != null)
         {
-            targetAttack.col_AttackZone.transform.localScale = new Vector3(ParameterManager.Instance.unitStatus[unitIndex].distance,
-                                                                           targetAttack.col_AttackZone.transform.localScale.y,
-                                                                           ParameterManager.Instance.unitStatus[unitIndex].distance);
-            targetAttack.mesh_AttackZone.enabled = true;
+            dragUnit.col_AttackZone.transform.localScale = new Vector3(ParameterManager.Instance.unitStatus[unitIndex].distance,
+                                                                       dragUnit.col_AttackZone.transform.localScale.y,
+                                                                       ParameterManager.Instance.unitStatus[unitIndex].distance);
+            dragUnit.mesh_AttackZone.enabled = true;
         }
 
         //どこに配置出来るか
@@ -222,7 +221,7 @@ public class BattleManager : Singleton<BattleManager>
     //ドラッグしているユニットを離す
     public void LetgoUnit()
     {
-        Destroy(dragUnit);
+        Destroy(dragUnit.gameObject);
 
         //時間の速さを戻す
         Time.timeScale = preTimeScale;
@@ -240,7 +239,7 @@ public class BattleManager : Singleton<BattleManager>
         int unitIndex = dragUnitIndex;
 
         //ステータスを読み込み
-        battleUnitStatus[zoneIndex] = dragUnit.GetComponent<BattleUnit_Base>();
+        battleUnitStatus[zoneIndex] = dragUnit;
         battleUnitStatus[zoneIndex].unitIndex = unitIndex;
         battleUnitStatus[zoneIndex].zoneIndex = zoneIndex;
         battleUnitStatus[zoneIndex].role = ParameterManager.Instance.unitStatus[unitIndex].role;
@@ -263,10 +262,9 @@ public class BattleManager : Singleton<BattleManager>
         battleUnitStatus[zoneIndex].hpbarObj = battleUnitHpbar.gameObject;
 
         //攻撃範囲を非表示
-        BattleUnit_TargetAttack targetAttack = dragUnit.GetComponent<BattleUnit_TargetAttack>();
-        if (targetAttack != null)
+        if (dragUnit.col_AttackZone != null && dragUnit.mesh_AttackZone != null)
         {
-            targetAttack.mesh_AttackZone.enabled = false;
+            battleUnitStatus[zoneIndex].mesh_AttackZone.enabled = false;
         }
 
         //コスト分のポイントを減らして再配置のコストを増やしてUIに反映

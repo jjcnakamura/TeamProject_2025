@@ -205,7 +205,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 7148128306930737902}
+  col_Parent: {fileID: 6727103973637098060}
   col_Body: {fileID: 1500037000240121731}
+  col_AttackZone: {fileID: 4374870998828902986}
+  col_AttackZone_Wall: {fileID: 7436187692878447214}
   effect: {fileID: 1334071670866236, guid: 89e2315b9dc772e4b8004312a2f740f9, type: 3}
   effect_Buff: {fileID: 1881552412633134, guid: cd2212416cb1fc84e945d11655f1b6e5, type: 3}
   effect_Debuff: {fileID: 1881552412633134, guid: ac6cc6f0170229b41addd57a34c0f181, type: 3}
@@ -230,10 +233,13 @@ MonoBehaviour:
   isDeadCheck: 0
   isDead: 0
   buff: 1
-  col_AttackZone: {fileID: 4374870998828902986}
-  col_AttackZone_Wall: {fileID: 7436187692878447214}
   isCollisionWallUnit: 0
   isDeadCheck_StatusChange: 0
+--- !u!136 &6727103973637098060 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: -7866557484066837567, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
+  m_PrefabInstance: {fileID: 5732843498596688269}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7148128306930737902 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3223563699998819171, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}

@@ -119,6 +119,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 3223563699998819171}
   col_Body: {fileID: 6583723336096949774}
+  col_AttackZone: {fileID: 8302824855252339655}
+  col_AttackZone_Wall: {fileID: 2935647149635249123}
   effect: {fileID: 1334071670866236, guid: 89e2315b9dc772e4b8004312a2f740f9, type: 3}
   effect_Buff: {fileID: 1881552412633134, guid: cd2212416cb1fc84e945d11655f1b6e5, type: 3}
   effect_Debuff: {fileID: 1881552412633134, guid: ac6cc6f0170229b41addd57a34c0f181, type: 3}
@@ -142,8 +144,6 @@ MonoBehaviour:
   isDebuff: 0
   isDeadCheck: 0
   isDead: 0
-  col_AttackZone: {fileID: 8302824855252339655}
-  col_AttackZone_Wall: {fileID: 2935647149635249123}
   attackWall: 0
   attackUnitZone: 0
   isInterval: 0
@@ -156,7 +156,7 @@ Rigidbody:
   m_GameObject: {fileID: 1760612489582911489}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 31.38
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
