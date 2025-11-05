@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -28,6 +30,7 @@ public class MapManager : MonoBehaviour
     public GameObject[] Charactermen;
     public int[] UnitUpGold;//必要ゴールド数
     public int Gold;//(仮)
+    public TextMeshProUGUI[] MapText;
     public bool gameStartflg;
     public GameObject Map;
 
@@ -43,6 +46,8 @@ public class MapManager : MonoBehaviour
     }
     void Update()
     {
+        MapText[0].text = floor.ToString();
+
         var status = ParameterManager.Instance.unitStatus;
         if (floor > Backfloor)
         {
@@ -55,6 +60,10 @@ public class MapManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B)) ParameterManager.Instance.AddUnit(3);
         if (Input.GetKeyDown(KeyCode.N)) ParameterManager.Instance.AddUnit(4);
         if (Input.GetKeyDown(KeyCode.Space)) MakeRoute();
+        if (Input.GetKeyDown(KeyCode.A)) worldLevel = 0;
+        if (Input.GetKeyDown(KeyCode.S)) worldLevel = 1;
+        if (Input.GetKeyDown(KeyCode.D)) worldLevel = 2;
+
         foreach (var ID in status)
         {
             Charactermen[ID.id].SetActive(true);
@@ -92,11 +101,6 @@ public class MapManager : MonoBehaviour
             {
                 Destroy(child.gameObject);
             }
-        }
-        if (worldLevel == 0)
-        {
-            int i = floor - 1;
-            GameObject Boss = Instantiate(EasyworldBoss[i], BossEnemy.transform);
         }
     }
     public void CharaCheck(GameObject i, bool x)//最初のキャラクターを決める　ボタン用
@@ -231,6 +235,21 @@ public class MapManager : MonoBehaviour
         {
             int Stage = Random.Range(0, 2);
             GameObject Route = Instantiate(MapStageImage[Stage], MapRoute[2].transform);
+        }
+        if (worldLevel == 0)
+        {
+            int i = floor - 1;
+            GameObject Boss = Instantiate(EasyworldBoss[i], BossEnemy.transform);
+        }
+        if (worldLevel == 1)
+        {
+            int i = floor - 1;
+            GameObject Boss = Instantiate(NormalworldBoss[i], BossEnemy.transform);
+        }
+        if (worldLevel == 2)
+        {
+            int i = floor - 1;
+            GameObject Boss = Instantiate(ExtraworldBoss[i], BossEnemy.transform);
         }
     }
 
