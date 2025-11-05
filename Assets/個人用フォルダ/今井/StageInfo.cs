@@ -39,4 +39,9 @@ public class StageInfo : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void StageEndDebug()
+    {
+        StageEnd = true;
+    }
 }

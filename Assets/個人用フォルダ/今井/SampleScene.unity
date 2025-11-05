@@ -1677,6 +1677,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 4260004366589684414}
+        m_TargetAssemblyTypeName: StartCharaEnter, Assembly-CSharp
+        m_MethodName: EnterButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1491130880533612837}
         m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
         m_MethodName: GameStart
@@ -1755,19 +1767,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1491130880533612837}
-        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
-        m_MethodName: CharaCheck
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2838920921041340020}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 0
 --- !u!114 &1491130880533612837
 MonoBehaviour:
@@ -1784,11 +1784,13 @@ MonoBehaviour:
   unitStatus:
     prefab: {fileID: 0}
     sprite: {fileID: 0}
+    name: 
     id: 0
     role: 0
     lv: 0
     exp: 0
     cost: 0
+    upCost: 0
     recast: 0
     hp: 0
     value: 0
@@ -1798,12 +1800,13 @@ MonoBehaviour:
     place_UnitZone: 0
     place_Floor: 0
   MapStageImage:
-  - {fileID: 1507798581980002304, guid: 0ca09838338d6334b9b8204e111df6f4, type: 3}
-  - {fileID: 5801192521793928393, guid: fc836ef01f175374d981048ab9cf8984, type: 3}
+  - {fileID: 8830545149701396548, guid: 900f9a4316eadb94bb35660703c04a70, type: 3}
+  - {fileID: 3182145573055790181, guid: abc606d9f2a99a44489be24e194067a9, type: 3}
   MapRoute:
   - {fileID: 3787222602769091646}
   - {fileID: 1742444492650176718}
   - {fileID: 1124030375264359768}
+  x: 0
   MapEnterButton:
   - {fileID: 3503984328294588944}
   - {fileID: 5705027689691991382}
@@ -1811,7 +1814,9 @@ MonoBehaviour:
   nextStage: {fileID: 6374438400449171585}
   BossEnemy: {fileID: 6306223731621742978}
   floor: 0
+  Backfloor: 0
   Stageint: 000000000000000000000000
+  worldLevel: 0
   max: 8
   min: 2
   Charactermen:
@@ -2144,10 +2149,10 @@ MonoBehaviour:
       - m_Target: {fileID: 1491130880533612837}
         m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
         m_MethodName: OnButtonPressed
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 3757766379579143893}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2409,19 +2414,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1491130880533612837}
-        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
-        m_MethodName: CharaCheck
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2042704535328095701}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 0
 --- !u!222 &2172718868627524946
 CanvasRenderer:
@@ -2536,19 +2529,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1491130880533612837}
-        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
-        m_MethodName: CharaCheck
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 4693854678414403183}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 0
 --- !u!114 &2256094105018085395
 MonoBehaviour:
@@ -2593,7 +2574,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5732024337741502681}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1491130880533612837}
+        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+        m_MethodName: UnitLevelUpBottun
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2266534837906949975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2730,19 +2723,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1491130880533612837}
-        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
-        m_MethodName: CharaCheck
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 3166106899218528428}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 0
 --- !u!114 &2421268697343649590
 MonoBehaviour:
@@ -3171,7 +3152,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 453903575549397899}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1491130880533612837}
+        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+        m_MethodName: UnitLevelUpBottun
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &3091329932454601238
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3313,6 +3306,7 @@ GameObject:
   - component: {fileID: 4260004366589684413}
   - component: {fileID: 1646387642318684017}
   - component: {fileID: 1405219136511721313}
+  - component: {fileID: 4260004366589684414}
   m_Layer: 5
   m_Name: Enter
   m_TagString: Untagged
@@ -3884,6 +3878,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3179531083328898981}
   m_CullTransparentMesh: 1
+--- !u!114 &4260004366589684414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3179531083328898981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f444080a3254e2e4a869cb1d410b71bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggles:
+  - {fileID: 7047499638866406447}
+  - {fileID: 6608029792571893518}
+  - {fileID: 2255656798390425535}
+  - {fileID: 8935752674534636668}
+  - {fileID: 2052323898948919417}
+  - {fileID: 5224449098615909088}
+  - {fileID: 1465442536274619343}
+  - {fileID: 9016346672550134663}
+  - {fileID: 2418103789237174983}
 --- !u!114 &4297693835616965013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4774,19 +4790,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1491130880533612837}
-        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
-        m_MethodName: CharaCheck
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 7865621185232005293}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 0
 --- !u!222 &5276202076762815454
 CanvasRenderer:
@@ -5060,11 +5064,11 @@ MonoBehaviour:
       - m_Target: {fileID: 1491130880533612837}
         m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
         m_MethodName: OnButtonPressed
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 7869663364190826513}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -5530,7 +5534,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5636025336466252891}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1491130880533612837}
+        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+        m_MethodName: UnitLevelUpBottun
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &6064347891088679345
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6000,11 +6016,11 @@ MonoBehaviour:
       - m_Target: {fileID: 1491130880533612837}
         m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
         m_MethodName: OnButtonPressed
-        m_Mode: 2
+        m_Mode: 3
         m_Arguments:
-          m_ObjectArgument: {fileID: 2174425781294138751}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -6083,19 +6099,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1491130880533612837}
-        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
-        m_MethodName: CharaCheck
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1059318284213726540}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 0
 --- !u!224 &6710602484156198969
 RectTransform:
@@ -6312,19 +6316,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1491130880533612837}
-        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
-        m_MethodName: CharaCheck
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 3139637779760317038}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 0
 --- !u!114 &7072034184772190875
 MonoBehaviour:
@@ -8157,19 +8149,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1491130880533612837}
-        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
-        m_MethodName: CharaCheck
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 7793758397045258369}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 0
 --- !u!114 &9016346672550134663
 MonoBehaviour:
@@ -8217,19 +8197,7 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1491130880533612837}
-        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
-        m_MethodName: CharaCheck
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 7827617368867214135}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_IsOn: 0
 --- !u!222 &9028948590983151586
 CanvasRenderer:

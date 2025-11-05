@@ -8,7 +8,6 @@ public class ShowOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] private GameObject targetUI; // 表示・非表示するUI。小さい方
     [SerializeField] private GameObject ImageUI;//大きい方
     StageInfo stageInfo;
-    public GameObject DESTROY;
 
     void Start()
     {
@@ -18,7 +17,7 @@ public class ShowOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if(stageInfo.Start == true)
         {
-            Destroy(DESTROY);
+            Destroy(targetUI);
         }
     }
 

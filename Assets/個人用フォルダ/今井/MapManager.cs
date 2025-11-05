@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,12 +10,18 @@ public class MapManager : MonoBehaviour
     public ParameterManager.UnitStatus unitStatus;
     public GameObject[] MapStageImage;//マップで使うプレハブなど
     public GameObject[] MapRoute;//マップのルート
+    public int x; //マップint
     public GameObject[] MapEnterButton;//マップにあるエンターボタン
     public Transform nextStage;//現在のステージを進めるための場所
     public Transform BossEnemy;//そのフロアのボス
 
-    public int floor;// 現在のフロア数
+    public int floor = 0;// 現在のフロア数
+    public int Backfloor; //処理用 
     public int[] Stageint;//ステージ数
+    public int worldLevel;//難易度
+    public GameObject[] EasyworldBoss;//ボス簡単
+    public GameObject[] NormalworldBoss;//ボス普通
+    public GameObject[] ExtraworldBoss;//ボス難しい
     public int max = 5;//ステージ最大数
     public int min = 2;//ステージ最小数
 
@@ -34,13 +39,15 @@ public class MapManager : MonoBehaviour
     private void Start()
     {
         gameStartflg = false;
-        MakeRoute(); //仮
+        //MakeRoute(); //
     }
     void Update()
     {
-        if (gameStartflg == true)
+        var status = ParameterManager.Instance.unitStatus;
+        if (floor > Backfloor)
         {
-            //MakeRoute();
+            MakeRoute();
+            Backfloor = floor;
         }
         if (Input.GetKeyDown(KeyCode.X)) ParameterManager.Instance.AddUnit(0);
         if (Input.GetKeyDown(KeyCode.C)) ParameterManager.Instance.AddUnit(1);
@@ -48,13 +55,34 @@ public class MapManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B)) ParameterManager.Instance.AddUnit(3);
         if (Input.GetKeyDown(KeyCode.N)) ParameterManager.Instance.AddUnit(4);
         if (Input.GetKeyDown(KeyCode.Space)) MakeRoute();
-        if (nextStage.childCount == 0)
+        foreach (var ID in status)
         {
+            Charactermen[ID.id].SetActive(true);
+        }
+
+        Transform[] transforms = new Transform[MapRoute.Length];
+        for (int i = 0; i < MapRoute.Length; i++)
+        {
+            transforms[i] = MapRoute[i].transform;
+        }
+
+        if (gameStartflg == true && nextStage.childCount == 0)
+        {
+            if (transforms[x].childCount == 0)
+            {
+                Transform Boss = BossEnemy.GetChild(0);
+                Boss.SetParent(nextStage, true);
+                Boss.localPosition = Vector3.zero;
+            }
+            Transform child = transforms[x].GetChild(0);
+            child.SetParent(nextStage, true);
+            child.localPosition = Vector3.zero;
             GoNextStage();
         }
     }
     public void NextFloor()//フロアを進める処理
     {
+        gameStartflg = false;
         floor = floor + 1;
         foreach (GameObject parent in MapRoute)
         {
@@ -65,11 +93,15 @@ public class MapManager : MonoBehaviour
                 Destroy(child.gameObject);
             }
         }
+        if (worldLevel == 0)
+        {
+            int i = floor - 1;
+            GameObject Boss = Instantiate(EasyworldBoss[i], BossEnemy.transform);
+        }
     }
-    public void CharaCheck(GameObject i)//最初のキャラクターを決める　ボタン用
+    public void CharaCheck(GameObject i, bool x)//最初のキャラクターを決める　ボタン用
     {
-
-        i.SetActive(i);
+        i.SetActive(x);
     }
 
     public void GoNextStage() //決めたルートのステージを進める処理
@@ -90,8 +122,11 @@ public class MapManager : MonoBehaviour
             Debug.Log("何も情報なし");
         }
     }
-    public void OnButtonPressed(Transform Pos)//ボタンに入っているルートを決めて一つステージを持ってくる
+    public void OnButtonPressed(int i)//ボタンに入っているルートを決めて一つステージを持ってくる
     {
+        x = i;
+        gameStartflg = true;
+        /*
         if (Pos == null)
         {
             Debug.LogWarning("親の参照が設定されていません！");
@@ -109,8 +144,9 @@ public class MapManager : MonoBehaviour
             Transform child = Pos.GetChild(0);
             child.SetParent(nextStage, true);
             child.localPosition = Vector3.zero;
-        }
+        }*/
     }
+
     public void PassiveeEnterButton()//マップのEnterボタンを消すためのやつ ENTERボタンに付ける用
     {
         if (MapEnterButton == null || MapEnterButton.Length == 0)
@@ -127,6 +163,7 @@ public class MapManager : MonoBehaviour
             }
         }
     }
+
     public void SelectRoute(int x)//選んだルート以外をパッシブにするもの　ENTERボタンに付ける用
     {
         // 配列が空の場合は何もしない
@@ -158,6 +195,7 @@ public class MapManager : MonoBehaviour
             }
         }*/
     }
+
     public void MakeRoute()//ルート一つのステージを作る
     {
         if (Stageint == null || Stageint.Length == 0)
@@ -195,32 +233,41 @@ public class MapManager : MonoBehaviour
             GameObject Route = Instantiate(MapStageImage[Stage], MapRoute[2].transform);
         }
     }
+
     public void EventContDown()//設置時のコスト　(短縮系)
     {
         unitStatus.cost -= 1;//（仮）
     }
+
     public void EventrecastDown()//再配置までの時間　(短縮系)
     {
        unitStatus.recast -= 1;//（仮）
     }
+
     public void EventmaxInstallationUp()//ユニット最大配置数　(増加系)
     {
         ParameterManager.Instance.maxInstallation += 1;//（仮）
     }
+
     public void EventmaxUnitPossessionUp()//最大ユニット所持数　(増加系)
     {
         ParameterManager.Instance.maxUnitPossession += 1;//（仮）
     }
+
     public void EventsameUnitMaxInstallationUp()//同じユニットの最大配置数　(増加系)
     {
         ParameterManager.Instance.sameUnitMaxInstallation += 1;//（仮）
     }
+
     public void Event()//HP回復する（回復）
     {
         ParameterManager.Instance.hp += 1;//（仮）
     }
-    public void UnitLevelUpBottun()//キャラクターのレベルあげる所
+
+    public void UnitLevelUpBottun(int i)//キャラクターのレベルあげる所
     {
+        //i はParameterのunitStatusのidを元に動かすもの
+        unitStatus.id = i;
         if (Gold >= UnitUpGold[unitStatus.lv])
         {
             Gold -= UnitUpGold[unitStatus.lv];
@@ -237,14 +284,16 @@ public class MapManager : MonoBehaviour
             //音かテキストを出して出来ないことをしめす
         }
     }
+
     public void LoadScene(int i)//シーンを流す用　ボタン用
     {
         SceneManager.LoadScene(i);
     }
+
     public void GameStart(GameObject i)//ゲームスタート　ボタン用
     {
-        gameStartflg = true;
         Map.SetActive(true);
         i.gameObject.SetActive(false);
+        NextFloor();
     }
 }
