@@ -46,7 +46,7 @@ public class BattleUnit_Base : MonoBehaviour
     //HPバー
     [System.NonSerialized] public GameObject hpbarObj;
 
-    //自信をターゲットしている敵の数（3体以内の場合は位置をずらす）
+    //自信をターゲットしている敵の数
     [System.NonSerialized] public bool[] beingTarget = new bool[3];
 
     //状態を表すフラグ

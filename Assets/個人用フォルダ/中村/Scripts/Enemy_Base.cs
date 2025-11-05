@@ -35,9 +35,6 @@ public class Enemy_Base : MonoBehaviour
     public int routeIndex;
     public int currentRoute = 0;
 
-    //ユニットなどをターゲットする場合の変数
-    [System.NonSerialized] public Vector3 targetPos;
-
     //向く方向に関する変数
     float rotateSpeed = 8f;
     Quaternion dir;
@@ -63,7 +60,7 @@ public class Enemy_Base : MonoBehaviour
         //Colliderの位置とサイズを決める
         col_AttackZone_Wall.transform.localPosition = new Vector3(0, 0, 1);
         col_AttackZone_Wall.transform.localScale = new Vector3(1, 1, 1);
-        col_AttackZone_Wall.size = new Vector3(1, col_Body.size.y, 1.2f);
+        col_AttackZone_Wall.size = new Vector3(1, col_Body.size.y, 1);
 
         //バフ、デバフ用のエフェクトを生成
         buffObj = Instantiate(effect_Buff);
@@ -304,11 +301,11 @@ public class Enemy_Base : MonoBehaviour
         //ルート通りに進む
         if (isMove)
         {
-            Vector3 nextPos = new Vector3(spawnPoint.routePoint[routeIndex].pos[currentRoute].x, transform.position.y, spawnPoint.routePoint[routeIndex].pos[currentRoute].z);
+            Vector3 targetPos = new Vector3(spawnPoint.routePoint[routeIndex].pos[currentRoute].x, transform.position.y, spawnPoint.routePoint[routeIndex].pos[currentRoute].z);
 
-            if (transform.position != nextPos)
+            if (transform.position != targetPos)
             {
-                transform.position = Vector3.MoveTowards(transform.position, nextPos, moveSpeed * Time.fixedDeltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.fixedDeltaTime);
             }
             else
             {
@@ -332,12 +329,6 @@ public class Enemy_Base : MonoBehaviour
                     isDead = true;
                 }
             }
-        }
-        //ターゲットに向かう
-        else if (isTarget)
-        {
-            Vector3 nextPos = new Vector3(targetPos.x, transform.position.y, targetPos.z);
-            transform.position = Vector3.MoveTowards(transform.position, nextPos, moveSpeed * Time.fixedDeltaTime);
         }
         //向きを変更
         if (isRotation)

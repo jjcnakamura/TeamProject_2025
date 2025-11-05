@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 6323630615116929910}
   - component: {fileID: 5534862144651143572}
   - component: {fileID: 5707407257947704373}
+  - component: {fileID: 2313444490859939505}
   m_Layer: 0
   m_Name: Enemy_TargetAttack
   m_TagString: Untagged
@@ -156,7 +157,7 @@ Rigidbody:
   m_GameObject: {fileID: 1760612489582911489}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 31.38
+  m_Drag: 50
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -174,6 +175,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!136 &2313444490859939505
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760612489582911489}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2966657939161301187
 GameObject:
   m_ObjectHideFlags: 0

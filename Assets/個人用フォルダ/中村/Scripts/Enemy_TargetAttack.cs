@@ -52,30 +52,16 @@ public class Enemy_TargetAttack : Enemy_Base
 
                 if  (targetUnit != null)
                 {
-                    //ユニットがターゲットされている数によって自身の位置を決める
+                    //ユニットがターゲットされている数を取得
                     targetPosIndex = targetUnit.beingTarget.Length;
                     for (int i = 0; i < targetUnit.beingTarget.Length; i++)
                     {
-                        //ターゲット場所が空いている場合はその位置に
                         if (!targetUnit.beingTarget[i])
                         {
                             targetUnit.beingTarget[i] = true;
                             targetPosIndex = i;
                             break;
                         }
-                    }
-                    //targetPosIndexによって位置を決める
-                    if (targetPosIndex <= 0)
-                    {
-                        targetPos = col_AttackZone_Wall.transform.position;
-                    }
-                    else if (targetPosIndex == 1)
-                    {
-                        targetPos = (transform.position + col_AttackZone_Wall.transform.position) / 2;
-                    }
-                    else
-                    {
-                        targetPos = transform.position;
                     }
                 }
                 else
@@ -97,15 +83,15 @@ public class Enemy_TargetAttack : Enemy_Base
         {
             if (targetCol == targetUnitCol || targetCol == null)
             {
-                targetUnitCol = null;
-                targetUnit = null;
-
                 if (targetUnit != null)
                 {
                     //ユニットのターゲットフラグを外す
                     if (targetPosIndex < targetUnit.beingTarget.Length) targetUnit.beingTarget[targetPosIndex] = false;
                     targetPosIndex = 0;
                 }
+
+                targetUnitCol = null;
+                targetUnit = null;
 
                 //狙うユニットの方向を外す
                 Quaternion targetDir = Quaternion.LookRotation(spawnPoint.routePoint[routeIndex].pos[currentRoute] - transform.position);

@@ -122,30 +122,16 @@ public class Enemy_StatusChange : Enemy_Base
 
                 if (wallUnit != null)
                 {
-                    //ユニットがターゲットされている数によって自身の位置を決める
+                    //ユニットがターゲットされている数を取得
                     targetPosIndex = wallUnit.beingTarget.Length;
                     for (int i = 0; i < wallUnit.beingTarget.Length; i++)
                     {
-                        //ターゲット場所が空いている場合はその位置に
                         if (!wallUnit.beingTarget[i])
                         {
                             wallUnit.beingTarget[i] = true;
                             targetPosIndex = i;
                             break;
                         }
-                    }
-                    //targetPosIndexによって位置を決める
-                    if (targetPosIndex <= 0)
-                    {
-                        targetPos = col_AttackZone_Wall.transform.position;
-                    }
-                    else if (targetPosIndex == 1)
-                    {
-                        targetPos = (transform.position + col_AttackZone_Wall.transform.position) / 2;
-                    }
-                    else
-                    {
-                        targetPos = transform.position;
                     }
                 }
                 else
@@ -163,15 +149,15 @@ public class Enemy_StatusChange : Enemy_Base
         {
             if (col == wallUnitCol || col == null || wallUnitCol)
             {
-                wallUnitCol = null;
-                wallUnit = null;
-
                 if (wallUnit != null)
                 {
                     //ユニットのターゲットフラグを外す
                     if (targetPosIndex < wallUnit.beingTarget.Length) wallUnit.beingTarget[targetPosIndex] = false;
                     targetPosIndex = 0;
                 }
+
+                wallUnitCol = null;
+                wallUnit = null;
 
                 isCollisionWallUnit = false;
                 isTarget = false;
