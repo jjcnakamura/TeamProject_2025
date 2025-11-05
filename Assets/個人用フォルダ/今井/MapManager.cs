@@ -103,10 +103,6 @@ public class MapManager : MonoBehaviour
             }
         }
     }
-    public void CharaCheck(GameObject i, bool x)//最初のキャラクターを決める　ボタン用
-    {
-        i.SetActive(x);
-    }
 
     public void GoNextStage() //決めたルートのステージを進める処理
     {

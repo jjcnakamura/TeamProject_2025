@@ -32,7 +32,7 @@ public class StageInfo : MonoBehaviour
         }
         if (StageEnd == true && FloorEnd == true)//仮
         {
-
+            //MapManager
         }
         if (StageEnd == true)//自分のステージが終わったら消える処理
         {
