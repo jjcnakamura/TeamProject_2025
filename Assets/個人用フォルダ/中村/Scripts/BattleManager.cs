@@ -230,7 +230,7 @@ public class BattleManager : Singleton<BattleManager>
     //ドラッグしているユニットを離す
     public void LetgoUnit()
     {
-        Destroy(dragUnit.gameObject);
+        if (dragUnit != null) Destroy(dragUnit.gameObject);
 
         //時間の速さを戻す
         Time.timeScale = preTimeScale;

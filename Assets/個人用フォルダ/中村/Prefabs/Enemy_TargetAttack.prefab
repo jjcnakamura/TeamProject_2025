@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 6323630615116929910}
   - component: {fileID: 5534862144651143572}
   - component: {fileID: 5707407257947704373}
-  - component: {fileID: 2313444490859939505}
+  - component: {fileID: 1004421338044206511}
   m_Layer: 0
   m_Name: Enemy_TargetAttack
   m_TagString: Untagged
@@ -119,6 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 3223563699998819171}
+  rig: {fileID: 5707407257947704373}
+  col_Parent: {fileID: 1004421338044206511}
   col_Body: {fileID: 6583723336096949774}
   col_AttackZone: {fileID: 8302824855252339655}
   col_AttackZone_Wall: {fileID: 2935647149635249123}
@@ -157,8 +159,8 @@ Rigidbody:
   m_GameObject: {fileID: 1760612489582911489}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 50
-  m_AngularDrag: 0.05
+  m_Drag: 10
+  m_AngularDrag: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -175,8 +177,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
---- !u!136 &2313444490859939505
-CapsuleCollider:
+--- !u!65 &1004421338044206511
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -193,10 +195,8 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5, y: 1, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2966657939161301187
 GameObject:

@@ -172,6 +172,11 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 5719656364548725469}
   m_SourcePrefab: {fileID: 100100000, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
+--- !u!54 &52897920096595384 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 5707407257947704373, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
+  m_PrefabInstance: {fileID: 5732843498596688269}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &813942796717606589 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4955246435308414768, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
@@ -185,6 +190,11 @@ BoxCollider:
 --- !u!136 &4374870998828902986 stripped
 CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 8302824855252339655, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
+  m_PrefabInstance: {fileID: 5732843498596688269}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &4791633376097463330 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 1004421338044206511, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
   m_PrefabInstance: {fileID: 5732843498596688269}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &6332577239119937932 stripped
@@ -205,7 +215,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 7148128306930737902}
-  col_Parent: {fileID: 6727103973637098060}
+  rig: {fileID: 52897920096595384}
+  col_Parent: {fileID: 4791633376097463330}
   col_Body: {fileID: 1500037000240121731}
   col_AttackZone: {fileID: 4374870998828902986}
   col_AttackZone_Wall: {fileID: 7436187692878447214}
@@ -235,11 +246,6 @@ MonoBehaviour:
   buff: 1
   isCollisionWallUnit: 0
   isDeadCheck_StatusChange: 0
---- !u!136 &6727103973637098060 stripped
-CapsuleCollider:
-  m_CorrespondingSourceObject: {fileID: -7866557484066837567, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
-  m_PrefabInstance: {fileID: 5732843498596688269}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7148128306930737902 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3223563699998819171, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}

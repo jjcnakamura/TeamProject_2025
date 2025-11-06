@@ -63,6 +63,13 @@ public class Enemy_TargetAttack : Enemy_Base
                             break;
                         }
                     }
+                    //ターゲット中のみ敵同士の押し出し判定をオンにする
+                    if (targetPosIndex < targetUnit.beingTarget.Length)
+                    {
+                        rig.drag = Mathf.Max(maxDrag * ((float)(targetUnit.beingTarget.Length - targetPosIndex) / (float)targetUnit.beingTarget.Length), minDrag);
+                        rig.angularDrag = rig.drag;
+                        col_Parent.enabled = true;
+                    }
                 }
                 else
                 {
@@ -89,6 +96,11 @@ public class Enemy_TargetAttack : Enemy_Base
                     if (targetPosIndex < targetUnit.beingTarget.Length) targetUnit.beingTarget[targetPosIndex] = false;
                     targetPosIndex = 0;
                 }
+
+                //敵同士の押し出し判定をオフにする
+                rig.drag = minDrag;
+                rig.angularDrag = minDrag;
+                col_Parent.enabled = false;
 
                 targetUnitCol = null;
                 targetUnit = null;

@@ -10,6 +10,8 @@ public class Enemy_Base : MonoBehaviour
     [Header("Enemy_Base")]
 
     public GameObject model;                //3Dモデル
+    public Rigidbody rig;                   //親オブジェクトのRigidbody
+    public BoxCollider col_Parent;          //親オブジェクトのCollider
     public BoxCollider col_Body;            //喰らい判定のCollider
     public CapsuleCollider col_AttackZone;  //攻撃範囲のCollider
     public BoxCollider col_AttackZone_Wall; //壁に対する攻撃範囲のCollider
@@ -30,6 +32,8 @@ public class Enemy_Base : MonoBehaviour
     public float moveSpeed;
     public float knockBackTime;
 
+    [Space(10)]
+
     //次に進む場所に関する変数
     public EnemySpawnPoint spawnPoint;
     public int routeIndex;
@@ -38,6 +42,10 @@ public class Enemy_Base : MonoBehaviour
     //向く方向に関する変数
     float rotateSpeed = 8f;
     Quaternion dir;
+
+    //自身の質量の最大値と最小値
+    [System.NonSerialized] public float maxDrag = 300f;
+    [System.NonSerialized] public float minDrag = 10f;
 
     //バフ、デバフ用の変数
     List<int> buffValue = new List<int>();
@@ -58,9 +66,12 @@ public class Enemy_Base : MonoBehaviour
     protected virtual void Start()
     {
         //Colliderの位置とサイズを決める
+        col_Parent.enabled = false;
         col_AttackZone_Wall.transform.localPosition = new Vector3(0, 0, 1);
         col_AttackZone_Wall.transform.localScale = new Vector3(1, 1, 1);
         col_AttackZone_Wall.size = new Vector3(1, col_Body.size.y, 1);
+
+        rig.drag = minDrag;
 
         //バフ、デバフ用のエフェクトを生成
         buffObj = Instantiate(effect_Buff);
