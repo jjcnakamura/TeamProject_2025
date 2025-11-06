@@ -92,17 +92,17 @@ public class BattleManager : Singleton<BattleManager>
     void Awake()
     {
         //デバッグ用　初期ステータスを設定
-        ParameterManager.Instance.maxUnitPossession = 5;
+        /*ParameterManager.Instance.maxUnitPossession = 5;
         ParameterManager.Instance.maxInstallation = 10;
         ParameterManager.Instance.sameUnitMaxInstallation = 3;
         ParameterManager.Instance.AddUnit(0);
         ParameterManager.Instance.AddUnit(1);
         ParameterManager.Instance.AddUnit(2);
         ParameterManager.Instance.AddUnit(3);
-        ParameterManager.Instance.AddUnit(4);
+        ParameterManager.Instance.AddUnit(4);*/
     }
 
-    void Start()
+    public void Start()
     {
         //FPSを固定
         Application.targetFrameRate = 60;
