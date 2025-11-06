@@ -122,6 +122,8 @@ public class Enemy_StatusChange : Enemy_Base
 
                 if (wallUnit != null)
                 {
+                    wallUnit.beingTargetNum++;
+
                     //ユニットがターゲットされている数を取得
                     targetPosIndex = wallUnit.beingTarget.Length;
                     for (int i = 0; i < wallUnit.beingTarget.Length; i++)
@@ -139,6 +141,11 @@ public class Enemy_StatusChange : Enemy_Base
                         rig.drag = Mathf.Max(maxDrag * ((float)(wallUnit.beingTarget.Length - targetPosIndex) / (float)wallUnit.beingTarget.Length), minDrag);
                         rig.angularDrag = rig.drag;
                         col_Parent.enabled = true;
+                    }
+                    //押し出し判定がオンにならない敵は待ち時間を決める
+                    else
+                    {
+                        moveWaitTime = moveWaitTimeRadix * (wallUnit.beingTargetNum - wallUnit.beingTarget.Length);
                     }
                 }
                 else
@@ -162,6 +169,9 @@ public class Enemy_StatusChange : Enemy_Base
                     if (targetPosIndex < wallUnit.beingTarget.Length) wallUnit.beingTarget[targetPosIndex] = false;
                     targetPosIndex = 0;
                 }
+
+                //移動待ち時間開始
+                if (moveWaitTime > 0) isWait = true;
 
                 //敵同士の押し出し判定をオフにする
                 rig.drag = minDrag;

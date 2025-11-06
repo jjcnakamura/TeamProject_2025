@@ -48,6 +48,7 @@ public class BattleUnit_Base : MonoBehaviour
 
     //自信をターゲットしている敵の数
     [System.NonSerialized] public bool[] beingTarget = new bool[3];
+    [System.NonSerialized] public int beingTargetNum;
 
     //状態を表すフラグ
     public bool isBattle, isRotation, isTarget, isBuff, isDebuff, isDead;

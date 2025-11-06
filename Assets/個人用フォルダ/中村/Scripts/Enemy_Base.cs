@@ -47,6 +47,10 @@ public class Enemy_Base : MonoBehaviour
     [System.NonSerialized] public float maxDrag = 300f;
     [System.NonSerialized] public float minDrag = 10f;
 
+    //ターゲット終了時に移動を待つ時間
+    [System.NonSerialized] public float moveWaitTimeRadix = 0.125f;
+    [System.NonSerialized] public float moveWaitTime;
+
     //バフ、デバフ用の変数
     List<int> buffValue = new List<int>();
     List<int> debuffValue = new List<int>();
@@ -58,10 +62,10 @@ public class Enemy_Base : MonoBehaviour
     [System.NonSerialized] public GameObject hpbarObj;
 
     //タイマー
-    float timer_KnockBack;
+    float timer_KnockBack, timer_MoveWait;
 
     //状態を表すフラグ
-    public bool isMove, isRotation, isTarget, isKnockBack, isBuff, isDebuff, isDeadCheck, isDead;
+    public bool isMove, isRotation, isTarget, isKnockBack, isWait, isBuff, isDebuff, isDeadCheck, isDead;
 
     protected virtual void Start()
     {
@@ -307,7 +311,23 @@ public class Enemy_Base : MonoBehaviour
     //プレイヤーの陣地に向かって移動する処理
     void Move()
     {
-        if (isKnockBack || isDead) return;
+        //一定時間動くのを待つ
+        if (isWait)
+        {
+            if (timer_MoveWait < moveWaitTime)
+            {
+                timer_MoveWait += Time.fixedDeltaTime;
+                return;
+            }
+            else
+            {
+                timer_MoveWait = 0;
+                moveWaitTime = 0;
+                isWait = false;
+            }
+        }
+
+        if (isKnockBack || isDead) return; //ノックバックか死亡状態の場合は戻る
 
         //ルート通りに進む
         if (isMove)

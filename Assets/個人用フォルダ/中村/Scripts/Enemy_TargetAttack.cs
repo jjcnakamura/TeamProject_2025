@@ -52,6 +52,8 @@ public class Enemy_TargetAttack : Enemy_Base
 
                 if  (targetUnit != null)
                 {
+                    targetUnit.beingTargetNum++;
+
                     //ユニットがターゲットされている数を取得
                     targetPosIndex = targetUnit.beingTarget.Length;
                     for (int i = 0; i < targetUnit.beingTarget.Length; i++)
@@ -69,6 +71,11 @@ public class Enemy_TargetAttack : Enemy_Base
                         rig.drag = Mathf.Max(maxDrag * ((float)(targetUnit.beingTarget.Length - targetPosIndex) / (float)targetUnit.beingTarget.Length), minDrag);
                         rig.angularDrag = rig.drag;
                         col_Parent.enabled = true;
+                    }
+                    //押し出し判定がオンにならない敵は待ち時間を決める
+                    else
+                    {
+                        moveWaitTime = moveWaitTimeRadix * (targetUnit.beingTargetNum - targetUnit.beingTarget.Length);
                     }
                 }
                 else
@@ -96,6 +103,9 @@ public class Enemy_TargetAttack : Enemy_Base
                     if (targetPosIndex < targetUnit.beingTarget.Length) targetUnit.beingTarget[targetPosIndex] = false;
                     targetPosIndex = 0;
                 }
+
+                //移動待ち時間開始
+                if (moveWaitTime > 0) isWait = true;
 
                 //敵同士の押し出し判定をオフにする
                 rig.drag = minDrag;

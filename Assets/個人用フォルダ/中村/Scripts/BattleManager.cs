@@ -293,6 +293,8 @@ public class BattleManager : Singleton<BattleManager>
         unitInstallationCount[unitIndex] = Mathf.Min(unitInstallationCount[unitIndex] + 1, sameUnitMaxInstallation);
         if (unitInstallationCount[unitIndex] >= sameUnitMaxInstallation) unitMaxInstallation[unitIndex] = true;
 
+        dragUnit = null;
+
         place_UnitZone = false;
         place_Floor = false;
         isUnitDrag = false;
