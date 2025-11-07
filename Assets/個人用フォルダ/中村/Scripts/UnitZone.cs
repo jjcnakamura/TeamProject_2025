@@ -74,7 +74,9 @@ public class UnitZone : MonoBehaviour
                             onMouseObj.SetActive(onMouse);
 
                             //ユニットの攻撃範囲の表示を開始
-                            if (BattleManager.Instance.battleUnitStatus[index].mesh_AttackZone != null && BattleManager.Instance.battleUnitStatus[index].distance > 0)
+                            if (BattleManager.Instance.battleUnitStatus[index] != null && 
+                                BattleManager.Instance.battleUnitStatus[index].mesh_AttackZone != null && 
+                                BattleManager.Instance.battleUnitStatus[index].distance > 0)
                             {
                                 BattleManager.Instance.battleUnitStatus[index].mesh_AttackZone.enabled = false;
                                 colliderDisplay = true;
@@ -107,7 +109,7 @@ public class UnitZone : MonoBehaviour
                         //ユニットの攻撃範囲の表示を終了
                         if (colliderDisplay)
                         {
-                            BattleManager.Instance.battleUnitStatus[index].mesh_AttackZone.enabled = false;
+                            if (BattleManager.Instance.battleUnitStatus[index] != null) BattleManager.Instance.battleUnitStatus[index].mesh_AttackZone.enabled = false;
                             colliderDisplay = false;
                         }           
 
@@ -137,7 +139,7 @@ public class UnitZone : MonoBehaviour
                     onMouseObj.SetActive(onMouse);
 
                     //ユニットの攻撃範囲を表示する
-                    if (colliderDisplay)
+                    if (colliderDisplay && BattleManager.Instance.battleUnitStatus[index] != null)
                     {   
                         BattleManager.Instance.battleUnitStatus[index].mesh_AttackZone.enabled = true;
                     }
@@ -154,7 +156,7 @@ public class UnitZone : MonoBehaviour
             onMouseObj.SetActive(onMouse);
 
             //ユニットの攻撃範囲を非表示にする
-            if (colliderDisplay)
+            if (colliderDisplay && BattleManager.Instance.battleUnitStatus[index] != null)
             {
                 BattleManager.Instance.battleUnitStatus[index].mesh_AttackZone.enabled = false;
             }
