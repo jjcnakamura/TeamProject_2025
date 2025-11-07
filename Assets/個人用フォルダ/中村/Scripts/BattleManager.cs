@@ -143,7 +143,7 @@ public class BattleManager : Singleton<BattleManager>
         }
 
         //戦闘シーン開始時のみ実行する
-        if (!isMainGame)
+        if (!isMainGame && !isClear && !isGameOver)
         {
             //FPSを固定
             Application.targetFrameRate = 60;
