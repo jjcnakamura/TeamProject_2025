@@ -29,35 +29,35 @@ public class DebugScript : Singleton<DebugScript>
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             ParameterManager.Instance.AddUnit(0);
-            if (BattleManager.Instance != null)
+            if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
                 BattleManager.Instance.Start();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ParameterManager.Instance.AddUnit(1);
-            if (BattleManager.Instance != null)
+            if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
                 BattleManager.Instance.Start();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             ParameterManager.Instance.AddUnit(2);
-            if (BattleManager.Instance != null)
+            if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
                 BattleManager.Instance.Start();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             ParameterManager.Instance.AddUnit(3);
-            if (BattleManager.Instance != null)
+            if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
                 BattleManager.Instance.Start();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             ParameterManager.Instance.AddUnit(4);
-            if (BattleManager.Instance != null)
+            if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
                 BattleManager.Instance.Start();
         }
 
@@ -71,20 +71,23 @@ public class DebugScript : Singleton<DebugScript>
         if (Input.GetKeyDown(KeyCode.J))
         {
             ParameterManager.Instance.maxInstallation++;
-            BattleManager.Instance.Start();
+            if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
+                BattleManager.Instance.Start();
         }
 
         //同名ユニットの配置数増やすやつ
         if (Input.GetKeyDown(KeyCode.K))
         {
             ParameterManager.Instance.sameUnitMaxInstallation++;
-            BattleManager.Instance.Start();
+            if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
+                BattleManager.Instance.Start();
         }
 
         //ポイントmax
         if (Input.GetKeyDown(KeyCode.L))
         {
-            BattleManager.Instance.PointChange(999);
+            if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
+                BattleManager.Instance.PointChange(999);
         }
     }
 }
