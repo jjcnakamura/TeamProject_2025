@@ -101,6 +101,7 @@ public class Enemy_TargetAttack : Enemy_Base
                 {
                     //ユニットのターゲットフラグを外す
                     if (targetPosIndex < targetUnit.beingTarget.Length) targetUnit.beingTarget[targetPosIndex] = false;
+                    targetUnit.beingTargetNum--;
                     targetPosIndex = 0;
                 }
 

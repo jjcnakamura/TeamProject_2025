@@ -167,6 +167,7 @@ public class Enemy_StatusChange : Enemy_Base
                 {
                     //ユニットのターゲットフラグを外す
                     if (targetPosIndex < wallUnit.beingTarget.Length) wallUnit.beingTarget[targetPosIndex] = false;
+                    wallUnit.beingTargetNum--;
                     targetPosIndex = 0;
                 }
 

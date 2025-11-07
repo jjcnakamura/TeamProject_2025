@@ -69,16 +69,16 @@ public class UnitZone : MonoBehaviour
                     {
                         if (!placed)
                         {
-                            //ユニットの攻撃範囲の表示を開始
-                            if (BattleManager.Instance.dragUnit.mesh_AttackZone != null && BattleManager.Instance.dragUnit.distance > 0)
-                            {
-                                BattleManager.Instance.dragUnit.mesh_AttackZone.enabled = false;
-                                colliderDisplay = true;
-                            }
-
                             BattleManager.Instance.PlaceUnit(index);
                             onMouse = false;
                             onMouseObj.SetActive(onMouse);
+
+                            //ユニットの攻撃範囲の表示を開始
+                            if (BattleManager.Instance.battleUnitStatus[index].mesh_AttackZone != null && BattleManager.Instance.battleUnitStatus[index].distance > 0)
+                            {
+                                BattleManager.Instance.battleUnitStatus[index].mesh_AttackZone.enabled = false;
+                                colliderDisplay = true;
+                            }
 
                             placeOnMouse = true;
                             placed = true;
@@ -107,7 +107,7 @@ public class UnitZone : MonoBehaviour
                         //ユニットの攻撃範囲の表示を終了
                         if (colliderDisplay)
                         {
-                            BattleManager.Instance.dragUnit.mesh_AttackZone.enabled = false;
+                            BattleManager.Instance.battleUnitStatus[index].mesh_AttackZone.enabled = false;
                             colliderDisplay = false;
                         }           
 
@@ -139,7 +139,7 @@ public class UnitZone : MonoBehaviour
                     //ユニットの攻撃範囲を表示する
                     if (colliderDisplay)
                     {   
-                        BattleManager.Instance.dragUnit.mesh_AttackZone.enabled = true;
+                        BattleManager.Instance.battleUnitStatus[index].mesh_AttackZone.enabled = true;
                     }
                 }
 
@@ -156,7 +156,7 @@ public class UnitZone : MonoBehaviour
             //ユニットの攻撃範囲を非表示にする
             if (colliderDisplay)
             {
-                BattleManager.Instance.dragUnit.mesh_AttackZone.enabled = false;
+                BattleManager.Instance.battleUnitStatus[index].mesh_AttackZone.enabled = false;
             }
 
             BattleManager.Instance.isOnMouseUnitZone = false;
