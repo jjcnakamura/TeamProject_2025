@@ -178,7 +178,15 @@ public class BattleManager : Singleton<BattleManager>
         }
         canvasParent.SetActive(true);
 
-        speedUpImage.SetActive(false);
+        //リトライ前に速度を上げていた場合は開始時から速度を上げる
+        if (FlagManager.Instance.isSpeedUp && !isSpeedUp)
+        {
+            SpeedUp();
+        }
+        else
+        {
+            speedUpImage.SetActive(false);
+        }
 
         //フラグを設定
         isMainGame = true;
@@ -345,6 +353,8 @@ public class BattleManager : Singleton<BattleManager>
 
         //時間の速さを等速に
         Time.timeScale = 1f;
+        isSpeedUp = false;
+        FlagManager.Instance.isSpeedUp = false;
 
         //ステージクリア画面を表示
         canvas[2].SetActive(true);
@@ -361,6 +371,8 @@ public class BattleManager : Singleton<BattleManager>
 
         //時間の速さを等速に
         Time.timeScale = 1f;
+        isSpeedUp = false;
+        FlagManager.Instance.isSpeedUp = false;
 
         //ゲームオーバー画面を表示
         canvas[3].SetActive(true);
@@ -425,6 +437,7 @@ public class BattleManager : Singleton<BattleManager>
             speedUpImage.SetActive(true);
 
             isSpeedUp = true;
+            FlagManager.Instance.isSpeedUp = true;
         }
         //時間加速終了
         else
@@ -435,6 +448,7 @@ public class BattleManager : Singleton<BattleManager>
             speedUpImage.SetActive(false);
 
             isSpeedUp = false;
+            FlagManager.Instance.isSpeedUp = false;
         }
     }
 
