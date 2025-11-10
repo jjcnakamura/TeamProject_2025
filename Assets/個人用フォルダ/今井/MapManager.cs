@@ -198,7 +198,6 @@ public class MapManager : MonoBehaviour
 
     public void MakeRoute()//ルート一つのステージを作る
     {
-        BossMake();
         if (Stageint == null || Stageint.Length == 0)
         {
             Stageint = new int[3];
@@ -233,6 +232,7 @@ public class MapManager : MonoBehaviour
             int Stage = Random.Range(0, 2);
             GameObject Route = Instantiate(MapStageImage[Stage], MapRoute[2].transform);
         }
+        BossMake();
     }
 
     public void EventContDown()//設置時のコスト　(短縮系)
@@ -298,7 +298,7 @@ public class MapManager : MonoBehaviour
         i.gameObject.SetActive(false);
     }
 
-    public void BossMake()
+    public void BossMake()//難易度参照のボス
     {
         Debug.Log("通ってるよ");
         if (worldLevel == 0)
