@@ -88,6 +88,9 @@ public class BattleManager : Singleton<BattleManager>
     //ゲームの状態を表すフラグ
     public bool isMainGame, isClear, isGameOver, isPause, isSpeedUp, isMaxInstallation, isUnitDrag, isUnitPlace, isOnMouseUnitZone;
 
+    //マップとの情報共有用変数
+    MapManager mapManager;
+
     void Awake()
     {
         //デバッグ用　初期ステータスを設定
@@ -106,6 +109,13 @@ public class BattleManager : Singleton<BattleManager>
 
     public void Start()
     {
+        //マップを非表示に
+        mapManager = FindObjectOfType<MapManager>();
+        if (mapManager != null)
+        {
+            mapManager.gameObject.SetActive(false);
+        }
+
         //ユニット設置関連の初期パラメーターを設定
         maxInstallation = ParameterManager.Instance.maxInstallation;
         text_UnitNum.text = battleUnitNum.ToString() + " / " + maxInstallation.ToString();
@@ -202,6 +212,16 @@ public class BattleManager : Singleton<BattleManager>
     void Update()
     {
         if (!isMainGame) return; //メインゲーム中でなければ戻る
+
+        //デバッグ用操作
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            Clear();
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            GameOver();
+        }
 
         DragUnit();   //ユニットドラッグ中の処理
         ClearCheck(); //敵を全て倒したらクリアにする
@@ -501,5 +521,20 @@ public class BattleManager : Singleton<BattleManager>
     public void Retry()
     {
         FadeManager.Instance.LoadSceneIndex(SceneManager.GetActiveScene().buildIndex, 0.5f);
+    }
+
+    /// <summary>
+    /// マップ画面に戻るボタン
+    /// </summary>
+    public void BackMap()
+    {
+        //Canvasを非表示
+        canvasParent.SetActive(false);
+
+        //マップ画面に戻る
+        if (mapManager != null)
+        {
+            mapManager.gameObject.SetActive(true);
+        }
     }
 }

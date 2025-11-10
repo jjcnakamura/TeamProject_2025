@@ -23,15 +23,12 @@ public class StageInfo : MonoBehaviour
 
     void Update()
     {
-        //戦闘シーンの場合は戻る
-        if (FindObjectOfType(System.Type.GetType("BattleManager")) != null) return;
-
-        StageInfoText[0].text = StageName; //何をするかをテキストで反映
-        StageInfoText[1].text = StageNaiyou;//内容
-        image[0].SetActive(Start);
+        if (StageInfoText[0] != null) StageInfoText[0].text = StageName; //何をするかをテキストで反映
+        if (StageInfoText[1] != null) StageInfoText[1].text = StageNaiyou;//内容
+        if (image[0] != null) image[0].SetActive(Start);
         if (StageName == "バトル")//バトルステージの時は表示
         {
-            StageInfoText[1].text = Enemyint.ToString();
+            if (StageInfoText[1] != null) StageInfoText[1].text = Enemyint.ToString();
         }
         if (StageEnd == true)//自分のステージが終わったら消える処理
         {
