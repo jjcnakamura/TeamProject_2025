@@ -33,6 +33,7 @@ public class MapManager : MonoBehaviour
     public TextMeshProUGUI[] MapText;
     public bool gameStartflg;
     public GameObject Map;
+    public bool Nextfloorbool;
 
     void Awake()
     {
@@ -74,24 +75,35 @@ public class MapManager : MonoBehaviour
         {
             transforms[i] = MapRoute[i].transform;
         }
-
-        if (gameStartflg == true && nextStage.childCount == 0)
+        if (nextStage.childCount == 0 && Nextfloorbool == true)
         {
-            if (transforms[x].childCount == 0)
+            NextFloor();
+        }
+
+        if (gameStartflg == true && nextStage.childCount == 0 && Nextfloorbool == false)
+        {
+            if (transforms[x].childCount == 0 && Nextfloorbool == false)
             {
                 Transform Boss = BossEnemy.GetChild(0);
                 Boss.SetParent(nextStage, true);
                 Boss.localPosition = Vector3.zero;
+                GoNextStage();
+                Nextfloorbool = true;
+                Debug.Log("あああああああああああ");
+                return;
             }
             Transform child = transforms[x].GetChild(0);
             child.SetParent(nextStage, true);
             child.localPosition = Vector3.zero;
             GoNextStage();
+            return;
         }
+        
     }
     public void NextFloor()//フロアを進める処理
     {
         gameStartflg = false;
+        Nextfloorbool = false;
         floor = floor + 1;
         foreach (GameObject parent in MapRoute)
         {
@@ -122,6 +134,7 @@ public class MapManager : MonoBehaviour
             Debug.Log("何も情報なし");
         }
     }
+
     public void OnButtonPressed(int i)//ボタンに入っているルートを決めて一つステージを持ってくる
     {
         x = i;
@@ -233,8 +246,18 @@ public class MapManager : MonoBehaviour
             GameObject Route = Instantiate(MapStageImage[Stage], MapRoute[2].transform);
         }
         BossMake();
+        foreach (GameObject button in MapEnterButton)
+        {
+            button.SetActive(true);
+        }
+        foreach (GameObject obj in MapRoute)
+        {
+            if (obj != null)
+            {
+                obj.SetActive(true);
+            }
+        }
     }
-
     public void EventContDown()//設置時のコスト　(短縮系)
     {
         unitStatus.cost -= 1;//（仮）
