@@ -118,6 +118,7 @@ public class MapManager : MonoBehaviour
 
     public void GoNextStage() //決めたルートのステージを進める処理
     {
+        if (nextStage.transform.childCount <= 0) return;
         Transform child = nextStage.GetChild(0);
         StageInfo stageinfo = child.GetComponent<StageInfo>();
 
