@@ -47,6 +47,13 @@ public class MapManager : MonoBehaviour
     }
     void Update()
     {
+        //í“¬ƒV[ƒ“‚Ìê‡‚Í–ß‚é
+        if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
+        {
+            if (gameObject.activeSelf) gameObject.SetActive(false);
+            return;
+        }
+
         MapText[0].text = floor.ToString();
 
         var status = ParameterManager.Instance.unitStatus;

@@ -23,6 +23,9 @@ public class StageInfo : MonoBehaviour
 
     void Update()
     {
+        //戦闘シーンの場合は戻る
+        if (FindObjectOfType(System.Type.GetType("BattleManager")) != null) return;
+
         StageInfoText[0].text = StageName; //何をするかをテキストで反映
         StageInfoText[1].text = StageNaiyou;//内容
         image[0].SetActive(Start);

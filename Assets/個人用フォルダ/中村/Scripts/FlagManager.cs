@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class FlagManager : Singleton<FlagManager>
 {
-    [System.NonSerialized] public bool isSpeedUp;
+    //マップシーン用
+    [System.NonSerialized] public bool isMapScene;
+
+    //戦闘シーン用
+    [System.NonSerialized] public bool isBattleScene, isSpeedUp;
 
     void Awake()
     {

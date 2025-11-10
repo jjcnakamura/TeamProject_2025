@@ -45,7 +45,8 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] PullUnit unitPullButtonPrefab;                 //ユニットを持ってくるボタン
     [SerializeField] PullUnit[] unitPullButton;                     //ユニットを持ってくるボタン
     GameObject[] battleUnitPrefab;                                  //ボタンから生成されるユニットのPrefab
-    Vector3 pullUnitSizeOffset = new Vector3(0.4f, 0.4f, 0.4f);     //ユニットを持った場合にかけるサイズ補正
+    float defaltCameraPosY = 18.5f;                                 //カメラの高さの初期値
+    float pullUnitSizeOffset = 0.4f;                                //ユニットを持った場合にかけるサイズ補正
     public BattleUnit_Base dragUnit { get; private set; }           //現在ドラッグしているユニット
     int dragUnitIndex;                                              //ドラッグしているユニットの要素番号
     int[] unitInstallationCount;                                    //ユニットの配置数カウント
@@ -90,7 +91,7 @@ public class BattleManager : Singleton<BattleManager>
     void Awake()
     {
         //デバッグ用　初期ステータスを設定
-        if (FindObjectOfType(System.Type.GetType("DebugScript")) == null)
+        if (ParameterManager.Instance.unitStatus.Length <= 0 && FindObjectOfType(System.Type.GetType("DebugScript")) == null)
         {
             ParameterManager.Instance.maxUnitPossession = 5;
             ParameterManager.Instance.maxInstallation = 10;
@@ -221,7 +222,11 @@ public class BattleManager : Singleton<BattleManager>
 
         dragUnitIndex = unitIndex;
         dragUnit = Instantiate(battleUnitPrefab[unitIndex]).GetComponent<BattleUnit_Base>();
-        dragUnit.transform.localScale -= pullUnitSizeOffset;
+
+        //カメラからの距離によってサイズを調整する
+        float lerp = Mathf.Lerp(1f, 0.9125f, (Camera.main.transform.position.y - defaltCameraPosY) / (37f - defaltCameraPosY));
+        float sizeOffset = Mathf.Min(Camera.main.transform.position.y * (pullUnitSizeOffset / defaltCameraPosY * lerp), 1);
+        dragUnit.transform.localScale -= new Vector3(sizeOffset, sizeOffset, sizeOffset);
         dragUnit.transform.rotation = new Quaternion(0, 180f, 0, 0);
 
         //Colliderのサイズを決定、攻撃範囲を表示
@@ -256,10 +261,10 @@ public class BattleManager : Singleton<BattleManager>
     //ユニットを配置する
     public void PlaceUnit(int zoneIndex)
     {
-        dragUnit.transform.localScale += pullUnitSizeOffset;
-        dragUnit.transform.position = unitZone[zoneIndex].unitPoint;
-
         int unitIndex = dragUnitIndex;
+
+        dragUnit.transform.position = unitZone[zoneIndex].unitPoint;
+        dragUnit.transform.localScale = battleUnitPrefab[unitIndex].transform.localScale;
 
         //ステータスを読み込み
         battleUnitStatus[zoneIndex] = dragUnit;
