@@ -1981,7 +1981,7 @@ MonoBehaviour:
   UnitUpGold: 0500000007000000
   Gold: 0
   MapText:
-  - {fileID: 0}
+  - {fileID: 599208893}
   gameStartflg: 0
   Map: {fileID: 6012821859748047096}
 --- !u!114 &1646387642318684017

@@ -198,6 +198,7 @@ public class MapManager : MonoBehaviour
 
     public void MakeRoute()//ルート一つのステージを作る
     {
+        BossMake();
         if (Stageint == null || Stageint.Length == 0)
         {
             Stageint = new int[3];
@@ -231,21 +232,6 @@ public class MapManager : MonoBehaviour
         {
             int Stage = Random.Range(0, 2);
             GameObject Route = Instantiate(MapStageImage[Stage], MapRoute[2].transform);
-        }
-        if (worldLevel == 0)
-        {
-            int i = floor - 1;
-            GameObject Boss = Instantiate(EasyworldBoss[i], BossEnemy.transform);
-        }
-        if (worldLevel == 1)
-        {
-            int i = floor - 1;
-            GameObject Boss = Instantiate(NormalworldBoss[i], BossEnemy.transform);
-        }
-        if (worldLevel == 2)
-        {
-            int i = floor - 1;
-            GameObject Boss = Instantiate(ExtraworldBoss[i], BossEnemy.transform);
         }
     }
 
@@ -308,7 +294,27 @@ public class MapManager : MonoBehaviour
     public void GameStart(GameObject i)//ゲームスタート　ボタン用
     {
         Map.SetActive(true);
-        i.gameObject.SetActive(false);
         NextFloor();
+        i.gameObject.SetActive(false);
+    }
+
+    public void BossMake()
+    {
+        Debug.Log("通ってるよ");
+        if (worldLevel == 0)
+        {
+            int i = floor - 1;
+            GameObject Boss = Instantiate(EasyworldBoss[i], BossEnemy.transform);
+        }
+        if (worldLevel == 1)
+        {
+            int i = floor - 1;
+            GameObject Boss = Instantiate(NormalworldBoss[i], BossEnemy.transform);
+        }
+        if (worldLevel == 2)
+        {
+            int i = floor - 1;
+            GameObject Boss = Instantiate(ExtraworldBoss[i], BossEnemy.transform);
+        }
     }
 }
