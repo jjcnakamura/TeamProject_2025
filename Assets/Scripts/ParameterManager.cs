@@ -84,6 +84,7 @@ public class ParameterManager : Singleton<ParameterManager>
     public void LevelUp(int unitIndex)
     {
         //全キャラ共通で成長するステータス
+        unitStatus[unitIndex].lv += 1;
         unitStatus[unitIndex].hp += 3;
         unitStatus[unitIndex].value += 1;
 
