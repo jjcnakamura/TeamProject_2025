@@ -97,9 +97,6 @@ public class BattleManager : Singleton<BattleManager>
     public bool isMainGame, isClear, isGameOver, isPause, isSpeedUp, isNoDamage,
                 isMaxInstallation, isUnitDrag, isUnitPlace, isOnMouseUnitZone;
 
-    //マップとの情報共有用変数
-    MapManager mapManager;
-
     void Awake()
     {
         //デバッグ用　初期ステータスを設定
@@ -119,12 +116,9 @@ public class BattleManager : Singleton<BattleManager>
     public void Start()
     {
         //マップを非表示に
-        mapManager = FindObjectOfType<MapManager>();
-        if (mapManager != null)
-        {
-            mapManager.gameObject.SetActive(false);
-        }
-
+        if (FindObjectOfType(System.Type.GetType("MapManager")) != null)
+        MapManager.Instance.gameObject.SetActive(false);
+        
         //ユニット設置関連の初期パラメーターを設定
         maxInstallation = ParameterManager.Instance.maxInstallation;
         text_UnitNum.text = battleUnitNum.ToString() + " / " + maxInstallation.ToString();
@@ -205,7 +199,7 @@ public class BattleManager : Singleton<BattleManager>
             canvasParent.SetActive(true);
 
             //リトライ前に速度を上げていた場合は開始時から速度を上げる
-            if (FlagManager.Instance.isSpeedUp && !isSpeedUp)
+            if (ParameterManager.Instance.isSpeedUp && !isSpeedUp)
             {
                 SpeedUp();
             }
@@ -398,13 +392,14 @@ public class BattleManager : Singleton<BattleManager>
         //時間の速さを等速に
         Time.timeScale = 1f;
         isSpeedUp = false;
-        FlagManager.Instance.isSpeedUp = false;
+        ParameterManager.Instance.isSpeedUp = false;
 
         //ステージクリア画面を表示
         canvas[2].SetActive(true);
         text_Nodamage.gameObject.SetActive(isNoDamage);
 
-        //獲得経験値を表示
+        //経験値を獲得
+        ParameterManager.Instance.getExp = (isNoDamage) ? exp + bonusExp : exp;
         text_GetExp.text = "経験値＋";
         text_GetExp.text += (isNoDamage) ? exp.ToString() + "＋" + bonusExp.ToString() : exp.ToString();
     }
@@ -421,7 +416,7 @@ public class BattleManager : Singleton<BattleManager>
         //時間の速さを等速に
         Time.timeScale = 1f;
         isSpeedUp = false;
-        FlagManager.Instance.isSpeedUp = false;
+        ParameterManager.Instance.isSpeedUp = false;
 
         //ゲームオーバー画面を表示
         canvas[3].SetActive(true);
@@ -488,7 +483,7 @@ public class BattleManager : Singleton<BattleManager>
             speedUpImage.SetActive(true);
 
             isSpeedUp = true;
-            FlagManager.Instance.isSpeedUp = true;
+            ParameterManager.Instance.isSpeedUp = true;
         }
         //時間加速終了
         else
@@ -499,7 +494,7 @@ public class BattleManager : Singleton<BattleManager>
             speedUpImage.SetActive(false);
 
             isSpeedUp = false;
-            FlagManager.Instance.isSpeedUp = false;
+            ParameterManager.Instance.isSpeedUp = false;
         }
     }
 
@@ -548,20 +543,11 @@ public class BattleManager : Singleton<BattleManager>
     /// </summary>
     public void BackMap()
     {
-        //Canvasを非表示
-        canvasParent.SetActive(false);
-
         //プレイヤーのパラメーターの変更を反映
-        if (isClear)
-        {
-            ParameterManager.Instance.getExp = (isNoDamage) ? exp + bonusExp : exp;
-            ParameterManager.Instance.hp = playerHp;
-        }
+        ParameterManager.Instance.hp = playerHp;
+        ParameterManager.Instance.isBattleClear = true;
 
-        //マップ画面に戻る
-        if (mapManager != null)
-        {
-            mapManager.gameObject.SetActive(true);
-        }
+        //マップシーンに戻る
+        FadeManager.Instance.LoadSceneIndex(1, 0.5f);
     }
 }

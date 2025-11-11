@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class MapManager : MonoBehaviour
+public class MapManager : Singleton<MapManager>
 {
     public ParameterManager.UnitStatus unitStatus;
     public GameObject[] MapStageImage;//マップで使うプレハブなど
@@ -37,6 +37,13 @@ public class MapManager : MonoBehaviour
 
     void Awake()
     {
+        //シーンを遷移しても残る
+        if (gameObject.transform.parent != null) gameObject.transform.parent = null;
+        if (this != Instance)
+        {
+            Destroy(gameObject);
+            return;
+        }
         DontDestroyOnLoad(gameObject);
     }
 

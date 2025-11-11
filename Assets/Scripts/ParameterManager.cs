@@ -26,6 +26,12 @@ public class ParameterManager : Singleton<ParameterManager>
     //ステージクリア後に使用する変数
     public int getExp;              //獲得した経験値
 
+    //マップシーン用のフラグ
+    [System.NonSerialized] public bool isBattleClear;
+
+    //戦闘シーン用のフラグ
+    [System.NonSerialized] public bool isSpeedUp;
+
     void Awake()
     {
         //シーンを遷移しても残る
