@@ -244,7 +244,9 @@ public class BattleManager : Singleton<BattleManager>
         dragUnit = Instantiate(battleUnitPrefab[unitIndex]).GetComponent<BattleUnit_Base>();
 
         //カメラからの距離によってサイズを調整する
-        float lerp = Mathf.Lerp(1f, 0.9125f, (Camera.main.transform.position.y - defaltCameraPosY) / (37f - defaltCameraPosY));
+        float lerp = (Camera.main.transform.position.y < defaltCameraPosY) ?
+                     Mathf.Lerp(0.0042045443556305f, 1f, (defaltCameraPosY - Camera.main.transform.position.y) / (defaltCameraPosY) - 11f) :
+                     Mathf.Lerp(1f, 0.8671874647705092f, (Camera.main.transform.position.y - defaltCameraPosY) / (40f - defaltCameraPosY));
         float sizeOffset = Mathf.Min(Camera.main.transform.position.y * (pullUnitSizeOffset / defaltCameraPosY * lerp), 1);
         dragUnit.transform.localScale -= new Vector3(sizeOffset, sizeOffset, sizeOffset);
         dragUnit.transform.rotation = new Quaternion(0, 180f, 0, 0);
