@@ -69,8 +69,49 @@ public class ParameterManager : Singleton<ParameterManager>
         unitStatus[index].distance = UnitsData.Instance.unit[id].distance; //攻撃、回復の射程
         unitStatus[index].range = UnitsData.Instance.unit[id].range;       //範囲攻撃の範囲
 
+        unitStatus[index].lvUpStatus = UnitsData.Instance.unit[id].lVUPStatus;         //レベルアップ時に上がるステータス
+
         unitStatus[index].place_UnitZone = UnitsData.Instance.unit[id].place_UnitZone; //ユニットの配置場所に置けるか
         unitStatus[index].place_Floor = UnitsData.Instance.unit[id].place_Floor;       //敵の通り道に置けるか
+    }
+
+    /// <summary>
+    /// ユニットの固有ステータスのレベルアップ　引数でアップするユニットを指定　帰り値はアップ後のステータス
+    /// </summary>
+    public UnitStatus StatusUp(UnitStatus unit)
+    {
+        UnitStatus endStatus = unit;
+
+        if (unit.lvUpStatus != UnitsData.LvUpStatus.none)
+        {
+            //耐久値（最大HP）
+            if (unit.lvUpStatus == UnitsData.LvUpStatus.hp)
+            {
+                endStatus.hp += 4;
+            }
+            //DPSの場合は攻撃力、サポートの場合は回復量、ポイント増加量など
+            else if (unit.lvUpStatus == UnitsData.LvUpStatus.value)
+            {
+                endStatus.value += 2;
+            }
+            //行動速度（攻撃、回復をする間隔）
+            else if (unit.lvUpStatus == UnitsData.LvUpStatus.interval)
+            {
+                endStatus.interval = Mathf.Max(endStatus.interval - 0.25f, 0);
+            }
+            //攻撃、回復の射程
+            else if (unit.lvUpStatus == UnitsData.LvUpStatus.distance)
+            {
+                endStatus.distance += 0.5f;
+            }
+            //範囲攻撃の範囲
+            else if (unit.lvUpStatus == UnitsData.LvUpStatus.range)
+            {
+                endStatus.range += 0.25f;
+            }
+        }
+
+        return endStatus;
     }
 
     /// <summary>
@@ -100,7 +141,9 @@ public class ParameterManager : Singleton<ParameterManager>
         public float distance;      //攻撃、回復の射程
         public float range;         //範囲攻撃の範囲
 
-        public bool place_UnitZone; //ユニットの配置場所に置けるか
-        public bool place_Floor;    //敵の通り道に置けるか
+        public UnitsData.LvUpStatus lvUpStatus; //レベルアップ時に上がるステータス
+
+        public bool place_UnitZone;             //ユニットの配置場所に置けるか
+        public bool place_Floor;                //敵の通り道に置けるか
     }
 }
