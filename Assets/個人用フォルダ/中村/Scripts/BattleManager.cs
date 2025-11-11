@@ -10,6 +10,11 @@ using TMPro;
 /// </summary>
 public class BattleManager : Singleton<BattleManager>
 {
+    [SerializeField, Label("このステージクリア時の経験値")] int exp = 10;
+    [SerializeField, Label("ノーダメージクリア時の追加経験値")] int bonusExp = 2;
+
+    [Space(10)]
+
     //各Canvas
     [SerializeField] GameObject canvasParent;
     GameObject[] canvas;
@@ -23,6 +28,9 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] TextMeshProUGUI text_SameMaxUnitNum; //同じユニットの最大配置数用テキスト
     [SerializeField] TextMeshProUGUI text_Point;          //ポイント用テキスト
     public           TextMeshProUGUI text_EnemyNum;       //現在の敵の数用テキスト
+    [SerializeField] TextMeshProUGUI text_GetExp;         //獲得した経験値を表示するテキスト
+    [SerializeField] TextMeshProUGUI text_Nodamage;       //ノーダメージクリア時に表示するテキスト
+
     int maxPlayerHp;
     public int playerHp;
     public int battleUnitNum;
@@ -86,7 +94,8 @@ public class BattleManager : Singleton<BattleManager>
     public float timer_EnemySpawn { get; private set; }
 
     //ゲームの状態を表すフラグ
-    public bool isMainGame, isClear, isGameOver, isPause, isSpeedUp, isMaxInstallation, isUnitDrag, isUnitPlace, isOnMouseUnitZone;
+    public bool isMainGame, isClear, isGameOver, isPause, isSpeedUp, isNoDamage,
+                isMaxInstallation, isUnitDrag, isUnitPlace, isOnMouseUnitZone;
 
     //マップとの情報共有用変数
     MapManager mapManager;
@@ -101,9 +110,9 @@ public class BattleManager : Singleton<BattleManager>
             ParameterManager.Instance.sameUnitMaxInstallation = 3;
             ParameterManager.Instance.AddUnit(0);
             ParameterManager.Instance.AddUnit(1);
-            ParameterManager.Instance.AddUnit(2);
             ParameterManager.Instance.AddUnit(3);
             ParameterManager.Instance.AddUnit(4);
+            ParameterManager.Instance.AddUnit(6);
         }
     }
 
@@ -165,6 +174,7 @@ public class BattleManager : Singleton<BattleManager>
             text_Hp.text = playerHp.ToString();
             point = ParameterManager.Instance.point;
             text_Point.text = point.ToString();
+            text_Nodamage.gameObject.SetActive(false);
 
             //ユニットの配置場所を取得
             int unitZoneNum = unitZoneParent.transform.childCount;
@@ -206,6 +216,7 @@ public class BattleManager : Singleton<BattleManager>
 
             //フラグを設定
             isMainGame = true;
+            isNoDamage = true;
         }
     }
 
@@ -391,6 +402,11 @@ public class BattleManager : Singleton<BattleManager>
 
         //ステージクリア画面を表示
         canvas[2].SetActive(true);
+        text_Nodamage.gameObject.SetActive(isNoDamage);
+
+        //獲得経験値を表示
+        text_GetExp.text = "経験値＋";
+        text_GetExp.text += (isNoDamage) ? exp.ToString() + "＋" + bonusExp.ToString() : exp.ToString();
     }
     //ゲームオーバー
     void GameOver()
@@ -445,6 +461,8 @@ public class BattleManager : Singleton<BattleManager>
     public void Damage()
     {
         if (!isMainGame) return;
+
+        isNoDamage = false;
 
         playerHp = Mathf.Max(playerHp - 1, 0);
         text_Hp.text = playerHp.ToString();
@@ -532,6 +550,13 @@ public class BattleManager : Singleton<BattleManager>
     {
         //Canvasを非表示
         canvasParent.SetActive(false);
+
+        //プレイヤーのパラメーターの変更を反映
+        if (isClear)
+        {
+            ParameterManager.Instance.getExp = (isNoDamage) ? exp + bonusExp : exp;
+            ParameterManager.Instance.hp = playerHp;
+        }
 
         //マップ画面に戻る
         if (mapManager != null)

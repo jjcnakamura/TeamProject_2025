@@ -23,6 +23,9 @@ public class ParameterManager : Singleton<ParameterManager>
     public UnitStatus[] unitStatus;
     public int[] battleUnitId;      //戦闘で使用するユニットの番号
 
+    //ステージクリア後に使用する変数
+    public int getExp;              //獲得した経験値
+
     void Awake()
     {
         //シーンを遷移しても残る
@@ -76,42 +79,43 @@ public class ParameterManager : Singleton<ParameterManager>
     }
 
     /// <summary>
-    /// ユニットの固有ステータスのレベルアップ　引数でアップするユニットを指定　帰り値はアップ後のステータス
+    /// ユニットのレベルアップ　引数でユニットの要素番号を指定
     /// </summary>
-    public UnitStatus StatusUp(UnitStatus unit)
+    public void LevelUp(int unitIndex)
     {
-        UnitStatus endStatus = unit;
+        //全キャラ共通で成長するステータス
+        unitStatus[unitIndex].hp += 3;
+        unitStatus[unitIndex].value += 1;
 
-        if (unit.lvUpStatus != UnitsData.LvUpStatus.none)
+        //キャラごとに違う成長ステータス
+        if (unitStatus[unitIndex].lvUpStatus != UnitsData.LvUpStatus.none)
         {
             //耐久値（最大HP）
-            if (unit.lvUpStatus == UnitsData.LvUpStatus.hp)
+            if (unitStatus[unitIndex].lvUpStatus == UnitsData.LvUpStatus.hp)
             {
-                endStatus.hp += 4;
+                unitStatus[unitIndex].hp += 4;
             }
             //DPSの場合は攻撃力、サポートの場合は回復量、ポイント増加量など
-            else if (unit.lvUpStatus == UnitsData.LvUpStatus.value)
+            else if (unitStatus[unitIndex].lvUpStatus == UnitsData.LvUpStatus.value)
             {
-                endStatus.value += 2;
+                unitStatus[unitIndex].value += 2;
             }
             //行動速度（攻撃、回復をする間隔）
-            else if (unit.lvUpStatus == UnitsData.LvUpStatus.interval)
+            else if (unitStatus[unitIndex].lvUpStatus == UnitsData.LvUpStatus.interval)
             {
-                endStatus.interval = Mathf.Max(endStatus.interval - 0.25f, 0);
+                unitStatus[unitIndex].interval = Mathf.Max(unitStatus[unitIndex].interval - 0.25f, 0);
             }
             //攻撃、回復の射程
-            else if (unit.lvUpStatus == UnitsData.LvUpStatus.distance)
+            else if (unitStatus[unitIndex].lvUpStatus == UnitsData.LvUpStatus.distance)
             {
-                endStatus.distance += 0.5f;
+                unitStatus[unitIndex].distance += 0.5f;
             }
             //範囲攻撃の範囲
-            else if (unit.lvUpStatus == UnitsData.LvUpStatus.range)
+            else if (unitStatus[unitIndex].lvUpStatus == UnitsData.LvUpStatus.range)
             {
-                endStatus.range += 0.25f;
+                unitStatus[unitIndex].range += 0.25f;
             }
         }
-
-        return endStatus;
     }
 
     /// <summary>
