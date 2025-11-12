@@ -26,23 +26,16 @@ public class DebugScript : Singleton<DebugScript>
     void Update()
     {
         //デバック用にユニット増やすやつ
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             ParameterManager.Instance.AddUnit(0);
             if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
                 BattleManager.Instance.Start();
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ParameterManager.Instance.AddUnit(1);
-            if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
-                BattleManager.Instance.Start();
-        }
-
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            ParameterManager.Instance.AddUnit(2);
+            ParameterManager.Instance.AddUnit(1);
             if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
                 BattleManager.Instance.Start();
         }
@@ -57,6 +50,13 @@ public class DebugScript : Singleton<DebugScript>
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             ParameterManager.Instance.AddUnit(4);
+            if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
+                BattleManager.Instance.Start();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            ParameterManager.Instance.AddUnit(6);
             if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
                 BattleManager.Instance.Start();
         }

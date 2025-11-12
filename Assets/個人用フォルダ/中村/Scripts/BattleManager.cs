@@ -370,7 +370,7 @@ public class BattleManager : Singleton<BattleManager>
         if (nowEnemyNum <= 0) Clear();
     }
     //ステージクリア
-    public void Clear()
+    void Clear()
     {
         //ユニットをドラッグしていたら離す
         LetgoUnit();
