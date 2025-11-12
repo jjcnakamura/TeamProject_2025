@@ -218,16 +218,6 @@ public class BattleManager : Singleton<BattleManager>
     {
         if (!isMainGame) return; //メインゲーム中でなければ戻る
 
-        //デバッグ用操作
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Clear();
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            GameOver();
-        }
-
         DragUnit();   //ユニットドラッグ中の処理
         ClearCheck(); //敵を全て倒したらクリアにする
     }
@@ -380,7 +370,7 @@ public class BattleManager : Singleton<BattleManager>
         if (nowEnemyNum <= 0) Clear();
     }
     //ステージクリア
-    void Clear()
+    public void Clear()
     {
         //ユニットをドラッグしていたら離す
         LetgoUnit();
