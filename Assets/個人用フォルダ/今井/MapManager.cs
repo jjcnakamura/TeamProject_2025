@@ -34,6 +34,7 @@ public class MapManager : Singleton<MapManager>
     public bool gameStartflg;
     public GameObject Map;
     public bool Nextfloorbool;
+    public GameObject charaLevelCanvas;
 
     void Awake()
     {
@@ -82,12 +83,12 @@ public class MapManager : Singleton<MapManager>
         {
             transforms[i] = MapRoute[i].transform;
         }
-        if (nextStage.childCount == 0 && Nextfloorbool == true)
+        if (nextStage.childCount == 0 && Nextfloorbool == true)//フロアを進めるやつ
         {
             NextFloor();
         }
 
-        if (gameStartflg == true && nextStage.childCount == 0 && Nextfloorbool == false)
+        if (gameStartflg == true && nextStage.childCount == 0 && Nextfloorbool == false)//ステージを判別する奴
         {
             if (transforms[x].childCount == 0 && Nextfloorbool == false)
             {
@@ -104,6 +105,16 @@ public class MapManager : Singleton<MapManager>
             child.localPosition = Vector3.zero;
             GoNextStage();
             return;
+        }
+        if (ParameterManager.Instance.isBattleClear == true)//クリアしたら勝手に次のステージに進むやつ
+        {
+            Transform child = nextStage.GetChild(0);
+            StageInfo stageInfo = child.GetComponent<StageInfo>();
+            if (stageInfo != null)
+            {
+                stageInfo.StageEnd = true;
+                ParameterManager.Instance.isBattleClear = false;
+            }
         }
         
     }
@@ -299,19 +310,17 @@ public class MapManager : Singleton<MapManager>
     public void UnitLevelUpBottun(int i)//キャラクターのレベルあげる所
     {
         //i はParameterのunitStatusのidを元に動かすもの
-        unitStatus.id = i;
-        if (Gold >= UnitUpGold[unitStatus.lv])
+        if(ParameterManager.Instance.getExp > 0)
         {
-            Gold -= UnitUpGold[unitStatus.lv];
-            unitStatus.lv += 1;//レベル
-            unitStatus.hp += 1;//耐久値（最大HP）
-            unitStatus.value += 1;//DPSの場合は攻撃力、サポートの場合は回復量、ポイント増加量など
-            unitStatus.interval += 1;//行動速度（攻撃、回復をする間隔）
-            unitStatus.distance += 1;//攻撃、回復の射程
-            unitStatus.range += 1;//範囲攻撃の範囲
-            //音も鳴らす
+            ParameterManager.Instance.unitStatus[i].exp += 1;
+            ParameterManager.Instance.getExp -= 1;
+            if (ParameterManager.Instance.unitStatus[i].exp >= 10 * ParameterManager.Instance.unitStatus[i].lv)
+            {
+                ParameterManager.Instance.LevelUp(i);
+            }
+            UnitLevelAndExp.Instance.NewStatus();
         }
-        if(Gold < UnitUpGold[unitStatus.lv])
+        else
         {
             //音かテキストを出して出来ないことをしめす
         }
@@ -347,5 +356,11 @@ public class MapManager : Singleton<MapManager>
             int i = floor - 1;
             GameObject Boss = Instantiate(ExtraworldBoss[i], BossEnemy.transform);
         }
+    }
+
+    public void CharaLevelCanvas(bool i)
+    {
+        charaLevelCanvas.SetActive(i);
+        UnitLevelAndExp.Instance.NewStatus();
     }
 }
