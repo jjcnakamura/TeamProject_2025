@@ -10,6 +10,11 @@ using TMPro;
 /// </summary>
 public class BattleManager : Singleton<BattleManager>
 {
+    [SerializeField, Label("このステージクリア時の経験値")] int exp = 10;
+    [SerializeField, Label("ノーダメージクリア時の追加経験値")] int bonusExp = 2;
+
+    [Space(10)]
+
     //各Canvas
     [SerializeField] GameObject canvasParent;
     GameObject[] canvas;
@@ -23,6 +28,9 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] TextMeshProUGUI text_SameMaxUnitNum; //同じユニットの最大配置数用テキスト
     [SerializeField] TextMeshProUGUI text_Point;          //ポイント用テキスト
     public           TextMeshProUGUI text_EnemyNum;       //現在の敵の数用テキスト
+    [SerializeField] TextMeshProUGUI text_GetExp;         //獲得した経験値を表示するテキスト
+    [SerializeField] TextMeshProUGUI text_Nodamage;       //ノーダメージクリア時に表示するテキスト
+
     int maxPlayerHp;
     public int playerHp;
     public int battleUnitNum;
@@ -45,7 +53,8 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] PullUnit unitPullButtonPrefab;                 //ユニットを持ってくるボタン
     [SerializeField] PullUnit[] unitPullButton;                     //ユニットを持ってくるボタン
     GameObject[] battleUnitPrefab;                                  //ボタンから生成されるユニットのPrefab
-    Vector3 pullUnitSizeOffset = new Vector3(0.4f, 0.4f, 0.4f);     //ユニットを持った場合にかけるサイズ補正
+    float defaltCameraPosY = 18.5f;                                 //カメラの高さの初期値
+    float pullUnitSizeOffset = 0.4f;                                //ユニットを持った場合にかけるサイズ補正
     public BattleUnit_Base dragUnit { get; private set; }           //現在ドラッグしているユニット
     int dragUnitIndex;                                              //ドラッグしているユニットの要素番号
     int[] unitInstallationCount;                                    //ユニットの配置数カウント
@@ -85,26 +94,31 @@ public class BattleManager : Singleton<BattleManager>
     public float timer_EnemySpawn { get; private set; }
 
     //ゲームの状態を表すフラグ
-    public bool isMainGame, isClear, isGameOver, isPause, isSpeedUp, isMaxInstallation, isUnitDrag, isUnitPlace, isOnMouseUnitZone;
+    public bool isMainGame, isClear, isGameOver, isPause, isSpeedUp, isNoDamage,
+                isMaxInstallation, isUnitDrag, isUnitPlace, isOnMouseUnitZone;
 
     void Awake()
     {
         //デバッグ用　初期ステータスを設定
-        if (FindObjectOfType(System.Type.GetType("DebugScript")) == null)
+        if (ParameterManager.Instance.unitStatus.Length <= 0 && FindObjectOfType(System.Type.GetType("DebugScript")) == null)
         {
             ParameterManager.Instance.maxUnitPossession = 5;
             ParameterManager.Instance.maxInstallation = 10;
             ParameterManager.Instance.sameUnitMaxInstallation = 3;
             ParameterManager.Instance.AddUnit(0);
             ParameterManager.Instance.AddUnit(1);
-            ParameterManager.Instance.AddUnit(2);
             ParameterManager.Instance.AddUnit(3);
             ParameterManager.Instance.AddUnit(4);
+            ParameterManager.Instance.AddUnit(6);
         }
     }
 
     public void Start()
     {
+        //マップを非表示に
+        if (FindObjectOfType(System.Type.GetType("MapManager")) != null)
+        MapManager.Instance.gameObject.SetActive(false);
+        
         //ユニット設置関連の初期パラメーターを設定
         maxInstallation = ParameterManager.Instance.maxInstallation;
         text_UnitNum.text = battleUnitNum.ToString() + " / " + maxInstallation.ToString();
@@ -154,6 +168,7 @@ public class BattleManager : Singleton<BattleManager>
             text_Hp.text = playerHp.ToString();
             point = ParameterManager.Instance.point;
             text_Point.text = point.ToString();
+            text_Nodamage.gameObject.SetActive(false);
 
             //ユニットの配置場所を取得
             int unitZoneNum = unitZoneParent.transform.childCount;
@@ -184,7 +199,7 @@ public class BattleManager : Singleton<BattleManager>
             canvasParent.SetActive(true);
 
             //リトライ前に速度を上げていた場合は開始時から速度を上げる
-            if (FlagManager.Instance.isSpeedUp && !isSpeedUp)
+            if (ParameterManager.Instance.isSpeedUp && !isSpeedUp)
             {
                 SpeedUp();
             }
@@ -195,6 +210,7 @@ public class BattleManager : Singleton<BattleManager>
 
             //フラグを設定
             isMainGame = true;
+            isNoDamage = true;
         }
     }
 
@@ -221,7 +237,13 @@ public class BattleManager : Singleton<BattleManager>
 
         dragUnitIndex = unitIndex;
         dragUnit = Instantiate(battleUnitPrefab[unitIndex]).GetComponent<BattleUnit_Base>();
-        dragUnit.transform.localScale -= pullUnitSizeOffset;
+
+        //カメラからの距離によってサイズを調整する
+        float lerp = (Camera.main.transform.position.y < defaltCameraPosY) ?
+                     Mathf.Lerp(0.0042045443556305f, 1f, (defaltCameraPosY - Camera.main.transform.position.y) / (defaltCameraPosY) - 11f) :
+                     Mathf.Lerp(1f, 0.8671874647705092f, (Camera.main.transform.position.y - defaltCameraPosY) / (40f - defaltCameraPosY));
+        float sizeOffset = Mathf.Min(Camera.main.transform.position.y * (pullUnitSizeOffset / defaltCameraPosY * lerp), 1);
+        dragUnit.transform.localScale -= new Vector3(sizeOffset, sizeOffset, sizeOffset);
         dragUnit.transform.rotation = new Quaternion(0, 180f, 0, 0);
 
         //Colliderのサイズを決定、攻撃範囲を表示
@@ -256,10 +278,10 @@ public class BattleManager : Singleton<BattleManager>
     //ユニットを配置する
     public void PlaceUnit(int zoneIndex)
     {
-        dragUnit.transform.localScale += pullUnitSizeOffset;
-        dragUnit.transform.position = unitZone[zoneIndex].unitPoint;
-
         int unitIndex = dragUnitIndex;
+
+        dragUnit.transform.position = unitZone[zoneIndex].unitPoint;
+        dragUnit.transform.localScale = battleUnitPrefab[unitIndex].transform.localScale;
 
         //ステータスを読み込み
         battleUnitStatus[zoneIndex] = dragUnit;
@@ -348,7 +370,7 @@ public class BattleManager : Singleton<BattleManager>
         if (nowEnemyNum <= 0) Clear();
     }
     //ステージクリア
-    void Clear()
+    public void Clear()
     {
         //ユニットをドラッグしていたら離す
         LetgoUnit();
@@ -360,10 +382,16 @@ public class BattleManager : Singleton<BattleManager>
         //時間の速さを等速に
         Time.timeScale = 1f;
         isSpeedUp = false;
-        FlagManager.Instance.isSpeedUp = false;
+        ParameterManager.Instance.isSpeedUp = false;
 
         //ステージクリア画面を表示
         canvas[2].SetActive(true);
+        text_Nodamage.gameObject.SetActive(isNoDamage);
+
+        //経験値を獲得
+        ParameterManager.Instance.getExp += (isNoDamage) ? exp + bonusExp : exp;
+        text_GetExp.text = "経験値＋";
+        text_GetExp.text += (isNoDamage) ? exp.ToString() + "＋" + bonusExp.ToString() : exp.ToString();
     }
     //ゲームオーバー
     void GameOver()
@@ -378,7 +406,7 @@ public class BattleManager : Singleton<BattleManager>
         //時間の速さを等速に
         Time.timeScale = 1f;
         isSpeedUp = false;
-        FlagManager.Instance.isSpeedUp = false;
+        ParameterManager.Instance.isSpeedUp = false;
 
         //ゲームオーバー画面を表示
         canvas[3].SetActive(true);
@@ -419,6 +447,8 @@ public class BattleManager : Singleton<BattleManager>
     {
         if (!isMainGame) return;
 
+        isNoDamage = false;
+
         playerHp = Mathf.Max(playerHp - 1, 0);
         text_Hp.text = playerHp.ToString();
 
@@ -443,7 +473,7 @@ public class BattleManager : Singleton<BattleManager>
             speedUpImage.SetActive(true);
 
             isSpeedUp = true;
-            FlagManager.Instance.isSpeedUp = true;
+            ParameterManager.Instance.isSpeedUp = true;
         }
         //時間加速終了
         else
@@ -454,7 +484,7 @@ public class BattleManager : Singleton<BattleManager>
             speedUpImage.SetActive(false);
 
             isSpeedUp = false;
-            FlagManager.Instance.isSpeedUp = false;
+            ParameterManager.Instance.isSpeedUp = false;
         }
     }
 
@@ -496,5 +526,18 @@ public class BattleManager : Singleton<BattleManager>
     public void Retry()
     {
         FadeManager.Instance.LoadSceneIndex(SceneManager.GetActiveScene().buildIndex, 0.5f);
+    }
+
+    /// <summary>
+    /// マップ画面に戻るボタン
+    /// </summary>
+    public void BackMap()
+    {
+        //プレイヤーのパラメーターの変更を反映
+        ParameterManager.Instance.hp = playerHp;
+        ParameterManager.Instance.isBattleClear = true;
+
+        //マップシーンに戻る
+        FadeManager.Instance.LoadSceneIndex(1, 0.5f);
     }
 }

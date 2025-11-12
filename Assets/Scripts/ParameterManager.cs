@@ -23,6 +23,15 @@ public class ParameterManager : Singleton<ParameterManager>
     public UnitStatus[] unitStatus;
     public int[] battleUnitId;      //戦闘で使用するユニットの番号
 
+    //ステージクリア後に使用する変数
+    public int getExp;              //獲得した経験値
+
+    //マップシーン用のフラグ
+    [System.NonSerialized] public bool isBattleClear;
+
+    //戦闘シーン用のフラグ
+    [System.NonSerialized] public bool isSpeedUp;
+
     void Awake()
     {
         //シーンを遷移しても残る
@@ -69,8 +78,51 @@ public class ParameterManager : Singleton<ParameterManager>
         unitStatus[index].distance = UnitsData.Instance.unit[id].distance; //攻撃、回復の射程
         unitStatus[index].range = UnitsData.Instance.unit[id].range;       //範囲攻撃の範囲
 
+        unitStatus[index].lvUpStatus = UnitsData.Instance.unit[id].lVUPStatus;         //レベルアップ時に上がるステータス
+
         unitStatus[index].place_UnitZone = UnitsData.Instance.unit[id].place_UnitZone; //ユニットの配置場所に置けるか
         unitStatus[index].place_Floor = UnitsData.Instance.unit[id].place_Floor;       //敵の通り道に置けるか
+    }
+
+    /// <summary>
+    /// ユニットのレベルアップ　引数でユニットの要素番号を指定
+    /// </summary>
+    public void LevelUp(int unitIndex)
+    {
+        //全キャラ共通で成長するステータス
+        unitStatus[unitIndex].lv += 1;
+        unitStatus[unitIndex].hp += 3;
+        unitStatus[unitIndex].value += 1;
+
+        //キャラごとに違う成長ステータス
+        if (unitStatus[unitIndex].lvUpStatus != UnitsData.LvUpStatus.none)
+        {
+            //耐久値（最大HP）
+            if (unitStatus[unitIndex].lvUpStatus == UnitsData.LvUpStatus.hp)
+            {
+                unitStatus[unitIndex].hp += 4;
+            }
+            //DPSの場合は攻撃力、サポートの場合は回復量、ポイント増加量など
+            else if (unitStatus[unitIndex].lvUpStatus == UnitsData.LvUpStatus.value)
+            {
+                unitStatus[unitIndex].value += 2;
+            }
+            //行動速度（攻撃、回復をする間隔）
+            else if (unitStatus[unitIndex].lvUpStatus == UnitsData.LvUpStatus.interval)
+            {
+                unitStatus[unitIndex].interval = Mathf.Max(unitStatus[unitIndex].interval - 0.25f, 0);
+            }
+            //攻撃、回復の射程
+            else if (unitStatus[unitIndex].lvUpStatus == UnitsData.LvUpStatus.distance)
+            {
+                unitStatus[unitIndex].distance += 0.5f;
+            }
+            //範囲攻撃の範囲
+            else if (unitStatus[unitIndex].lvUpStatus == UnitsData.LvUpStatus.range)
+            {
+                unitStatus[unitIndex].range += 0.25f;
+            }
+        }
     }
 
     /// <summary>
@@ -100,7 +152,9 @@ public class ParameterManager : Singleton<ParameterManager>
         public float distance;      //攻撃、回復の射程
         public float range;         //範囲攻撃の範囲
 
-        public bool place_UnitZone; //ユニットの配置場所に置けるか
-        public bool place_Floor;    //敵の通り道に置けるか
+        public UnitsData.LvUpStatus lvUpStatus; //レベルアップ時に上がるステータス
+
+        public bool place_UnitZone;             //ユニットの配置場所に置けるか
+        public bool place_Floor;                //敵の通り道に置けるか
     }
 }

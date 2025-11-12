@@ -171,9 +171,9 @@ MonoBehaviour:
     interval: 2
     distance: 14
     range: 0
+    lVUPStatus: 4
     place_UnitZone: 1
     place_Floor: 0
-    lvUpStatus: distance
   - prefab: {fileID: 2482288343578748128, guid: f6b8133f166a16448ad2ca2cbe0fe03a, type: 3}
     sprite: {fileID: 0}
     name: "\u8FD1\u8DDD\u96E2\u30DE\u30F3"
@@ -186,9 +186,24 @@ MonoBehaviour:
     interval: 2
     distance: 6
     range: 0
+    lVUPStatus: 2
     place_UnitZone: 1
     place_Floor: 0
-    lvUpStatus: value
+  - prefab: {fileID: 2482288343578748128, guid: d81ebf3a60f6cab499f289573ad871fc, type: 3}
+    sprite: {fileID: 0}
+    name: "\u7BC4\u56F2\u30DE\u30F3(\u672A)"
+    role: 0
+    cost: 20
+    upCost: 6
+    recast: 20
+    hp: 10
+    value: 4
+    interval: 3
+    distance: 10
+    range: 3
+    lVUPStatus: 5
+    place_UnitZone: 1
+    place_Floor: 0
   - prefab: {fileID: 2482288343578748128, guid: 70d81715b05b5da42b0e317ed007dd59, type: 3}
     sprite: {fileID: 0}
     name: "\u653B\u6483\u58C1\u30DE\u30F3"
@@ -201,13 +216,13 @@ MonoBehaviour:
     interval: 1
     distance: 3
     range: 0
+    lVUPStatus: 1
     place_UnitZone: 0
     place_Floor: 1
-    lvUpStatus: hp
   - prefab: {fileID: 2482288343578748128, guid: 39e91c49cc8d3664e9767bd2fa7b65ac, type: 3}
     sprite: {fileID: 0}
     name: "\u9632\u5FA1\u58C1\u30DE\u30F3"
-    role: 2
+    role: 1
     cost: 18
     upCost: 9
     recast: 30
@@ -216,9 +231,24 @@ MonoBehaviour:
     interval: 0
     distance: 0
     range: 0
+    lVUPStatus: 1
     place_UnitZone: 0
     place_Floor: 1
-    lvUpStatus: hp
+  - prefab: {fileID: 2482288343578748128, guid: 70d81715b05b5da42b0e317ed007dd59, type: 3}
+    sprite: {fileID: 0}
+    name: "\u7206\u5F3E\u30DE\u30F3(\u672A)"
+    role: 1
+    cost: 30
+    upCost: 9
+    recast: 30
+    hp: 10
+    value: 30
+    interval: 0
+    distance: 10
+    range: 5
+    lVUPStatus: 2
+    place_UnitZone: 0
+    place_Floor: 1
   - prefab: {fileID: 2482288343578748128, guid: 58504c204889fa044861ce5ae487a8bc, type: 3}
     sprite: {fileID: 0}
     name: "\u30DD\u30A4\u30F3\u30C8\u5897\u52A0\u30DE\u30F3"
@@ -231,6 +261,36 @@ MonoBehaviour:
     interval: 10
     distance: 0
     range: 0
+    lVUPStatus: 2
     place_UnitZone: 1
     place_Floor: 0
-    lvUpStatus: value
+  - prefab: {fileID: 2482288343578748128, guid: 58504c204889fa044861ce5ae487a8bc, type: 3}
+    sprite: {fileID: 0}
+    name: "\u56DE\u5FA9\u30DE\u30F3(\u672A)"
+    role: 2
+    cost: 14
+    upCost: 6
+    recast: 20
+    hp: 20
+    value: 10
+    interval: 4
+    distance: 14
+    range: 0
+    lVUPStatus: 2
+    place_UnitZone: 1
+    place_Floor: 0
+  - prefab: {fileID: 2482288343578748128, guid: 58504c204889fa044861ce5ae487a8bc, type: 3}
+    sprite: {fileID: 0}
+    name: "\u920D\u5316\u30DE\u30F3(\u672A)"
+    role: 2
+    cost: 14
+    upCost: 6
+    recast: 30
+    hp: 10
+    value: 5
+    interval: 4
+    distance: 10
+    range: 0
+    lVUPStatus: 3
+    place_UnitZone: 1
+    place_Floor: 0

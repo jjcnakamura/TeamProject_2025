@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149671f1ef4036d458b484a55c7a918d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  exp: 10
   canvasParent: {fileID: 0}
   playerSide: {fileID: 0}
   text_Hp: {fileID: 0}

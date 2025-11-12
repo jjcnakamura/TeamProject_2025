@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ShowOnHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ButtelUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private GameObject targetUI; // 表示・非表示するUI。小さい方
     [SerializeField] private GameObject ImageUI;//大きい方

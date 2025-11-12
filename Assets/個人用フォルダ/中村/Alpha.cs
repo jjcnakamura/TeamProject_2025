@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class FlagManager : Singleton<FlagManager>
+/// <summary>
+/// ƒ¿”Å—p@‰¼‚Ìˆ—
+/// </summary>
+public class Alpha : Singleton<Alpha>
 {
-    [System.NonSerialized] public bool isSpeedUp;
+    bool start;
 
     void Awake()
     {
@@ -16,5 +20,11 @@ public class FlagManager : Singleton<FlagManager>
             return;
         }
         DontDestroyOnLoad(gameObject);
+
+        if (!start && FindObjectOfType(System.Type.GetType("MapManager")) == null)
+        {
+            start = true;
+            SceneManager.LoadScene(1);
+        }
     }
 }
