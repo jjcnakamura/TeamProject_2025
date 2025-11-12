@@ -1,37 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class UnitLevelAndExp : Singleton<UnitLevelAndExp>
 {
     [SerializeField] GameObject[] units;
+    [SerializeField] TextMeshProUGUI text_GetExp;
     [SerializeField] TextMeshProUGUI[] text_Lv;
     [SerializeField] TextMeshProUGUI[] text_Exp;
-
-    void Update()
-    {
-        //デバッグ用
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            NewStatus();
-        }
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            ParameterManager.Instance.AddUnit(ParameterManager.Instance.unitStatus.Length);
-        }
-    }
 
     /// <summary>
     /// テキストとアクティブ状態を更新
     /// </summary>
     public void NewStatus()
     {
+        text_GetExp.text = "所持経験値..." + ParameterManager.Instance.getExp.ToString();
+
         for (int i = 0; i < ParameterManager.Instance.unitStatus.Length; i++)
         {
-            text_Lv[i].text = ParameterManager.Instance.unitStatus[i].lv.ToString();
-            text_Exp[i].text = ParameterManager.Instance.unitStatus[i].exp.ToString();
+            text_Lv[i].text = "LV...   " + ParameterManager.Instance.unitStatus[i].lv.ToString();
+            text_Exp[i].text = "EXP..." + ParameterManager.Instance.unitStatus[i].exp.ToString();
 
             units[i].SetActive(true);
         }

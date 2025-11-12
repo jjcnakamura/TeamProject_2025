@@ -399,7 +399,7 @@ public class BattleManager : Singleton<BattleManager>
         text_Nodamage.gameObject.SetActive(isNoDamage);
 
         //åoå±ílÇälìæ
-        ParameterManager.Instance.getExp = (isNoDamage) ? exp + bonusExp : exp;
+        ParameterManager.Instance.getExp += (isNoDamage) ? exp + bonusExp : exp;
         text_GetExp.text = "åoå±ílÅ{";
         text_GetExp.text += (isNoDamage) ? exp.ToString() + "Å{" + bonusExp.ToString() : exp.ToString();
     }
