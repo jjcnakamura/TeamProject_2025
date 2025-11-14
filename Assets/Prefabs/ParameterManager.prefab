@@ -114,6 +114,7 @@ MonoBehaviour:
   sameUnitMaxInstallation: 1
   unitStatus: []
   battleUnitId: 
+  getExp: 0
 --- !u!1 &6851509003010325641
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,9 +190,9 @@ MonoBehaviour:
     lVUPStatus: 2
     place_UnitZone: 1
     place_Floor: 0
-  - prefab: {fileID: 2482288343578748128, guid: d81ebf3a60f6cab499f289573ad871fc, type: 3}
+  - prefab: {fileID: 2482288343578748128, guid: faae52c47b6a55743ba14440eaf04e93, type: 3}
     sprite: {fileID: 0}
-    name: "\u7BC4\u56F2\u30DE\u30F3(\u672A)"
+    name: "\u7BC4\u56F2\u30DE\u30F3"
     role: 0
     cost: 20
     upCost: 6
@@ -200,7 +201,7 @@ MonoBehaviour:
     value: 4
     interval: 3
     distance: 10
-    range: 3
+    range: 4
     lVUPStatus: 5
     place_UnitZone: 1
     place_Floor: 0

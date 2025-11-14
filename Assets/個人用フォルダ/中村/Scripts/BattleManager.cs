@@ -105,7 +105,7 @@ public class BattleManager : Singleton<BattleManager>
             ParameterManager.Instance.maxUnitPossession = 5;
             ParameterManager.Instance.maxInstallation = 10;
             ParameterManager.Instance.sameUnitMaxInstallation = 3;
-            ParameterManager.Instance.AddUnit(0);
+            ParameterManager.Instance.AddUnit(2);
             ParameterManager.Instance.AddUnit(1);
             ParameterManager.Instance.AddUnit(3);
             ParameterManager.Instance.AddUnit(4);

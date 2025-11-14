@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class BattleUnit_Base : MonoBehaviour
 {
-    [Header("BattleUnit_Base")]
+    [Header("[BattleUnit_Base]")]
 
     public GameObject model;               //3Dƒ‚ƒfƒ‹
     public BoxCollider col_Body;           //‹ò‚ç‚¢”»’è‚ÌCollider

@@ -5,6 +5,7 @@ using UnityEngine;
 public class UnitCollider_AttackZone : MonoBehaviour
 {
     [SerializeField] BattleUnit_TargetAttack unit_TargetAttack;
+    [SerializeField] BattleUnit_LongAttack unit_LongAttack;
 
     void OnTriggerStay(Collider other)
     {
@@ -15,6 +16,16 @@ public class UnitCollider_AttackZone : MonoBehaviour
             if (other.transform.tag == "Enemy" && !unit_TargetAttack.isTarget)
             {
                 unit_TargetAttack.Target(other);
+            }
+        }
+
+        //Ë’ö‚É“ü‚Á‚½“G‚É‰“‹——£UŒ‚‚ğ‚·‚éƒ†ƒjƒbƒg‚Ìˆ—
+        if (unit_LongAttack != null)
+        {
+            //“G‚ªUŒ‚‚ÌË’ö“à‚É“ü‚Á‚½ê‡
+            if (other.transform.tag == "Enemy" && !unit_LongAttack.isTarget)
+            {
+                unit_LongAttack.Target(other);
             }
         }
     }
@@ -29,6 +40,16 @@ public class UnitCollider_AttackZone : MonoBehaviour
             {
                 unit_TargetAttack.Target(other);
             }
-        }    
+        }
+
+        //Ë’ö‚É“ü‚Á‚½“G‚É‰“‹——£UŒ‚‚ğ‚·‚éƒ†ƒjƒbƒg‚Ìˆ—
+        if (unit_LongAttack != null)
+        {
+            //“G‚ªUŒ‚‚ÌË’öŠO‚Éo‚½ê‡
+            if (other.transform.tag == "Enemy" && unit_LongAttack.isTarget)
+            {
+                unit_LongAttack.Target(other);
+            }
+        }
     }
 }
