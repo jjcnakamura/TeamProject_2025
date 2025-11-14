@@ -128,6 +128,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8636575476995260819, guid: c596595266602b748830db3452564867, type: 3}
   m_PrefabInstance: {fileID: 1629268345632201022}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &154854120 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1840228107015887410, guid: c596595266602b748830db3452564867, type: 3}
+  m_PrefabInstance: {fileID: 1629268345632201022}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &167156849 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2584097895843281710, guid: de68f32e79633ee479da2c72b2adb43d, type: 3}
@@ -1643,6 +1654,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4267314558565045593, guid: de68f32e79633ee479da2c72b2adb43d, type: 3}
   m_PrefabInstance: {fileID: 1762631078}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1802653521 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6297815611396003905, guid: c596595266602b748830db3452564867, type: 3}
+  m_PrefabInstance: {fileID: 1629268345632201022}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2080897802
 GameObject:
   m_ObjectHideFlags: 0
@@ -2342,6 +2364,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2971917236038907921}
     - target: {fileID: 555269271734246, guid: 14520eb36974d2346929bc53afefce1b, type: 3}
+      propertyPath: text_GetExp
+      value: 
+      objectReference: {fileID: 154854120}
+    - target: {fileID: 555269271734246, guid: 14520eb36974d2346929bc53afefce1b, type: 3}
       propertyPath: canvasParent
       value: 
       objectReference: {fileID: 4294816715716819085}
@@ -2357,6 +2383,10 @@ PrefabInstance:
       propertyPath: text_EnemyNum
       value: 
       objectReference: {fileID: 816980971507113498}
+    - target: {fileID: 555269271734246, guid: 14520eb36974d2346929bc53afefce1b, type: 3}
+      propertyPath: text_Nodamage
+      value: 
+      objectReference: {fileID: 1802653521}
     - target: {fileID: 555269271734246, guid: 14520eb36974d2346929bc53afefce1b, type: 3}
       propertyPath: unitZoneParent
       value: 
