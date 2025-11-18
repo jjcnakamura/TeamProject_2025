@@ -17,15 +17,32 @@ public class MouseManager : Singleton<MouseManager>
 
     void Update()
     {
-        //マウスカーソルの座標を格納
-        mousePos = Input.mousePosition;
-        //スクリーン座標をワールド座標に変換
-        worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 10f));
-
-        ////////////////////////////////////////////////////////////////////////////////////
-
         //マウスの位置からRayを飛ばす
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        CheckMousePos(inputRay);
+        CheckRayCollision(inputRay);
+        ViewRay(inputRay);
+    }
+
+    //マウスカーソルの位置を取得
+    void CheckMousePos(Ray ray)
+    {
+        RaycastHit[] hits = Physics.RaycastAll(ray, 1000f, LayerMask.GetMask("Ground"));
+
+        if (hits.Length > 0)
+        {
+            //手前（距離が短い）順にソート
+            System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+            RaycastHit nearest = hits[0];
+
+            worldPos = nearest.point;
+        }
+    }
+
+    //Rayに衝突しているオブジェクトを取得
+    void CheckRayCollision(Ray ray)
+    {
         RaycastHit[] hits = Physics.RaycastAll(ray, 100f);
 
         //TagがClickObjのオブジェクトのみ参照
@@ -44,8 +61,11 @@ public class MouseManager : Singleton<MouseManager>
         {
             mouseRayHits = new RaycastHit();
         }
+    }
 
-        //デバッグ用 Rayを表示
+    //デバッグ用 Rayを表示
+    void ViewRay(Ray ray)
+    {
         if (viewRay)
         {
             float maxDistance = 20;

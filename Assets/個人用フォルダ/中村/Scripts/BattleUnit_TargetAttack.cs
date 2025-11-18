@@ -14,7 +14,7 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
     float timer_Interval;
 
     //ó‘Ô‚ğ•\‚·ƒtƒ‰ƒO
-    public bool isStart, isInterval;
+    public bool isInterval;
 
     protected override void FixedUpdate()
     {

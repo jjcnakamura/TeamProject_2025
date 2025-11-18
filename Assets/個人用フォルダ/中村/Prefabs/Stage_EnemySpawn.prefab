@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 6710528708195327371}
   - component: {fileID: 4407937066399238280}
   - component: {fileID: 201104251090818519}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Stage_EnemySpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}

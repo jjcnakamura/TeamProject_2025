@@ -12,20 +12,15 @@ public class BattleUnit_Bomb : BattleUnit_Base
     float timer_Explosion;
 
     //状態を表すフラグ
-    public bool isExplosion, isEnd;
-
-    protected override void Start()
-    {
-        base.Start(); //基底クラスのStart
-
-        col_AttackZone.enabled = false;
-        isDeadCheck = false;
-    }
+    public bool isStart, isExplosion, isEnd;
 
     protected override void Update()
     {
         base.Update(); //基底クラスのUpdate
 
+        if (!isBattle || !BattleManager.Instance.isMainGame) return; //戦闘中でない場合は戻る
+
+        Place();
         DeadCheck();
     }
 
@@ -33,7 +28,21 @@ public class BattleUnit_Bomb : BattleUnit_Base
     {
         base.FixedUpdate(); //基底クラスのFixedUpdate
 
+        if (!isBattle || !BattleManager.Instance.isMainGame) return; //戦闘中でない場合は戻る
+
         Explosion();
+    }
+
+    //配置された時の処理
+    void Place()
+    {
+        if (!isStart && isBattle)
+        {
+            col_AttackZone.enabled = false;
+
+            isExplosion = false;
+            isStart = true;
+        }
     }
 
     //自身が死亡しているかチェックする
@@ -82,6 +91,8 @@ public class BattleUnit_Bomb : BattleUnit_Base
     //敵が爆風に触れた場合に呼び出す
     public void Hit(Collider targetCol)
     {
+        if (!isBattle || !BattleManager.Instance.isMainGame) return; //戦闘中でない場合は戻る
+
         if (!isExplosion || targetCol == null) return;
 
         //既に攻撃が当たった敵か判定する

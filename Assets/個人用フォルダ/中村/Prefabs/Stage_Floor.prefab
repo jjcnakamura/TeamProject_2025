@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 7483783996615357892}
   - component: {fileID: 2305481604098307159}
   - component: {fileID: 3414321085820512216}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Stage_Floor
   m_TagString: ClickObj
   m_Icon: {fileID: 0}

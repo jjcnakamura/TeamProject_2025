@@ -53,8 +53,9 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] PullUnit unitPullButtonPrefab;                 //ユニットを持ってくるボタン
     [SerializeField] PullUnit[] unitPullButton;                     //ユニットを持ってくるボタン
     GameObject[] battleUnitPrefab;                                  //ボタンから生成されるユニットのPrefab
-    float defaltCameraPosY = 18.5f;                                 //カメラの高さの初期値
-    float pullUnitSizeOffset = 0.4f;                                //ユニットを持った場合にかけるサイズ補正
+    //float defaltCameraPosY = 18.5f;                               //カメラの高さの初期値
+    //float pullUnitSizeOffset = 0.4f;                              //ユニットを持った場合にかけるサイズ補正
+    float dragUnitOffsetY = 1f;                                     //ユニットドラッグ中の高さ補正
     public BattleUnit_Base dragUnit { get; private set; }           //現在ドラッグしているユニット
     int dragUnitIndex;                                              //ドラッグしているユニットの要素番号
     int[] unitInstallationCount;                                    //ユニットの配置数カウント
@@ -238,13 +239,20 @@ public class BattleManager : Singleton<BattleManager>
         dragUnitIndex = unitIndex;
         dragUnit = Instantiate(battleUnitPrefab[unitIndex]).GetComponent<BattleUnit_Base>();
 
+        /*
         //カメラからの距離によってサイズを調整する
         float lerp = (Camera.main.transform.position.y < defaltCameraPosY) ?
                      Mathf.Lerp(0.0042045443556305f, 1f, (defaltCameraPosY - Camera.main.transform.position.y) / (defaltCameraPosY) - 11f) :
                      Mathf.Lerp(1f, 0.8671874647705092f, (Camera.main.transform.position.y - defaltCameraPosY) / (40f - defaltCameraPosY));
         float sizeOffset = Mathf.Min(Camera.main.transform.position.y * (pullUnitSizeOffset / defaltCameraPosY * lerp), 1);
         dragUnit.transform.localScale -= new Vector3(sizeOffset, sizeOffset, sizeOffset);
+        */
+
+        //プレイヤーの方に向ける
         dragUnit.transform.rotation = new Quaternion(0, 180f, 0, 0);
+
+        //当たり判定を無効に
+        dragUnit.col_Body.enabled = false;
 
         //Colliderのサイズを決定、攻撃範囲を表示
         if (dragUnit.col_AttackZone != null && dragUnit.mesh_AttackZone != null)
@@ -252,6 +260,7 @@ public class BattleManager : Singleton<BattleManager>
             dragUnit.col_AttackZone.transform.localScale = new Vector3(ParameterManager.Instance.unitStatus[unitIndex].distance,
                                                                        dragUnit.col_AttackZone.transform.localScale.y,
                                                                        ParameterManager.Instance.unitStatus[unitIndex].distance);
+            dragUnit.col_AttackZone.enabled = false;
             dragUnit.mesh_AttackZone.enabled = true;
         }
 
@@ -296,8 +305,6 @@ public class BattleManager : Singleton<BattleManager>
         battleUnitStatus[zoneIndex].distance = ParameterManager.Instance.unitStatus[unitIndex].distance;
         battleUnitStatus[zoneIndex].range = ParameterManager.Instance.unitStatus[unitIndex].range;
 
-        battleUnitStatus[zoneIndex].isBattle = true;
-
         //HPバーを生成
         Hpbar battleUnitHpbar = Instantiate(hpbarPrefab).GetComponent<Hpbar>();
         battleUnitHpbar.transform.SetParent(hpbarParent.transform);
@@ -306,9 +313,13 @@ public class BattleManager : Singleton<BattleManager>
         battleUnitHpbar.targetUnit = battleUnitStatus[zoneIndex];
         battleUnitStatus[zoneIndex].hpbarObj = battleUnitHpbar.gameObject;
 
+        //当たり判定を有効に
+        dragUnit.col_Body.enabled = true;
+
         //攻撃範囲を非表示
         if (dragUnit.col_AttackZone != null && dragUnit.mesh_AttackZone != null)
         {
+            dragUnit.col_AttackZone.enabled = true;
             battleUnitStatus[zoneIndex].mesh_AttackZone.enabled = false;
         }
 
@@ -329,6 +340,9 @@ public class BattleManager : Singleton<BattleManager>
         unitInstallationCount[unitIndex] = Mathf.Min(unitInstallationCount[unitIndex] + 1, sameUnitMaxInstallation);
         if (unitInstallationCount[unitIndex] >= sameUnitMaxInstallation) unitMaxInstallation[unitIndex] = true;
 
+        //ユニットのコンポーネントを有効に
+        battleUnitStatus[zoneIndex].isBattle = true;
+
         dragUnit = null;
 
         place_UnitZone = false;
@@ -344,7 +358,7 @@ public class BattleManager : Singleton<BattleManager>
         if (isUnitDrag)
         {
             //ユニットをマウスに追従させる
-            dragUnit.transform.position = MouseManager.Instance.worldPos;
+            dragUnit.transform.position = MouseManager.Instance.worldPos + new Vector3(0, dragUnitOffsetY, 0);
             if (Input.GetKeyUp(KeyCode.Mouse0) && !isOnMouseUnitZone) LetgoUnit();
         }
     }
