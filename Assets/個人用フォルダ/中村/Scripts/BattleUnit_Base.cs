@@ -41,7 +41,7 @@ public class BattleUnit_Base : MonoBehaviour
     List<int> debuffValue = new List<int>();
     int maxBuffValue, minDebuffValue;
     int buffNum, deBuffNum;
-    GameObject buffObj, debuffObj;
+    [System.NonSerialized] public GameObject buffObj, debuffObj;
 
     //HPバー
     [System.NonSerialized] public GameObject hpbarObj;
@@ -51,7 +51,7 @@ public class BattleUnit_Base : MonoBehaviour
     [System.NonSerialized] public int beingTargetNum;
 
     //状態を表すフラグ
-    public bool isBattle, isRotation, isTarget, isBuff, isDebuff, isDead;
+    public bool isBattle, isRotation, isTarget, isBuff, isDebuff, isDeadCheck, isDead;
 
     protected virtual void Start()
     {
@@ -66,6 +66,8 @@ public class BattleUnit_Base : MonoBehaviour
         debuffObj.transform.SetParent(transform);
         debuffObj.transform.localScale = effect_Debuff.transform.localScale;
         debuffObj.SetActive(false);
+
+        isDeadCheck = true;
     }
 
     protected virtual void Update()
@@ -248,6 +250,8 @@ public class BattleUnit_Base : MonoBehaviour
     //死亡している場合は自身を削除する
     void DeadCheck()
     {
+        if (!isDeadCheck) return;
+
         if (isDead)
         {
             BattleManager.Instance.OutUnit(zoneIndex);

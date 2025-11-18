@@ -108,7 +108,7 @@ public class BattleManager : Singleton<BattleManager>
             ParameterManager.Instance.AddUnit(2);
             ParameterManager.Instance.AddUnit(1);
             ParameterManager.Instance.AddUnit(3);
-            ParameterManager.Instance.AddUnit(4);
+            ParameterManager.Instance.AddUnit(5);
             ParameterManager.Instance.AddUnit(6);
         }
     }

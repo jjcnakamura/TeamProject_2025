@@ -24,7 +24,7 @@ public class Bullet_Explosion : MonoBehaviour
     List<Collider> hitEnemy = new List<Collider>();
 
     //タイマー
-    [System.NonSerialized] public float explosionTime = 0.75f;
+    [System.NonSerialized] public float explosionTime = 0.75f; //爆発の持続時間
     float timer_Explosion;
 
     [Space(10)]

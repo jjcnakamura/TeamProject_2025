@@ -6,6 +6,7 @@ public class UnitCollider_AttackZone : MonoBehaviour
 {
     [SerializeField] BattleUnit_TargetAttack unit_TargetAttack;
     [SerializeField] BattleUnit_LongAttack unit_LongAttack;
+    [SerializeField] BattleUnit_Bomb unit_Bomb;
 
     void OnTriggerStay(Collider other)
     {
@@ -26,6 +27,16 @@ public class UnitCollider_AttackZone : MonoBehaviour
             if (other.transform.tag == "Enemy" && !unit_LongAttack.isTarget)
             {
                 unit_LongAttack.Target(other);
+            }
+        }
+
+        //”š’eƒ†ƒjƒbƒg‚Ìˆ—
+        if (unit_Bomb != null)
+        {
+            //“G‚ªUŒ‚‚ÌË’ö“à‚É“ü‚Á‚½ê‡
+            if (other.transform.tag == "Enemy" && unit_Bomb.isExplosion)
+            {
+                unit_Bomb.Hit(other);
             }
         }
     }
