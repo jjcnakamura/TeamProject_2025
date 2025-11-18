@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BattleUnit_TargetAttack : BattleUnit_Base
 {
-    [Header("BattleUnit_TargetAttack")]
+    [Header("[BattleUnit_TargetAttack]")]
 
     //UŒ‚‚Ì‘ÎÛ‚É‚µ‚Ä‚¢‚é“G
     Collider targetEnemyCol;

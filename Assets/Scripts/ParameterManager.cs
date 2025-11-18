@@ -57,26 +57,27 @@ public class ParameterManager : Singleton<ParameterManager>
         unitStatus[index] = new UnitStatus();
 
         //IDに対応したユニットのステータスを読み込み
-        unitStatus[index].name = UnitsData.Instance.unit[id].name;
+        unitStatus[index].name = UnitsData.Instance.unit[id].name;     //ユニット名
 
-        unitStatus[index].prefab = UnitsData.Instance.unit[id].prefab;     //ユニットのPrefab
-        unitStatus[index].sprite = UnitsData.Instance.unit[id].sprite;     //ユニットの画像
+        unitStatus[index].prefab = UnitsData.Instance.unit[id].prefab; //ユニットのPrefab
+        unitStatus[index].sprite = UnitsData.Instance.unit[id].sprite; //ユニットの画像
 
-        unitStatus[index].id = id;                                         //どのユニットかを示すID
-        unitStatus[index].role = UnitsData.Instance.unit[id].role;         //ロール　0がDPS、1がタンク、2がサポート
+        unitStatus[index].id = id;                                     //どのユニットかを示すID
+        unitStatus[index].role = UnitsData.Instance.unit[id].role;     //ロール　0がDPS、1がタンク、2がサポート
 
-        unitStatus[index].lv = 1;                                          //レベル
-        unitStatus[index].exp = 0;                                         //所持経験値
+        unitStatus[index].lv = 1;                                      //レベル
+        unitStatus[index].exp = 0;                                     //所持経験値
 
-        unitStatus[index].cost = UnitsData.Instance.unit[id].cost;         //設置時のコスト
-        unitStatus[index].upCost = UnitsData.Instance.unit[id].upCost;     //同じユニットを複数置く場合のコスト増加量
-        unitStatus[index].recast = UnitsData.Instance.unit[id].recast;     //再配置までの時間
+        unitStatus[index].cost = UnitsData.Instance.unit[id].cost;                     //設置時のコスト
+        unitStatus[index].upCost = UnitsData.Instance.unit[id].upCost;                 //同じユニットを複数置く場合のコスト増加量
+        unitStatus[index].recast = UnitsData.Instance.unit[id].recast;                 //再配置までの時間
 
-        unitStatus[index].hp = UnitsData.Instance.unit[id].hp;             //耐久値（最大HP）
-        unitStatus[index].value = UnitsData.Instance.unit[id].value;       //DPSの場合は攻撃力、サポートの場合は回復量、ポイント増加量など
-        unitStatus[index].interval = UnitsData.Instance.unit[id].interval; //行動速度（攻撃、回復をする間隔）
-        unitStatus[index].distance = UnitsData.Instance.unit[id].distance; //攻撃、回復の射程
-        unitStatus[index].range = UnitsData.Instance.unit[id].range;       //範囲攻撃の範囲
+        unitStatus[index].hp = UnitsData.Instance.unit[id].hp;                         //耐久値（最大HP）
+        unitStatus[index].value = UnitsData.Instance.unit[id].value;                   //DPSの場合は攻撃力、サポートの場合は回復量、ポイント増加量など
+        unitStatus[index].interval = UnitsData.Instance.unit[id].interval;             //行動速度（攻撃、回復をする間隔）
+        unitStatus[index].distance = UnitsData.Instance.unit[id].distance;             //攻撃、回復の射程
+        unitStatus[index].range = UnitsData.Instance.unit[id].range;                   //範囲攻撃の範囲
+        unitStatus[index].targetNum = UnitsData.Instance.unit[id].targetNum;           //攻撃、回復の対象に出来る数
 
         unitStatus[index].lvUpStatus = UnitsData.Instance.unit[id].lVUPStatus;         //レベルアップ時に上がるステータス
 
@@ -134,7 +135,7 @@ public class ParameterManager : Singleton<ParameterManager>
         public GameObject prefab;   //ユニットのPrefab
         public Sprite sprite;       //ユニットの画像
 
-        public string name;         //ユニット名前
+        public string name;         //ユニット名
 
         public int id;              //どのユニットかを示すID
         public int role;            //ロール　0がDPS、1がタンク、2がサポート
@@ -151,6 +152,7 @@ public class ParameterManager : Singleton<ParameterManager>
         public float interval;      //行動速度（攻撃、回復をする間隔）
         public float distance;      //攻撃、回復の射程
         public float range;         //範囲攻撃の範囲
+        public int targetNum;       //攻撃、回復の対象に出来る数
 
         public UnitsData.LvUpStatus lvUpStatus; //レベルアップ時に上がるステータス
 

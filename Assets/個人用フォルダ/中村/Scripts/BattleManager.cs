@@ -106,10 +106,10 @@ public class BattleManager : Singleton<BattleManager>
             ParameterManager.Instance.maxUnitPossession = 5;
             ParameterManager.Instance.maxInstallation = 10;
             ParameterManager.Instance.sameUnitMaxInstallation = 3;
-            ParameterManager.Instance.AddUnit(2);
-            ParameterManager.Instance.AddUnit(1);
+            ParameterManager.Instance.AddUnit(0);
             ParameterManager.Instance.AddUnit(3);
             ParameterManager.Instance.AddUnit(5);
+            ParameterManager.Instance.AddUnit(7);
             ParameterManager.Instance.AddUnit(6);
         }
     }
@@ -304,6 +304,7 @@ public class BattleManager : Singleton<BattleManager>
         battleUnitStatus[zoneIndex].interval = ParameterManager.Instance.unitStatus[unitIndex].interval;
         battleUnitStatus[zoneIndex].distance = ParameterManager.Instance.unitStatus[unitIndex].distance;
         battleUnitStatus[zoneIndex].range = ParameterManager.Instance.unitStatus[unitIndex].range;
+        battleUnitStatus[zoneIndex].targetNum = ParameterManager.Instance.unitStatus[unitIndex].targetNum;
 
         //HPÉoÅ[Çê∂ê¨
         Hpbar battleUnitHpbar = Instantiate(hpbarPrefab).GetComponent<Hpbar>();

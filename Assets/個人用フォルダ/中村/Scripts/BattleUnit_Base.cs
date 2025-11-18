@@ -31,6 +31,7 @@ public class BattleUnit_Base : MonoBehaviour
     public float interval;
     public float distance;
     public float range;
+    public int targetNum;
 
     //向く方向に関する変数
     float rotateSpeed = 8f;
@@ -103,6 +104,14 @@ public class BattleUnit_Base : MonoBehaviour
         {
             return false;
         }
+    }
+    //回復
+    public void Heal(int heal)
+    {
+        if (!isBattle || !BattleManager.Instance.isMainGame) return; //戦闘中でない場合は戻る
+        if (isDead) return;
+
+        hp = Mathf.Min(hp + heal, maxHp);
     }
     //ステータスにバフかデバフをかける（同時にかかった場合は値が大きい方を優先）
     public void StatusChange(int val, bool flag)

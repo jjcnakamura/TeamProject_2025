@@ -17,6 +17,8 @@ public class BattleUnit_LongAttack : BattleUnit_Base
     //タイマー
     float timer_Interval;
 
+    [Space(10)]
+
     //状態を表すフラグ
     public bool isStart, isInterval;
 

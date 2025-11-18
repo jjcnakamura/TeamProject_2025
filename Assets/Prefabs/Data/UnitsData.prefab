@@ -57,6 +57,7 @@ MonoBehaviour:
     interval: 2
     distance: 14
     range: 0
+    targetNum: 0
     lVUPStatus: 4
     place_UnitZone: 1
     place_Floor: 0
@@ -72,6 +73,7 @@ MonoBehaviour:
     interval: 2
     distance: 6
     range: 0
+    targetNum: 0
     lVUPStatus: 2
     place_UnitZone: 1
     place_Floor: 0
@@ -87,6 +89,7 @@ MonoBehaviour:
     interval: 3
     distance: 10
     range: 4
+    targetNum: 0
     lVUPStatus: 5
     place_UnitZone: 1
     place_Floor: 0
@@ -102,6 +105,7 @@ MonoBehaviour:
     interval: 1
     distance: 3
     range: 0
+    targetNum: 0
     lVUPStatus: 1
     place_UnitZone: 0
     place_Floor: 1
@@ -117,6 +121,7 @@ MonoBehaviour:
     interval: 0
     distance: 0
     range: 0
+    targetNum: 0
     lVUPStatus: 1
     place_UnitZone: 0
     place_Floor: 1
@@ -132,6 +137,7 @@ MonoBehaviour:
     interval: 0
     distance: 10
     range: 0
+    targetNum: 0
     lVUPStatus: 2
     place_UnitZone: 0
     place_Floor: 1
@@ -147,12 +153,13 @@ MonoBehaviour:
     interval: 10
     distance: 0
     range: 0
+    targetNum: 0
     lVUPStatus: 2
     place_UnitZone: 1
     place_Floor: 0
-  - prefab: {fileID: 2482288343578748128, guid: 58504c204889fa044861ce5ae487a8bc, type: 3}
+  - prefab: {fileID: 2482288343578748128, guid: 5aa705f40d81c294a80d2e1bd7865ba2, type: 3}
     sprite: {fileID: 0}
-    name: "\u56DE\u5FA9\u30DE\u30F3(\u672A)"
+    name: "\u56DE\u5FA9\u30DE\u30F3"
     role: 2
     cost: 14
     upCost: 6
@@ -162,6 +169,7 @@ MonoBehaviour:
     interval: 4
     distance: 14
     range: 0
+    targetNum: 1
     lVUPStatus: 2
     place_UnitZone: 1
     place_Floor: 0
@@ -177,6 +185,7 @@ MonoBehaviour:
     interval: 4
     distance: 10
     range: 0
+    targetNum: 0
     lVUPStatus: 3
     place_UnitZone: 1
     place_Floor: 0

@@ -43,6 +43,9 @@ public class MouseManager : Singleton<MouseManager>
     //Rayに衝突しているオブジェクトを取得
     void CheckRayCollision(Ray ray)
     {
+        //マウスの位置を取得
+        mousePos = Input.mousePosition;
+
         RaycastHit[] hits = Physics.RaycastAll(ray, 100f);
 
         //TagがClickObjのオブジェクトのみ参照

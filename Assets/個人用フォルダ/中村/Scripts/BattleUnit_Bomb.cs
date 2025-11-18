@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BattleUnit_Bomb : BattleUnit_Base
 {
+    [Header("[BattleUnit_Bomb]")]
+
     //UŒ‚‚ª“–‚½‚Á‚½“G‚ÌƒŠƒXƒg
     List<Collider> hitEnemy = new List<Collider>();
 
@@ -40,6 +42,7 @@ public class BattleUnit_Bomb : BattleUnit_Base
         {
             col_AttackZone.enabled = false;
 
+            isDeadCheck = false;
             isExplosion = false;
             isStart = true;
         }

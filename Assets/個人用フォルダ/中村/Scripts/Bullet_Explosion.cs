@@ -7,8 +7,6 @@ public class Bullet_Explosion : MonoBehaviour
     [SerializeField] CapsuleCollider col; //攻撃判定のCollider
     [SerializeField] MeshRenderer mesh;   //MeshRenderer
 
-    [Space(10)]
-
     //弾のパラメーター
     int value;
     float range;
@@ -27,10 +25,8 @@ public class Bullet_Explosion : MonoBehaviour
     [System.NonSerialized] public float explosionTime = 0.75f; //爆発の持続時間
     float timer_Explosion;
 
-    [Space(10)]
-
     //状態を表すフラグ
-    [SerializeField] bool isShot, isExplosion;
+    public bool isShot, isExplosion;
 
     /// <summary>
     /// 弾が射出される時に呼び出す

@@ -16,7 +16,8 @@ public class UnitsData : Singleton<UnitsData>
         value,
         interval,
         distance,
-        range
+        range,
+        targetNum
     }
 
     void Awake()
@@ -47,6 +48,7 @@ public class UnitsData : Singleton<UnitsData>
         public float interval;        //行動速度（攻撃、回復をする間隔）
         public float distance;        //攻撃、回復の射程
         public float range;           //範囲攻撃の範囲
+        public int targetNum;         //攻撃、回復の対象に出来る数
         public LvUpStatus lVUPStatus; //レベルアップ時に上がるステータス
         public bool place_UnitZone;   //ユニット配置場所に配置できるか
         public bool place_Floor;      //敵が通る道に配置できるか
