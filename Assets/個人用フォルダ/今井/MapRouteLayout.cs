@@ -23,9 +23,9 @@ public class MapRouteLayout : MonoBehaviour
 
     public void Layout()
     {
-        if (Stageint >= 6)
+        if (Stageint >= 8)
         {
-            int BlockX = Stageint - 5;
+            int BlockX = Stageint - 4;
             int BlockXY = -10 * BlockX;
             grid.spacing = new Vector2(BlockXY, 0);
         }

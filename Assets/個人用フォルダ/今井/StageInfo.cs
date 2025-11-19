@@ -32,7 +32,7 @@ public class StageInfo : MonoBehaviour
         }
         if (StageEnd == true)//自分のステージが終わったら消える処理
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 

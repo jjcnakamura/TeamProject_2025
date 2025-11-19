@@ -42,6 +42,7 @@ public class StartCharaEnter : MonoBehaviour
 
     public void EnterButton()//ƒ{ƒ^ƒ“—p
     {
+        if (activeIndexes == null) return;
         var status = ParameterManager.Instance.unitStatus;
         for (int i = 0; i < activeIndexes.Length; i++)
         {

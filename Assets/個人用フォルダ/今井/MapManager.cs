@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,6 +11,7 @@ public class MapManager : Singleton<MapManager>
     public ParameterManager.UnitStatus unitStatus;
     public GameObject[] MapStageImage;//マップで使うプレハブなど
     public GameObject[] MapRoute;//マップのルート
+    public Transform[] RouteChildren;
     public int x; //マップint
     public GameObject[] MapEnterButton;//マップにあるエンターボタン
     public Transform nextStage;//現在のステージを進めるための場所
@@ -24,12 +24,9 @@ public class MapManager : Singleton<MapManager>
     public GameObject[] EasyworldBoss;//ボス簡単
     public GameObject[] NormalworldBoss;//ボス普通
     public GameObject[] ExtraworldBoss;//ボス難しい
-    public int max = 5;//ステージ最大数
-    public int min = 2;//ステージ最小数
+    public int max = 3;//ステージ作成数
 
     public GameObject[] Charactermen;
-    public int[] UnitUpGold;//必要ゴールド数
-    public int Gold;//(仮)
     public TextMeshProUGUI[] MapText;
     public bool gameStartflg;
     public GameObject Map;
@@ -83,8 +80,13 @@ public class MapManager : Singleton<MapManager>
         {
             transforms[i] = MapRoute[i].transform;
         }
-        if (nextStage.childCount == 0 && Nextfloorbool == true)//フロアを進めるやつ
+        if (nextStage.childCount == 0 && Nextfloorbool == true)//フロアを進めるやつ&ゲームクリア時も含む
         {
+            if(floor == 3 + worldLevel)
+            {
+                //gameClearCanvas.SetActive(true);
+                return;
+            }
             NextFloor();
         }
 
@@ -116,13 +118,27 @@ public class MapManager : Singleton<MapManager>
                 ParameterManager.Instance.isBattleClear = false;
             }
         }
-        
+    }
+    public void ButtonNextStage(int i)
+    {
+        Transform child = nextStage.GetChild(0);
+        StageInfo stageInfo = child.GetComponent<StageInfo>();
+        if (stageInfo != null)
+        {
+            stageInfo.StageEnd = true;
+            ParameterManager.Instance.isBattleClear = false;
+        }
     }
     public void NextFloor()//フロアを進める処理
     {
         gameStartflg = false;
         Nextfloorbool = false;
         floor = floor + 1;
+        ParameterManager.Instance.hp += 3;
+        if(ParameterManager.Instance.hp > 10)
+        {
+            ParameterManager.Instance.hp = 10;
+        }
         foreach (GameObject parent in MapRoute)
         {
             if (parent == null) continue;
@@ -136,8 +152,11 @@ public class MapManager : Singleton<MapManager>
 
     public void GoNextStage() //決めたルートのステージを進める処理
     {
-        if (nextStage.transform.childCount <= 0) return;
-        Transform child = nextStage.GetChild(0);
+        Transform[] transforms = new Transform[MapRoute.Length];
+        //if (nextStage.transform.childCount <= 0) return;
+        Transform child = transforms[x].GetChild(0);
+        nextStage.SetParent(child, true);
+        nextStage.localPosition = Vector3.zero;
         StageInfo stageinfo = child.GetComponent<StageInfo>();
 
         if (nextStage != null)
@@ -196,7 +215,7 @@ public class MapManager : Singleton<MapManager>
         }
     }
 
-    public void SelectRoute(int x)//選んだルート以外をパッシブにするもの　ENTERボタンに付ける用
+    public void SelectRoute(int x)//選んだルート以外をパッシブにするもの　ENTERボタンに付ける用　今は使っていない
     {
         // 配列が空の場合は何もしない
         if (MapRoute == null || MapRoute.Length == 0)
@@ -237,9 +256,7 @@ public class MapManager : Singleton<MapManager>
 
         for (int i = 0; i < Stageint.Length; i++)
         {
-            int randomNum = Random.Range(min, max);
-            Stageint[i] = randomNum;
-            //Debug.Log($"範囲 {min}～{max} の中から {randomNum} を出力");
+            Stageint[i] = max;
         }
         Debug.Log("出力結果一覧:");
         for (int i = 0; i < Stageint.Length; i++)
@@ -277,6 +294,7 @@ public class MapManager : Singleton<MapManager>
             }
         }
     }
+
     public void EventContDown()//設置時のコスト　(短縮系)
     {
         unitStatus.cost -= 1;//（仮）

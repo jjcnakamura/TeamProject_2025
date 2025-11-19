@@ -28,6 +28,10 @@ public class toggle : MonoBehaviour
         if (onCount > maxChecked)
         {
             changedToggle.isOn = false;
-        }
+        }/*
+        if (onCount > maxChecked)//こっちを前のワールドで使ったキャラを引き継ぐ時にこれをはずすやつ
+        {
+            changedToggle.isOn = false;
+        }*/
     }
 }
