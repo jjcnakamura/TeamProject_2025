@@ -1780,6 +1780,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 864603366}
+    - target: {fileID: 2737057084976255881, guid: c596595266602b748830db3452564867, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 864603366}
+    - target: {fileID: 2737057084976255881, guid: c596595266602b748830db3452564867, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Retry
+      objectReference: {fileID: 0}
     - target: {fileID: 3134775037156466132, guid: c596595266602b748830db3452564867, type: 3}
       propertyPath: m_Camera
       value: 
