@@ -123,6 +123,11 @@ public class ParameterManager : Singleton<ParameterManager>
             {
                 unitStatus[unitIndex].range += 0.25f;
             }
+            //UŒ‚A‰ñ•œ‚Ì‘ÎÛ‚Éo—ˆ‚é”
+            else if (unitStatus[unitIndex].lvUpStatus == UnitsData.LvUpStatus.targetNum)
+            {
+                unitStatus[unitIndex].targetNum += 1;
+            }
         }
     }
 

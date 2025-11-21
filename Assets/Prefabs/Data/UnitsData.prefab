@@ -169,13 +169,13 @@ MonoBehaviour:
     interval: 4
     distance: 14
     range: 0
-    targetNum: 3
+    targetNum: 1
     lVUPStatus: 6
     place_UnitZone: 1
     place_Floor: 0
-  - prefab: {fileID: 2482288343578748128, guid: 58504c204889fa044861ce5ae487a8bc, type: 3}
+  - prefab: {fileID: 2482288343578748128, guid: 095992359b32bf247b5f0d847e8cf924, type: 3}
     sprite: {fileID: 0}
-    name: "\u920D\u5316\u30DE\u30F3(\u672A)"
+    name: "\u920D\u5316\u30DE\u30F3"
     role: 2
     cost: 14
     upCost: 6

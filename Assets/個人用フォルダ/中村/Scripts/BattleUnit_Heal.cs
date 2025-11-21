@@ -25,22 +25,13 @@ public class BattleUnit_Heal : BattleUnit_Base
     float timer_Interval;
 
     //状態を表すフラグ
-    public bool isStart, isHeal, isInterval;
+    public bool isHeal, isInterval;
 
-    protected override void Update()
+    protected override void Start()
     {
-        base.Update(); //基底クラスのUpdate
+        base.Start(); //基底クラスのStart
 
-        if (!isBattle || !BattleManager.Instance.isMainGame) return; //戦闘中でない場合は戻る
-
-        //配置された後の処理
-        if (!isStart && isBattle)
-        {
-            Target(col_Body);
-
-            isInterval = true;
-            isStart = true;
-        }
+        isInterval = true;
     }
 
     protected override void FixedUpdate()
@@ -69,6 +60,13 @@ public class BattleUnit_Heal : BattleUnit_Base
                 {
                     return;
                 }
+            }
+
+            //リストが空の場合は先頭に自身を加える
+            if (targetUnitCol.Count <= 0)
+            {
+                targetUnitCol.Add(col_Body);
+                targetUnit.Add(this);
             }
 
             targetUnitCol.Add(targetCol);
@@ -159,16 +157,34 @@ public class BattleUnit_Heal : BattleUnit_Base
         if (!isHeal) return;
 
         //回復弾を出す
-        if (healTarget[index] != null && healBullet != null)
+        if (healBullet != null)
         {
-            Bullet_Heal bullet = Instantiate(healBullet);
-            bullet.transform.localScale = healBullet.transform.localScale;
-            bullet.Shot(defaultValue, transform.position, healTarget[index].footPos.transform.position, healTarget[index], effect);
+            if (index < healTarget.Count && healTarget[index] != null)
+            {
+                Bullet_Heal bullet = Instantiate(healBullet);
+                bullet.transform.localScale = healBullet.transform.localScale;
+                bullet.Shot(defaultValue, transform.position, healTarget[index].footPos.transform.position, healTarget[index], effect);
+            }
+        }
+
+        healTargetIndex++;
+
+        //全ての対象を回復した場合はインターバルに入る
+        if (healTargetIndex >= healTarget.Count)
+        {
+            healTargetIndex = 0;
+
+            isHeal = false;
+            isInterval = true;
+
+            healTarget.Clear();
+            Target();
         }
     }
     //回復のインターバル
     void Interval()
     {
+        //回復１回ごとのインターバル
         if (isHeal)
         {
             if (timer_Interval < healInterval)
@@ -178,25 +194,10 @@ public class BattleUnit_Heal : BattleUnit_Base
             else
             {
                 timer_Interval = 0;
-                healTargetIndex++;
-
-                if (healTargetIndex < healTarget.Count)
-                {
-                    HealBullet(healTargetIndex);
-                }
-                else
-                {
-                    healTargetIndex = 0;
-
-                    isHeal = false;
-                    isInterval = true;
-
-                    healTarget.Clear();
-                    Target();
-                    Target(col_Body);
-                }
+                HealBullet(healTargetIndex);
             }
         }
+        //回復１セット後のインターバル
         else if (isInterval)
         {
             if (timer_Interval < interval)
