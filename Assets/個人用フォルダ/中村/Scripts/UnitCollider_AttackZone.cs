@@ -8,7 +8,6 @@ public class UnitCollider_AttackZone : MonoBehaviour
     [SerializeField] BattleUnit_LongAttack unit_LongAttack;
     [SerializeField] BattleUnit_Bomb unit_Bomb;
     [SerializeField] BattleUnit_Heal unit_Heal;
-    [SerializeField] BattleUnit_SlowDebuff unit_SlowDebuff;
 
     void OnTriggerStay(Collider other)
     {
@@ -49,16 +48,6 @@ public class UnitCollider_AttackZone : MonoBehaviour
             if (other.transform.tag == "Unit" || other.transform.tag == "Unit_Wall")
             {
                 unit_Heal.Target(other);
-            }
-        }
-
-        //範囲内の敵に鈍化デバフを付与するユニットの処理
-        if (unit_SlowDebuff != null)
-        {
-            //敵がデバフの範囲内に入った場合
-            if (other.transform.tag == "Enemy")
-            {
-                
             }
         }
     }

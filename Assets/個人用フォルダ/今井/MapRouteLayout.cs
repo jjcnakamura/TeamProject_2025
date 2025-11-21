@@ -23,11 +23,22 @@ public class MapRouteLayout : MonoBehaviour
 
     public void Layout()
     {
-        if (Stageint >= 8)
+        if (Stageint == 3)
         {
-            int BlockX = Stageint - 4;
-            int BlockXY = -10 * BlockX;
-            grid.spacing = new Vector2(BlockXY, 0);
+            int BlockX = 240;
+            grid.spacing = new Vector2(BlockX, 0);
+            return;
+        }
+        else if (Stageint == 4)
+        {
+            int BlockX = 100;
+            grid.spacing = new Vector2(BlockX, 0);
+            return;
+        }
+        else if (Stageint == 5)
+        {
+            int BlockX = 30;
+            grid.spacing = new Vector2(BlockX, 0);
         }
     }
 }

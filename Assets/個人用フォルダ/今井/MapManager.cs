@@ -10,9 +10,10 @@ public class MapManager : Singleton<MapManager>
 {
     public ParameterManager.UnitStatus unitStatus;
     public GameObject[] MapStageImage;//マップで使うプレハブなど
-    public GameObject[] MapRoute;//マップのルート
+    public GameObject[] MapRoute;//マップのルート ゲームオブジェクト用
     public Transform[] RouteChildren;
-    public int x; //マップint
+    public int x; //マップのルートのint
+    public int y; // マップの進行度
     public GameObject[] MapEnterButton;//マップにあるエンターボタン
     public Transform nextStage;//現在のステージを進めるための場所
     public Transform BossEnemy;//そのフロアのボス
@@ -32,6 +33,7 @@ public class MapManager : Singleton<MapManager>
     public GameObject Map;
     public bool Nextfloorbool;
     public GameObject charaLevelCanvas;
+    public GameObject MapTextStageImage;
 
     void Awake()
     {
@@ -118,6 +120,7 @@ public class MapManager : Singleton<MapManager>
                 ParameterManager.Instance.isBattleClear = false;
             }
         }
+        MapTextUpdeta();
     }
     public void ButtonNextStage(int i)
     {
@@ -153,10 +156,14 @@ public class MapManager : Singleton<MapManager>
     public void GoNextStage() //決めたルートのステージを進める処理
     {
         Transform[] transforms = new Transform[MapRoute.Length];
-        //if (nextStage.transform.childCount <= 0) return;
-        Transform child = transforms[x].GetChild(0);
+        for (int i = 0; i < MapRoute.Length; i++)
+        {
+            transforms[i] = MapRoute[i].transform;
+        }
+        Transform child = transforms[x].GetChild(y);
         nextStage.SetParent(child, true);
         nextStage.localPosition = Vector3.zero;
+        y += 1;
         StageInfo stageinfo = child.GetComponent<StageInfo>();
 
         if (nextStage != null)
@@ -173,29 +180,10 @@ public class MapManager : Singleton<MapManager>
         }
     }
 
-    public void OnButtonPressed(int i)//ボタンに入っているルートを決めて一つステージを持ってくる
+    public void OnButtonPressed(int i)//ボタンに入っているルートを決めて一つのルートのステージに行く
     {
         x = i;
         gameStartflg = true;
-        /*
-        if (Pos == null)
-        {
-            Debug.LogWarning("親の参照が設定されていません！");
-            return;
-        }
-
-        if (nextStage.childCount == 0)
-        {
-            if(Pos.childCount == 0)
-            {
-                Transform Boss = BossEnemy.GetChild(0);
-                Boss.SetParent(nextStage, true);
-                Boss.localPosition = Vector3.zero;
-            }
-            Transform child = Pos.GetChild(0);
-            child.SetParent(nextStage, true);
-            child.localPosition = Vector3.zero;
-        }*/
     }
 
     public void PassiveeEnterButton()//マップのEnterボタンを消すためのやつ ENTERボタンに付ける用
@@ -247,7 +235,7 @@ public class MapManager : Singleton<MapManager>
         }*/
     }
 
-    public void MakeRoute()//ルート一つのステージを作る
+    public void MakeRoute()//ルートのステージを作る
     {
         if (Stageint == null || Stageint.Length == 0)
         {
@@ -381,4 +369,40 @@ public class MapManager : Singleton<MapManager>
         charaLevelCanvas.SetActive(i);
         UnitLevelAndExp.Instance.NewStatus();
     }
+
+    public void MapTextUpdeta()//マップのステージ情報出すやつ
+    {
+        Transform stageChild = nextStage.transform;
+        Transform parent = stageChild.parent;
+        StageInfo stageinfo = parent.GetComponent<StageInfo>();
+        if (stageinfo != null)
+        {
+            if (stageinfo.Start == true && stageinfo.StageEnd == true)
+            {
+                MapTextStageImage.SetActive(false);
+                return;
+            }
+
+            if (stageinfo.Start == true && stageinfo.StageEnd == false)
+            {
+                MapTextStageImage.SetActive(true);
+                MapText[1].text = stageinfo.StageName.ToString();
+                MapText[2].text = stageinfo.StageNaiyou.ToString();
+                MapText[3].text = stageinfo.Enemyint.ToString();
+            }
+        }
+    }
+
+    public void DebugStageEnd()//デバッグ用　ステージ終わらせるやつ
+    {
+        Transform stageChild = nextStage.transform;
+        Transform parent = stageChild.parent;
+        StageInfo stageinfo = parent.GetComponent<StageInfo>();
+        if (stageinfo != null)
+        {
+            stageinfo.StageEnd = true;
+        }
+    }
+
+
 }

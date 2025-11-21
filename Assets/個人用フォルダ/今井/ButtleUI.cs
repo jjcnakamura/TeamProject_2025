@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 public class ButtelUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private GameObject targetUI; // 表示・非表示するUI。小さい方
-    [SerializeField] private GameObject ImageUI;//大きい方
     StageInfo stageInfo;
 
     void Start()
@@ -17,23 +16,27 @@ public class ButtelUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if(stageInfo.Start == true)
         {
-            Destroy(targetUI);
+            targetUI.SetActive(false);
         }
     }
 
     // マウスが乗った時
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (targetUI != null)
-            targetUI.SetActive(true);
-        /*if (ImageUI != false)
-            targetUI.SetActive(false);*/
+        if(stageInfo.Start == false || stageInfo.StageEnd == true)
+        {
+            if (targetUI != null)
+                targetUI.SetActive(true);
+        }
     }
 
     // マウスが離れた時
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (targetUI != null)
-            targetUI.SetActive(false);
+        if (stageInfo.Start == false || stageInfo.StageEnd == true)
+        {
+            if (targetUI != null)
+                targetUI.SetActive(false);
+        }
     }
 }
