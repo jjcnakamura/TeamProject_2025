@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 14e991f9403ed9e469138d072de82ba7, type: 2}
+    - target: {fileID: 6454394667079372870, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6804041720415528315, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
       propertyPath: unit_Heal
       value: 
@@ -82,7 +86,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4634727374821315743, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
-      insertIndex: -1
+      insertIndex: 1
       addedObject: {fileID: 7480158478223596708}
   m_SourcePrefab: {fileID: 100100000, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
 --- !u!23 &445474188667735585 stripped
@@ -111,6 +115,7 @@ MonoBehaviour:
   col_Body: {fileID: 8413363649107456905}
   col_AttackZone: {fileID: 4989877675903946812}
   mesh_AttackZone: {fileID: 445474188667735585}
+  footPos: {fileID: 4917406993290216096}
   effect: {fileID: 1055585006069982, guid: 668c3ab140935d6408586b266db8d226, type: 3}
   effect_Buff: {fileID: 1881552412633134, guid: cd2212416cb1fc84e945d11655f1b6e5, type: 3}
   effect_Debuff: {fileID: 1881552412633134, guid: ac6cc6f0170229b41addd57a34c0f181, type: 3}
@@ -137,6 +142,11 @@ MonoBehaviour:
 --- !u!1 &4318132627793925815 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6471128793069397704, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
+  m_PrefabInstance: {fileID: 7071504520334438527}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4917406993290216096 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2746391472576115423, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
   m_PrefabInstance: {fileID: 7071504520334438527}
   m_PrefabAsset: {fileID: 0}
 --- !u!136 &4989877675903946812 stripped

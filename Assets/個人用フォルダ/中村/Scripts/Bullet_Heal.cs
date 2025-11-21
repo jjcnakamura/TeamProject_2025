@@ -6,16 +6,21 @@ public class Bullet_Heal : MonoBehaviour
 {
     //弾のパラメーター
     int value;
-    float speed = 10f;
+    [SerializeField] float moveTime = 0.75f; //到達までの時間
+    [SerializeField] float arcHeight = 4f;   //放物線の高さ
 
     //エフェクト
     GameObject effect;
 
-    //弾の向かう位置
+    //弾の発射地点と向かう位置
+    Vector3 startPos;
     Vector3 targetPos;
 
     //対象のユニット
     BattleUnit_Base targetUnit;
+
+    //タイマー
+    float timer_Shot;
 
     //状態を表すフラグ
     public bool isShot;
@@ -30,6 +35,7 @@ public class Bullet_Heal : MonoBehaviour
 
         //発射位置と目標地点を読み込み
         transform.position = arg_StartPos;
+        startPos = arg_StartPos;
         targetPos = arg_TargetPos;
 
         //回復の対象を読み込み
@@ -46,11 +52,20 @@ public class Bullet_Heal : MonoBehaviour
     {
         if (isShot)
         {
-            //目標地点に向かう
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.fixedDeltaTime);
+            timer_Shot += Time.fixedDeltaTime;
+            float time = Mathf.Clamp01(timer_Shot / moveTime);
+
+            //直線補間
+            Vector3 pos = Vector3.Lerp(startPos, targetPos, time);
+
+            //放物線成分（同じ軌道が常に維持される）
+            float height = Mathf.Sin(time * Mathf.PI) * arcHeight;
+            pos.y += height;
+
+            transform.position = pos;
 
             //目標地点に到達(着弾)した場合は対象のユニットを回復
-            if (transform.position == targetPos)
+            if (time >= 1f)
             {
                 //ユニットを回復
                 if (targetUnit != null) targetUnit.Heal(value);
@@ -59,7 +74,7 @@ public class Bullet_Heal : MonoBehaviour
                 if (effect != null)
                 {
                     GameObject effectObj = Instantiate(effect);
-                    effectObj.transform.position = transform.position;
+                    effectObj.transform.position = targetPos;
                     effectObj.transform.localScale = effect.transform.localScale;
                 }
 

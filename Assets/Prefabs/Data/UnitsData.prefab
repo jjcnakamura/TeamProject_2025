@@ -132,7 +132,7 @@ MonoBehaviour:
     cost: 30
     upCost: 9
     recast: 30
-    hp: 1
+    hp: 10
     value: 30
     interval: 0
     distance: 10
@@ -169,8 +169,8 @@ MonoBehaviour:
     interval: 4
     distance: 14
     range: 0
-    targetNum: 1
-    lVUPStatus: 2
+    targetNum: 3
+    lVUPStatus: 6
     place_UnitZone: 1
     place_Floor: 0
   - prefab: {fileID: 2482288343578748128, guid: 58504c204889fa044861ce5ae487a8bc, type: 3}

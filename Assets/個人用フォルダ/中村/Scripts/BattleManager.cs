@@ -155,6 +155,9 @@ public class BattleManager : Singleton<BattleManager>
             unitPullButton[i].text_Cost.text = ParameterManager.Instance.unitStatus[i].cost.ToString();
             unitCost[i] = ParameterManager.Instance.unitStatus[i].cost;
             unitRecast[i] = ParameterManager.Instance.unitStatus[i].recast;
+
+            //ユニットの最大配置数が変化した場合は反映する
+            if (isMainGame && unitInstallationCount[i] < sameUnitMaxInstallation) unitMaxInstallation[i] = false;
         }
 
         //戦闘シーン開始時のみ実行する
@@ -189,7 +192,6 @@ public class BattleManager : Singleton<BattleManager>
             battleUnitStatus = new BattleUnit_Base[unitZone.Length];
             unitInstallationCount = new int[unitZone.Length];
             unitMaxInstallation = new bool[unitZone.Length];
-
             //Canvasの表示
             canvas = new GameObject[canvasParent.transform.childCount];
             for (int i = 0; i < canvas.Length; i++)

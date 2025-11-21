@@ -61,6 +61,27 @@ public class DebugScript : Singleton<DebugScript>
                 BattleManager.Instance.Start();
         }
 
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            ParameterManager.Instance.AddUnit(5);
+            if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
+                BattleManager.Instance.Start();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            ParameterManager.Instance.AddUnit(6);
+            if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
+                BattleManager.Instance.Start();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            ParameterManager.Instance.AddUnit(7);
+            if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
+                BattleManager.Instance.Start();
+        }
+
         //ƒ†ƒjƒbƒg‚ÌŠ”‚ª‚P‘‚¦‚é‚â‚Â
         if (Input.GetKeyDown(KeyCode.H))
         {

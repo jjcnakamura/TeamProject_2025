@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 662211224391165678}
   - component: {fileID: 1787889654748583533}
-  - component: {fileID: 6450373819182260952}
   - component: {fileID: 7682097801001447781}
   - component: {fileID: 7339130926339484336}
   m_Layer: 0
@@ -47,30 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5707f53cd31bab74b89090f0e67c827a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveTime: 0.75
+  arcHeight: 4
   isShot: 0
---- !u!136 &6450373819182260952
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5560565947078189896}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Height: 50
-  m_Direction: 1
-  m_Center: {x: 0, y: 10, z: 0}
 --- !u!33 &7682097801001447781
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -124,6 +124,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2746391472576115423
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2187919560005270826}
+  m_Layer: 0
+  m_Name: FootPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2187919560005270826
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2746391472576115423}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4782872058123386143}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4205342480510237301
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,6 +248,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4782872058123386143}
   - component: {fileID: 240579805814298295}
+  - component: {fileID: 4113052172785858912}
   m_Layer: 0
   m_Name: Unit_TargettAttack
   m_TagString: Untagged
@@ -238,6 +270,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3541864015875024294}
+  - {fileID: 2187919560005270826}
   - {fileID: 1546343886296754299}
   - {fileID: 5411192553323649281}
   m_Father: {fileID: 0}
@@ -258,6 +291,7 @@ MonoBehaviour:
   col_Body: {fileID: 1648671835549697014}
   col_AttackZone: {fileID: 2818299721237553219}
   mesh_AttackZone: {fileID: 7209598413170490974}
+  footPos: {fileID: 2746391472576115423}
   effect: {fileID: 1334071670866236, guid: 89e2315b9dc772e4b8004312a2f740f9, type: 3}
   effect_Buff: {fileID: 1881552412633134, guid: cd2212416cb1fc84e945d11655f1b6e5, type: 3}
   effect_Debuff: {fileID: 1881552412633134, guid: ac6cc6f0170229b41addd57a34c0f181, type: 3}
@@ -271,6 +305,7 @@ MonoBehaviour:
   interval: 0
   distance: 0
   range: 0
+  targetNum: 0
   isBattle: 0
   isRotation: 0
   isTarget: 0
@@ -279,6 +314,33 @@ MonoBehaviour:
   isDeadCheck: 0
   isDead: 0
   isInterval: 0
+--- !u!54 &4113052172785858912
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4634727374821315743}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 10
+  m_AngularDrag: 10
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &6454394667079372870
 GameObject:
   m_ObjectHideFlags: 0

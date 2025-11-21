@@ -15,6 +15,7 @@ public class Enemy_Base : MonoBehaviour
     public BoxCollider col_Body;            //喰らい判定のCollider
     public CapsuleCollider col_AttackZone;  //攻撃範囲のCollider
     public BoxCollider col_AttackZone_Wall; //壁に対する攻撃範囲のCollider
+    public GameObject footPos;              //足元のオブジェクト
     public GameObject effect;               //攻撃や回復のエフェクト
     public GameObject effect_Buff;          //バフ中のエフェクト
     public GameObject effect_Debuff;        //デバフ中のエフェクト
@@ -79,12 +80,12 @@ public class Enemy_Base : MonoBehaviour
 
         //バフ、デバフ用のエフェクトを生成
         buffObj = Instantiate(effect_Buff);
-        buffObj.transform.position = transform.position;
+        buffObj.transform.position = footPos.transform.position;
         buffObj.transform.SetParent(transform);
         buffObj.transform.localScale = effect_Buff.transform.localScale;
         buffObj.SetActive(false);
         debuffObj = Instantiate(effect_Debuff);
-        debuffObj.transform.position = transform.position;
+        debuffObj.transform.position = footPos.transform.position;
         debuffObj.transform.SetParent(transform);
         debuffObj.transform.localScale = effect_Debuff.transform.localScale;
         debuffObj.SetActive(false);

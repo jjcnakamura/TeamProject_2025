@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Unit_Wall
       objectReference: {fileID: 0}
+    - target: {fileID: 6804041720415528315, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
+      propertyPath: unit_TargetAttack
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7527673645746094430, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
       propertyPath: unit
       value: 
@@ -74,7 +78,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4634727374821315743, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
-      insertIndex: -1
+      insertIndex: 1
       addedObject: {fileID: 2990934665064014528}
   m_SourcePrefab: {fileID: 100100000, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
 --- !u!1 &2482288343578748128 stripped
@@ -96,9 +100,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 4318132627793925815}
   col_Body: {fileID: 8413363649107456905}
+  col_AttackZone: {fileID: 0}
+  mesh_AttackZone: {fileID: 0}
+  footPos: {fileID: 4917406993290216096}
   effect: {fileID: 1334071670866236, guid: 89e2315b9dc772e4b8004312a2f740f9, type: 3}
   effect_Buff: {fileID: 1881552412633134, guid: cd2212416cb1fc84e945d11655f1b6e5, type: 3}
   effect_Debuff: {fileID: 1881552412633134, guid: ac6cc6f0170229b41addd57a34c0f181, type: 3}
+  unitIndex: 0
   zoneIndex: 0
   role: 0
   maxHp: 0
@@ -108,15 +116,22 @@ MonoBehaviour:
   interval: 0
   distance: 0
   range: 0
+  targetNum: 0
   isBattle: 0
   isRotation: 0
   isTarget: 0
   isBuff: 0
   isDebuff: 0
+  isDeadCheck: 0
   isDead: 0
 --- !u!1 &4318132627793925815 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6471128793069397704, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
+  m_PrefabInstance: {fileID: 7071504520334438527}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4917406993290216096 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2746391472576115423, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
   m_PrefabInstance: {fileID: 7071504520334438527}
   m_PrefabAsset: {fileID: 0}
 --- !u!65 &8413363649107456905 stripped

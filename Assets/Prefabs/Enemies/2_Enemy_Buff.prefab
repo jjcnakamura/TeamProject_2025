@@ -177,6 +177,11 @@ Rigidbody:
   m_CorrespondingSourceObject: {fileID: 5707407257947704373, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
   m_PrefabInstance: {fileID: 5732843498596688269}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &421032399277756288 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5357287346958167565, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
+  m_PrefabInstance: {fileID: 5732843498596688269}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &813942796717606589 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4955246435308414768, guid: 468a5e421f07e9c4b8712efa9239da03, type: 3}
@@ -220,6 +225,7 @@ MonoBehaviour:
   col_Body: {fileID: 1500037000240121731}
   col_AttackZone: {fileID: 4374870998828902986}
   col_AttackZone_Wall: {fileID: 7436187692878447214}
+  footPos: {fileID: 421032399277756288}
   effect: {fileID: 1334071670866236, guid: 89e2315b9dc772e4b8004312a2f740f9, type: 3}
   effect_Buff: {fileID: 1881552412633134, guid: cd2212416cb1fc84e945d11655f1b6e5, type: 3}
   effect_Debuff: {fileID: 1881552412633134, guid: ac6cc6f0170229b41addd57a34c0f181, type: 3}
@@ -239,6 +245,7 @@ MonoBehaviour:
   isRotation: 0
   isTarget: 0
   isKnockBack: 0
+  isWait: 0
   isBuff: 0
   isDebuff: 0
   isDeadCheck: 0

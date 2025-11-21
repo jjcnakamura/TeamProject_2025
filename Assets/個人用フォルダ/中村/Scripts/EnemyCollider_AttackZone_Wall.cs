@@ -32,8 +32,9 @@ public class EnemyCollider_AttackZone_Wall : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        return; //攻撃範囲から離れた場合もターゲットを続けるため以下の処理はしない
+        //攻撃範囲から離れた場合もターゲットを続けるため以下の処理はしない
 
+        /*
         //射程に入った壁役ユニットをターゲットする敵の処理
         if (enemy_TargetAttack != null)
         {
@@ -53,5 +54,6 @@ public class EnemyCollider_AttackZone_Wall : MonoBehaviour
                 enemy_StatusChange.CollisionWallUnit(other);
             }
         }
+        */
     }
 }

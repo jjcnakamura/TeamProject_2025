@@ -30,7 +30,7 @@ public class BattleUnit_PointUp : BattleUnit_Base
             //ポイントを上昇
             BattleManager.Instance.PointChange(defaultValue);
             //エフェクトを自身の位置に生成
-            Instantiate(effect).transform.position = transform.position;
+            Instantiate(effect).transform.position = footPos.transform.position;
             //インターバル開始
             timer_Interval = 0;
         }

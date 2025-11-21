@@ -45,7 +45,7 @@ public class UnitCollider_AttackZone : MonoBehaviour
         if (unit_Heal != null && other != unit_Heal.col_Body)
         {
             //–¡•û‚ª‰ñ•œ‚Ì”ÍˆÍ“à‚É“ü‚Á‚½ê‡
-            if (other.transform.tag == "Unit")
+            if (other.transform.tag == "Unit" || other.transform.tag == "Unit_Wall")
             {
                 unit_Heal.Target(other);
             }

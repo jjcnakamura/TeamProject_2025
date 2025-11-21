@@ -42,8 +42,9 @@ public class EnemyCollider_AttackZone : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        return; //攻撃範囲から離れた場合もターゲットを続けるため以下の処理はしない
+        //攻撃範囲から離れた場合もターゲットを続けるため以下の処理はしない
 
+        /*
         //射程に入ったユニットエリアのユニットをターゲットする敵の処理
         if (enemy_TargetAttack != null && other != enemy_TargetAttack.col_Body)
         {
@@ -73,5 +74,6 @@ public class EnemyCollider_AttackZone : MonoBehaviour
                 enemy_StatusChange.Debuff(other, false);
             }
         }
+        */
     }
 }
