@@ -92,6 +92,7 @@ public class EnemySpawnPoint : MonoBehaviour
         enemy.distance = enemyStatus[index].distance;
         enemy.range = enemyStatus[index].range;
         enemy.moveSpeed = enemyStatus[index].moveSpeed;
+        enemy.defaultMoveSpeed = enemy.moveSpeed;
         enemy.knockBackTime = enemyStatus[index].knockBackTime;
 
         enemy.routeIndex = enemyStatus[index].routeIndex;

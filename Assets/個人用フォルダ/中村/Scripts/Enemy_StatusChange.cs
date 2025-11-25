@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy_StatusChange : Enemy_Base
 {
-    [Header("Enemy_StatusChange")]
+    [Header("[Enemy_StatusChange]")]
 
     [SerializeField,Label("バフをかける（falseだとデバフ）")] public bool buff;
 

@@ -33,14 +33,7 @@ public class BattleUnit_Heal : BattleUnit_Base
 
         if (!isBattle || !BattleManager.Instance.isMainGame) return; //戦闘中でない場合は戻る
 
-        //配置された後の処理
-        if (!isStart && isBattle)
-        {
-            Target(col_Body);
-
-            isInterval = true;
-            isStart = true;
-        }
+        Place();
     }
 
     protected override void FixedUpdate()
@@ -51,6 +44,18 @@ public class BattleUnit_Heal : BattleUnit_Base
 
         StartHeal();
         Interval();
+    }
+
+    //配置された時の処理
+    void Place()
+    {
+        if (!isStart && isBattle)
+        {
+            Target(col_Body);
+
+            isInterval = true;
+            isStart = true;
+        }
     }
 
     //ユニットをターゲット、ターゲット解除

@@ -82,6 +82,13 @@ public class DebugScript : Singleton<DebugScript>
                 BattleManager.Instance.Start();
         }
 
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            ParameterManager.Instance.AddUnit(8);
+            if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
+                BattleManager.Instance.Start();
+        }
+
         //ƒ†ƒjƒbƒg‚ÌŠ”‚ª‚P‘‚¦‚é‚â‚Â
         if (Input.GetKeyDown(KeyCode.H))
         {

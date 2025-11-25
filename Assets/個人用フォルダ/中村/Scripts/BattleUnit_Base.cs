@@ -131,7 +131,7 @@ public class BattleUnit_Base : MonoBehaviour
                 if (val > maxBuffValue)
                 {
                     maxBuffValue = val;
-                    value = Mathf.Max(defaultValue + val + minDebuffValue, 1);
+                    value = Mathf.Max(defaultValue + val + minDebuffValue, 0);
                 }
 
                 //エフェクトを表示
@@ -171,13 +171,13 @@ public class BattleUnit_Base : MonoBehaviour
                 if (isMax)
                 {
                     maxBuffValue = maxVal;
-                    value = Mathf.Max(value + val, 1);
+                    value = Mathf.Max(value + val, 0);
                 }
                 //バフ数が0になった場合はステータスを戻す
                 if (buffNum <= 0)
                 {
                     maxBuffValue = 0;
-                    value = Mathf.Max(defaultValue + val + minDebuffValue, 1);
+                    value = Mathf.Max(defaultValue + val + minDebuffValue, 0);
 
                     //エフェクトを非表示
                     if (buffObj != null) buffObj.SetActive(false);
@@ -187,7 +187,7 @@ public class BattleUnit_Base : MonoBehaviour
             }
         }
         //デバフ
-        if (val < 0)
+        else if (val < 0)
         {
             //デバフをかける
             if (flag)
@@ -200,7 +200,7 @@ public class BattleUnit_Base : MonoBehaviour
                 if (val < minDebuffValue)
                 {
                     minDebuffValue = val;
-                    value = Mathf.Max(defaultValue + val + maxBuffValue, 1);
+                    value = Mathf.Max(defaultValue + val + maxBuffValue, 0);
                 }
 
                 //エフェクトを表示
@@ -240,7 +240,7 @@ public class BattleUnit_Base : MonoBehaviour
                 if (isMin)
                 {
                     minDebuffValue = minVal;
-                    value = Mathf.Max(defaultValue + val + maxBuffValue, 1);
+                    value = Mathf.Max(defaultValue + val + maxBuffValue, 0);
                 }
                 //デバフ数が0になった場合はステータスを戻す
                 if (deBuffNum <= 0)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy_TargetAttack : Enemy_Base
 {
-    [Header("Enemy_TargetAttack")]
+    [Header("[Enemy_TargetAttack]")]
 
     [SerializeField,Label("壁役を狙う")] public bool attackWall;
     [SerializeField,Label("ユニットエリアを狙う")] public bool attackUnitZone;

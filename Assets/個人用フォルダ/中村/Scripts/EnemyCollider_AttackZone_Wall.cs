@@ -19,7 +19,7 @@ public class EnemyCollider_AttackZone_Wall : MonoBehaviour
             }
         }
 
-        //ステータスを変化させるユニットの処理
+        //ステータスを変化させる敵の処理
         if (enemy_StatusChange != null)
         {
             //壁ユニットが前方に来た場合
@@ -32,9 +32,8 @@ public class EnemyCollider_AttackZone_Wall : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        //攻撃範囲から離れた場合もターゲットを続けるため以下の処理はしない
-
         /*
+        //攻撃範囲から離れた場合もターゲットを続けるためこのの処理はしない
         //射程に入った壁役ユニットをターゲットする敵の処理
         if (enemy_TargetAttack != null)
         {
@@ -44,8 +43,9 @@ public class EnemyCollider_AttackZone_Wall : MonoBehaviour
                 enemy_TargetAttack.Target(other);
             }
         }
+        */
 
-        //ステータスを変化させるユニットの処理
+        //ステータスを変化させる敵の処理
         if (enemy_StatusChange != null)
         {
             //壁ユニットが前方に来た場合
@@ -54,6 +54,6 @@ public class EnemyCollider_AttackZone_Wall : MonoBehaviour
                 enemy_StatusChange.CollisionWallUnit(other);
             }
         }
-        */
+        
     }
 }

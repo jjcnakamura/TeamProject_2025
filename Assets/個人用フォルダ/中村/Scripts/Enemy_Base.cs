@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class Enemy_Base : MonoBehaviour
 {
-    [Header("Enemy_Base")]
+    [Header("[Enemy_Base]")]
 
     public GameObject model;                //3Dモデル
     public Rigidbody rig;                   //親オブジェクトのRigidbody
@@ -30,6 +30,7 @@ public class Enemy_Base : MonoBehaviour
     public float interval;
     public float distance;
     public float range;
+    public float defaultMoveSpeed;
     public float moveSpeed;
     public float knockBackTime;
 
@@ -57,6 +58,12 @@ public class Enemy_Base : MonoBehaviour
     List<int> debuffValue = new List<int>();
     int maxBuffValue, minDebuffValue;
     int buffNum, deBuffNum;
+
+    List<float> speedBuffValue = new List<float>();
+    List<float> speedDebuffValue = new List<float>();
+    float maxSpeedBuffValue = 1, minSpeedDebuffValue = 1;
+    int speedBuffNum, speedDeBuffNum;
+
     GameObject buffObj, debuffObj;
 
     //HPバー
@@ -66,7 +73,7 @@ public class Enemy_Base : MonoBehaviour
     float timer_KnockBack, timer_MoveWait;
 
     //状態を表すフラグ
-    public bool isMove, isRotation, isTarget, isKnockBack, isWait, isBuff, isDebuff, isDeadCheck, isDead;
+    public bool isMove, isRotation, isTarget, isKnockBack, isWait, isBuff, isDebuff, isSpeedBuff, isSpeedDebuf, isDeadCheck, isDead;
 
     protected virtual void Start()
     {
@@ -169,7 +176,7 @@ public class Enemy_Base : MonoBehaviour
                 if (val > maxBuffValue)
                 {
                     maxBuffValue = val;
-                    value = Mathf.Max(defaultValue + val + minDebuffValue, 1);
+                    value = Mathf.Max(defaultValue + val + minDebuffValue, 0);
                 }
 
                 //エフェクトを表示
@@ -209,23 +216,23 @@ public class Enemy_Base : MonoBehaviour
                 if (isMax)
                 {
                     maxBuffValue = maxVal;
-                    value = Mathf.Max(value + val, 1);
+                    value = Mathf.Max(value + val, 0);
                 }
                 //バフ数が0になった場合はステータスを戻す
                 if (buffNum <= 0)
                 {
                     maxBuffValue = 0;
-                    value = Mathf.Max(defaultValue + val + minDebuffValue, 1);
+                    value = Mathf.Max(defaultValue + val + minDebuffValue, 0);
 
                     //エフェクトを非表示
-                    if (buffObj != null) buffObj.SetActive(false);
+                    if (buffObj != null && !isSpeedBuff) buffObj.SetActive(false);
 
                     isBuff = false;
                 }
             }
         }
         //デバフ
-        if (val < 0)
+        else if (val < 0)
         {
             //デバフをかける
             if (flag)
@@ -238,7 +245,7 @@ public class Enemy_Base : MonoBehaviour
                 if (val < minDebuffValue)
                 {
                     minDebuffValue = val;
-                    value = Mathf.Max(defaultValue + val + maxBuffValue, 1);
+                    value = Mathf.Max(defaultValue + val + maxBuffValue, 0);
                 }
 
                 //エフェクトを表示
@@ -278,7 +285,7 @@ public class Enemy_Base : MonoBehaviour
                 if (isMin)
                 {
                     minDebuffValue = minVal;
-                    value = Mathf.Max(defaultValue + val + maxBuffValue, 1);
+                    value = Mathf.Max(defaultValue + val + maxBuffValue, 0);
                 }
                 //デバフ数が0になった場合はステータスを戻す
                 if (deBuffNum <= 0)
@@ -287,13 +294,95 @@ public class Enemy_Base : MonoBehaviour
                     value = defaultValue + maxBuffValue;
 
                     //エフェクトを非表示
-                    if (debuffObj != null) debuffObj.SetActive(false);
+                    if (debuffObj != null && !isSpeedDebuf) debuffObj.SetActive(false);
 
                     isDebuff = false;
                 }
             }
         }
     }
+    //移動速度にバフかデバフをかける（同時にかかった場合は値が大きい方を優先）
+    public void SpeedChange(float val, bool flag)
+    {
+        //マイナスの値は０にする
+        val = Mathf.Max(val, 0);
+
+        //バフ
+        if (val > 1)
+        {
+
+        }
+        //デバフ
+        else if (val < 1)
+        {
+            //デバフをかける
+            if (flag)
+            {
+                //デバフ数を追加
+                speedDeBuffNum++;
+                speedDebuffValue.Add(val);
+
+                //現在のデバフ量より大きい場合
+                if (val < minSpeedDebuffValue || minSpeedDebuffValue <= 0)
+                {
+                    minSpeedDebuffValue = val;
+                    moveSpeed = Mathf.Max(defaultMoveSpeed * val * maxSpeedBuffValue, 0.1f);
+                }
+
+                //エフェクトを表示
+                if (debuffObj != null) debuffObj.SetActive(true);
+
+                isSpeedDebuf = true;
+            }
+            //デバフを解除する
+            else if (speedDeBuffNum > 0)
+            {
+                //現在のデバフ量と等しい場合は新しく参照するデバフ量を決める
+                bool isMin = (val <= minSpeedDebuffValue);
+                bool isRemove = false;
+                float minVal = 1;
+
+                //デバフ数を減らす
+                speedDeBuffNum--;
+                for (int i = speedDebuffValue.Count - 1; i >= 0; i--)
+                {
+                    if (isMin && speedDebuffValue[i] <= minVal) minVal = speedDebuffValue[i];
+
+                    if (speedDebuffValue[i] == val)
+                    {
+                        if (!isRemove && isMin)
+                        {
+                            speedDebuffValue.RemoveAt(i);
+                            isRemove = true;
+                        }
+                        else if (!isMin)
+                        {
+                            speedDebuffValue.RemoveAt(i);
+                            break;
+                        }
+                    }
+                }
+                //新しく参照するデバフ量を決める
+                if (isMin)
+                {
+                    minSpeedDebuffValue = minVal;
+                    moveSpeed = Mathf.Max(defaultMoveSpeed * val * maxSpeedBuffValue, 0.1f);
+                }
+                //デバフ数が0になった場合はステータスを戻す
+                if (speedDeBuffNum <= 0)
+                {
+                    minDebuffValue = 1;
+                    moveSpeed = Mathf.Max(defaultMoveSpeed * maxSpeedBuffValue, 0.1f);
+
+                    //エフェクトを非表示
+                    if (debuffObj != null && !isDebuff) debuffObj.SetActive(false);
+
+                    isSpeedDebuf = false;
+                }
+            }
+        }
+    }
+
     //死亡している場合は自身を削除する
     void DeadCheck()
     {
