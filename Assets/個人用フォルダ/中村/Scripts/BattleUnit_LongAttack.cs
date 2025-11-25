@@ -9,6 +9,7 @@ public class BattleUnit_LongAttack : BattleUnit_Base
     //Ëo‚·‚é’e
     [SerializeField] Bullet normalBullet;
     [SerializeField] Bullet_Explosion explosiveBullet;
+    [SerializeField] Bullet_SpeedDebuff speedDebuffBullet;
 
     //UŒ‚‚Ì‘ÎÛ‚É‚µ‚Ä‚¢‚é“G
     Collider targetEnemyCol;
@@ -86,6 +87,13 @@ public class BattleUnit_LongAttack : BattleUnit_Base
                     Bullet_Explosion bullet = Instantiate(explosiveBullet);
                     bullet.transform.localScale = explosiveBullet.transform.localScale;
                     bullet.Shot(value, range, transform.position, targetEnemy.transform.position, effect);
+                }
+                //‘¬“x“İ‰»ƒfƒoƒt‚Ì’e‚ğŒ‚‚Â
+                else if (speedDebuffBullet != null)
+                {
+                    Bullet_SpeedDebuff bullet = Instantiate(speedDebuffBullet);
+                    bullet.transform.localScale = speedDebuffBullet.transform.localScale;
+                    bullet.Shot(0.5f, defaultValue, range, transform.position, targetEnemy.transform.position, effect);
                 }
                 else
                 {

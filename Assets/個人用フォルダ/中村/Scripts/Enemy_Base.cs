@@ -59,10 +59,8 @@ public class Enemy_Base : MonoBehaviour
     int maxBuffValue, minDebuffValue;
     int buffNum, deBuffNum;
 
-    List<float> speedBuffValue = new List<float>();
-    List<float> speedDebuffValue = new List<float>();
-    float maxSpeedBuffValue = 1, minSpeedDebuffValue = 1;
-    int speedBuffNum, speedDeBuffNum;
+    float speedBuffValue = 1f, speedDebuffValue = 1f;
+    float speedBuffTime, speedDebuffTime;
 
     GameObject buffObj, debuffObj;
 
@@ -70,10 +68,10 @@ public class Enemy_Base : MonoBehaviour
     [System.NonSerialized] public GameObject hpbarObj;
 
     //タイマー
-    float timer_KnockBack, timer_MoveWait;
+    float timer_KnockBack, timer_MoveWait, timer_SpeedBuff, timer_SpeedDebuff;
 
     //状態を表すフラグ
-    public bool isMove, isRotation, isTarget, isKnockBack, isWait, isBuff, isDebuff, isSpeedBuff, isSpeedDebuf, isDeadCheck, isDead;
+    public bool isMove, isRotation, isTarget, isKnockBack, isWait, isBuff, isDebuff, isSpeedBuff, isSpeedDebuff, isDeadCheck, isDead;
 
     protected virtual void Start()
     {
@@ -112,6 +110,7 @@ public class Enemy_Base : MonoBehaviour
     {
         if (!BattleManager.Instance.isMainGame) return; //メインゲーム中でなければ戻る
 
+        SpeedChangeCheck();
         KnockBack();
         Move();
     }
@@ -294,7 +293,7 @@ public class Enemy_Base : MonoBehaviour
                     value = defaultValue + maxBuffValue;
 
                     //エフェクトを非表示
-                    if (debuffObj != null && !isSpeedDebuf) debuffObj.SetActive(false);
+                    if (debuffObj != null && !isSpeedDebuff) debuffObj.SetActive(false);
 
                     isDebuff = false;
                 }
@@ -302,7 +301,7 @@ public class Enemy_Base : MonoBehaviour
         }
     }
     //移動速度にバフかデバフをかける（同時にかかった場合は値が大きい方を優先）
-    public void SpeedChange(float val, bool flag)
+    public void SpeedChange(float val, float time)
     {
         //マイナスの値は０にする
         val = Mathf.Max(val, 0);
@@ -315,74 +314,57 @@ public class Enemy_Base : MonoBehaviour
         //デバフ
         else if (val < 1)
         {
-            //デバフをかける
-            if (flag)
+            //現在のデバフ量より大きい場合は更新
+            if (val < speedDebuffValue || speedDebuffValue <= 0)
             {
-                //デバフ数を追加
-                speedDeBuffNum++;
-                speedDebuffValue.Add(val);
-
-                //現在のデバフ量より大きい場合
-                if (val < minSpeedDebuffValue || minSpeedDebuffValue <= 0)
-                {
-                    minSpeedDebuffValue = val;
-                    moveSpeed = Mathf.Max(defaultMoveSpeed * val * maxSpeedBuffValue, 0.1f);
-                }
-
-                //エフェクトを表示
-                if (debuffObj != null) debuffObj.SetActive(true);
-
-                isSpeedDebuf = true;
+                speedDebuffValue = val;
+                moveSpeed = Mathf.Max(defaultMoveSpeed * val * speedBuffValue, 0.1f);
             }
-            //デバフを解除する
-            else if (speedDeBuffNum > 0)
+            //現在のデバフ残り時間より大きい場合は更新
+            if (time < speedDebuffTime - timer_SpeedDebuff || timer_SpeedDebuff <= 0)
             {
-                //現在のデバフ量と等しい場合は新しく参照するデバフ量を決める
-                bool isMin = (val <= minSpeedDebuffValue);
-                bool isRemove = false;
-                float minVal = 1;
-
-                //デバフ数を減らす
-                speedDeBuffNum--;
-                for (int i = speedDebuffValue.Count - 1; i >= 0; i--)
-                {
-                    if (isMin && speedDebuffValue[i] <= minVal) minVal = speedDebuffValue[i];
-
-                    if (speedDebuffValue[i] == val)
-                    {
-                        if (!isRemove && isMin)
-                        {
-                            speedDebuffValue.RemoveAt(i);
-                            isRemove = true;
-                        }
-                        else if (!isMin)
-                        {
-                            speedDebuffValue.RemoveAt(i);
-                            break;
-                        }
-                    }
-                }
-                //新しく参照するデバフ量を決める
-                if (isMin)
-                {
-                    minSpeedDebuffValue = minVal;
-                    moveSpeed = Mathf.Max(defaultMoveSpeed * val * maxSpeedBuffValue, 0.1f);
-                }
-                //デバフ数が0になった場合はステータスを戻す
-                if (speedDeBuffNum <= 0)
-                {
-                    minDebuffValue = 1;
-                    moveSpeed = Mathf.Max(defaultMoveSpeed * maxSpeedBuffValue, 0.1f);
-
-                    //エフェクトを非表示
-                    if (debuffObj != null && !isDebuff) debuffObj.SetActive(false);
-
-                    isSpeedDebuf = false;
-                }
+                speedDebuffTime = time;
+                timer_SpeedDebuff = 0;
             }
+
+            //エフェクトを表示
+            if (debuffObj != null) debuffObj.SetActive(true);
+
+            isSpeedDebuff = true;
         }
     }
 
+    //スピードのバフ、デバフの時間をカウントする
+    void SpeedChangeCheck()
+    {
+        //バフ
+        if (isSpeedBuff)
+        {
+
+        }
+        //デバフ
+        if (isSpeedDebuff)
+        {
+            if (timer_SpeedDebuff < speedDebuffTime)
+            {
+                timer_SpeedDebuff += Time.fixedDeltaTime;
+            }
+            else
+            {
+                speedDebuffTime = 0;
+                timer_SpeedDebuff = 0;
+
+                //速度を戻す
+                speedDebuffValue = 1;
+                moveSpeed = Mathf.Max(defaultMoveSpeed * 1 * speedBuffValue, 0.1f);
+
+                //エフェクトを非表示
+                if (debuffObj != null && !isDebuff) debuffObj.SetActive(false);
+
+                isSpeedDebuff = false;
+            }
+        }
+    }
     //死亡している場合は自身を削除する
     void DeadCheck()
     {

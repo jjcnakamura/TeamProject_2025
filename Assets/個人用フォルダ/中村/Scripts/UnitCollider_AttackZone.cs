@@ -8,7 +8,6 @@ public class UnitCollider_AttackZone : MonoBehaviour
     [SerializeField] BattleUnit_LongAttack unit_LongAttack;
     [SerializeField] BattleUnit_Bomb unit_Bomb;
     [SerializeField] BattleUnit_Heal unit_Heal;
-    [SerializeField] BattleUnit_SlowDebuff unit_SlowDebuff;
 
     void OnTriggerStay(Collider other)
     {
@@ -51,16 +50,6 @@ public class UnitCollider_AttackZone : MonoBehaviour
                 unit_Heal.Target(other);
             }
         }
-
-        //周りの敵に鈍化デバフをかけるユニットの処理
-        if (unit_SlowDebuff != null)
-        {
-            //敵がデバフの射程内に入った場合
-            if (other.transform.tag == "Enemy")
-            {
-                unit_SlowDebuff.SlowDebuff(other, true);
-            }
-        }
     }
 
     void OnTriggerExit(Collider other)
@@ -82,16 +71,6 @@ public class UnitCollider_AttackZone : MonoBehaviour
             if (other.transform.tag == "Enemy" && unit_LongAttack.isTarget)
             {
                 unit_LongAttack.Target(other);
-            }
-        }
-
-        //周りの敵に鈍化デバフをかけるユニットの処理
-        if (unit_SlowDebuff != null)
-        {
-            //敵がデバフの射程外に出た場合
-            if (other.transform.tag == "Enemy")
-            {
-                unit_SlowDebuff.SlowDebuff(other, false);
             }
         }
     }

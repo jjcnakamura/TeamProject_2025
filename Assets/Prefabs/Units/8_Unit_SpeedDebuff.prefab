@@ -18,7 +18,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4634727374821315743, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
       propertyPath: m_Name
-      value: 8_Unit_SlowDebuff
+      value: 8_Unit_SpeedDebuff
       objectReference: {fileID: 0}
     - target: {fileID: 4782872058123386143, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
       propertyPath: m_LocalPosition.x
@@ -73,9 +73,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6804041720415528315, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
-      propertyPath: unit_SlowDebuff
+      propertyPath: unit_LongAttack
       value: 
-      objectReference: {fileID: 8414907665366528307}
+      objectReference: {fileID: 6193128202634302838}
     - target: {fileID: 6804041720415528315, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
       propertyPath: unit_TargetAttack
       value: 
@@ -83,7 +83,7 @@ PrefabInstance:
     - target: {fileID: 7527673645746094430, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
       propertyPath: unit
       value: 
-      objectReference: {fileID: 8414907665366528307}
+      objectReference: {fileID: 6193128202634302838}
     m_RemovedComponents:
     - {fileID: 240579805814298295, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
     m_RemovedGameObjects: []
@@ -91,7 +91,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4634727374821315743, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
       insertIndex: 1
-      addedObject: {fileID: 8414907665366528307}
+      addedObject: {fileID: 6193128202634302838}
   m_SourcePrefab: {fileID: 100100000, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
 --- !u!23 &445474188667735585 stripped
 MeshRenderer:
@@ -103,7 +103,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4634727374821315743, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
   m_PrefabInstance: {fileID: 7071504520334438527}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8414907665366528307
+--- !u!114 &6193128202634302838
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,7 +112,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2482288343578748128}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15e893d43d7d00a41af95f1b2abb421c, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b53775e7a774a44990064e9882fc7f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 4318132627793925815}
@@ -120,7 +120,7 @@ MonoBehaviour:
   col_AttackZone: {fileID: 4989877675903946812}
   mesh_AttackZone: {fileID: 445474188667735585}
   footPos: {fileID: 4917406993290216096}
-  effect: {fileID: 1881552412633134, guid: ac6cc6f0170229b41addd57a34c0f181, type: 3}
+  effect: {fileID: 1575721338728490, guid: 614798357ad983e40b76f694cd8b443a, type: 3}
   effect_Buff: {fileID: 1881552412633134, guid: cd2212416cb1fc84e945d11655f1b6e5, type: 3}
   effect_Debuff: {fileID: 1881552412633134, guid: ac6cc6f0170229b41addd57a34c0f181, type: 3}
   unitIndex: 0
@@ -141,6 +141,11 @@ MonoBehaviour:
   isDebuff: 0
   isDeadCheck: 0
   isDead: 0
+  normalBullet: {fileID: 0}
+  explosiveBullet: {fileID: 0}
+  speedDebuffBullet: {fileID: 7404035892192029800, guid: 58de3c64b5233f44887ca565e7be0a4c, type: 3}
+  isStart: 0
+  isInterval: 0
 --- !u!1 &4318132627793925815 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6471128793069397704, guid: eb9085c81f68aff49a6f5f85f84b4f37, type: 3}
