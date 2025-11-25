@@ -103,7 +103,7 @@ MonoBehaviour:
     hp: 50
     value: 1
     interval: 1
-    distance: 2.5
+    distance: 3
     range: 0
     targetNum: 1
     lVUPStatus: 1

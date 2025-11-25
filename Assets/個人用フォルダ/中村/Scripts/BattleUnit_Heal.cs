@@ -164,7 +164,7 @@ public class BattleUnit_Heal : BattleUnit_Base
         if (!isHeal) return;
 
         //‰ñ•œ’e‚ðo‚·
-        if (healTarget[index] != null && healBullet != null)
+        if (healTarget.Count > 0 && healTarget[index] != null && healBullet != null)
         {
             Bullet_Heal bullet = Instantiate(healBullet);
             bullet.transform.localScale = healBullet.transform.localScale;
