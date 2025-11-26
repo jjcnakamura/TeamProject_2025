@@ -62,7 +62,7 @@ public class BattleUnit_Bomb : BattleUnit_Base
             //エフェクトを生成
             GameObject effectInstance = Instantiate(effect);
             effectInstance.transform.position = transform.position;
-            effectInstance.transform.localScale = effect.transform.localScale;
+            effectInstance.transform.localScale = new Vector3(distance, distance, distance);
 
             col_Body.enabled = false;
             col_AttackZone.enabled = true;

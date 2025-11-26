@@ -70,7 +70,7 @@ public class Bullet_Explosion : MonoBehaviour
                 {
                     GameObject effectObj = Instantiate(effect);
                     effectObj.transform.position = transform.position;
-                    effectObj.transform.localScale = effect.transform.localScale;
+                    effectObj.transform.localScale = new Vector3(range, range, range);
                 }
 
                 transform.localScale = new Vector3(range, transform.localScale.y, range);
