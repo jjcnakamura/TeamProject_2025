@@ -88,7 +88,7 @@ MonoBehaviour:
     value: 4
     interval: 3
     distance: 10
-    range: 4
+    range: 2
     targetNum: 1
     lVUPStatus: 5
     place_UnitZone: 1
