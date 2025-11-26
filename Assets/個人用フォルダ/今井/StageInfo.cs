@@ -32,6 +32,9 @@ public class StageInfo : MonoBehaviour
         {
             //Destroy(gameObject);
         }
+        int index = GetParentIndexOf(this.transform);
+        Debug.Log(index);
+
     }
 
     public void StageEndDebug()
@@ -39,5 +42,29 @@ public class StageInfo : MonoBehaviour
         StageEnd = true;
     }
 
-    
+    public void GoSelectRoute()
+    {
+        int index = GetParentIndexOf(this.transform);
+        MapManager.Instance.x = index;
+    }
+
+    public int GetParentIndexOf(Transform child)
+    {
+        Transform childs = this.gameObject.transform;
+        Transform parent = childs.parent;
+
+        for (int i = 0; i < MapManager.Instance.MapRoute.Length; i++)
+        {
+            if (MapManager.Instance.MapRoute[i] != null && MapManager.Instance.MapRoute[i].transform == parent)
+            {
+                return i;   // ‰½”Ô–Ú‚Ìe‚È‚Ì‚Å•Ô‚·
+            }
+        }
+        if(FloorEnd == true)
+        {
+            Debug.Log("Ž„‚Íƒ{ƒX‚Å‚·");
+            return -1;
+        }
+        return -1;
+    }
 }
