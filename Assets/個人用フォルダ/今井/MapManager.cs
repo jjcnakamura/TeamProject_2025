@@ -34,6 +34,7 @@ public class MapManager : Singleton<MapManager>
     public bool Nextfloorbool;
     public GameObject charaLevelCanvas;
     public GameObject MapTextStageImage;
+    public Transform PlayerStartPos;
 
     void Awake()
     {
@@ -55,6 +56,10 @@ public class MapManager : Singleton<MapManager>
     void Update()
     {
         MapText[0].text = floor.ToString();
+
+        if (worldLevel == 0) max = 3;
+        if (worldLevel == 1) max = 4;
+        if (worldLevel == 2) max = 5;
 
         var status = ParameterManager.Instance.unitStatus;
         if (floor > Backfloor)
@@ -81,7 +86,7 @@ public class MapManager : Singleton<MapManager>
         for (int i = 0; i < MapRoute.Length; i++)
         {
             transforms[i] = MapRoute[i].transform;
-        }
+        }/*
         if (nextStage.childCount == 0 && Nextfloorbool == true)//フロアを進めるやつ&ゲームクリア時も含む
         {
             if(floor == 3 + worldLevel)
@@ -91,7 +96,6 @@ public class MapManager : Singleton<MapManager>
             }
             NextFloor();
         }
-
         if (gameStartflg == true && nextStage.childCount == 0 && Nextfloorbool == false)//ステージを判別する奴
         {
             if (transforms[x].childCount == 0 && Nextfloorbool == false)
@@ -109,7 +113,7 @@ public class MapManager : Singleton<MapManager>
             child.localPosition = Vector3.zero;
             GoNextStage();
             return;
-        }
+        }*/
         if (ParameterManager.Instance.isBattleClear == true)//クリアしたら勝手に次のステージに進むやつ
         {
             Transform child = nextStage.GetChild(0);
@@ -132,6 +136,7 @@ public class MapManager : Singleton<MapManager>
             ParameterManager.Instance.isBattleClear = false;
         }
     }
+
     public void NextFloor()//フロアを進める処理
     {
         gameStartflg = false;
@@ -151,6 +156,7 @@ public class MapManager : Singleton<MapManager>
                 Destroy(child.gameObject);
             }
         }
+        y = 0;
     }
 
     public void GoNextStage() //決めたルートのステージを進める処理
@@ -160,6 +166,15 @@ public class MapManager : Singleton<MapManager>
         {
             transforms[i] = MapRoute[i].transform;
         }
+        if(y > (worldLevel + 2))
+        {
+            y += 1;
+            Debug.Log("わわわわわわわわわわわ");
+            nextStage.SetParent(BossEnemy, true);
+            nextStage.localPosition = Vector3.zero;
+            return;
+        }
+
         Transform child = transforms[x].GetChild(y);
         nextStage.SetParent(child, true);
         nextStage.localPosition = Vector3.zero;
@@ -178,6 +193,13 @@ public class MapManager : Singleton<MapManager>
         {
             Debug.Log("何も情報なし");
         }
+    }
+
+    public void GoSelectRoute(int i)
+    {
+        if(x == 0)
+        x = i;
+        GoNextStage();
     }
 
     public void OnButtonPressed(int i)//ボタンに入っているルートを決めて一つのルートのステージに行く
@@ -340,8 +362,8 @@ public class MapManager : Singleton<MapManager>
     public void GameStart(GameObject i)//ゲームスタート　ボタン用
     {
         Map.SetActive(true);
-        NextFloor();
         i.gameObject.SetActive(false);
+        NextFloor();
     }
 
     public void BossMake()//難易度参照のボス
@@ -404,5 +426,27 @@ public class MapManager : Singleton<MapManager>
         }
     }
 
-
+    public void NextFloorButton()
+    {
+        Transform stageChild = nextStage.transform;
+        Transform parent = stageChild.parent;
+        Transform child = parent.GetChild(0);
+        StageInfo stageinfo = child.GetComponent<StageInfo>();
+        if (stageinfo != null)
+        {
+            if(y > (worldLevel + 2))
+            {
+                nextStage.SetParent(PlayerStartPos, true);
+                nextStage.localPosition = Vector3.zero;
+                Transform boss = BossEnemy.GetChild(0);
+                Destroy(boss);
+                NextFloor();
+            }
+            /*
+            if(stageinfo.FloorEnd == true && stageinfo.StageEnd == true)
+            {
+                NextFloor();
+            }*/
+        }
+    }
 }
