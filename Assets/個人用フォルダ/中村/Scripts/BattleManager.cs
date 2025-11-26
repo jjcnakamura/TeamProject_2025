@@ -89,7 +89,9 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] float dragTimeScale = 0.4f;    //ユニットドラッグ中の時間が進む速度
     [SerializeField] float speedUpTimeScale = 1.5f; //時間加速中の時間が進む速度
     [SerializeField] GameObject speedUpImage;       //時間加速中に表示されるオブジェクト
-    float preTimeScale;                             //前の時間が進む速度
+
+    float dragFixedTime;                            //ユニットドラッグ中のFixedTimeStep
+    float preTimeScale, preFixedTime;               //変化前の時間保持用
 
     //敵出現のdisplay時間をカウントするタイマー
     public float timer_EnemySpawn { get; private set; }
@@ -165,6 +167,9 @@ public class BattleManager : Singleton<BattleManager>
         {
             //FPSを固定
             Application.targetFrameRate = 60;
+
+            //ユニットドラッグ中のFixedTimeStepを計算
+            dragFixedTime = Time.fixedDeltaTime / (1f / dragTimeScale);
 
             //プレイヤーの初期パラメーターを設定
             maxPlayerHp = ParameterManager.Instance.hp;
@@ -272,7 +277,9 @@ public class BattleManager : Singleton<BattleManager>
 
         //時間を遅くする
         preTimeScale = Time.timeScale;
+        preFixedTime = Time.fixedDeltaTime;
         Time.timeScale = dragTimeScale;
+        Time.fixedDeltaTime = dragFixedTime;
     }
     //ドラッグしているユニットを離す
     public void LetgoUnit()
@@ -281,6 +288,7 @@ public class BattleManager : Singleton<BattleManager>
 
         //時間の速さを戻す
         Time.timeScale = preTimeScale;
+        Time.fixedDeltaTime = preFixedTime;
 
         place_UnitZone = false;
         place_Floor = false;
@@ -333,6 +341,7 @@ public class BattleManager : Singleton<BattleManager>
 
         //時間の速さを戻す
         Time.timeScale = preTimeScale;
+        Time.fixedDeltaTime = preFixedTime;
 
         //現在のユニット配置数を増やしてUIに反映
         battleUnitNum++;
@@ -518,6 +527,7 @@ public class BattleManager : Singleton<BattleManager>
 
             //時間を止める
             preTimeScale = Time.timeScale;
+            preFixedTime = Time.fixedDeltaTime;
             Time.timeScale = 0f;
 
             //ポーズ画面を表示
@@ -528,6 +538,9 @@ public class BattleManager : Singleton<BattleManager>
         {
             //時間の速さを戻す
             Time.timeScale = preTimeScale;
+            Time.fixedDeltaTime = preFixedTime;
+            preTimeScale = Time.timeScale;
+            preFixedTime = Time.fixedDeltaTime;
 
             //ポーズ画面を非表示
             canvas[4].SetActive(false);

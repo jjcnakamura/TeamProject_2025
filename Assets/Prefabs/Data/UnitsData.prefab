@@ -71,7 +71,7 @@ MonoBehaviour:
     hp: 10
     value: 6
     interval: 2
-    distance: 4
+    distance: 6
     range: 0
     targetNum: 1
     lVUPStatus: 2
@@ -87,7 +87,7 @@ MonoBehaviour:
     hp: 10
     value: 4
     interval: 3
-    distance: 8
+    distance: 10
     range: 4
     targetNum: 1
     lVUPStatus: 5
