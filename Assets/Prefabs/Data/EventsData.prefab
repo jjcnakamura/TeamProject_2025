@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &22229169869554163
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3692593885911745168}
+  - component: {fileID: 5288303966962310085}
+  m_Layer: 0
+  m_Name: EventsData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3692593885911745168
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22229169869554163}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5288303966962310085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 22229169869554163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e620fd710edf1624c84c5ea857f69b48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventData:
+  - name: "\u30B3\u30B9\u30C8 or \u518D\u914D\u7F6E\u6642\u9593"
+    catergory: 0
+    sprite: {fileID: 21300000, guid: 705578036c81e4d9183c53c72a19a105, type: 3}
+    text: "\u77ED\u7E2E\u30BF\u30A4\u30DE\u30FC\u3092\u898B\u3064\u3051\u305F\uFF01\n\u3069\u3046\u3059\u308B\uFF1F"
+    choice:
+    - type: 1
+      text: "\u30B3\u30B9\u30C8\u3092\u524A\u6E1B\u3059\u308B"
+      value: 3
+    - type: 2
+      text: "\u518D\u914D\u7F6E\u6642\u9593\u3092\u77ED\u7E2E\u3059\u308B"
+      value: 5
+  - name: "\u30E6\u30CB\u30C3\u30C8\u5897\u52A0"
+    catergory: 1
+    sprite: {fileID: 21300000, guid: 897c166ae3c3144409f5257ee01f9810, type: 3}
+    text: "\u65B0\u305F\u306A\u30E6\u30CB\u30C3\u30C8\u304C\u4EF2\u9593\u306B\u306A\u308B\uFF01"
+    choice:
+    - type: 3
+      text: "\u30E6\u30CB\u30C3\u30C8\u3092\u9078\u3076"
+      value: 1
