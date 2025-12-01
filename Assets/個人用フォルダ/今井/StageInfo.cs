@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// ステージの情報を積むスクリプト
 /// </summary>
-public class StageInfo : MonoBehaviour
+public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandler
 {
     [Header("ステージ中の情報")]
     public bool Start;
@@ -19,6 +20,7 @@ public class StageInfo : MonoBehaviour
     public TextMeshProUGUI[] StageInfoText;
     public bool StageEnd;
     public bool FloorEnd;
+    public GameObject NextButton;
 
     void Update()
     {
@@ -35,6 +37,8 @@ public class StageInfo : MonoBehaviour
         int index = GetParentIndexOf(this.transform);
         Debug.Log(index);
 
+        int indexint = transform.GetSiblingIndex();
+        Debug.Log(indexint);
     }
 
     public void StageEndDebug()
@@ -48,7 +52,7 @@ public class StageInfo : MonoBehaviour
         MapManager.Instance.x = index;
     }
 
-    public int GetParentIndexOf(Transform child)
+    public int GetParentIndexOf(Transform child)//どこのルート(番号)にいるステージか
     {
         Transform childs = this.gameObject.transform;
         Transform parent = childs.parent;
@@ -57,14 +61,63 @@ public class StageInfo : MonoBehaviour
         {
             if (MapManager.Instance.MapRoute[i] != null && MapManager.Instance.MapRoute[i].transform == parent)
             {
+                MapManager.Instance.x = i;
                 return i;   // 何番目の親なので返す
             }
         }
         if(FloorEnd == true)
         {
             Debug.Log("私はボスです");
-            return -1;
         }
         return -1;
+    }
+
+    public void GetStageIndex()//今のルートのステージが何番目か
+    {
+        int indexint = transform.GetSiblingIndex();
+        MapManager.Instance.y = indexint;
+    }
+
+    public void GoNextStageButton()
+    {
+        int indexint = transform.GetSiblingIndex();
+        MapManager.Instance.GoNextStage();
+        MapManager.Instance.x = indexint;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        int index = GetParentIndexOf(this.transform);
+        int indexint = transform.GetSiblingIndex();
+        int[] around = { indexint - 1, indexint, indexint + 1 };
+        if (MapManager.Instance.y == index)
+        {
+            if (MapManager.Instance.x == indexint)
+            {
+                if (NextButton != null) NextButton.SetActive(true);
+                return;
+            }
+            if (MapManager.Instance.x == indexint - 1)
+            {
+                if (NextButton != null) NextButton.SetActive(true);
+                return;
+            }
+            if (MapManager.Instance.x == indexint + 1)
+            {
+                if (NextButton != null) NextButton.SetActive(true);
+                return;
+            }
+        }
+    }
+
+    // マウスが離れた時
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        int index = GetParentIndexOf(this.transform);
+        int indexint = transform.GetSiblingIndex();
+        if (MapManager.Instance.y == index && MapManager.Instance.x == indexint)
+        {
+            if (NextButton != null) NextButton.SetActive(false);
+        }
     }
 }

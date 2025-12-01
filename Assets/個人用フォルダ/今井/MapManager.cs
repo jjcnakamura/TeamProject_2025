@@ -19,7 +19,6 @@ public class MapManager : Singleton<MapManager>
     public Transform BossEnemy;//そのフロアのボス
 
     public int floor = 0;// 現在のフロア数
-    public int Backfloor; //処理用 
     public int[] Stageint;//ステージ数
     public int worldLevel;//難易度
     public GameObject[] EasyworldBoss;//ボス簡単
@@ -62,17 +61,6 @@ public class MapManager : Singleton<MapManager>
         if (worldLevel == 2) max = 5;
 
         var status = ParameterManager.Instance.unitStatus;
-        if (floor > Backfloor)
-        {
-            MakeRoute();
-            Backfloor = floor;
-        }
-        if (Input.GetKeyDown(KeyCode.X)) ParameterManager.Instance.AddUnit(0);
-        if (Input.GetKeyDown(KeyCode.C)) ParameterManager.Instance.AddUnit(1);
-        if (Input.GetKeyDown(KeyCode.V)) ParameterManager.Instance.AddUnit(2);
-        if (Input.GetKeyDown(KeyCode.B)) ParameterManager.Instance.AddUnit(3);
-        if (Input.GetKeyDown(KeyCode.N)) ParameterManager.Instance.AddUnit(4);
-        if (Input.GetKeyDown(KeyCode.Space)) MakeRoute();
         if (Input.GetKeyDown(KeyCode.A)) worldLevel = 0;
         if (Input.GetKeyDown(KeyCode.S)) worldLevel = 1;
         if (Input.GetKeyDown(KeyCode.D)) worldLevel = 2;
@@ -86,34 +74,7 @@ public class MapManager : Singleton<MapManager>
         for (int i = 0; i < MapRoute.Length; i++)
         {
             transforms[i] = MapRoute[i].transform;
-        }/*
-        if (nextStage.childCount == 0 && Nextfloorbool == true)//フロアを進めるやつ&ゲームクリア時も含む
-        {
-            if(floor == 3 + worldLevel)
-            {
-                //gameClearCanvas.SetActive(true);
-                return;
-            }
-            NextFloor();
         }
-        if (gameStartflg == true && nextStage.childCount == 0 && Nextfloorbool == false)//ステージを判別する奴
-        {
-            if (transforms[x].childCount == 0 && Nextfloorbool == false)
-            {
-                Transform Boss = BossEnemy.GetChild(0);
-                Boss.SetParent(nextStage, true);
-                Boss.localPosition = Vector3.zero;
-                GoNextStage();
-                Nextfloorbool = true;
-                Debug.Log("あああああああああああ");
-                return;
-            }
-            Transform child = transforms[x].GetChild(0);
-            child.SetParent(nextStage, true);
-            child.localPosition = Vector3.zero;
-            GoNextStage();
-            return;
-        }*/
         if (ParameterManager.Instance.isBattleClear == true)//クリアしたら勝手に次のステージに進むやつ
         {
             Transform child = nextStage.GetChild(0);
@@ -141,7 +102,7 @@ public class MapManager : Singleton<MapManager>
     {
         gameStartflg = false;
         Nextfloorbool = false;
-        floor = floor + 1;
+        floor += 1;
         ParameterManager.Instance.hp += 3;
         if(ParameterManager.Instance.hp > 10)
         {
@@ -156,7 +117,9 @@ public class MapManager : Singleton<MapManager>
                 Destroy(child.gameObject);
             }
         }
+        MakeRoute();
         y = 0;
+        x = 1;
     }
 
     public void GoNextStage() //決めたルートのステージを進める処理
@@ -166,7 +129,7 @@ public class MapManager : Singleton<MapManager>
         {
             transforms[i] = MapRoute[i].transform;
         }
-        if(y > (worldLevel + 2))
+        if(y > (worldLevel + 2))//ボスに行く処理
         {
             y += 1;
             Debug.Log("わわわわわわわわわわわ");
@@ -174,7 +137,7 @@ public class MapManager : Singleton<MapManager>
             nextStage.localPosition = Vector3.zero;
             return;
         }
-
+        //普通のステージの処理
         Transform child = transforms[x].GetChild(y);
         nextStage.SetParent(child, true);
         nextStage.localPosition = Vector3.zero;
@@ -193,68 +156,6 @@ public class MapManager : Singleton<MapManager>
         {
             Debug.Log("何も情報なし");
         }
-    }
-
-    public void GoSelectRoute(int i)
-    {
-        if(x == 0)
-        x = i;
-        GoNextStage();
-    }
-
-    public void OnButtonPressed(int i)//ボタンに入っているルートを決めて一つのルートのステージに行く
-    {
-        x = i;
-        gameStartflg = true;
-    }
-
-    public void PassiveeEnterButton()//マップのEnterボタンを消すためのやつ ENTERボタンに付ける用
-    {
-        if (MapEnterButton == null || MapEnterButton.Length == 0)
-        {
-            Debug.LogWarning("配列にオブジェクトが設定されていません");
-            return;
-        }
-
-        foreach (GameObject obj in MapEnterButton)
-        {
-            if (obj != null)
-            {
-                obj.SetActive(false);
-            }
-        }
-    }
-
-    public void SelectRoute(int x)//選んだルート以外をパッシブにするもの　ENTERボタンに付ける用　今は使っていない
-    {
-        // 配列が空の場合は何もしない
-        if (MapRoute == null || MapRoute.Length == 0)
-        {
-            Debug.LogWarning("オブジェクト配列が空です");
-            return;
-        }
-
-        // keepIndex が範囲外なら修正
-        if (x < 0 || x >= MapRoute.Length)
-        {
-            Debug.LogWarning("keepIndex が範囲外です");
-            return;
-        }
-
-        for (int i = 0; i < MapRoute.Length; i++)
-        {
-            if (i != x && MapRoute[i] != null)
-            {
-                MapRoute[i].SetActive(false);
-            }
-        }/*一応全部のルートをパッシブにするやつ
-        foreach (GameObject obj in MapRoute)
-        {
-            if (obj != null)
-            {
-                obj.SetActive(false);
-            }
-        }*/
     }
 
     public void MakeRoute()//ルートのステージを作る
@@ -292,10 +193,6 @@ public class MapManager : Singleton<MapManager>
             GameObject Route = Instantiate(MapStageImage[Stage], MapRoute[2].transform);
         }
         BossMake();
-        foreach (GameObject button in MapEnterButton)
-        {
-            button.SetActive(true);
-        }
         foreach (GameObject obj in MapRoute)
         {
             if (obj != null)
