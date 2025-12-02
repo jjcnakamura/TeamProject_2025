@@ -20,9 +20,9 @@ public class Window_Event : MonoBehaviour
     [SerializeField] TextMeshProUGUI text_ResultValue;
     [SerializeField] GameObject resultParent;
 
-    string resultText_1, resultText_2;
-
     GameObject[] button_Choice;
+    float choiceButtonText1_PosY;
+
     EventsData.Content content;
 
     void Awake()
@@ -72,6 +72,7 @@ public class Window_Event : MonoBehaviour
                 TextMeshProUGUI text_2 = button_Choice[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
 
                 float nowValue = 0;
+                float upValue = 0;
                 bool active = false;
 
                 //現在のステータスを読み込み
@@ -79,16 +80,19 @@ public class Window_Event : MonoBehaviour
                 {
                     case EventsData.ContentType.所持最大数増加:
                         nowValue = ParameterManager.Instance.maxUnitPossession;
+                        upValue = Mathf.Min(nowValue + (int)content.choice[i].value, 5);  //最大５まで
                         active = true;
                         break;
 
                     case EventsData.ContentType.同ユニット配置数増加:
                         nowValue = ParameterManager.Instance.sameUnitMaxInstallation;
+                        upValue = Mathf.Min(nowValue + (int)content.choice[i].value, 100); //最大１００まで
                         active = true;
                         break;
 
                     case EventsData.ContentType.HP回復:
                         nowValue = ParameterManager.Instance.hp;
+                        upValue = Mathf.Min(nowValue + (int)content.choice[i].value, ParameterManager.Instance.maxHp);
                         active = true;
                         break;
                 }
@@ -97,11 +101,15 @@ public class Window_Event : MonoBehaviour
                 text_1.text = content.choice[i].text;
                 text_1.gameObject.SetActive(true);
 
+                //高さを取得
+                if (choiceButtonText1_PosY <= 0) choiceButtonText1_PosY = text_1.transform.localPosition.y;
+
                 //テキストの２行目
                 if (active)
                 {
-                    text_2.text = nowValue + " → " + Mathf.Max(nowValue + content.choice[i].value, 0);
+                    text_2.text = nowValue + " → " + upValue;
                     text_2.gameObject.SetActive(true);
+                    text_1.transform.localPosition = new Vector3(text_1.transform.localPosition.x, choiceButtonText1_PosY, text_1.transform.localPosition.z);
                 }
                 //２行目がない場合は１行目を中央に持ってくる
                 else
@@ -124,6 +132,9 @@ public class Window_Event : MonoBehaviour
     /// </summary>
     public void Choice(int choice)
     {
+        string resultText1 = "";
+        string resultText2 = "";
+
         //選択したイベント内容のウィンドウを表示
         switch (content.choice[choice].type)
         {
@@ -132,15 +143,11 @@ public class Window_Event : MonoBehaviour
                 break;
 
             case EventsData.ContentType.コスト削減:
-                resultText_1 = "コストが減少！";
-                resultText_2 = "6 → 3";
-                Result();
+                EventWindowManager.Instance.ViewStatus(content.choice[choice]);
                 break;
 
             case EventsData.ContentType.再配置短縮:
-                resultText_1 = "再配置時間が減少！";
-                resultText_2 = "10 → 5";
-                Result();
+                EventWindowManager.Instance.ViewStatus(content.choice[choice]);
                 break;
 
             case EventsData.ContentType.ユニット増加:
@@ -148,15 +155,30 @@ public class Window_Event : MonoBehaviour
                 break;
 
             case EventsData.ContentType.所持最大数増加:
-
+                int prePossession = ParameterManager.Instance.maxUnitPossession;
+                ParameterManager.Instance.maxUnitPossession = Mathf.Min(
+                ParameterManager.Instance.maxUnitPossession + (int)content.choice[choice].value, 5); //最大５まで
+                resultText1 = "ユニットの所持数が増加！";
+                resultText2 = prePossession + " → " + ParameterManager.Instance.hp;
+                Result(resultText1, resultText2);
                 break;
 
             case EventsData.ContentType.同ユニット配置数増加:
-
+                int preInstallation = ParameterManager.Instance.sameUnitMaxInstallation;
+                ParameterManager.Instance.sameUnitMaxInstallation = Mathf.Min(
+                ParameterManager.Instance.sameUnitMaxInstallation + (int)content.choice[choice].value, 100); //最大１００まで
+                resultText1 = "ユニットの配置数が増加！";
+                resultText2 = preInstallation + " → " + ParameterManager.Instance.sameUnitMaxInstallation;
+                Result(resultText1, resultText2);
                 break;
 
             case EventsData.ContentType.HP回復:
-
+                int preHp = ParameterManager.Instance.hp;
+                ParameterManager.Instance.hp = Mathf.Min(
+                ParameterManager.Instance.hp + (int)content.choice[choice].value, ParameterManager.Instance.maxHp);
+                resultText1 = "HPが回復した！";
+                resultText2 = preHp + " → " + ParameterManager.Instance.hp;
+                Result(resultText1, resultText2);
                 break;
         }
     }
@@ -164,13 +186,16 @@ public class Window_Event : MonoBehaviour
     /// <summary>
     /// イベントの結果を表示
     /// </summary>
-    public void Result()
+    public void Result(string text1, string text2, Sprite sprite = null)
     {
         choiceButtonParent.SetActive(false);
         resultParent.SetActive(true);
 
         //テキストを表示
-        text_TextBox.text = resultText_1;
-        text_ResultValue.text = resultText_2;
+        text_TextBox.text = text1;
+        text_ResultValue.text = text2;
+
+        //画像を表示
+        if (sprite != null) image.sprite = sprite;
     }
 }
