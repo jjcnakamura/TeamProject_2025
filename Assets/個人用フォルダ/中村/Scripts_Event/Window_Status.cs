@@ -22,6 +22,9 @@ public class Window_Status : MonoBehaviour
 
     //各ユニットのステータス画面用の変数
     [SerializeField] GameObject unitInfoParent;
+    [SerializeField] Image image_Unit;
+    [SerializeField] TextMeshProUGUI text_Name, text_Info, text_Lv, text_Exp, text_NextExp, text_Cost, text_Recast,
+                                     text_Hp, text_Value, text_Interval, text_Distance, text_Range, text_TargetNum;
 
     TextMeshProUGUI[] eventText;
     string defaultTitleText;
@@ -69,15 +72,19 @@ public class Window_Status : MonoBehaviour
                 eventText[i].gameObject.SetActive(false);
             }
 
+            text_Title.gameObject.SetActive(true);
             text_Title.text = defaultTitleText;
 
+            //フラグを設定
             isEvent = false;
             isActive = true;
         }
         //ユニット一覧画面を閉じる
         else if (!isEvent)
         {
+            //フラグを設定
             isActive = false;
+
             gameObject.SetActive(false);
         }
         //イベント中の場合
@@ -117,6 +124,7 @@ public class Window_Status : MonoBehaviour
             //イベントの内容を読み込み
             eventContent = arg_Content;
             //イベント名を表示
+            text_Title.gameObject.SetActive(true);
             text_Title.text = eventContent.text;
 
             //ステータスの変動値をテキストで表示
@@ -158,12 +166,14 @@ public class Window_Status : MonoBehaviour
                 eventText[i].gameObject.SetActive(true);
             }
 
+            //フラグを設定
             isEvent = true;
             isActive = true;
         }
         //ユニット一覧画面を閉じる
         else
         {
+            //フラグを設定
             isEvent = false;
             isActive = false;
 
@@ -184,20 +194,57 @@ public class Window_Status : MonoBehaviour
                 //ユニットの情報画面を表示
                 unitInfoParent.SetActive(true);
 
-                //ボタンを非表示
+                //ユニット一覧画面の要素を非表示
                 unitButtonParent.SetActive(false);
-                //ユニット名を表示
-                text_Title.text = ParameterManager.Instance.unitStatus[index].name;
+                text_Title.gameObject.SetActive(false);
 
                 //ユニットの各情報を表示
+                image_Unit.sprite = ParameterManager.Instance.unitStatus[index].sprite;
+                text_Name.text = ParameterManager.Instance.unitStatus[index].name;
+                text_Info.text = UnitsData.Instance.unit[ParameterManager.Instance.unitStatus[index].id].info;
+                text_Lv.text = "レベル：" + ParameterManager.Instance.unitStatus[index].lv.ToString();
+                text_Exp.text = "経験値：" + ParameterManager.Instance.unitStatus[index].exp.ToString();
+                // ※ 経験値の計算は仮
+                text_NextExp.text = "経験値残り：" + Mathf.Max((ParameterManager.Instance.unitStatus[index].lv * 10) - ParameterManager.Instance.unitStatus[index].exp, 0).ToString();
+                text_Cost.text = "　コスト：" + ParameterManager.Instance.unitStatus[index].cost.ToString();
+                text_Recast.text = "　再配置：" + ParameterManager.Instance.unitStatus[index].recast.ToString() + "秒";
 
+                //ステータスの表示、非表示、ステータス名を指定する項目
+                text_Hp.text = "　耐久値：" + ParameterManager.Instance.unitStatus[index].hp.ToString();
+                text_Hp.gameObject.SetActive(UnitsData.Instance.unit[ParameterManager.Instance.unitStatus[index].id].viewStatus.hp);
+
+                string valueName = UnitsData.Instance.unit[ParameterManager.Instance.unitStatus[index].id].valueName;
+                text_Value.text = valueName + "：" + ParameterManager.Instance.unitStatus[index].value.ToString();
+                if (valueName == "鈍化時間") text_Value.text += "秒";
+                text_Value.gameObject.SetActive(UnitsData.Instance.unit[ParameterManager.Instance.unitStatus[index].id].viewStatus.value);
+
+                text_Interval.text = "行動間隔：" + ParameterManager.Instance.unitStatus[index].interval.ToString() + "秒";
+                text_Interval.gameObject.SetActive(UnitsData.Instance.unit[ParameterManager.Instance.unitStatus[index].id].viewStatus.interval);
+
+                text_Distance.text = "　　射程：" + ParameterManager.Instance.unitStatus[index].distance.ToString();
+                text_Distance.gameObject.SetActive(UnitsData.Instance.unit[ParameterManager.Instance.unitStatus[index].id].viewStatus.distance);
+
+                text_Range.text = "　　範囲：" + ParameterManager.Instance.unitStatus[index].range.ToString();
+                text_Range.gameObject.SetActive(UnitsData.Instance.unit[ParameterManager.Instance.unitStatus[index].id].viewStatus.range);
+
+                text_TargetNum.text = "対象人数：" + ParameterManager.Instance.unitStatus[index].targetNum.ToString();
+                text_TargetNum.gameObject.SetActive(UnitsData.Instance.unit[ParameterManager.Instance.unitStatus[index].id].viewStatus.targetNum);
+
+                //フラグを設定
+                isViewStatus = true;
             }
             //ユニットのステータスを非表示
             else
             {
+                //ユニット一覧画面の要素を再表示
                 unitInfoParent.SetActive(false);
                 unitButtonParent.SetActive(true);
+
+                text_Title.gameObject.SetActive(true);
                 text_Title.text = defaultTitleText;
+
+                //フラグを設定
+                isViewStatus = false;
             }
         }
         //イベント中の場合
@@ -223,11 +270,21 @@ public class Window_Status : MonoBehaviour
                     int preRecast = ParameterManager.Instance.unitStatus[index].recast;
                     ParameterManager.Instance.unitStatus[index].recast = Mathf.Max(
                     ParameterManager.Instance.unitStatus[index].recast + (int)eventContent.value, 1);
-                    resultText1 = ParameterManager.Instance.unitStatus[index].name + "の再配置短縮が短縮！";
+                    resultText1 = ParameterManager.Instance.unitStatus[index].name + "の再配置時間が短縮！";
                     resultText2 = preRecast + " → " + ParameterManager.Instance.unitStatus[index].recast;
                     resultSprite = ParameterManager.Instance.unitStatus[index].sprite;
                     break;
             }
+
+            //ユニット一覧画面の要素を再表示
+            unitInfoParent.SetActive(false);
+            unitButtonParent.SetActive(true);
+
+            text_Title.gameObject.SetActive(true);
+            text_Title.text = defaultTitleText;
+
+            //フラグを設定
+            isViewStatus = false;
 
             //リザルトを表示
             EventWindowManager.Instance.window_Event.Result(resultText1, resultText2, resultSprite);

@@ -85,6 +85,7 @@ public class EventWindowManager : Singleton<EventWindowManager>
         //ステータスウィンドウを非表示に
         if (window_Status.gameObject.activeSelf)
         {
+            window_Status.isViewStatus = false;
             window_Status.ViewUnits();
         }
 

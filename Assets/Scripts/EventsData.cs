@@ -13,7 +13,8 @@ public class EventsData : Singleton<EventsData>
     {
         ’ZkŒn,
         ‘‰ÁŒn,
-        ‰ñ•œ
+        ‰ñ•œ,
+        •¡‡Œn
     }
     public enum ContentType
     {
@@ -51,8 +52,11 @@ public class EventsData : Singleton<EventsData>
             //Catergory‚É‡‚í‚¹‚ÄValue‚ª³‚©•‰‚©Œˆ‚ß‚é
             for (int j = 0; j < eventData[i].choice.Length; j++)
             {
-                float multiplier = (eventData[i].catergory == Catergory.’ZkŒn) ? -1 : 1;
-                eventData[i].choice[j].value = Mathf.Abs(eventData[i].choice[j].value) * multiplier;
+                if (eventData[i].catergory != Catergory.•¡‡Œn)
+                {
+                    float multiplier = (eventData[i].catergory == Catergory.’ZkŒn) ? -1 : 1;
+                    eventData[i].choice[j].value = Mathf.Abs(eventData[i].choice[j].value) * multiplier;
+                }
             }
         }
     }

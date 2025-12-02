@@ -61,6 +61,15 @@ MonoBehaviour:
     lVUPStatus: 4
     place_UnitZone: 1
     place_Floor: 0
+    info: "\u9060\u8DDD\u96E2\u304B\u3089\u653B\u6483\u3067\u304D\u308B"
+    valueName: "\u3000\u653B\u6483\u529B"
+    viewStatus:
+      hp: 1
+      value: 1
+      interval: 1
+      distance: 1
+      range: 0
+      targetNum: 0
   - prefab: {fileID: 2482288343578748128, guid: f6b8133f166a16448ad2ca2cbe0fe03a, type: 3}
     sprite: {fileID: 277134004, guid: 8125f995f3effd94f98000419c022fec, type: 3}
     name: "\u8FD1\u8DDD\u96E2\u30DE\u30F3"
@@ -77,6 +86,15 @@ MonoBehaviour:
     lVUPStatus: 2
     place_UnitZone: 1
     place_Floor: 0
+    info: "\u8FD1\u8DDD\u96E2\u3057\u304B\u653B\u6483\u3067\u304D\u306A\u3044\u304C\u3001\n\u653B\u6483\u529B\u304C\u9AD8\u3044"
+    valueName: "\u3000\u653B\u6483\u529B"
+    viewStatus:
+      hp: 1
+      value: 1
+      interval: 1
+      distance: 1
+      range: 0
+      targetNum: 0
   - prefab: {fileID: 2482288343578748128, guid: faae52c47b6a55743ba14440eaf04e93, type: 3}
     sprite: {fileID: 277134004, guid: 8125f995f3effd94f98000419c022fec, type: 3}
     name: "\u7BC4\u56F2\u30DE\u30F3"
@@ -93,6 +111,15 @@ MonoBehaviour:
     lVUPStatus: 5
     place_UnitZone: 1
     place_Floor: 0
+    info: "\u5E83\u7BC4\u56F2\u306B\u5E83\u304C\u308B\u653B\u6483\u3092\u3059\u308B\n\u7BC4\u56F2\u5185\u306E\u6575\u5168\u54E1\u306B\u30C0\u30E1\u30FC\u30B8"
+    valueName: "\u3000\u653B\u6483\u529B"
+    viewStatus:
+      hp: 1
+      value: 1
+      interval: 1
+      distance: 1
+      range: 1
+      targetNum: 0
   - prefab: {fileID: 2482288343578748128, guid: 70d81715b05b5da42b0e317ed007dd59, type: 3}
     sprite: {fileID: 277134004, guid: 8125f995f3effd94f98000419c022fec, type: 3}
     name: "\u653B\u6483\u58C1\u30DE\u30F3"
@@ -109,6 +136,15 @@ MonoBehaviour:
     lVUPStatus: 1
     place_UnitZone: 0
     place_Floor: 1
+    info: "\u6575\u306E\u901A\u308A\u9053\u3092\u3075\u3055\u3050\n\u6575\u306B\u5BFE\u3057\u3066\u5F31\u3044\u653B\u6483\u3092\u3059\u308B"
+    valueName: "\u3000\u653B\u6483\u529B"
+    viewStatus:
+      hp: 1
+      value: 1
+      interval: 1
+      distance: 1
+      range: 0
+      targetNum: 0
   - prefab: {fileID: 2482288343578748128, guid: 39e91c49cc8d3664e9767bd2fa7b65ac, type: 3}
     sprite: {fileID: 277134004, guid: 8125f995f3effd94f98000419c022fec, type: 3}
     name: "\u9632\u5FA1\u58C1\u30DE\u30F3"
@@ -125,6 +161,15 @@ MonoBehaviour:
     lVUPStatus: 1
     place_UnitZone: 0
     place_Floor: 1
+    info: "\u6575\u306E\u901A\u308A\u9053\u3092\u3075\u3055\u3050\n\u653B\u6483\u3067\u304D\u306A\u3044\u304C\u8010\u4E45\u5024\u304C\u9AD8\u3044"
+    valueName: 
+    viewStatus:
+      hp: 1
+      value: 0
+      interval: 0
+      distance: 0
+      range: 0
+      targetNum: 0
   - prefab: {fileID: 2482288343578748128, guid: 000bcb1b50997e64fb8823cc4a0cee65, type: 3}
     sprite: {fileID: 277134004, guid: 8125f995f3effd94f98000419c022fec, type: 3}
     name: "\u7206\u5F3E\u30DE\u30F3"
@@ -141,6 +186,15 @@ MonoBehaviour:
     lVUPStatus: 2
     place_UnitZone: 0
     place_Floor: 1
+    info: "\u6575\u306E\u901A\u308A\u9053\u3092\u3075\u3055\u3050\n\u653B\u6483\u3055\u308C\u308B\u3068\u9AD8\u5A01\u529B\u3001\n\u5E83\u7BC4\u56F2\u306A\u7206\u767A\u3092\u8D77\u3053\u3059"
+    valueName: "\u3000\u653B\u6483\u529B"
+    viewStatus:
+      hp: 1
+      value: 1
+      interval: 1
+      distance: 1
+      range: 0
+      targetNum: 0
   - prefab: {fileID: 2482288343578748128, guid: 58504c204889fa044861ce5ae487a8bc, type: 3}
     sprite: {fileID: 277134004, guid: 8125f995f3effd94f98000419c022fec, type: 3}
     name: "\u30DD\u30A4\u30F3\u30C8\u5897\u52A0\u30DE\u30F3"
@@ -157,6 +211,15 @@ MonoBehaviour:
     lVUPStatus: 2
     place_UnitZone: 1
     place_Floor: 0
+    info: "\u4E00\u5B9A\u6642\u9593\u3054\u3068\u306B\u30DD\u30A4\u30F3\u30C8\u3092\n\u5897\u52A0\u3055\u305B\u308B"
+    valueName: "\u3000\u5897\u52A0\u91CF"
+    viewStatus:
+      hp: 1
+      value: 1
+      interval: 1
+      distance: 0
+      range: 0
+      targetNum: 0
   - prefab: {fileID: 2482288343578748128, guid: 5aa705f40d81c294a80d2e1bd7865ba2, type: 3}
     sprite: {fileID: 277134004, guid: 8125f995f3effd94f98000419c022fec, type: 3}
     name: "\u56DE\u5FA9\u30DE\u30F3"
@@ -173,6 +236,15 @@ MonoBehaviour:
     lVUPStatus: 2
     place_UnitZone: 1
     place_Floor: 0
+    info: "\u5468\u56F2\u306E\u5473\u65B9\u3092\u56DE\u5FA9\u3059\u308B\n\u30EC\u30D9\u30EB\u30A2\u30C3\u30D7\u3067\u4E00\u5EA6\u306B\n\u56DE\u5FA9\u3067\u304D\u308B\u4EBA\u6570\u304C\u5897\u3048\u308B"
+    valueName: "\u3000\u56DE\u5FA9\u91CF"
+    viewStatus:
+      hp: 1
+      value: 1
+      interval: 1
+      distance: 1
+      range: 0
+      targetNum: 1
   - prefab: {fileID: 2482288343578748128, guid: d57f223adc59a6b469fb66a9329b2ba7, type: 3}
     sprite: {fileID: 277134004, guid: 8125f995f3effd94f98000419c022fec, type: 3}
     name: "\u920D\u5316\u30DE\u30F3"
@@ -189,3 +261,12 @@ MonoBehaviour:
     lVUPStatus: 5
     place_UnitZone: 1
     place_Floor: 0
+    info: "\u6575\u306E\u79FB\u52D5\u901F\u5EA6\u3092\u920D\u5316\u3055\u305B\u308B\n\u30EC\u30D9\u30EB\u30A2\u30C3\u30D7\u3067\u52B9\u679C\u304C\n\u5E83\u7BC4\u56F2\u306B\u5E83\u304C\u308B"
+    valueName: "\u920D\u5316\u6642\u9593"
+    viewStatus:
+      hp: 1
+      value: 1
+      interval: 1
+      distance: 1
+      range: 1
+      targetNum: 0
