@@ -26,50 +26,40 @@ public class EventTest : MonoBehaviour
     void Update()
     {
         //イベント呼び出し
-        if (Input.GetKeyDown(KeyCode.Alpha1) && EventsData.Instance.eventData.Length > 0)
+        if (Input.GetKeyDown(KeyCode.Z) && EventsData.Instance.eventData.Length > 0)
         {
             EventWindowManager.Instance.EndEvent();
             EventWindowManager.Instance.CallEventAt(0);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2) && EventsData.Instance.eventData.Length > 1)
+        if (Input.GetKeyDown(KeyCode.X) && EventsData.Instance.eventData.Length > 1)
         {
             EventWindowManager.Instance.EndEvent();
             EventWindowManager.Instance.CallEventAt(1);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3) && EventsData.Instance.eventData.Length > 2)
+        if (Input.GetKeyDown(KeyCode.C) && EventsData.Instance.eventData.Length > 2)
         {
             EventWindowManager.Instance.EndEvent();
             EventWindowManager.Instance.CallEventAt(2);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha4) && EventsData.Instance.eventData.Length > 3)
+        if (Input.GetKeyDown(KeyCode.V) && EventsData.Instance.eventData.Length > 3)
         {
             EventWindowManager.Instance.EndEvent();
             EventWindowManager.Instance.CallEventAt(3);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha5) && EventsData.Instance.eventData.Length > 4)
+        if (Input.GetKeyDown(KeyCode.B) && EventsData.Instance.eventData.Length > 4)
         {
             EventWindowManager.Instance.EndEvent();
             EventWindowManager.Instance.CallEventAt(4);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha6) && EventsData.Instance.eventData.Length > 5)
+        if (Input.GetKeyDown(KeyCode.N) && EventsData.Instance.eventData.Length > 5)
         {
             EventWindowManager.Instance.EndEvent();
             EventWindowManager.Instance.CallEventAt(5);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha7) && EventsData.Instance.eventData.Length > 6)
+        if (Input.GetKeyDown(KeyCode.M) && EventsData.Instance.eventData.Length > 6)
         {
             EventWindowManager.Instance.EndEvent();
             EventWindowManager.Instance.CallEventAt(6);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha8) && EventsData.Instance.eventData.Length > 7)
-        {
-            EventWindowManager.Instance.EndEvent();
-            EventWindowManager.Instance.CallEventAt(7);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha9) && EventsData.Instance.eventData.Length > 8)
-        {
-            EventWindowManager.Instance.EndEvent();
-            EventWindowManager.Instance.CallEventAt(8);
         }
 
         //イベント終了
