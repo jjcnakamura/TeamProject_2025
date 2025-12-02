@@ -28,11 +28,11 @@ public class MapManager : Singleton<MapManager>
 
     public GameObject[] Charactermen;
     public TextMeshProUGUI[] MapText;
-    public bool gameStartflg;
     public GameObject Map;
     public bool Nextfloorbool;
     public GameObject charaLevelCanvas;
     public GameObject MapTextStageImage;
+    public GameObject MapStageMenuButton;
     public Transform PlayerStartPos;
 
     void Awake()
@@ -47,11 +47,6 @@ public class MapManager : Singleton<MapManager>
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
-    {
-        gameStartflg = false;
-        //MakeRoute(); //
-    }
     void Update()
     {
         MapText[0].text = floor.ToString();
@@ -100,7 +95,8 @@ public class MapManager : Singleton<MapManager>
 
     public void NextFloor()//フロアを進める処理
     {
-        gameStartflg = false;
+        y = 0;
+        x = 1;
         Nextfloorbool = false;
         floor += 1;
         ParameterManager.Instance.hp += 3;
@@ -108,6 +104,7 @@ public class MapManager : Singleton<MapManager>
         {
             ParameterManager.Instance.hp = 10;
         }
+        NextFloorButton();
         foreach (GameObject parent in MapRoute)
         {
             if (parent == null) continue;
@@ -118,8 +115,6 @@ public class MapManager : Singleton<MapManager>
             }
         }
         MakeRoute();
-        y = 0;
-        x = 1;
     }
 
     public void GoNextStage() //決めたルートのステージを進める処理
@@ -131,7 +126,6 @@ public class MapManager : Singleton<MapManager>
         }
         if(y > (worldLevel + 2))//ボスに行く処理
         {
-            y += 1;
             Debug.Log("わわわわわわわわわわわ");
             nextStage.SetParent(BossEnemy, true);
             nextStage.localPosition = Vector3.zero;
@@ -141,7 +135,6 @@ public class MapManager : Singleton<MapManager>
         Transform child = transforms[x].GetChild(y);
         nextStage.SetParent(child, true);
         nextStage.localPosition = Vector3.zero;
-        y += 1;
         StageInfo stageinfo = child.GetComponent<StageInfo>();
 
         if (nextStage != null)
@@ -291,15 +284,13 @@ public class MapManager : Singleton<MapManager>
 
     public void MapTextUpdeta()//マップのステージ情報出すやつ
     {
-        Transform stageChild = nextStage.transform;
-        Transform parent = stageChild.parent;
-        StageInfo stageinfo = parent.GetComponent<StageInfo>();
+        Transform stageChild = nextStage.parent;
+        StageInfo stageinfo = stageChild.GetComponent<StageInfo>();
         if (stageinfo != null)
         {
             if (stageinfo.Start == true && stageinfo.StageEnd == true)
             {
                 MapTextStageImage.SetActive(false);
-                return;
             }
 
             if (stageinfo.Start == true && stageinfo.StageEnd == false)
@@ -308,7 +299,26 @@ public class MapManager : Singleton<MapManager>
                 MapText[1].text = stageinfo.StageName.ToString();
                 MapText[2].text = stageinfo.StageNaiyou.ToString();
                 MapText[3].text = stageinfo.Enemyint.ToString();
+                MapStageMenuButton.SetActive(true);
             }
+
+            if(stageinfo.Start == false)
+            {
+                MapTextStageImage.SetActive(false);
+            }
+        }
+    }
+
+    public void MapTextUpdetaButton()//マップのステージのメニューを一時的に閉じるやつ
+    {
+        Transform stageChild = nextStage.transform;
+        Transform parent = stageChild.parent;
+        StageInfo stageinfo = parent.GetComponent<StageInfo>();
+        stageinfo.Start = !stageinfo.Start;
+        MapStageMenuButton.SetActive(!stageinfo.Start);
+        if (stageinfo.Start == true)
+        {
+            MapStageMenuButton.SetActive(true);
         }
     }
 
@@ -337,13 +347,7 @@ public class MapManager : Singleton<MapManager>
                 nextStage.localPosition = Vector3.zero;
                 Transform boss = BossEnemy.GetChild(0);
                 Destroy(boss);
-                NextFloor();
             }
-            /*
-            if(stageinfo.FloorEnd == true && stageinfo.StageEnd == true)
-            {
-                NextFloor();
-            }*/
         }
     }
 }

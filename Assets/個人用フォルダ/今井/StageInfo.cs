@@ -30,11 +30,16 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         {
             if (StageInfoText[1] != null) StageInfoText[1].text = Enemyint.ToString();
         }
-        if (StageEnd == true && FloorEnd == true)//自分のステージが終わったら消える処理
+        if (StageEnd == true && Start == true)//自分のステージが終わったら消える処理
         {
-            //Destroy(gameObject);
+            bool i = false;
+            if(i == false)
+            {
+                MapManager.Instance.y += 1;
+                i = true;
+            }
         }
-        int index = GetParentIndexOf(this.transform);
+        int index = GetParentIndexOf(this.transform);//親から見て何番目の子か
         Debug.Log(index);
 
         int indexint = transform.GetSiblingIndex();
@@ -46,13 +51,7 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         StageEnd = true;
     }
 
-    public void GoSelectRoute()
-    {
-        int index = GetParentIndexOf(this.transform);
-        MapManager.Instance.x = index;
-    }
-
-    public int GetParentIndexOf(Transform child)//どこのルート(番号)にいるステージか
+    public int GetParentIndexOf(Transform child)//今ステージがどこのルートにいるか
     {
         Transform childs = this.gameObject.transform;
         Transform parent = childs.parent;
@@ -61,7 +60,6 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         {
             if (MapManager.Instance.MapRoute[i] != null && MapManager.Instance.MapRoute[i].transform == parent)
             {
-                MapManager.Instance.x = i;
                 return i;   // 何番目の親なので返す
             }
         }
@@ -72,7 +70,7 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         return -1;
     }
 
-    public void GetStageIndex()//今のルートのステージが何番目か
+    public void GetStageIndex()//今の親ルートのステージが何番目か
     {
         int indexint = transform.GetSiblingIndex();
         MapManager.Instance.y = indexint;
@@ -80,32 +78,22 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
 
     public void GoNextStageButton()
     {
-        int indexint = transform.GetSiblingIndex();
+        int index = GetParentIndexOf(this.transform);
+        Debug.Log("次のルートは" + index);
+        MapManager.Instance.x = index;
         MapManager.Instance.GoNextStage();
-        MapManager.Instance.x = indexint;
     }
+
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        int index = GetParentIndexOf(this.transform);
-        int indexint = transform.GetSiblingIndex();
-        int[] around = { indexint - 1, indexint, indexint + 1 };
-        if (MapManager.Instance.y == index)
+        int index = GetParentIndexOf(this.transform);//今ステージがどこのルートにいるか
+        int indexint = transform.GetSiblingIndex();//今の親ルートのステージが何番目か
+        if (MapManager.Instance.y == indexint)
         {
-            if (MapManager.Instance.x == indexint)
+            if (MapManager.Instance.x == index || MapManager.Instance.x == index - 1 || MapManager.Instance.x == index + 1)
             {
                 if (NextButton != null) NextButton.SetActive(true);
-                return;
-            }
-            if (MapManager.Instance.x == indexint - 1)
-            {
-                if (NextButton != null) NextButton.SetActive(true);
-                return;
-            }
-            if (MapManager.Instance.x == indexint + 1)
-            {
-                if (NextButton != null) NextButton.SetActive(true);
-                return;
             }
         }
     }
@@ -113,11 +101,6 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
     // マウスが離れた時
     public void OnPointerExit(PointerEventData eventData)
     {
-        int index = GetParentIndexOf(this.transform);
-        int indexint = transform.GetSiblingIndex();
-        if (MapManager.Instance.y == index && MapManager.Instance.x == indexint)
-        {
-            if (NextButton != null) NextButton.SetActive(false);
-        }
+        if (NextButton != null) NextButton.SetActive(false);
     }
 }
