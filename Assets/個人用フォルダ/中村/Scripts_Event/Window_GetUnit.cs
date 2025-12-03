@@ -110,7 +110,7 @@ public class Window_GetUnit : MonoBehaviour
             int id = Random.Range(0, UnitsData.Instance.unit.Length);
             if (exclusionUnit[id])
             {
-                for (int j = 0; j < ParameterManager.Instance.unitStatus.Length * 100; j++)
+                for (int j = 0; j < Mathf.Max(ParameterManager.Instance.unitStatus.Length, 1) * 100; j++)
                 {
                     id = Random.Range(0, UnitsData.Instance.unit.Length);
                     if (!exclusionUnit[id])
