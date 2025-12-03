@@ -8,7 +8,12 @@ using System;
 /// </summary>
 public class UnitsData : Singleton<UnitsData>
 {
+    public Sprite[] iconBackSprite; //ユニットのアイコンの背景
+
+    [Space(10)]
+
     public Status[] unit;
+
     public enum LvUpStatus
     {
         none,

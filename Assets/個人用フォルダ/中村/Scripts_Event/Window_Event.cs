@@ -16,12 +16,19 @@ public class Window_Event : MonoBehaviour
 
     [Space(10)]
 
+    [SerializeField] float unitImageOffset;
+
+    [Space(10)]
+
     //リザルト用
     [SerializeField] TextMeshProUGUI text_ResultValue;
     [SerializeField] GameObject resultParent;
 
     GameObject[] button_Choice;
+    Vector2 imageDefaultSize, imageUnitSize;
     float choiceButtonText1_PosY;
+
+    int choice;
 
     EventsData.Content content;
 
@@ -33,6 +40,10 @@ public class Window_Event : MonoBehaviour
         {
             button_Choice[i] = choiceButtonParent.transform.GetChild(i).gameObject;
         }
+
+        //イベント用の画像サイズを取得
+        imageDefaultSize = new Vector2(image.rectTransform.sizeDelta.x, image.rectTransform.sizeDelta.y);
+        imageUnitSize = imageDefaultSize * unitImageOffset;
     }
 
     /// <summary>
@@ -47,10 +58,12 @@ public class Window_Event : MonoBehaviour
         if (content.sprite != null)
         {
             image.sprite = content.sprite;
+            image.rectTransform.sizeDelta = imageDefaultSize;
             image.gameObject.SetActive(true);
         }
         else
         {
+            image.rectTransform.sizeDelta = imageDefaultSize;
             image.gameObject.SetActive(false);
         }
 
@@ -130,8 +143,10 @@ public class Window_Event : MonoBehaviour
     /// <summary>
     /// イベントの選択肢　引数で選択を指定
     /// </summary>
-    public void Choice(int choice)
+    public void Choice(int arg_Choice)
     {
+        choice = arg_Choice;
+
         string resultText1 = "";
         string resultText2 = "";
 
@@ -151,7 +166,7 @@ public class Window_Event : MonoBehaviour
                 break;
 
             case EventsData.ContentType.ユニット増加:
-
+                EventWindowManager.Instance.GetUnit((int)content.choice[choice].value);
                 break;
 
             case EventsData.ContentType.所持最大数増加:
@@ -159,7 +174,7 @@ public class Window_Event : MonoBehaviour
                 ParameterManager.Instance.maxUnitPossession = Mathf.Min(
                 ParameterManager.Instance.maxUnitPossession + (int)content.choice[choice].value, 5); //最大５まで
                 resultText1 = "ユニットの所持数が増加！";
-                resultText2 = prePossession + " → " + ParameterManager.Instance.hp;
+                resultText2 = prePossession + " → " + ParameterManager.Instance.maxUnitPossession;
                 Result(resultText1, resultText2);
                 break;
 
@@ -196,6 +211,19 @@ public class Window_Event : MonoBehaviour
         text_ResultValue.text = text2;
 
         //画像を表示
-        if (sprite != null) image.sprite = sprite;
+        if (sprite != null)
+        {
+            image.rectTransform.sizeDelta = imageDefaultSize;
+
+            //ユニット入手イベントの場合は画像のサイズをユニット用のものにする
+            switch (content.choice[choice].type)
+            {
+                case EventsData.ContentType.ユニット増加:
+                    image.rectTransform.sizeDelta = imageUnitSize;
+                    break;
+            }
+            
+            image.sprite = sprite;
+        }
     }
 }

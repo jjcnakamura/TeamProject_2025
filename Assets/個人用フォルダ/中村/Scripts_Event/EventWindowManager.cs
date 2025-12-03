@@ -89,6 +89,12 @@ public class EventWindowManager : Singleton<EventWindowManager>
             window_Status.ViewUnits();
         }
 
+        //ユニット入手ウィンドウを非表示に
+        if (window_GetUnit.gameObject.activeSelf)
+        {
+            window_GetUnit.ViewUnits();
+        }
+
         //各ウィンドウを非表示に
         window_Event.gameObject.SetActive(false);
         window_GetUnit.gameObject.SetActive(false);
@@ -100,18 +106,36 @@ public class EventWindowManager : Singleton<EventWindowManager>
     }
 
     /// <summary>
-    /// ステータスを表示する
+    /// ステータスを表示する　引数でIDを指定すると初期ステータスを表示する
     /// </summary>
-    public void ViewStatus()
+    public void ViewStatus(int id = -1)
     {
-        if (!window_Status.gameObject.activeSelf)
+        //ID指定をする場合
+        if (id >= 0)
         {
-            window_Status.gameObject.SetActive(true);
-            window_Status.ViewUnits();
+            if (!window_Status.gameObject.activeSelf)
+            {
+                window_Status.gameObject.SetActive(true);
+                window_Status.ViewUnits();
+                window_Status.ViewStatusId(id);
+            }
+            else
+            {
+                window_Status.ViewUnits();
+            }
         }
+        //ID指定をしない場合
         else
         {
-            window_Status.ViewUnits();
+            if (!window_Status.gameObject.activeSelf)
+            {
+                window_Status.gameObject.SetActive(true);
+                window_Status.ViewUnits();
+            }
+            else
+            {
+                window_Status.ViewUnits();
+            }
         }
     }
 
@@ -128,6 +152,22 @@ public class EventWindowManager : Singleton<EventWindowManager>
         else
         {
             window_Status.ViewUnits();
+        }
+    }
+
+    /// <summary>
+    /// 新たなユニットの入手画面を開く　引数で表示するユニットの数を指定
+    /// </summary>
+    public void GetUnit(int value = -1)
+    {
+        if (!window_GetUnit.gameObject.activeSelf)
+        {
+            window_GetUnit.gameObject.SetActive(true);
+            window_GetUnit.ViewUnits(value);
+        }
+        else
+        {
+            window_GetUnit.ViewUnits();
         }
     }
 

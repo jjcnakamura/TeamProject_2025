@@ -32,20 +32,27 @@ public class Window_Status : MonoBehaviour
 
     [System.NonSerialized] public EventsData.Choice eventContent;
 
-    public bool isActive,isViewStatus, isEvent;
+    //状態を表すフラグ
+    public bool isActive,isViewStatus, isViewStatusId, isEvent;
 
     void Awake()
     {
+        //オブジェクトの初期化
+        foreach (Transform n in unitButtonParent.transform) Destroy(n.gameObject); 
         defaultTitleText = text_Title.text;
     }
 
     /// <summary>
-    /// ステータス画面を開く、閉じる時に呼び出す
+    /// ステータス画面を開く、閉じる時に呼び出す　ユニットがいないなどで開けなかった場合はfalseを返す
     /// </summary>
     public void ViewUnits()
     {
         //ユニットのステータス画面を開いている場合は先にそちらを閉じる
-        if (isViewStatus)
+        if (isViewStatusId)
+        {
+            ViewStatusId();
+        }
+        else if (isViewStatus)
         {
             ViewStatus();
         }
@@ -95,12 +102,34 @@ public class Window_Status : MonoBehaviour
     }
 
     /// <summary>
-    /// イベントの中でステータス画面を開く、閉じる時に呼び出す　引数でイベント用の変数を受け取る
+    /// イベントの中でステータス画面を開く、閉じる時に呼び出す　引数でイベント用の変数を受け取る　ユニットがいないなどで開けなかった場合はfalseを返す
     /// </summary>
     public void ViewUnits(EventsData.Choice arg_Content)
     {
+        //ユニットを持っていない場合は戻る
+        if (ParameterManager.Instance.unitStatus.Length <= 0)
+        {
+            switch (arg_Content.type)
+            {
+                case EventsData.ContentType.コスト削減:
+                    EventWindowManager.Instance.window_Event.Result("ユニットを持っていない！", "");
+                    break;
+
+                case EventsData.ContentType.再配置短縮:
+                    EventWindowManager.Instance.window_Event.Result("ユニットを持っていない！", "");
+                    break;
+            }
+
+            gameObject.SetActive(false);
+            return;
+        }
+
         //ユニットのステータス画面を開いている場合は先にそちらを閉じる
-        if (isViewStatus)
+        if (isViewStatusId)
+        {
+            ViewStatusId();
+        }
+        else if (isViewStatus)
         {
             ViewStatus();
         }
@@ -186,10 +215,12 @@ public class Window_Status : MonoBehaviour
     /// </summary>
     public void ViewStatus(int index = -1)
     {
+        if (!isActive) return;
+
         if (!isEvent)
         {
             //ユニットのステータスを表示
-            if (!isViewStatus && index >= 0)
+            if (!isViewStatus && !isViewStatusId && index >= 0)
             {
                 //ユニットの情報画面を表示
                 unitInfoParent.SetActive(true);
@@ -202,7 +233,7 @@ public class Window_Status : MonoBehaviour
                 image_Unit.sprite = ParameterManager.Instance.unitStatus[index].sprite;
                 text_Name.text = ParameterManager.Instance.unitStatus[index].name;
                 text_Info.text = UnitsData.Instance.unit[ParameterManager.Instance.unitStatus[index].id].info;
-                text_Lv.text = "レベル：" + ParameterManager.Instance.unitStatus[index].lv.ToString();
+                text_Lv.text = "レベル    " + ParameterManager.Instance.unitStatus[index].lv.ToString();
                 text_Exp.text = "経験値：" + ParameterManager.Instance.unitStatus[index].exp.ToString();
                 // ※ 経験値の計算は仮
                 text_NextExp.text = "経験値残り：" + Mathf.Max((ParameterManager.Instance.unitStatus[index].lv * 10) - ParameterManager.Instance.unitStatus[index].exp, 0).ToString();
@@ -245,6 +276,7 @@ public class Window_Status : MonoBehaviour
 
                 //フラグを設定
                 isViewStatus = false;
+                isViewStatusId = false;
             }
         }
         //イベント中の場合
@@ -285,12 +317,92 @@ public class Window_Status : MonoBehaviour
 
             //フラグを設定
             isViewStatus = false;
+            isViewStatusId = false;
 
             //リザルトを表示
             EventWindowManager.Instance.window_Event.Result(resultText1, resultText2, resultSprite);
 
             //ステータス画面を閉じる
             ViewUnits();
+        }
+    }
+
+    /// <summary>
+    /// IDを指定して初期ステータスを見るユニットを選ぶ
+    /// </summary>
+    public void ViewStatusId(int id = -1)
+    {
+        if (!isActive) return;
+
+        //ユニットのステータスを表示
+        if (!isViewStatusId && !isViewStatus && id >= 0 && id < UnitsData.Instance.unit.Length && !isEvent)
+        {
+            //ユニットの情報画面を表示
+            unitInfoParent.SetActive(true);
+
+            //ユニット一覧画面の要素を非表示
+            unitButtonParent.SetActive(false);
+            text_Title.gameObject.SetActive(false);
+
+            //ユニットの各情報を表示
+            image_Unit.sprite = UnitsData.Instance.unit[id].sprite;
+            text_Name.text = UnitsData.Instance.unit[id].name;
+            text_Info.text = UnitsData.Instance.unit[id].info;
+
+            //レベルと経験値は非表示
+            text_Lv.gameObject.SetActive(false);
+            text_Exp.gameObject.SetActive(false);
+            text_NextExp.gameObject.SetActive(false);
+
+            text_Cost.text = "　コスト：" + UnitsData.Instance.unit[id].cost.ToString();
+            text_Recast.text = "　再配置：" + UnitsData.Instance.unit[id].recast.ToString() + "秒";
+
+            //ステータスの表示、非表示、ステータス名を指定する項目
+            text_Hp.text = "　耐久値：" + UnitsData.Instance.unit[id].hp.ToString();
+            text_Hp.gameObject.SetActive(UnitsData.Instance.unit[id].viewStatus.hp);
+
+            string valueName = UnitsData.Instance.unit[id].valueName;
+            text_Value.text = valueName + "：" + UnitsData.Instance.unit[id].value.ToString();
+            if (valueName == "鈍化時間") text_Value.text += "秒";
+            text_Value.gameObject.SetActive(UnitsData.Instance.unit[id].viewStatus.value);
+
+            text_Interval.text = "行動間隔：" + UnitsData.Instance.unit[id].interval.ToString() + "秒";
+            text_Interval.gameObject.SetActive(UnitsData.Instance.unit[id].viewStatus.interval);
+
+            text_Distance.text = "　　射程：" + UnitsData.Instance.unit[id].distance.ToString();
+            text_Distance.gameObject.SetActive(UnitsData.Instance.unit[id].viewStatus.distance);
+
+            text_Range.text = "　　範囲：" + UnitsData.Instance.unit[id].range.ToString();
+            text_Range.gameObject.SetActive(UnitsData.Instance.unit[id].viewStatus.range);
+
+            text_TargetNum.text = "対象人数：" + UnitsData.Instance.unit[id].targetNum.ToString();
+            text_TargetNum.gameObject.SetActive(UnitsData.Instance.unit[id].viewStatus.targetNum);
+
+            //フラグを設定
+            isViewStatusId = true;
+        }
+        //ユニットのステータスを非表示
+        else if (id < UnitsData.Instance.unit.Length)
+        {
+            //ユニット一覧画面の要素を再表示
+            text_Lv.gameObject.SetActive(true);
+            text_Exp.gameObject.SetActive(true);
+            text_NextExp.gameObject.SetActive(true);
+
+            unitInfoParent.SetActive(false);
+            unitButtonParent.SetActive(true);
+
+            text_Title.gameObject.SetActive(true);
+            text_Title.text = defaultTitleText;
+
+            bool closeUnitsView = !isViewStatus;
+
+            //フラグを設定
+            isViewStatusId = false;
+            isViewStatus = false;
+
+            //ステータス画面を閉じる
+            if (closeUnitsView) ViewUnits();
         }
     }
 
@@ -302,10 +414,10 @@ public class Window_Status : MonoBehaviour
 
         foreach (Transform n in unitButtonParent.transform) Destroy(n.gameObject); //全ての子オブジェクトを削除   
 
+        unitButtonParent.SetActive(true);
+
         for (int i = 0; i < unitNum; i++)
         {
-            unitButtonParent.SetActive(true);
-
             //ボタンを生成
             Button button = Instantiate(unitButtonPredab);
             button.transform.SetParent(unitButtonParent.transform);
