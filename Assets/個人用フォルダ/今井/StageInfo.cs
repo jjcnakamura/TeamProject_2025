@@ -21,6 +21,8 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
     public bool StageEnd;
     public bool FloorEnd;
     public GameObject NextButton;
+    public bool i = false;
+    public int indexint;
 
     void Update()
     {
@@ -32,18 +34,25 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         }
         if (StageEnd == true && Start == true)//自分のステージが終わったら消える処理
         {
-            bool i = false;
             if(i == false)
             {
                 MapManager.Instance.y += 1;
                 i = true;
             }
         }
-        int index = GetParentIndexOf(this.transform);//親から見て何番目の子か
-        Debug.Log(index);
+        if(FloorEnd == false)
+        {
+            int index = GetParentIndexOf(this.transform);//親から見て何番目の子か
+            Debug.Log(index);
 
-        int indexint = transform.GetSiblingIndex();
-        Debug.Log(indexint);
+            indexint = transform.GetSiblingIndex();
+            Debug.Log(indexint);
+            
+        }
+        if (FloorEnd == true)
+        {
+            indexint = MapManager.Instance.worldLevel + 3;
+        }
     }
 
     public void StageEndDebug()
@@ -84,18 +93,21 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         MapManager.Instance.GoNextStage();
     }
 
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         int index = GetParentIndexOf(this.transform);//今ステージがどこのルートにいるか
-        int indexint = transform.GetSiblingIndex();//今の親ルートのステージが何番目か
         if (MapManager.Instance.y == indexint)
         {
             if (MapManager.Instance.x == index || MapManager.Instance.x == index - 1 || MapManager.Instance.x == index + 1)
             {
                 if (NextButton != null) NextButton.SetActive(true);
             }
+            if (FloorEnd == true)
+            {
+                if (NextButton != null) NextButton.SetActive(true);
+            }
         }
+        
     }
 
     // マウスが離れた時

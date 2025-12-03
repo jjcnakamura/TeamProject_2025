@@ -26,7 +26,6 @@ public class MapManager : Singleton<MapManager>
     public GameObject[] ExtraworldBoss;//ボス難しい
     public int max = 3;//ステージ作成数
 
-    public GameObject[] Charactermen;
     public TextMeshProUGUI[] MapText;
     public GameObject Map;
     public bool Nextfloorbool;
@@ -34,6 +33,8 @@ public class MapManager : Singleton<MapManager>
     public GameObject MapTextStageImage;
     public GameObject MapStageMenuButton;
     public Transform PlayerStartPos;
+    public GameObject NextFloorButtonImage;
+    public GameObject GameEndImage;
 
     void Awake()
     {
@@ -60,16 +61,23 @@ public class MapManager : Singleton<MapManager>
         if (Input.GetKeyDown(KeyCode.S)) worldLevel = 1;
         if (Input.GetKeyDown(KeyCode.D)) worldLevel = 2;
 
-        foreach (var ID in status)
-        {
-            Charactermen[ID.id].SetActive(true);
-        }
-
         Transform[] transforms = new Transform[MapRoute.Length];
         for (int i = 0; i < MapRoute.Length; i++)
         {
             transforms[i] = MapRoute[i].transform;
         }
+
+        Transform bossPis = nextStage.parent;
+        Transform boss = bossPis.GetChild(0);
+        StageInfo StageInfo = boss.GetComponent<StageInfo>();
+        if (StageInfo != null)
+        {
+            if (StageInfo.FloorEnd == true && StageInfo.StageEnd == true)
+            {
+                NextFloorButtonImage.SetActive(true);
+            }
+        }
+
         if (ParameterManager.Instance.isBattleClear == true)//クリアしたら勝手に次のステージに進むやつ
         {
             Transform child = nextStage.GetChild(0);
@@ -82,6 +90,7 @@ public class MapManager : Singleton<MapManager>
         }
         MapTextUpdeta();
     }
+
     public void ButtonNextStage(int i)
     {
         Transform child = nextStage.GetChild(0);
@@ -104,7 +113,7 @@ public class MapManager : Singleton<MapManager>
         {
             ParameterManager.Instance.hp = 10;
         }
-        NextFloorButton();
+
         foreach (GameObject parent in MapRoute)
         {
             if (parent == null) continue;
@@ -129,6 +138,17 @@ public class MapManager : Singleton<MapManager>
             Debug.Log("わわわわわわわわわわわ");
             nextStage.SetParent(BossEnemy, true);
             nextStage.localPosition = Vector3.zero;
+            Transform bossPis = nextStage.parent;
+            Transform boss = bossPis.GetChild(0);
+            StageInfo stageInfo = boss.GetComponent<StageInfo>();
+            if (nextStage != null)
+            {
+                if (stageInfo != null)
+                {
+                    stageInfo.Start = true;
+                    Debug.Log("今回は" + stageInfo.Stage + "の" + stageInfo.namber + "です");
+                }
+            }
             return;
         }
         //普通のステージの処理
@@ -284,13 +304,13 @@ public class MapManager : Singleton<MapManager>
 
     public void MapTextUpdeta()//マップのステージ情報出すやつ
     {
-        Transform stageChild = nextStage.parent;
-        StageInfo stageinfo = stageChild.GetComponent<StageInfo>();
+        StageInfo stageinfo = nextStage.parent.GetComponent<StageInfo>();
         if (stageinfo != null)
         {
             if (stageinfo.Start == true && stageinfo.StageEnd == true)
             {
                 MapTextStageImage.SetActive(false);
+                MapStageMenuButton.SetActive(false);
             }
 
             if (stageinfo.Start == true && stageinfo.StageEnd == false)
@@ -305,6 +325,31 @@ public class MapManager : Singleton<MapManager>
             if(stageinfo.Start == false)
             {
                 MapTextStageImage.SetActive(false);
+                MapStageMenuButton.SetActive(false);
+            }
+        }
+        Transform bossPis = nextStage.parent;
+        Transform boss = bossPis.GetChild(0);
+        StageInfo stageInfo = boss.GetComponent<StageInfo>();
+        if (stageInfo != null)
+        {
+            if (stageInfo.Start == true && stageInfo.StageEnd == true)
+            {
+                MapTextStageImage.SetActive(false);
+            }
+
+            if (stageInfo.Start == true && stageInfo.StageEnd == false)
+            {
+                MapTextStageImage.SetActive(true);
+                MapText[1].text = stageInfo.StageName.ToString();
+                MapText[2].text = stageInfo.StageNaiyou.ToString();
+                MapText[3].text = stageInfo.Enemyint.ToString();
+                MapStageMenuButton.SetActive(true);
+            }
+
+            if (stageInfo.Start == false)
+            {
+                MapTextStageImage.SetActive(false);
             }
         }
     }
@@ -314,11 +359,26 @@ public class MapManager : Singleton<MapManager>
         Transform stageChild = nextStage.transform;
         Transform parent = stageChild.parent;
         StageInfo stageinfo = parent.GetComponent<StageInfo>();
-        stageinfo.Start = !stageinfo.Start;
-        MapStageMenuButton.SetActive(!stageinfo.Start);
-        if (stageinfo.Start == true)
+        if (stageinfo != null)
         {
-            MapStageMenuButton.SetActive(true);
+            stageinfo.Start = !stageinfo.Start;
+            MapStageMenuButton.SetActive(!stageinfo.Start);
+            if (stageinfo.Start == true)
+            {
+                MapStageMenuButton.SetActive(true);
+            }
+        }
+        Transform bossPis = nextStage.parent;
+        Transform boss = bossPis.GetChild(0);
+        StageInfo stageInfo = boss.GetComponent<StageInfo>();
+        if (stageInfo != null)
+        {
+            stageInfo.Start = !stageInfo.Start;
+            MapStageMenuButton.SetActive(!stageInfo.Start);
+            if (stageInfo.Start == true)
+            {
+                MapStageMenuButton.SetActive(true);
+            }
         }
     }
 
@@ -331,23 +391,41 @@ public class MapManager : Singleton<MapManager>
         {
             stageinfo.StageEnd = true;
         }
+        Transform bossPis = nextStage.parent;
+        Transform boss = bossPis.GetChild(0);
+        StageInfo stageInfo = boss.GetComponent<StageInfo>();
+        if (stageInfo != null)
+        {
+            stageInfo.StageEnd = true;
+        }
     }
 
-    public void NextFloorButton()
+    public void NextFloorButton()//使用中
     {
-        Transform stageChild = nextStage.transform;
-        Transform parent = stageChild.parent;
-        Transform child = parent.GetChild(0);
-        StageInfo stageinfo = child.GetComponent<StageInfo>();
-        if (stageinfo != null)
+        Transform bossPis = nextStage.parent;
+        Transform boss = bossPis.GetChild(0);
+        StageInfo StageInfo = boss.GetComponent<StageInfo>();
+        if (StageInfo != null)
         {
-            if(y > (worldLevel + 2))
+            if (StageInfo.FloorEnd == true && StageInfo.StageEnd == true)
             {
                 nextStage.SetParent(PlayerStartPos, true);
                 nextStage.localPosition = Vector3.zero;
-                Transform boss = BossEnemy.GetChild(0);
-                Destroy(boss);
+
+                Transform bossPos = BossEnemy.GetChild(0); 
+                Destroy(bossPos.gameObject);
+
+                NextFloor();
+                NextFloorButtonImage.SetActive(false);
             }
+        }
+    }
+
+    public void GameEnd()
+    {
+        if (floor >= worldLevel + 3)
+        {
+            GameEndImage.SetActive(true);
         }
     }
 }
