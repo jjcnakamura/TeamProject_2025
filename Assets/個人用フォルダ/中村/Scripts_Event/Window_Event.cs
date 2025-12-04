@@ -215,9 +215,15 @@ public class Window_Event : MonoBehaviour
         {
             image.rectTransform.sizeDelta = imageDefaultSize;
 
-            //ユニット入手イベントの場合は画像のサイズをユニット用のものにする
+            //ユニットを表示する場合は画像のサイズをユニット用のものにする
             switch (content.choice[choice].type)
             {
+                case EventsData.ContentType.コスト削減:
+                    image.rectTransform.sizeDelta = imageUnitSize;
+                    break;
+                case EventsData.ContentType.再配置短縮:
+                    image.rectTransform.sizeDelta = imageUnitSize;
+                    break;
                 case EventsData.ContentType.ユニット増加:
                     image.rectTransform.sizeDelta = imageUnitSize;
                     break;
