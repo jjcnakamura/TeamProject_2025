@@ -107,7 +107,15 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
                 if (NextButton != null) NextButton.SetActive(true);
             }
         }
-        
+        Transform Player = MapManager.Instance.nextStage.parent;
+        StageInfo stageinfo = Player.GetComponent<StageInfo>();
+        if (stageinfo != null)
+        {
+            if(stageinfo.Start == false)
+            {
+                NextButton.SetActive(false);
+            }
+        }
     }
 
     // ƒ}ƒEƒX‚ª—£‚ê‚½Žž

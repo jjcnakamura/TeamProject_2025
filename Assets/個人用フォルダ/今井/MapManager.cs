@@ -50,6 +50,14 @@ public class MapManager : Singleton<MapManager>
 
     void Update()
     {
+        Transform bossPis = nextStage.parent;
+        Transform boss = bossPis.GetChild(0);
+        StageInfo StageInfo = boss.GetComponent<StageInfo>();
+
+        if (floor >= worldLevel + 2 && StageInfo.StageEnd == true && StageInfo.FloorEnd == true)
+        {
+            GameEnd();
+        }
         MapText[0].text = floor.ToString();
 
         if (worldLevel == 0) max = 3;
@@ -67,9 +75,6 @@ public class MapManager : Singleton<MapManager>
             transforms[i] = MapRoute[i].transform;
         }
 
-        Transform bossPis = nextStage.parent;
-        Transform boss = bossPis.GetChild(0);
-        StageInfo StageInfo = boss.GetComponent<StageInfo>();
         if (StageInfo != null)
         {
             if (StageInfo.FloorEnd == true && StageInfo.StageEnd == true)
@@ -325,7 +330,6 @@ public class MapManager : Singleton<MapManager>
             if(stageinfo.Start == false)
             {
                 MapTextStageImage.SetActive(false);
-                MapStageMenuButton.SetActive(false);
             }
         }
         Transform bossPis = nextStage.parent;
@@ -336,6 +340,7 @@ public class MapManager : Singleton<MapManager>
             if (stageInfo.Start == true && stageInfo.StageEnd == true)
             {
                 MapTextStageImage.SetActive(false);
+                MapStageMenuButton.SetActive(false);
             }
 
             if (stageInfo.Start == true && stageInfo.StageEnd == false)
@@ -356,9 +361,8 @@ public class MapManager : Singleton<MapManager>
 
     public void MapTextUpdetaButton()//マップのステージのメニューを一時的に閉じるやつ
     {
-        Transform stageChild = nextStage.transform;
-        Transform parent = stageChild.parent;
-        StageInfo stageinfo = parent.GetComponent<StageInfo>();
+        Transform stageChild = nextStage.parent;
+        StageInfo stageinfo = stageChild.GetComponent<StageInfo>();
         if (stageinfo != null)
         {
             stageinfo.Start = !stageinfo.Start;
@@ -423,9 +427,6 @@ public class MapManager : Singleton<MapManager>
 
     public void GameEnd()
     {
-        if (floor >= worldLevel + 3)
-        {
-            GameEndImage.SetActive(true);
-        }
+        GameEndImage.SetActive(true);
     }
 }
