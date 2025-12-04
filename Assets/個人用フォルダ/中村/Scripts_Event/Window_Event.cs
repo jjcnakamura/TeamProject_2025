@@ -55,7 +55,7 @@ public class Window_Event : MonoBehaviour
         content = EventsData.Instance.eventData[id];
 
         //イベントが無効の場合は戻る
-        if (!EventWindowManager.Instance.EventActiveCheck(id))
+        if (content.choice.Length > 1 && !EventWindowManager.Instance.EventActiveCheck(id))
         {
             //イベントが無効な場合のリザルト
             EventWindowManager.Instance.window_Event.Result("イベントに有効な選択肢がありません", "");
@@ -142,7 +142,7 @@ public class Window_Event : MonoBehaviour
                 }
 
                 //イベントが無効の場合はボタンを無効にする
-                button_Choice[i].interactable = EventWindowManager.Instance.EventActiveCheckType(content.choice[i].type);
+                button_Choice[i].interactable = (content.choice.Length <= 1 || EventWindowManager.Instance.EventActiveCheckType(content.choice[i].type));
 
                 button_Choice[i].gameObject.SetActive(true);
             }
