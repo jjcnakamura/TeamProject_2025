@@ -60,6 +60,124 @@ public class EventWindowManager : Singleton<EventWindowManager>
     }
 
     /// <summary>
+    /// イベントが有効か無効かをbool型の配列で返す　例：イベントID１が有効の場合は配列の要素１がtrueになる
+    /// 引数でIDを指定するとそのイベントのみを判定する
+    /// </summary>
+    public bool[] EventActiveCheck()
+    {
+        bool[] result = new bool[EventsData.Instance.eventData.Length];
+
+        for (int i = 0; i < result.Length; i++)
+        {
+            result[i] = EventActiveCheck(i);
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// 指定したIDのイベントが有効か無効かをboolで返す
+    /// </summary>
+    public bool EventActiveCheck(int id)
+    {
+        id = Mathf.Min(Mathf.Max(id, 0), EventsData.Instance.eventData.Length - 1);
+
+        bool result = true;
+        int inativeNum = 0;
+
+        for (int i = 0; i < EventsData.Instance.eventData[id].choice.Length; i++)
+        {
+            //イベントの選択肢の内容から判定する
+            if (!EventActiveCheckType(EventsData.Instance.eventData[id].choice[i].type)) inativeNum++;
+
+            //選択肢の内容全てが行えない場合はイベントを無効と判定する
+            if (inativeNum >= EventsData.Instance.eventData[id].choice.Length)
+            {
+                result = false;
+                break;
+            }
+        }
+
+        return result;
+    }
+
+    /// <summary>
+    /// 指定したContentTypeのイベントが有効か無効かをboolで返す
+    /// </summary>
+    public bool EventActiveCheckType(EventsData.ContentType type)
+    {
+        bool result = true;
+
+        switch (type)
+        {
+            case EventsData.ContentType.コスト削減:
+
+                //コストが最低値(１)のユニットしかいない場合は無効になる
+                int lowestCostUnitNum = 0;
+                for (int j = 0; j < ParameterManager.Instance.unitStatus.Length; j++)
+                {
+                    if (ParameterManager.Instance.unitStatus[j].cost <= 1)
+                    {
+                        lowestCostUnitNum++;
+                        if (lowestCostUnitNum >= ParameterManager.Instance.unitStatus.Length)
+                        {
+                            result = false;
+                            break;
+                        }
+                    }
+                }
+
+                break;
+
+            case EventsData.ContentType.再配置短縮:
+
+                //再配置時間が最低値(１)のユニットしかいない場合は無効になる
+                int lowestRecastUnitNum = 0;
+                for (int j = 0; j < ParameterManager.Instance.unitStatus.Length; j++)
+                {
+                    if (ParameterManager.Instance.unitStatus[j].recast <= 1)
+                    {
+                        lowestRecastUnitNum++;
+                        if (lowestRecastUnitNum >= ParameterManager.Instance.unitStatus.Length)
+                        {
+                            result = false;
+                            break;
+                        }
+                    }
+                }
+
+                break;
+
+            case EventsData.ContentType.ユニット増加:
+
+                //ユニットの所持数が最大の場合は無効
+                if (ParameterManager.Instance.unitStatus.Length >= UnitsData.Instance.maxUnitPossession) result = false;
+
+                break;
+
+            case EventsData.ContentType.所持最大数増加:
+
+                //所持可能数が最大の場合は無効
+                if (ParameterManager.Instance.maxUnitPossession >= UnitsData.Instance.maxUnitPossession) result = false;
+
+                break;
+
+            case EventsData.ContentType.同ユニット配置数増加:
+
+                //同ユニット配置可能数が最大(１００)の場合は無効
+                if (ParameterManager.Instance.sameUnitMaxInstallation >= 100) result = false;
+
+                break;
+
+            case EventsData.ContentType.HP回復:
+
+                break;
+        }
+
+        return result;
+    }
+
+    /// <summary>
     /// イベントを呼び出す　引数でIDを指定
     /// </summary>
     public void CallEventAt(int id)

@@ -24,6 +24,16 @@ public class Window_GetUnit : MonoBehaviour
         //ユニット入手画面を開く
         if (!isActive && num >= 0)
         {
+            //入手できるユニットが残っていない場合、または所持ユニット数が最大の場合は戻る
+            if (UnitsData.Instance.unit.Length - ParameterManager.Instance.unitStatus.Length - 1 <= 0 ||
+                ParameterManager.Instance.unitStatus.Length >= ParameterManager.Instance.maxUnitPossession)
+            {
+                //ユニットを入手できなかった場合のリザルト
+                EventWindowManager.Instance.window_Event.Result("これ以上ユニットを増やせない！", "");
+                gameObject.SetActive(false);
+                return;
+            }
+
             //ユニットをnum体表示
             GenerateUnitButton(num);
 

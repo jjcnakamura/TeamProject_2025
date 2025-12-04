@@ -48,6 +48,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1da73ef2564aff3479d0204332edbe42, type: 3}
   - {fileID: 21300000, guid: 116cae457b1ebf640bcac871cd84bac6, type: 3}
   - {fileID: 21300000, guid: d4e423d615fecb64cb8cb9f98e1a8b0f, type: 3}
+  maxUnitPossession: 5
   unit:
   - prefab: {fileID: 2482288343578748128, guid: d81ebf3a60f6cab499f289573ad871fc, type: 3}
     sprite: {fileID: 21300000, guid: 432a72fb400ecc54997cd895b7d38545, type: 3}

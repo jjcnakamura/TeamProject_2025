@@ -292,7 +292,7 @@ public class Window_Status : MonoBehaviour
                 case EventsData.ContentType.コスト削減:
                     int preCost = ParameterManager.Instance.unitStatus[index].cost;
                     ParameterManager.Instance.unitStatus[index].cost = Mathf.Max(
-                    ParameterManager.Instance.unitStatus[index].cost + (int)eventContent.value, 1);
+                    ParameterManager.Instance.unitStatus[index].cost + (int)eventContent.value, 1); //最低１
                     resultText1 = ParameterManager.Instance.unitStatus[index].name + "のコストが減少！";
                     resultText2 = preCost + " → " + ParameterManager.Instance.unitStatus[index].cost;
                     resultSprite = ParameterManager.Instance.unitStatus[index].sprite;
@@ -301,7 +301,7 @@ public class Window_Status : MonoBehaviour
                 case EventsData.ContentType.再配置短縮:
                     int preRecast = ParameterManager.Instance.unitStatus[index].recast;
                     ParameterManager.Instance.unitStatus[index].recast = Mathf.Max(
-                    ParameterManager.Instance.unitStatus[index].recast + (int)eventContent.value, 1);
+                    ParameterManager.Instance.unitStatus[index].recast + (int)eventContent.value, 1); //最低１
                     resultText1 = ParameterManager.Instance.unitStatus[index].name + "の再配置時間が短縮！";
                     resultText2 = preRecast + " → " + ParameterManager.Instance.unitStatus[index].recast;
                     resultSprite = ParameterManager.Instance.unitStatus[index].sprite;

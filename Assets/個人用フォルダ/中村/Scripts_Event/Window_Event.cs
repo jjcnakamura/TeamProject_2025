@@ -24,7 +24,7 @@ public class Window_Event : MonoBehaviour
     [SerializeField] TextMeshProUGUI text_ResultValue;
     [SerializeField] GameObject resultParent;
 
-    GameObject[] button_Choice;
+    Button[] button_Choice;
     Vector2 imageDefaultSize, imageUnitSize;
     float choiceButtonText1_PosY;
 
@@ -35,10 +35,10 @@ public class Window_Event : MonoBehaviour
     void Awake()
     {
         //選択肢用のボタンを取得
-        button_Choice = new GameObject[choiceButtonParent.transform.childCount];
+        button_Choice = new Button[choiceButtonParent.transform.childCount];
         for (int i = 0; i < button_Choice.Length; i++)
         {
-            button_Choice[i] = choiceButtonParent.transform.GetChild(i).gameObject;
+            button_Choice[i] = choiceButtonParent.transform.GetChild(i).GetComponent<Button>();
         }
 
         //イベント用の画像サイズを取得
@@ -53,6 +53,14 @@ public class Window_Event : MonoBehaviour
     {
         //イベントの情報を読み込み
         content = EventsData.Instance.eventData[id];
+
+        //イベントが無効の場合は戻る
+        if (!EventWindowManager.Instance.EventActiveCheck(id))
+        {
+            //イベントが無効な場合のリザルト
+            EventWindowManager.Instance.window_Event.Result("イベントに有効な選択肢がありません", "");
+            return;
+        }
 
         //画像を読み込み
         if (content.sprite != null)
@@ -78,6 +86,8 @@ public class Window_Event : MonoBehaviour
         //ボタンの内容を読み込み
         for (int i = 0; i < button_Choice.Length; i++)
         {
+            button_Choice[i].gameObject.SetActive(false);
+
             if (i < content.choice.Length)
             {
                 //テキストを取得
@@ -93,7 +103,7 @@ public class Window_Event : MonoBehaviour
                 {
                     case EventsData.ContentType.所持最大数増加:
                         nowValue = ParameterManager.Instance.maxUnitPossession;
-                        upValue = Mathf.Min(nowValue + (int)content.choice[i].value, 5);  //最大５まで
+                        upValue = Mathf.Min(nowValue + (int)content.choice[i].value, UnitsData.Instance.maxUnitPossession);
                         active = true;
                         break;
 
@@ -131,11 +141,10 @@ public class Window_Event : MonoBehaviour
                     button_Choice[i].transform.GetChild(1).gameObject.SetActive(false);
                 }
 
-                button_Choice[i].SetActive(true);
-            }
-            else
-            {
-                button_Choice[i].SetActive(false);
+                //イベントが無効の場合はボタンを無効にする
+                button_Choice[i].interactable = EventWindowManager.Instance.EventActiveCheckType(content.choice[i].type);
+
+                button_Choice[i].gameObject.SetActive(true);
             }
         }
     }
@@ -172,7 +181,7 @@ public class Window_Event : MonoBehaviour
             case EventsData.ContentType.所持最大数増加:
                 int prePossession = ParameterManager.Instance.maxUnitPossession;
                 ParameterManager.Instance.maxUnitPossession = Mathf.Min(
-                ParameterManager.Instance.maxUnitPossession + (int)content.choice[choice].value, 5); //最大５まで
+                ParameterManager.Instance.maxUnitPossession + (int)content.choice[choice].value, UnitsData.Instance.maxUnitPossession);
                 resultText1 = "ユニットの所持数が増加！";
                 resultText2 = prePossession + " → " + ParameterManager.Instance.maxUnitPossession;
                 Result(resultText1, resultText2);

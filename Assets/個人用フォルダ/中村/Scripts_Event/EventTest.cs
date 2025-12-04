@@ -158,5 +158,15 @@ public class EventTest : MonoBehaviour
         {
             EventWindowManager.Instance.window_Event.Result("", "");
         }
+
+        //イベントが有効か判定
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            bool[] eventActive = EventWindowManager.Instance.EventActiveCheck();
+            for (int i = 0; i < eventActive.Length; i++)
+            {
+                Debug.Log("イベント" + i + "は" + ((eventActive[i]) ? "「有効」" : "「無効」"));
+            }
+        }
     }
 }
