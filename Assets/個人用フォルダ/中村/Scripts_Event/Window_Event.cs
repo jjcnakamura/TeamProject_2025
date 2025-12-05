@@ -54,14 +54,6 @@ public class Window_Event : MonoBehaviour
         //イベントの情報を読み込み
         content = EventsData.Instance.eventData[id];
 
-        //イベントが無効の場合は戻る
-        if (content.choice.Length > 1 && !EventWindowManager.Instance.EventActiveCheck(id))
-        {
-            //イベントが無効な場合のリザルト
-            EventWindowManager.Instance.window_Event.Result("イベントに有効な選択肢がありません", "");
-            return;
-        }
-
         //画像を読み込み
         if (content.sprite != null)
         {
@@ -73,6 +65,14 @@ public class Window_Event : MonoBehaviour
         {
             image.rectTransform.sizeDelta = imageDefaultSize;
             image.gameObject.SetActive(false);
+        }
+
+        //イベントが無効の場合は戻る
+        if (content.choice.Length > 1 && !EventWindowManager.Instance.EventActiveCheck(id))
+        {
+            //イベントが無効な場合のリザルト
+            EventWindowManager.Instance.window_Event.Result("イベントに有効な選択肢がありません", "");
+            return;
         }
 
         //テキストを読み込み
@@ -183,7 +183,7 @@ public class Window_Event : MonoBehaviour
                 ParameterManager.Instance.maxUnitPossession = Mathf.Min(
                 ParameterManager.Instance.maxUnitPossession + (int)content.choice[choice].value, UnitsData.Instance.maxUnitPossession);
                 resultText1 = "ユニットの所持数が増加！";
-                resultText2 = prePossession + " → " + ParameterManager.Instance.maxUnitPossession;
+                resultText2 = "最大所持数：" + prePossession + " → " + ParameterManager.Instance.maxUnitPossession;
                 Result(resultText1, resultText2);
                 break;
 
@@ -192,7 +192,7 @@ public class Window_Event : MonoBehaviour
                 ParameterManager.Instance.sameUnitMaxInstallation = Mathf.Min(
                 ParameterManager.Instance.sameUnitMaxInstallation + (int)content.choice[choice].value, 100); //最大１００まで
                 resultText1 = "ユニットの配置数が増加！";
-                resultText2 = preInstallation + " → " + ParameterManager.Instance.sameUnitMaxInstallation;
+                resultText2 = "同ユニット配置数：" + preInstallation + " → " + ParameterManager.Instance.sameUnitMaxInstallation;
                 Result(resultText1, resultText2);
                 break;
 
@@ -201,7 +201,7 @@ public class Window_Event : MonoBehaviour
                 ParameterManager.Instance.hp = Mathf.Min(
                 ParameterManager.Instance.hp + (int)content.choice[choice].value, ParameterManager.Instance.maxHp);
                 resultText1 = "HPが回復した！";
-                resultText2 = preHp + " → " + ParameterManager.Instance.hp;
+                resultText2 = "HP：" + preHp + " → " + ParameterManager.Instance.hp;
                 Result(resultText1, resultText2);
                 break;
         }

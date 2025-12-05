@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iconBackSprite:
-  - {fileID: 21300000, guid: 1da73ef2564aff3479d0204332edbe42, type: 3}
-  - {fileID: 21300000, guid: 116cae457b1ebf640bcac871cd84bac6, type: 3}
-  - {fileID: 21300000, guid: d4e423d615fecb64cb8cb9f98e1a8b0f, type: 3}
+  - {fileID: 21300000, guid: 06c8a816d5e91cd45ac8324fedcde21d, type: 3}
+  - {fileID: 21300000, guid: f7af1b4ee2dd14c44addb2824a0cfb42, type: 3}
+  - {fileID: 21300000, guid: b33d2f94e4b7aba4882b12d75d4f1217, type: 3}
   maxUnitPossession: 5
   unit:
   - prefab: {fileID: 2482288343578748128, guid: d81ebf3a60f6cab499f289573ad871fc, type: 3}

@@ -293,8 +293,8 @@ public class Window_Status : MonoBehaviour
                     int preCost = ParameterManager.Instance.unitStatus[index].cost;
                     ParameterManager.Instance.unitStatus[index].cost = Mathf.Max(
                     ParameterManager.Instance.unitStatus[index].cost + (int)eventContent.value, 1); //最低１
-                    resultText1 = ParameterManager.Instance.unitStatus[index].name + "のコストが減少！";
-                    resultText2 = preCost + " → " + ParameterManager.Instance.unitStatus[index].cost;
+                    resultText1 = ParameterManager.Instance.unitStatus[index].name + "の配置コストが減少！";
+                    resultText2 = "配置コスト：" + preCost + " → " + ParameterManager.Instance.unitStatus[index].cost;
                     resultSprite = ParameterManager.Instance.unitStatus[index].sprite;
                     break;
 
@@ -302,8 +302,8 @@ public class Window_Status : MonoBehaviour
                     int preRecast = ParameterManager.Instance.unitStatus[index].recast;
                     ParameterManager.Instance.unitStatus[index].recast = Mathf.Max(
                     ParameterManager.Instance.unitStatus[index].recast + (int)eventContent.value, 1); //最低１
-                    resultText1 = ParameterManager.Instance.unitStatus[index].name + "の再配置時間が短縮！";
-                    resultText2 = preRecast + " → " + ParameterManager.Instance.unitStatus[index].recast;
+                    resultText1 = ParameterManager.Instance.unitStatus[index].name + "の再配置までの時間が短縮！";
+                    resultText2 = "再配置時間：" + preRecast + " → " + ParameterManager.Instance.unitStatus[index].recast;
                     resultSprite = ParameterManager.Instance.unitStatus[index].sprite;
                     break;
             }
@@ -423,6 +423,8 @@ public class Window_Status : MonoBehaviour
             button.transform.SetParent(unitButtonParent.transform);
             button.transform.localScale = unitButtonParent.transform.localScale;
 
+            //背景を読み込み
+            button.GetComponent<Image>().sprite = UnitsData.Instance.iconBackSprite[ParameterManager.Instance.unitStatus[i].role];
             //画像を読み込み
             button.transform.GetChild(0).GetComponent<Image>().sprite = ParameterManager.Instance.unitStatus[i].sprite;
             //名前を読み込み

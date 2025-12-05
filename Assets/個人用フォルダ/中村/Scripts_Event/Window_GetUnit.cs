@@ -142,6 +142,7 @@ public class Window_GetUnit : MonoBehaviour
 
             //ÉAÉCÉRÉìÇì«Ç›çûÇ›
             GameObject icon = button.transform.GetChild(0).gameObject;
+            icon.GetComponent<Image>().sprite = UnitsData.Instance.iconBackSprite[UnitsData.Instance.unit[id].role];
             icon.transform.GetChild(0).GetComponent<Image>().sprite = UnitsData.Instance.unit[id].sprite;
             icon.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = UnitsData.Instance.unit[id].name;
             icon.transform.GetChild(2).gameObject.SetActive(false);

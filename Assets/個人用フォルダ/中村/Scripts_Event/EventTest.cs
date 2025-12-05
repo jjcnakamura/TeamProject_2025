@@ -16,7 +16,7 @@ public class EventTest : MonoBehaviour
     [SerializeField] bool addUnit;
     
     Button eventTestButton;
-    bool canvaNoActive;
+    bool canvaNoActive = true;
 
     void Awake()
     {
@@ -27,10 +27,9 @@ public class EventTest : MonoBehaviour
             return;
         }
         //Canvasが非アクティブの場合は一度アクティブにしてから再度非アクティブにする
-        else if (!canvas_Event.activeSelf)
+        else
         {
             canvas_Event.SetActive(true);
-            canvaNoActive = true;
         }
 
         //デバッグ用　初期ステータスを設定
