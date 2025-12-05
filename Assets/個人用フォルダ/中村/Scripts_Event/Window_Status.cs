@@ -20,14 +20,20 @@ public class Window_Status : MonoBehaviour
 
     [Space(10)]
 
+    [SerializeField] float unitImageOffsetY;
+
+    [Space(10)]
+
     //各ユニットのステータス画面用の変数
     [SerializeField] GameObject unitInfoParent;
     [SerializeField] Image image_Unit;
+    [SerializeField] Image image_UnitBack;
     [SerializeField] TextMeshProUGUI text_Name, text_Info, text_Lv, text_Exp, text_NextExp, text_Cost, text_Recast,
                                      text_Hp, text_Value, text_Interval, text_Distance, text_Range, text_TargetNum;
 
     TextMeshProUGUI[] eventText;
     string defaultTitleText;
+    Vector2 unitImageDefaultPos;
     int unitNum = -1;
 
     [System.NonSerialized] public EventsData.Choice eventContent;
@@ -40,6 +46,9 @@ public class Window_Status : MonoBehaviour
         //オブジェクトの初期化
         foreach (Transform n in unitButtonParent.transform) Destroy(n.gameObject); 
         defaultTitleText = text_Title.text;
+
+        //UIの初期位置を読み込み
+        unitImageDefaultPos = image_UnitBack.rectTransform.position;
     }
 
     /// <summary>
@@ -261,6 +270,9 @@ public class Window_Status : MonoBehaviour
                 text_TargetNum.text = "対象人数：" + ParameterManager.Instance.unitStatus[index].targetNum.ToString();
                 text_TargetNum.gameObject.SetActive(UnitsData.Instance.unit[ParameterManager.Instance.unitStatus[index].id].viewStatus.targetNum);
 
+                //キャラの背景を読み込み
+                image_UnitBack.sprite = UnitsData.Instance.iconBackSprite[ParameterManager.Instance.unitStatus[index].role];
+
                 //フラグを設定
                 isViewStatus = true;
             }
@@ -273,6 +285,9 @@ public class Window_Status : MonoBehaviour
 
                 text_Title.gameObject.SetActive(true);
                 text_Title.text = defaultTitleText;
+
+                //キャラのアイコンの位置を戻す
+                image_UnitBack.rectTransform.position = unitImageDefaultPos;
 
                 //フラグを設定
                 isViewStatus = false;
@@ -303,7 +318,7 @@ public class Window_Status : MonoBehaviour
                     ParameterManager.Instance.unitStatus[index].recast = Mathf.Max(
                     ParameterManager.Instance.unitStatus[index].recast + (int)eventContent.value, 1); //最低１
                     resultText1 = ParameterManager.Instance.unitStatus[index].name + "の再配置までの時間が短縮！";
-                    resultText2 = "再配置時間：" + preRecast + " → " + ParameterManager.Instance.unitStatus[index].recast;
+                    resultText2 = "再配置時間：" + preRecast + "秒 → " + ParameterManager.Instance.unitStatus[index].recast + "秒";
                     resultSprite = ParameterManager.Instance.unitStatus[index].sprite;
                     break;
             }
@@ -314,6 +329,9 @@ public class Window_Status : MonoBehaviour
 
             text_Title.gameObject.SetActive(true);
             text_Title.text = defaultTitleText;
+
+            //キャラのアイコンの位置を戻す
+            image_UnitBack.rectTransform.position = unitImageDefaultPos;
 
             //フラグを設定
             isViewStatus = false;
@@ -378,6 +396,12 @@ public class Window_Status : MonoBehaviour
             text_TargetNum.text = "対象人数：" + UnitsData.Instance.unit[id].targetNum.ToString();
             text_TargetNum.gameObject.SetActive(UnitsData.Instance.unit[id].viewStatus.targetNum);
 
+            //キャラの背景を読み込み
+            image_UnitBack.sprite = UnitsData.Instance.iconBackSprite[UnitsData.Instance.unit[id].role];
+
+            //キャラのアイコンの位置を調整
+            image_UnitBack.rectTransform.position = new Vector2(image_UnitBack.rectTransform.position.x, image_UnitBack.rectTransform.position.y - unitImageOffsetY);
+
             //フラグを設定
             isViewStatusId = true;
         }
@@ -394,6 +418,9 @@ public class Window_Status : MonoBehaviour
 
             text_Title.gameObject.SetActive(true);
             text_Title.text = defaultTitleText;
+
+            //キャラのアイコンの位置を戻す
+            image_UnitBack.rectTransform.position = unitImageDefaultPos;
 
             bool closeUnitsView = !isViewStatus;
 

@@ -183,7 +183,7 @@ public class Window_Event : MonoBehaviour
                 ParameterManager.Instance.maxUnitPossession = Mathf.Min(
                 ParameterManager.Instance.maxUnitPossession + (int)content.choice[choice].value, UnitsData.Instance.maxUnitPossession);
                 resultText1 = "ユニットの所持数が増加！";
-                resultText2 = "最大所持数：" + prePossession + " → " + ParameterManager.Instance.maxUnitPossession;
+                resultText2 = "最大所持数：" + prePossession + "体 → " + ParameterManager.Instance.maxUnitPossession + "体";
                 Result(resultText1, resultText2);
                 break;
 
@@ -192,7 +192,7 @@ public class Window_Event : MonoBehaviour
                 ParameterManager.Instance.sameUnitMaxInstallation = Mathf.Min(
                 ParameterManager.Instance.sameUnitMaxInstallation + (int)content.choice[choice].value, 100); //最大１００まで
                 resultText1 = "ユニットの配置数が増加！";
-                resultText2 = "同ユニット配置数：" + preInstallation + " → " + ParameterManager.Instance.sameUnitMaxInstallation;
+                resultText2 = "同ユニット配置数：" + preInstallation + "体 → " + ParameterManager.Instance.sameUnitMaxInstallation + "体";
                 Result(resultText1, resultText2);
                 break;
 
