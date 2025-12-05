@@ -49,5 +49,12 @@ MonoBehaviour:
   BGMGroup: {fileID: -3542938276952349665, guid: 993dea2cf28d4744793739d5772704e1, type: 2}
   SEGroup: {fileID: -934536182363291255, guid: 993dea2cf28d4744793739d5772704e1, type: 2}
   bgmClip: []
-  se_SysClip: []
+  se_SysClip:
+  - {fileID: 8300000, guid: 33bcd94a303679d4889eb1ca9f66d5f2, type: 3}
+  - {fileID: 8300000, guid: 222d4b76bca65964f9c22d98b1c15f1c, type: 3}
+  - {fileID: 8300000, guid: 38220ef0cfc378249bc030161aa60aba, type: 3}
   se_GameClip: []
+  bgmVolSlider: {fileID: 0}
+  seVolSlider: {fileID: 0}
+  bgmVolText: {fileID: 0}
+  seVolText: {fileID: 0}

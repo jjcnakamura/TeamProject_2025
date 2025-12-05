@@ -165,9 +165,6 @@ public class BattleManager : Singleton<BattleManager>
         //戦闘シーン開始時のみ実行する
         if (!isMainGame && !isClear && !isGameOver)
         {
-            //FPSを固定
-            Application.targetFrameRate = 60;
-
             //ユニットドラッグ中のFixedTimeStepを計算
             dragFixedTime = Time.fixedDeltaTime / (1f / dragTimeScale);
 

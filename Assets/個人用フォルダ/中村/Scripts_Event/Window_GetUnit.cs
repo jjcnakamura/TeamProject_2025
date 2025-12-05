@@ -34,6 +34,8 @@ public class Window_GetUnit : MonoBehaviour
                 return;
             }
 
+            SoundManager.Instance.PlaySE_Sys(0);
+
             //ユニットをnum体表示
             GenerateUnitButton(num);
 
@@ -43,6 +45,8 @@ public class Window_GetUnit : MonoBehaviour
         //ユニット入手画面を閉じる
         else
         {
+            SoundManager.Instance.PlaySE_Sys(2);
+
             //フラグを設定
             isActive = false;
 
@@ -72,6 +76,9 @@ public class Window_GetUnit : MonoBehaviour
         ParameterManager.Instance.AddUnit(id);
         bool getUnit = (ParameterManager.Instance.unitStatus.Length > preUnitNum);
 
+        //ユニット入手画面を閉じる
+        ViewUnits();
+
         //リザルトを表示
         if (getUnit)
         {
@@ -81,10 +88,7 @@ public class Window_GetUnit : MonoBehaviour
         else
         {
             EventWindowManager.Instance.window_Event.Result("これ以上ユニットを増やせない！", "");
-        }
-
-        //ユニット入手画面を閉じる
-        ViewUnits();
+        } 
     }
 
     //持っていないユニットの中から抽選してボタンを生成する　引数でボタンの数を指定
@@ -109,8 +113,8 @@ public class Window_GetUnit : MonoBehaviour
                 //ユニットを入手できなかった場合のリザルト
                 if (i <= 0)
                 {
-                    EventWindowManager.Instance.window_Event.Result("これ以上ユニットを増やせない！", "");
                     ViewUnits();
+                    EventWindowManager.Instance.window_Event.Result("これ以上ユニットを増やせない！", "");
                 }
 
                 return;

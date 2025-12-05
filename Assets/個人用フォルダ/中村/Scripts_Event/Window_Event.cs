@@ -54,6 +54,8 @@ public class Window_Event : MonoBehaviour
         //ƒCƒxƒ“ƒg‚Ìî•ñ‚ğ“Ç‚İ‚İ
         content = EventsData.Instance.eventData[id];
 
+        SoundManager.Instance.PlaySE_Sys(1);
+
         //‰æ‘œ‚ğ“Ç‚İ‚İ
         if (content.sprite != null)
         {
@@ -212,6 +214,8 @@ public class Window_Event : MonoBehaviour
     /// </summary>
     public void Result(string text1, string text2, Sprite sprite = null)
     {
+        SoundManager.Instance.PlaySE_Sys(1);
+
         choiceButtonParent.SetActive(false);
         resultParent.SetActive(true);
 

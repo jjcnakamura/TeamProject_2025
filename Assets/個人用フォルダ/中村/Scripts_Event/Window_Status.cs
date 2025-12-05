@@ -68,6 +68,8 @@ public class Window_Status : MonoBehaviour
         //ユニット一覧画面を開く
         else if (!isActive)
         {
+            SoundManager.Instance.PlaySE_Sys(1);
+
             //ユニットの情報画面を非表示
             unitInfoParent.SetActive(false);
 
@@ -98,6 +100,8 @@ public class Window_Status : MonoBehaviour
         //ユニット一覧画面を閉じる
         else if (!isEvent)
         {
+            SoundManager.Instance.PlaySE_Sys(2);
+
             //フラグを設定
             isActive = false;
 
@@ -145,6 +149,8 @@ public class Window_Status : MonoBehaviour
         //ユニット一覧画面を開く
         else if (!isActive)
         {
+            SoundManager.Instance.PlaySE_Sys(0);
+
             //ユニットの情報画面を非表示
             unitInfoParent.SetActive(false);
 
@@ -211,6 +217,8 @@ public class Window_Status : MonoBehaviour
         //ユニット一覧画面を閉じる
         else
         {
+            SoundManager.Instance.PlaySE_Sys(2);
+
             //フラグを設定
             isEvent = false;
             isActive = false;
@@ -228,6 +236,8 @@ public class Window_Status : MonoBehaviour
 
         if (!isEvent)
         {
+            SoundManager.Instance.PlaySE_Sys(0);
+
             //ユニットのステータスを表示
             if (!isViewStatus && !isViewStatusId && index >= 0)
             {
@@ -279,6 +289,8 @@ public class Window_Status : MonoBehaviour
             //ユニットのステータスを非表示
             else
             {
+                SoundManager.Instance.PlaySE_Sys(2);
+
                 //ユニット一覧画面の要素を再表示
                 unitInfoParent.SetActive(false);
                 unitButtonParent.SetActive(true);
@@ -337,11 +349,11 @@ public class Window_Status : MonoBehaviour
             isViewStatus = false;
             isViewStatusId = false;
 
-            //リザルトを表示
-            EventWindowManager.Instance.window_Event.Result(resultText1, resultText2, resultSprite);
-
             //ステータス画面を閉じる
             ViewUnits();
+
+            //リザルトを表示
+            EventWindowManager.Instance.window_Event.Result(resultText1, resultText2, resultSprite);
         }
     }
 
@@ -355,6 +367,8 @@ public class Window_Status : MonoBehaviour
         //ユニットのステータスを表示
         if (!isViewStatusId && !isViewStatus && id >= 0 && id < UnitsData.Instance.unit.Length && !isEvent)
         {
+            SoundManager.Instance.PlaySE_Sys(0);
+
             //ユニットの情報画面を表示
             unitInfoParent.SetActive(true);
 

@@ -2,6 +2,8 @@
 using UnityEngine;
 using UnityEngine.Audio;    //AudioMixerを使用するのに必要
 using SaveData_Settings;    //自前で作ったSaveData_Settingsの使用に必要
+using UnityEngine.UI;       //音量調節用のSliderを扱うのに必要
+using TMPro;
 
 public class SoundManager : Singleton<SoundManager>
 {
@@ -50,6 +52,12 @@ public class SoundManager : Singleton<SoundManager>
     //フェード用に音量を保持
     float bgmVol;
 
+    //プレイヤーの音量調節の操作用変数
+    public Slider bgmVolSlider;
+    public Slider seVolSlider;
+    [SerializeField] TextMeshProUGUI bgmVolText;
+    [SerializeField] TextMeshProUGUI seVolText;
+
 
     //シーン開始直後（Startメソッドより早く）に処理
     void Awake()
@@ -86,6 +94,29 @@ public class SoundManager : Singleton<SoundManager>
                 SE_GameSource[i].clip = se_GameClip[i];
                 SE_GameSource[i].outputAudioMixerGroup = SEGroup;
             }
+        }
+    }
+
+    void Start()
+    {
+        //保存された音量をロード
+        int vol1 = PlayerPrefs.GetInt("BGMVol");
+        int vol2 = PlayerPrefs.GetInt("SEVol");
+
+        mixer.SetFloat("BGVol", vol_BGM[vol1]);
+        mixer.SetFloat("SEVol", vol_SE[vol2]);
+
+        bgmVol = vol_BGM[vol1];
+
+        if (bgmVolSlider != null && seVolSlider != null &&
+            bgmVolText != null && seVolText != null)
+        {
+            //SliderとTextの値を設定
+            bgmVolSlider.value = vol1;
+            seVolSlider.value = vol2;
+
+            bgmVolText.text = (vol1 * 10).ToString() + "%";
+            seVolText.text = (vol2 * 10).ToString() + "%";
         }
     }
 
@@ -130,12 +161,29 @@ public class SoundManager : Singleton<SoundManager>
 
     //Silderによる音量の調整
     //（第1引数でBGM、第2引数でSEのボリューム）
-    public void VolumeChange(int vol1,int vol2)
+    public void VolumeChange(int vol1, int vol2)
     {
         mixer.SetFloat("BGVol", vol_BGM[vol1]);
         mixer.SetFloat("SEVol", vol_SE[vol2]);
 
         bgmVol = vol_BGM[vol1];
+    }
+
+    //SilderによるBGM音量の調整
+    public void BgmVolumeChange()
+    {
+        mixer.SetFloat("BGVol", vol_BGM[(int)bgmVolSlider.value]);
+        bgmVol = vol_BGM[(int)bgmVolSlider.value];
+
+        bgmVolText.text = ((int)bgmVolSlider.value * 10).ToString() + "%";
+    }
+
+    //SilderによるSE音量の調整
+    public void SeVolumeChange()
+    {
+        mixer.SetFloat("SEVol", vol_SE[(int)seVolSlider.value]);
+
+        seVolText.text = ((int)seVolSlider.value * 10).ToString() + "%";
     }
 
     //画面がフェードアウトする時

@@ -200,6 +200,8 @@ public class EventWindowManager : Singleton<EventWindowManager>
     {
         if (!isEvent) return;
 
+        SoundManager.Instance.PlaySE_Sys(1);
+
         //ステータスウィンドウを非表示に
         if (window_Status.gameObject.activeSelf)
         {
@@ -297,12 +299,16 @@ public class EventWindowManager : Singleton<EventWindowManager>
         //ポーズ開始
         if (!canvas[1].activeSelf)
         {
+            SoundManager.Instance.PlaySE_Sys(1);
+
             //ポーズ画面を表示
             canvas[1].SetActive(true);
         }
         //ポーズ終了
         else
         {
+            SoundManager.Instance.PlaySE_Sys(2);
+
             //ポーズ画面を非表示
             canvas[1].SetActive(false);
         }
