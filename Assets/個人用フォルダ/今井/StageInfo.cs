@@ -21,6 +21,8 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
     public bool StageEnd;
     public bool FloorEnd;
     public GameObject NextButton;
+    public GameObject IgnoreImage;
+    public GameObject targetUI;
     public bool i = false;
     public int indexint;
 
@@ -43,15 +45,21 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         if(FloorEnd == false)
         {
             int index = GetParentIndexOf(this.transform);//親から見て何番目の子か
-            Debug.Log(index);
 
             indexint = transform.GetSiblingIndex();
-            Debug.Log(indexint);
             
         }
         if (FloorEnd == true)
         {
             indexint = MapManager.Instance.worldLevel + 3;
+        }
+        if (MapManager.Instance.y > indexint)
+        {
+            IgnoreImage.SetActive(true);
+            if(StageEnd == true)
+            {
+                IgnoreImage.SetActive(false);
+            }
         }
     }
 
@@ -93,20 +101,43 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         MapManager.Instance.GoNextStage();
     }
 
+    //マウスが重なった
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (targetUI != null)
+            targetUI.SetActive(true);
+
         int index = GetParentIndexOf(this.transform);//今ステージがどこのルートにいるか
         if (MapManager.Instance.y == indexint)
         {
             if (MapManager.Instance.x == index || MapManager.Instance.x == index - 1 || MapManager.Instance.x == index + 1)
             {
-                if (NextButton != null) NextButton.SetActive(true);
+                if (NextButton != null)
+                {
+                    targetUI.SetActive(true);
+                    NextButton.SetActive(true);
+                }
             }
             if (FloorEnd == true)
             {
-                if (NextButton != null) NextButton.SetActive(true);
+                if (NextButton != null)
+                {
+                    targetUI.SetActive(true);
+                    NextButton.SetActive(true);
+                }
             }
         }
+
+        Transform ThisObject = this.transform;
+        if (ThisObject.childCount >= 4)
+        {
+            Transform player = this.transform.GetChild(2);
+            if (player != null)
+            {
+                targetUI.SetActive(false);
+            }
+        }
+
         Transform Player = MapManager.Instance.nextStage.parent;
         StageInfo stageinfo = Player.GetComponent<StageInfo>();
         if (stageinfo != null)
@@ -121,6 +152,9 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
     // マウスが離れた時
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (NextButton != null) NextButton.SetActive(false);
+        if (NextButton != null)
+            NextButton.SetActive(false);
+        if (targetUI != null)
+            targetUI.SetActive(false);
     }
 }
