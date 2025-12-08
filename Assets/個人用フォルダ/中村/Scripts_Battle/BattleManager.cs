@@ -27,6 +27,7 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] TextMeshProUGUI text_UnitNum;        //配置しているユニット数用テキスト
     [SerializeField] TextMeshProUGUI text_SameMaxUnitNum; //同じユニットの最大配置数用テキスト
     [SerializeField] TextMeshProUGUI text_Point;          //ポイント用テキスト
+    [SerializeField] Image           image_PointUp;       //ポイント上昇アニメーション用の画像
     public           TextMeshProUGUI text_EnemyNum;       //現在の敵の数用テキスト
     [SerializeField] TextMeshProUGUI text_GetExp;         //獲得した経験値を表示するテキスト
     [SerializeField] TextMeshProUGUI text_Nodamage;       //ノーダメージクリア時に表示するテキスト
@@ -37,6 +38,7 @@ public class BattleManager : Singleton<BattleManager>
     int maxInstallation;
     int sameUnitMaxInstallation;
     public int point;
+    float pointUpImageDefaultSizeY;
 
     [Space(10)]
 
@@ -202,6 +204,10 @@ public class BattleManager : Singleton<BattleManager>
                 canvas[i].SetActive(i <= 1);
             }
             canvasParent.SetActive(true);
+
+            //ポイント上昇アニメーション用の設定
+            image_PointUp.rectTransform.sizeDelta = new Vector2(image_PointUp.rectTransform.sizeDelta.x, 0);
+            pointUpImageDefaultSizeY = image_PointUp.transform.parent.GetComponent<RectTransform>().sizeDelta.y;
 
             //リトライ前に速度を上げていた場合は開始時から速度を上げる
             if (ParameterManager.Instance.isSpeedUp && !isSpeedUp)
@@ -377,6 +383,11 @@ public class BattleManager : Singleton<BattleManager>
         if (timer_PointUp < pointUpTime)
         {
             timer_PointUp += Time.fixedDeltaTime;
+
+            //ポイント上昇のアニメーション
+            image_PointUp.rectTransform.sizeDelta = new Vector2(image_PointUp.rectTransform.sizeDelta.x,
+                                                                pointUpImageDefaultSizeY * (timer_PointUp / pointUpTime));
+
         }
         else
         {
