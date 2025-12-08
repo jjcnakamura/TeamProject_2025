@@ -35,6 +35,7 @@ public class MapManager : Singleton<MapManager>
     public Transform PlayerStartPos;
     public GameObject NextFloorButtonImage;
     public GameObject GameEndImage;
+    public toggle[] toggles;
 
     void Awake()
     {
@@ -50,14 +51,6 @@ public class MapManager : Singleton<MapManager>
 
     void Update()
     {
-        Transform bossPis = nextStage.parent;
-        Transform boss = bossPis.GetChild(0);
-        StageInfo StageInfo = boss.GetComponent<StageInfo>();
-
-        if (floor >= worldLevel + 2 && StageInfo.StageEnd == true && StageInfo.FloorEnd == true)
-        {
-            GameEnd();
-        }
         MapText[0].text = floor.ToString();
 
         if (worldLevel == 0) max = 3;
@@ -75,11 +68,20 @@ public class MapManager : Singleton<MapManager>
             transforms[i] = MapRoute[i].transform;
         }
 
+        Transform bossPis = nextStage.parent;
+        Transform boss = bossPis.GetChild(0);
+        StageInfo StageInfo = boss.GetComponent<StageInfo>();
         if (StageInfo != null)
         {
             if (StageInfo.FloorEnd == true && StageInfo.StageEnd == true)
             {
                 NextFloorButtonImage.SetActive(true);
+                if(floor > worldLevel + 2)
+                {
+                    NextFloorButtonImage.SetActive(false);
+                    GameEnd();
+                    return;
+                }
             }
         }
 

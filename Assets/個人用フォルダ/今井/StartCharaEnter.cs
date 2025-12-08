@@ -50,9 +50,4 @@ public class StartCharaEnter : MonoBehaviour
             Debug.Log($"インデックス {i} の値は {activeIndexes[i]}");//設定したキャラをマップで表示するためのもの
         }
     }
-
-    void Update()
-    {
-        
-    }
 }
