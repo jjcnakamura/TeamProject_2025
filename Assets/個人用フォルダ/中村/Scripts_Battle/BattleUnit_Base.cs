@@ -34,6 +34,9 @@ public class BattleUnit_Base : MonoBehaviour
     public float range;
     public int targetNum;
 
+    //s“®‚É–Â‚ç‚·SE‚Ì”Ô†
+    [System.NonSerialized] public int[] se_Action;
+
     //Œü‚­•ûŒü‚ÉŠÖ‚·‚é•Ï”
     float rotateSpeed = 8f;
     Quaternion dir;

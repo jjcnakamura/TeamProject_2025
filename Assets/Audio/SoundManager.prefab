@@ -48,12 +48,42 @@ MonoBehaviour:
   MasterGroup: {fileID: 24300002, guid: 993dea2cf28d4744793739d5772704e1, type: 2}
   BGMGroup: {fileID: -3542938276952349665, guid: 993dea2cf28d4744793739d5772704e1, type: 2}
   SEGroup: {fileID: -934536182363291255, guid: 993dea2cf28d4744793739d5772704e1, type: 2}
-  bgmClip: []
+  bgmClip:
+  - {fileID: 8300000, guid: d5b3723a25e57e34ba58512bd764866f, type: 3}
+  - {fileID: 8300000, guid: af1ee5e6b35acc74e96099d47d631fd4, type: 3}
+  bgm_BattleClip:
+  - {fileID: 8300000, guid: 3bba5f8aeba80e44f9e54b174f27c9ef, type: 3}
+  - {fileID: 8300000, guid: be7595a8b3fdc4e4f8000967dabac3c9, type: 3}
+  - {fileID: 8300000, guid: ac5428ef6395c5a4ebe538035714872e, type: 3}
   se_SysClip:
   - {fileID: 8300000, guid: 33bcd94a303679d4889eb1ca9f66d5f2, type: 3}
   - {fileID: 8300000, guid: 222d4b76bca65964f9c22d98b1c15f1c, type: 3}
   - {fileID: 8300000, guid: 38220ef0cfc378249bc030161aa60aba, type: 3}
-  se_GameClip: []
+  - {fileID: 8300000, guid: c14e79af00a364b4abb7c0dd615c5078, type: 3}
+  - {fileID: 8300000, guid: f68c7666a2be9914ba15710a25df7a87, type: 3}
+  - {fileID: 8300000, guid: c5e3c5399b3a9484cb0c30c7008ccb95, type: 3}
+  se_GameClip:
+  - {fileID: 8300000, guid: 6b293a7b44daf864bba489ed63a8fb5e, type: 3}
+  - {fileID: 8300000, guid: 24a8e084932abf24ba347714e602ff2f, type: 3}
+  - {fileID: 8300000, guid: e28745f142dd6e648b32ec0d2bb0c53c, type: 3}
+  - {fileID: 8300000, guid: 39dcd60990c874e488406a3b29346e02, type: 3}
+  - {fileID: 8300000, guid: 18fb37028ccf44e4881dd81f2aad952f, type: 3}
+  - {fileID: 8300000, guid: bbdfc9147b9717a419da856e9401348b, type: 3}
+  - {fileID: 8300000, guid: 38220ef0cfc378249bc030161aa60aba, type: 3}
+  - {fileID: 8300000, guid: 04d3198f37e3c954e8377987ceecda9c, type: 3}
+  - {fileID: 8300000, guid: 830c83982ff19dc49b275a1481dc04e4, type: 3}
+  - {fileID: 8300000, guid: 0d51f2b6fe722d747958d8a5e5c333e4, type: 3}
+  - {fileID: 8300000, guid: 01bb55a77b9e33d47833410ea0a7ff12, type: 3}
+  - {fileID: 8300000, guid: 38399d0104aca9a4baa2abff54dfa960, type: 3}
+  - {fileID: 8300000, guid: 474ef96c646918f4e8f03d0298d785f1, type: 3}
+  - {fileID: 8300000, guid: 1403c838f201c4142a88328a647b330f, type: 3}
+  - {fileID: 8300000, guid: 0ee0074015e70a14eb150d1497b7e7f6, type: 3}
+  - {fileID: 8300000, guid: bbe147a138c83f849908daaa5ab56692, type: 3}
+  - {fileID: 8300000, guid: eb7548bd46dbb254498a006042d436b4, type: 3}
+  - {fileID: 8300000, guid: 2135112ec88c4f44dbc4f246e001db99, type: 3}
+  se_JingleClip:
+  - {fileID: 8300000, guid: 870f8767eff771e4fb4055058c55705b, type: 3}
+  - {fileID: 8300000, guid: 5405638be46b79f4a867e4793f2b8c2f, type: 3}
   bgmVolSlider: {fileID: 0}
   seVolSlider: {fileID: 0}
   bgmVolText: {fileID: 0}

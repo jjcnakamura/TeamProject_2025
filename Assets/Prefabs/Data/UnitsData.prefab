@@ -53,6 +53,8 @@ MonoBehaviour:
   - prefab: {fileID: 2482288343578748128, guid: d81ebf3a60f6cab499f289573ad871fc, type: 3}
     sprite: {fileID: 21300000, guid: 432a72fb400ecc54997cd895b7d38545, type: 3}
     name: "\u9060\u8DDD\u96E2\u30DE\u30F3"
+    se_Place: 1
+    se_Action: 08000000
     role: 0
     cost: 16
     upCost: 6
@@ -78,6 +80,8 @@ MonoBehaviour:
   - prefab: {fileID: 2482288343578748128, guid: f6b8133f166a16448ad2ca2cbe0fe03a, type: 3}
     sprite: {fileID: 21300000, guid: 4227b31fcb3b6bb46ac31c7e3a948130, type: 3}
     name: "\u8FD1\u8DDD\u96E2\u30DE\u30F3"
+    se_Place: 0
+    se_Action: 08000000
     role: 0
     cost: 12
     upCost: 6
@@ -103,6 +107,8 @@ MonoBehaviour:
   - prefab: {fileID: 2482288343578748128, guid: faae52c47b6a55743ba14440eaf04e93, type: 3}
     sprite: {fileID: 21300000, guid: 6b18d63b300baa847a3654529608df62, type: 3}
     name: "\u7BC4\u56F2\u30DE\u30F3"
+    se_Place: 4
+    se_Action: 0b000000
     role: 0
     cost: 20
     upCost: 6
@@ -128,6 +134,8 @@ MonoBehaviour:
   - prefab: {fileID: 2482288343578748128, guid: 70d81715b05b5da42b0e317ed007dd59, type: 3}
     sprite: {fileID: 21300000, guid: 4c0b52827cc34714bb103961340e99e1, type: 3}
     name: "\u653B\u6483\u58C1\u30DE\u30F3"
+    se_Place: 0
+    se_Action: 08000000
     role: 1
     cost: 18
     upCost: 9
@@ -153,6 +161,8 @@ MonoBehaviour:
   - prefab: {fileID: 2482288343578748128, guid: 39e91c49cc8d3664e9767bd2fa7b65ac, type: 3}
     sprite: {fileID: 21300000, guid: a2c64bd57e55ce94d863b7b3af54a3f9, type: 3}
     name: "\u9632\u5FA1\u58C1\u30DE\u30F3"
+    se_Place: 2
+    se_Action: 
     role: 1
     cost: 18
     upCost: 9
@@ -178,6 +188,8 @@ MonoBehaviour:
   - prefab: {fileID: 2482288343578748128, guid: 000bcb1b50997e64fb8823cc4a0cee65, type: 3}
     sprite: {fileID: 21300000, guid: 38a53593fe6643b4ba5ac91ab923d973, type: 3}
     name: "\u7206\u5F3E\u30DE\u30F3"
+    se_Place: 4
+    se_Action: 0c000000
     role: 1
     cost: 30
     upCost: 9
@@ -203,6 +215,8 @@ MonoBehaviour:
   - prefab: {fileID: 2482288343578748128, guid: 58504c204889fa044861ce5ae487a8bc, type: 3}
     sprite: {fileID: 21300000, guid: b59e1ca9fb2e9b446bf777f4a16c1ee9, type: 3}
     name: "\u30DD\u30A4\u30F3\u30C8\u30DE\u30F3"
+    se_Place: 4
+    se_Action: 0d000000
     role: 2
     cost: 6
     upCost: 3
@@ -228,6 +242,8 @@ MonoBehaviour:
   - prefab: {fileID: 2482288343578748128, guid: 5aa705f40d81c294a80d2e1bd7865ba2, type: 3}
     sprite: {fileID: 21300000, guid: dcc66ea9d6c300741b9ea341625f87d2, type: 3}
     name: "\u56DE\u5FA9\u30DE\u30F3"
+    se_Place: 4
+    se_Action: 0e0000000f000000
     role: 2
     cost: 14
     upCost: 6
@@ -253,6 +269,8 @@ MonoBehaviour:
   - prefab: {fileID: 2482288343578748128, guid: d57f223adc59a6b469fb66a9329b2ba7, type: 3}
     sprite: {fileID: 21300000, guid: 97128bf54532f234ab52fe2e304022ec, type: 3}
     name: "\u920D\u5316\u30DE\u30F3"
+    se_Place: 4
+    se_Action: 11000000
     role: 2
     cost: 14
     upCost: 6

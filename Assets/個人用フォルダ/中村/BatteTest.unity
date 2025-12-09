@@ -2158,6 +2158,14 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 963194227}
+    - target: {fileID: 1689364685817963253, guid: c596595266602b748830db3452564867, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 864603366}
+    - target: {fileID: 1689364685817963253, guid: c596595266602b748830db3452564867, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackMap
+      objectReference: {fileID: 0}
     - target: {fileID: 1934908972238226438, guid: c596595266602b748830db3452564867, type: 3}
       propertyPath: m_IsActive
       value: 1

@@ -102,6 +102,8 @@ public class UnitZone : MonoBehaviour
                 {
                     if (placed)
                     {
+                        SoundManager.Instance.PlaySE_Game(6);
+
                         BattleManager.Instance.OutUnit(index);
                         onMouse = false;
                         onMouseObj.SetActive(onMouse);

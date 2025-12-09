@@ -13,6 +13,9 @@ public class Bullet_SpeedDebuff : MonoBehaviour
     float range;
     float speed = 20f;
 
+    //効果音の番号
+    int seIndex;
+
     //エフェクト
     GameObject effect;
 
@@ -32,7 +35,7 @@ public class Bullet_SpeedDebuff : MonoBehaviour
     /// <summary>
     /// 弾が射出される時に呼び出す
     /// </summary>
-    public void Shot(float arg_Value, float arg_Time, float arg_Range, Vector3 arg_StartPos, Vector3 arg_TargetPos, GameObject arg_Effect = null)
+    public void Shot(float arg_Value, float arg_Time, float arg_Range, Vector3 arg_StartPos, Vector3 arg_TargetPos, int arg_SEIndex, GameObject arg_Effect = null)
     {
         mesh.enabled = true;
         col.enabled = false;
@@ -45,6 +48,9 @@ public class Bullet_SpeedDebuff : MonoBehaviour
         //発射位置と目標地点を読み込み
         transform.position = arg_StartPos;
         targetPos = arg_TargetPos;
+
+        //効果音の番号を読み込み
+        seIndex = arg_SEIndex;
 
         //エフェクトを読み込み
         if (arg_Effect != null) effect = arg_Effect;
@@ -66,6 +72,8 @@ public class Bullet_SpeedDebuff : MonoBehaviour
             {
                 mesh.enabled = false;
                 col.enabled = true;
+
+                if (seIndex >= 0) SoundManager.Instance.PlaySE_OneShot_Game(seIndex);
 
                 //エフェクトを生成
                 if (effect != null)

@@ -37,13 +37,16 @@ public class SoundManager : Singleton<SoundManager>
     [Space(10)]
     //各カテゴリごとにAudioClipを入れる変数を配列で用意
     public AudioClip[] bgmClip;
+    public AudioClip[] bgm_BattleClip;
     public AudioClip[] se_SysClip;
     public AudioClip[] se_GameClip;
+    public AudioClip[] se_JingleClip;
 
     //各音声用のAudioSourceを用意する
     [System.NonSerialized] public AudioSource BGMSource;
     [System.NonSerialized] public AudioSource SE_SysSource;
     [System.NonSerialized] public AudioSource[] SE_GameSource;
+    [System.NonSerialized] public AudioSource[] SE_JingleSource;
 
     //音量の段階（SliderのValueで設定）
     float[] vol_BGM = {-80f,-30f,-27,-24f,-21f,-18f,-15f,-12.5f,-10f,-7.5f,-5f };
@@ -55,8 +58,8 @@ public class SoundManager : Singleton<SoundManager>
     //プレイヤーの音量調節の操作用変数
     public Slider bgmVolSlider;
     public Slider seVolSlider;
-    [SerializeField] TextMeshProUGUI bgmVolText;
-    [SerializeField] TextMeshProUGUI seVolText;
+    public TextMeshProUGUI bgmVolText;
+    public TextMeshProUGUI seVolText;
 
 
     //シーン開始直後（Startメソッドより早く）に処理
@@ -95,6 +98,21 @@ public class SoundManager : Singleton<SoundManager>
                 SE_GameSource[i].outputAudioMixerGroup = SEGroup;
             }
         }
+
+        SE_JingleSource = new AudioSource[se_JingleClip.Length];
+
+        for (int i = 0; i < se_JingleClip.Length; i++)
+        {
+            if (se_JingleClip[i] != null)
+            {
+                SE_JingleSource[i] = gameObject.AddComponent<AudioSource>();
+                SE_JingleSource[i].loop = false;
+                SE_JingleSource[i].priority = 1;
+                SE_JingleSource[i].playOnAwake = false;
+                SE_JingleSource[i].clip = se_JingleClip[i];
+                SE_JingleSource[i].outputAudioMixerGroup = BGMGroup;
+            }
+        }
     }
 
     void Start()
@@ -127,6 +145,13 @@ public class SoundManager : Singleton<SoundManager>
         BGMSource.Play();
     }
 
+    //BattleBGMを外部から呼び出す時
+    public void PlayBGM_Battle(int i)
+    {
+        BGMSource.clip = bgm_BattleClip[i];
+        BGMSource.Play();
+    }
+
     //BGMを外部から中断時
     public void PauseBGM()
     {
@@ -154,9 +179,25 @@ public class SoundManager : Singleton<SoundManager>
     }
 
     //GameSEを外部から呼び出す時
-    public void PlaySE_Game(int i)
+    public void PlaySE_Game(int i, bool overlap = true)
     {
+        //overlapがfalseの場合はすでに再生中のSEは再生しない
+        if (overlap || !SE_GameSource[i].isPlaying)
         SE_GameSource[i].Play();
+    }
+
+    //GameSEを外部から重複ありで呼び出す時
+    public void PlaySE_OneShot_Game(int i, bool overlap = true)
+    {
+        //overlapがfalseの場合はすでに再生中のSEは再生しない
+        if (overlap || !SE_GameSource[i].isPlaying)
+        SE_GameSource[i].PlayOneShot(SE_GameSource[i].clip);
+    }
+
+    //JingleSEを外部から呼び出す時
+    public void PlaySE_Jingle(int i)
+    {
+        SE_JingleSource[i].Play();
     }
 
     //Silderによる音量の調整

@@ -135,6 +135,9 @@ public class Enemy_TargetAttack : Enemy_Base
         {
             if (!isInterval)
             {
+                int seIndex = (se_Action != null && se_Action.Length > 0) ? se_Action[0] : 8;
+                SoundManager.Instance.PlaySE_OneShot_Game(seIndex);
+
                 //攻撃
                 bool dead = targetUnit.Damage(value);
                 //エフェクトを攻撃ユニットの位置に生成

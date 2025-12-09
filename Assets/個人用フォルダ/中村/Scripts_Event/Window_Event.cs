@@ -73,7 +73,7 @@ public class Window_Event : MonoBehaviour
         if (content.choice.Length > 1 && !EventWindowManager.Instance.EventActiveCheck(id))
         {
             //イベントが無効な場合のリザルト
-            EventWindowManager.Instance.window_Event.Result("イベントに有効な選択肢がありません", "");
+            EventWindowManager.Instance.window_Event.Result(-1, "イベントに有効な選択肢がありません", "");
             return;
         }
 
@@ -186,7 +186,7 @@ public class Window_Event : MonoBehaviour
                 ParameterManager.Instance.maxUnitPossession + (int)content.choice[choice].value, UnitsData.Instance.maxUnitPossession);
                 resultText1 = "ユニットの所持数が増加！";
                 resultText2 = "最大所持数：" + prePossession + "体 → " + ParameterManager.Instance.maxUnitPossession + "体";
-                Result(resultText1, resultText2);
+                Result(3, resultText1, resultText2);
                 break;
 
             case EventsData.ContentType.同ユニット配置数増加:
@@ -195,7 +195,7 @@ public class Window_Event : MonoBehaviour
                 ParameterManager.Instance.sameUnitMaxInstallation + (int)content.choice[choice].value, 100); //最大１００まで
                 resultText1 = "ユニットの配置数が増加！";
                 resultText2 = "同ユニット配置数：" + preInstallation + "体 → " + ParameterManager.Instance.sameUnitMaxInstallation + "体";
-                Result(resultText1, resultText2);
+                Result(3, resultText1, resultText2);
                 break;
 
             case EventsData.ContentType.HP回復:
@@ -204,7 +204,7 @@ public class Window_Event : MonoBehaviour
                 ParameterManager.Instance.hp + (int)content.choice[choice].value, ParameterManager.Instance.maxHp);
                 resultText1 = "HPが回復した！";
                 resultText2 = "HP：" + preHp + " → " + ParameterManager.Instance.hp;
-                Result(resultText1, resultText2);
+                Result(5, resultText1, resultText2);
                 break;
         }
     }
@@ -212,9 +212,9 @@ public class Window_Event : MonoBehaviour
     /// <summary>
     /// イベントの結果を表示
     /// </summary>
-    public void Result(string text1, string text2, Sprite sprite = null)
+    public void Result(int seIndex, string text1, string text2, Sprite sprite = null)
     {
-        SoundManager.Instance.PlaySE_Sys(1);
+        if (seIndex >= 0) SoundManager.Instance.PlaySE_Sys(seIndex);
 
         choiceButtonParent.SetActive(false);
         resultParent.SetActive(true);

@@ -125,11 +125,11 @@ public class Window_Status : MonoBehaviour
             switch (arg_Content.type)
             {
                 case EventsData.ContentType.コスト削減:
-                    EventWindowManager.Instance.window_Event.Result("ユニットを持っていない！", "");
+                    EventWindowManager.Instance.window_Event.Result(1, "ユニットを持っていない！", "");
                     break;
 
                 case EventsData.ContentType.再配置短縮:
-                    EventWindowManager.Instance.window_Event.Result("ユニットを持っていない！", "");
+                    EventWindowManager.Instance.window_Event.Result(1, "ユニットを持っていない！", "");
                     break;
             }
 
@@ -353,7 +353,7 @@ public class Window_Status : MonoBehaviour
             ViewUnits();
 
             //リザルトを表示
-            EventWindowManager.Instance.window_Event.Result(resultText1, resultText2, resultSprite);
+            EventWindowManager.Instance.window_Event.Result(3, resultText1, resultText2, resultSprite);
         }
     }
 

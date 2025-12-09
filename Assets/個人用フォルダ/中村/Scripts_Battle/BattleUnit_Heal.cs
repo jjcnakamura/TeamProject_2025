@@ -166,9 +166,13 @@ public class BattleUnit_Heal : BattleUnit_Base
         //回復弾を出す
         if (healTarget.Count > 0 && healTarget[index] != null && healBullet != null)
         {
+            if (se_Action != null && se_Action.Length > 1) SoundManager.Instance.PlaySE_OneShot_Game(se_Action[0]);
+
+            int seIndex = (se_Action != null && se_Action.Length > 1) ? se_Action[1] : -1;
+            seIndex = (seIndex < 0 && se_Action != null && se_Action.Length > 0) ? se_Action[0] : seIndex;
             Bullet_Heal bullet = Instantiate(healBullet);
             bullet.transform.localScale = healBullet.transform.localScale;
-            bullet.Shot(defaultValue, transform.position, healTarget[index].footPos.transform.position, healTarget[index], effect);
+            bullet.Shot(defaultValue, transform.position, healTarget[index].footPos.transform.position, healTarget[index], seIndex, effect);
         }
     }
     //回復のインターバル

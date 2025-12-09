@@ -9,6 +9,9 @@ public class Bullet_Heal : MonoBehaviour
     [SerializeField] float moveTime = 0.75f; //到達までの時間
     [SerializeField] float arcHeight = 4f;   //放物線の高さ
 
+    //効果音の番号
+    int seIndex;
+
     //エフェクト
     GameObject effect;
 
@@ -28,7 +31,7 @@ public class Bullet_Heal : MonoBehaviour
     /// <summary>
     /// 弾が射出される時に呼び出す
     /// </summary>
-    public void Shot(int arg_Value, Vector3 arg_StartPos, Vector3 arg_TargetPos, BattleUnit_Base arg_TargetUnit, GameObject arg_Effect = null)
+    public void Shot(int arg_Value, Vector3 arg_StartPos, Vector3 arg_TargetPos, BattleUnit_Base arg_TargetUnit, int arg_SEIndex, GameObject arg_Effect = null)
     {
         //パラメーターを読み込み
         value = arg_Value;
@@ -40,6 +43,9 @@ public class Bullet_Heal : MonoBehaviour
 
         //回復の対象を読み込み
         targetUnit = arg_TargetUnit;
+
+        //効果音の番号を読み込み
+        seIndex = arg_SEIndex;
 
         //エフェクトを読み込み
         if (arg_Effect != null) effect = arg_Effect;
@@ -67,6 +73,8 @@ public class Bullet_Heal : MonoBehaviour
             //目標地点に到達(着弾)した場合は対象のユニットを回復
             if (time >= 1f)
             {
+                if (seIndex >= 0) SoundManager.Instance.PlaySE_OneShot_Game(seIndex);
+
                 //ユニットを回復
                 if (targetUnit != null) targetUnit.Heal(value);
 

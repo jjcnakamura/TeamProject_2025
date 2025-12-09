@@ -104,6 +104,8 @@ public class PullUnit : MonoBehaviour
         }
         else if (!isNoPull && !isRecast && noClickWindow.activeSelf)
         {
+            SoundManager.Instance.PlaySE_Game(5);
+
             rect.localPosition = defaultPos;
             noClickWindow.SetActive(false);
         }

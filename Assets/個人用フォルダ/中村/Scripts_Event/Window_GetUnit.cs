@@ -29,7 +29,7 @@ public class Window_GetUnit : MonoBehaviour
                 ParameterManager.Instance.unitStatus.Length >= ParameterManager.Instance.maxUnitPossession)
             {
                 //ユニットを入手できなかった場合のリザルト
-                EventWindowManager.Instance.window_Event.Result("これ以上ユニットを増やせない！", "");
+                EventWindowManager.Instance.window_Event.Result(1, "これ以上ユニットを増やせない！", "");
                 gameObject.SetActive(false);
                 return;
             }
@@ -82,12 +82,12 @@ public class Window_GetUnit : MonoBehaviour
         //リザルトを表示
         if (getUnit)
         {
-            EventWindowManager.Instance.window_Event.Result(UnitsData.Instance.unit[id].name + "が仲間になった！", "", UnitsData.Instance.unit[id].sprite);
+            EventWindowManager.Instance.window_Event.Result(4, UnitsData.Instance.unit[id].name + "が仲間になった！", "", UnitsData.Instance.unit[id].sprite);
         }
         //ユニットを入手できなかった場合のリザルト
         else
         {
-            EventWindowManager.Instance.window_Event.Result("これ以上ユニットを増やせない！", "");
+            EventWindowManager.Instance.window_Event.Result(1, "これ以上ユニットを増やせない！", "");
         } 
     }
 
@@ -114,7 +114,7 @@ public class Window_GetUnit : MonoBehaviour
                 if (i <= 0)
                 {
                     ViewUnits();
-                    EventWindowManager.Instance.window_Event.Result("これ以上ユニットを増やせない！", "");
+                    EventWindowManager.Instance.window_Event.Result(1, "これ以上ユニットを増やせない！", "");
                 }
 
                 return;

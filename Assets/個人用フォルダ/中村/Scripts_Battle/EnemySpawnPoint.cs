@@ -97,7 +97,10 @@ public class EnemySpawnPoint : MonoBehaviour
 
         enemy.routeIndex = enemyStatus[index].routeIndex;
 
+        enemy.se_Action = enemyStatus[index].se_Action;
+
         //敵のルートを指定した秒数表示
+        SoundManager.Instance.PlaySE_Game(7, false);
         GenerateRouteLine(index);
         float mod = BattleManager.Instance.enemyRouteActiveTime % 1f;
         for (int i = 0; i < BattleManager.Instance.enemyRouteActiveTime; i++)
@@ -208,11 +211,12 @@ public class EnemySpawnPoint : MonoBehaviour
     [System.Serializable]
     public struct Status
     {
-        [SerializeField, Label("敵のID")] public int id;
-        [SerializeField, Label("どのルートを通るか")] public int routeIndex;
-        [SerializeField, Label("出現までの時間")] public float spawnTime;
-        [SerializeField, Label("出現する間隔")] public float spawnInterval;
-        [SerializeField, Label("出現数")] public int spawnNum;
+        [Label("敵のID")] public int id;
+        [Label("どのルートを通るか")] public int routeIndex;
+        [Label("出現までの時間")] public float spawnTime;
+        [Label("出現する間隔")] public float spawnInterval;
+        [Label("出現数")] public int spawnNum;
+        [Header("SEの番号")] public int[] se_Action;
 
         [Space(10)]
 

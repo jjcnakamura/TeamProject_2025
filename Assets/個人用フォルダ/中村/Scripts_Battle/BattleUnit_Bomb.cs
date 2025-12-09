@@ -54,6 +54,8 @@ public class BattleUnit_Bomb : BattleUnit_Base
         //Ž€–S‚µ‚½uŠÔ‚É”š”­‚·‚é
         if (!isExplosion && isDead && !isEnd)
         {
+            if (se_Action != null && se_Action.Length > 0) SoundManager.Instance.PlaySE_OneShot_Game(se_Action[0]);
+
             model.SetActive(false);
             buffObj.SetActive(false);
             debuffObj.SetActive(false);

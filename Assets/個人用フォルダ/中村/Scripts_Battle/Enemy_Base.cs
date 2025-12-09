@@ -34,6 +34,9 @@ public class Enemy_Base : MonoBehaviour
     public float moveSpeed;
     public float knockBackTime;
 
+    //s“®‚É–Â‚ç‚·SE‚Ì”Ô†
+    [System.NonSerialized] public int[] se_Action;
+
     [Space(10)]
 
     //Ÿ‚Éi‚ŞêŠ‚ÉŠÖ‚·‚é•Ï”

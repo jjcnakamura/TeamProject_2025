@@ -112,43 +112,36 @@ public class EventTest : MonoBehaviour
         //イベント呼び出し
         if (Input.GetKeyDown(KeyCode.Z) && EventsData.Instance.eventData.Length > 0)
         {
-            SoundManager.Instance.PlaySE_Sys(0);
             EventWindowManager.Instance.EndEvent();
             EventWindowManager.Instance.CallEventAt(0);
         }
         if (Input.GetKeyDown(KeyCode.X) && EventsData.Instance.eventData.Length > 1)
         {
-            SoundManager.Instance.PlaySE_Sys(0);
             EventWindowManager.Instance.EndEvent();
             EventWindowManager.Instance.CallEventAt(1);
         }
         if (Input.GetKeyDown(KeyCode.C) && EventsData.Instance.eventData.Length > 2)
         {
-            SoundManager.Instance.PlaySE_Sys(0);
             EventWindowManager.Instance.EndEvent();
             EventWindowManager.Instance.CallEventAt(2);
         }
         if (Input.GetKeyDown(KeyCode.V) && EventsData.Instance.eventData.Length > 3)
         {
-            SoundManager.Instance.PlaySE_Sys(0);
             EventWindowManager.Instance.EndEvent();
             EventWindowManager.Instance.CallEventAt(3);
         }
         if (Input.GetKeyDown(KeyCode.B) && EventsData.Instance.eventData.Length > 4)
         {
-            SoundManager.Instance.PlaySE_Sys(0);
             EventWindowManager.Instance.EndEvent();
             EventWindowManager.Instance.CallEventAt(4);
         }
         if (Input.GetKeyDown(KeyCode.N) && EventsData.Instance.eventData.Length > 5)
         {
-            SoundManager.Instance.PlaySE_Sys(0);
             EventWindowManager.Instance.EndEvent();
             EventWindowManager.Instance.CallEventAt(5);
         }
         if (Input.GetKeyDown(KeyCode.M) && EventsData.Instance.eventData.Length > 6)
         {
-            SoundManager.Instance.PlaySE_Sys(0);
             EventWindowManager.Instance.EndEvent();
             EventWindowManager.Instance.CallEventAt(6);
         }
@@ -156,15 +149,13 @@ public class EventTest : MonoBehaviour
         //イベント終了
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            SoundManager.Instance.PlaySE_Sys(0);
             EventWindowManager.Instance.EndEvent();
         }
 
         //リザルトを表示
         if (Input.GetKeyDown(KeyCode.W))
         {
-            SoundManager.Instance.PlaySE_Sys(0);
-            EventWindowManager.Instance.window_Event.Result("", "");
+            EventWindowManager.Instance.window_Event.Result(1, "", "");
         }
 
         //イベントが有効か判定

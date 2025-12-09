@@ -15,6 +15,10 @@ public class BattleManager : Singleton<BattleManager>
 
     [Space(10)]
 
+    [SerializeField, Label("BGMの番号")] int bgmIndex;
+
+    [Space(10)]
+
     //各Canvas
     [SerializeField] GameObject canvasParent;
     GameObject[] canvas;
@@ -167,6 +171,9 @@ public class BattleManager : Singleton<BattleManager>
         //戦闘シーン開始時のみ実行する
         if (!isMainGame && !isClear && !isGameOver)
         {
+            //BGMを再生
+            SoundManager.Instance.PlayBGM_Battle(bgmIndex);
+
             //ユニットドラッグ中のFixedTimeStepを計算
             dragFixedTime = Time.fixedDeltaTime / (1f / dragTimeScale);
 
@@ -302,6 +309,9 @@ public class BattleManager : Singleton<BattleManager>
     {
         int unitIndex = dragUnitIndex;
 
+        //ユニットごとに指定されたSEをならす
+        SoundManager.Instance.PlaySE_Game(ParameterManager.Instance.unitStatus[unitIndex].se_Place);
+
         dragUnit.transform.position = unitZone[zoneIndex].unitPoint;
         dragUnit.transform.localScale = battleUnitPrefab[unitIndex].transform.localScale;
 
@@ -318,6 +328,7 @@ public class BattleManager : Singleton<BattleManager>
         battleUnitStatus[zoneIndex].distance = ParameterManager.Instance.unitStatus[unitIndex].distance;
         battleUnitStatus[zoneIndex].range = ParameterManager.Instance.unitStatus[unitIndex].range;
         battleUnitStatus[zoneIndex].targetNum = ParameterManager.Instance.unitStatus[unitIndex].targetNum;
+        battleUnitStatus[zoneIndex].se_Action = ParameterManager.Instance.unitStatus[unitIndex].se_Action;
 
         //HPバーを生成
         Hpbar battleUnitHpbar = Instantiate(hpbarPrefab).GetComponent<Hpbar>();
@@ -387,7 +398,6 @@ public class BattleManager : Singleton<BattleManager>
             //ポイント上昇のアニメーション
             image_PointUp.rectTransform.sizeDelta = new Vector2(image_PointUp.rectTransform.sizeDelta.x,
                                                                 pointUpImageDefaultSizeY * (timer_PointUp / pointUpTime));
-
         }
         else
         {
@@ -406,6 +416,10 @@ public class BattleManager : Singleton<BattleManager>
     //ステージクリア
     void Clear()
     {
+        //クリアジングルを再生
+        SoundManager.Instance.StopBGM();
+        SoundManager.Instance.PlaySE_Jingle(0);
+
         //ユニットをドラッグしていたら離す
         LetgoUnit();
 
@@ -430,6 +444,10 @@ public class BattleManager : Singleton<BattleManager>
     //ゲームオーバー
     void GameOver()
     {
+        //ゲームオーバージングルを再生
+        SoundManager.Instance.StopBGM();
+        SoundManager.Instance.PlaySE_Jingle(1);
+
         //ユニットをドラッグしていたら離す
         LetgoUnit();
 
@@ -501,6 +519,8 @@ public class BattleManager : Singleton<BattleManager>
         //時間加速開始
         if (!isSpeedUp)
         {
+            SoundManager.Instance.PlaySE_Sys(0);
+
             //時間を速くする
             Time.timeScale = speedUpTimeScale;
 
@@ -512,6 +532,8 @@ public class BattleManager : Singleton<BattleManager>
         //時間加速終了
         else
         {
+            SoundManager.Instance.PlaySE_Sys(0);
+
             //時間の速さを等速に
             Time.timeScale = 1f;
 
@@ -530,6 +552,8 @@ public class BattleManager : Singleton<BattleManager>
         //ポーズ開始
         if (!isPause)
         {
+            SoundManager.Instance.PlaySE_Sys(1);
+
             isPause = true;
             isMainGame = false;
 
@@ -544,6 +568,8 @@ public class BattleManager : Singleton<BattleManager>
         //ポーズ終了
         else
         {
+            SoundManager.Instance.PlaySE_Sys(2);
+
             //時間の速さを戻す
             Time.timeScale = preTimeScale;
             Time.fixedDeltaTime = preFixedTime;
@@ -563,6 +589,8 @@ public class BattleManager : Singleton<BattleManager>
     /// </summary>
     public void Retry()
     {
+        SoundManager.Instance.PlaySE_Sys(1);
+
         FadeManager.Instance.LoadSceneIndex(SceneManager.GetActiveScene().buildIndex, 0.5f);
     }
 
@@ -571,6 +599,8 @@ public class BattleManager : Singleton<BattleManager>
     /// </summary>
     public void BackMap()
     {
+        SoundManager.Instance.PlaySE_Sys(1);
+
         //プレイヤーのパラメーターの変更を反映
         ParameterManager.Instance.hp = playerHp;
         ParameterManager.Instance.isBattleClear = true;

@@ -27,6 +27,8 @@ public class BattleUnit_PointUp : BattleUnit_Base
         }
         else
         {
+            if (se_Action != null && se_Action.Length > 0) SoundManager.Instance.PlaySE_OneShot_Game(se_Action[0]);
+
             //ポイントを上昇
             BattleManager.Instance.PointChange(defaultValue);
             //エフェクトを自身の位置に生成
