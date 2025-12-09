@@ -51,6 +51,7 @@ MonoBehaviour:
   maxUnitPossession: 5
   unit:
   - prefab: {fileID: 2482288343578748128, guid: d81ebf3a60f6cab499f289573ad871fc, type: 3}
+    model: {fileID: 8984289688253603665, guid: 2d161d031b72aa044b146744043df725, type: 3}
     sprite: {fileID: 21300000, guid: 432a72fb400ecc54997cd895b7d38545, type: 3}
     name: "\u9060\u8DDD\u96E2\u30DE\u30F3"
     se_Place: 1
@@ -78,6 +79,7 @@ MonoBehaviour:
       range: 0
       targetNum: 0
   - prefab: {fileID: 2482288343578748128, guid: f6b8133f166a16448ad2ca2cbe0fe03a, type: 3}
+    model: {fileID: 8820563457790084036, guid: 303f47c401319d94f8a2b189a40524c1, type: 3}
     sprite: {fileID: 21300000, guid: 4227b31fcb3b6bb46ac31c7e3a948130, type: 3}
     name: "\u8FD1\u8DDD\u96E2\u30DE\u30F3"
     se_Place: 0
@@ -105,6 +107,7 @@ MonoBehaviour:
       range: 0
       targetNum: 0
   - prefab: {fileID: 2482288343578748128, guid: faae52c47b6a55743ba14440eaf04e93, type: 3}
+    model: {fileID: 8580856311827459134, guid: 19a66ac013412b64cb84b552b279b930, type: 3}
     sprite: {fileID: 21300000, guid: 6b18d63b300baa847a3654529608df62, type: 3}
     name: "\u7BC4\u56F2\u30DE\u30F3"
     se_Place: 4
@@ -132,6 +135,7 @@ MonoBehaviour:
       range: 1
       targetNum: 0
   - prefab: {fileID: 2482288343578748128, guid: 70d81715b05b5da42b0e317ed007dd59, type: 3}
+    model: {fileID: 6181945216727758136, guid: 55869d59e365b01429981276d18e634b, type: 3}
     sprite: {fileID: 21300000, guid: 4c0b52827cc34714bb103961340e99e1, type: 3}
     name: "\u653B\u6483\u58C1\u30DE\u30F3"
     se_Place: 0
@@ -159,6 +163,7 @@ MonoBehaviour:
       range: 0
       targetNum: 0
   - prefab: {fileID: 2482288343578748128, guid: 39e91c49cc8d3664e9767bd2fa7b65ac, type: 3}
+    model: {fileID: 1242599385413922049, guid: 63d15bf73cb68014f9ca3f16484ab988, type: 3}
     sprite: {fileID: 21300000, guid: a2c64bd57e55ce94d863b7b3af54a3f9, type: 3}
     name: "\u9632\u5FA1\u58C1\u30DE\u30F3"
     se_Place: 2
@@ -186,6 +191,7 @@ MonoBehaviour:
       range: 0
       targetNum: 0
   - prefab: {fileID: 2482288343578748128, guid: 000bcb1b50997e64fb8823cc4a0cee65, type: 3}
+    model: {fileID: 5528175196142773990, guid: d27efe77a81e5504bae25e17e6eb6982, type: 3}
     sprite: {fileID: 21300000, guid: 38a53593fe6643b4ba5ac91ab923d973, type: 3}
     name: "\u7206\u5F3E\u30DE\u30F3"
     se_Place: 4
@@ -213,6 +219,7 @@ MonoBehaviour:
       range: 0
       targetNum: 0
   - prefab: {fileID: 2482288343578748128, guid: 58504c204889fa044861ce5ae487a8bc, type: 3}
+    model: {fileID: 7554814996536151786, guid: 87c1fde319c6a8647b7140e74d32444b, type: 3}
     sprite: {fileID: 21300000, guid: b59e1ca9fb2e9b446bf777f4a16c1ee9, type: 3}
     name: "\u30DD\u30A4\u30F3\u30C8\u30DE\u30F3"
     se_Place: 4
@@ -240,6 +247,7 @@ MonoBehaviour:
       range: 0
       targetNum: 0
   - prefab: {fileID: 2482288343578748128, guid: 5aa705f40d81c294a80d2e1bd7865ba2, type: 3}
+    model: {fileID: 826149261586219583, guid: 44d983c5152ed474b9c58f4c44b33693, type: 3}
     sprite: {fileID: 21300000, guid: dcc66ea9d6c300741b9ea341625f87d2, type: 3}
     name: "\u56DE\u5FA9\u30DE\u30F3"
     se_Place: 4
@@ -267,6 +275,7 @@ MonoBehaviour:
       range: 0
       targetNum: 1
   - prefab: {fileID: 2482288343578748128, guid: d57f223adc59a6b469fb66a9329b2ba7, type: 3}
+    model: {fileID: 1503631313258145187, guid: ae0711f5783b3e34a8eaa138db0cad4d, type: 3}
     sprite: {fileID: 21300000, guid: 97128bf54532f234ab52fe2e304022ec, type: 3}
     name: "\u920D\u5316\u30DE\u30F3"
     se_Place: 4

@@ -46,6 +46,7 @@ public class UnitsData : Singleton<UnitsData>
     public struct Status
     {
         public GameObject prefab;          //キャラのPrefab
+        public GameObject model;           //キャラのモデル
         public Sprite sprite;              //キャラの画像
         public string name;                //キャラ名
         public int se_Place;               //設置時のSE

@@ -256,6 +256,17 @@ public class BattleManager : Singleton<BattleManager>
         dragUnitIndex = unitIndex;
         dragUnit = Instantiate(battleUnitPrefab[unitIndex]).GetComponent<BattleUnit_Base>();
 
+        //モデルを差し替え
+        if (UnitsData.Instance.unit[ParameterManager.Instance.unitStatus[unitIndex].id].model != null)
+        {
+            foreach (Transform n in dragUnit.model.transform) Destroy(n.gameObject);
+            GameObject model = Instantiate(UnitsData.Instance.unit[ParameterManager.Instance.unitStatus[unitIndex].id].model);
+            model.transform.SetParent(dragUnit.model.transform);
+            model.transform.localPosition = new Vector3();
+            model.transform.localRotation = new Quaternion();
+            model.transform.localScale = UnitsData.Instance.unit[ParameterManager.Instance.unitStatus[unitIndex].id].model.transform.localScale;
+        }
+
         /*
         //カメラからの距離によってサイズを調整する
         float lerp = (Camera.main.transform.position.y < defaltCameraPosY) ?
