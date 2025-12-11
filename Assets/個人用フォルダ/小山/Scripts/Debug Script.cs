@@ -117,5 +117,12 @@ public class DebugScript : Singleton<DebugScript>
             if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
                 BattleManager.Instance.PointChange(999);
         }
+
+        //ステージクリア
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (FindObjectOfType(System.Type.GetType("BattleManager")) != null)
+                BattleManager.Instance.Clear();
+        }
     }
 }
