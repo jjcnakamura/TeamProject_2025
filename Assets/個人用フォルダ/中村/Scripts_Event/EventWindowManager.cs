@@ -178,6 +178,49 @@ public class EventWindowManager : Singleton<EventWindowManager>
     }
 
     /// <summary>
+    /// 戦闘のIDを抽選してint型の配列で返す　第一引数で戦闘イベントの数　第二引数で戦闘のプール番号を指定
+    /// </summary>
+    public int[] BattleRandomChoice(int num, int poolIndex)
+    {
+        int[] result = new int[num];
+
+        //プール番号に対応した戦闘IDをリストに格納
+        List<int> pool = new List<int>(EventsData.Instance.battlIdPool[poolIndex].id);
+
+        return result;
+    }
+
+    /// <summary>
+    /// イベントのIDを抽選してint型の配列で返す　引数でイベント数を指定
+    /// </summary>
+    public int[] EventRandomChoice(int num)
+    {
+        int[] result = new int[num];
+        List<int> pool = new List<int>();
+
+        //有効なイベントのIDをリストに格納
+        for (int i = 0; i < EventsData.Instance.eventData.Length; i++)
+        {
+            if (EventActiveCheck(i)) pool.Add(i);
+        }
+
+        List<int> tmpPool = pool;
+
+        //IDを抽選して配列に格納
+        for (int i = 0; i < result.Length; i++)
+        {
+            int randomId = tmpPool[UnityEngine.Random.Range(0, tmpPool.Count)];
+            result[i] = randomId;
+            tmpPool.RemoveAt(randomId);
+
+            //リストが空になったら再度IDをリストに格納
+            if (tmpPool.Count <= 0) tmpPool = pool;
+        }
+
+        return result;
+    }
+
+    /// <summary>
     /// イベントを呼び出す　引数でIDを指定
     /// </summary>
     public void CallEventAt(int id)

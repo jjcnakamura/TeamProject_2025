@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 
 /// <summary>
@@ -8,6 +9,10 @@ using System;
 /// </summary>
 public class EventsData : Singleton<EventsData>
 {
+    public BattlIdPool[] battlIdPool;
+
+    [Space(10)]
+
     public Content[] eventData;
     public enum Catergory
     {
@@ -44,6 +49,17 @@ public class EventsData : Singleton<EventsData>
     //初期化処理
     void Init()
     {
+        //戦闘IDのプール
+        for (int i = 0; i < battlIdPool.Length; i++)
+        {
+            //戦闘IDをタイトル、マップのシーン番号を飛ばしたものにする
+            for (int j = 0; j < battlIdPool[i].id.Length; j++)
+            {
+                battlIdPool[i].id[j] = Mathf.Max(Mathf.Min(battlIdPool[i].id[j] + 2, SceneManager.sceneCount + 2), 0);
+            }
+        }
+
+        //選択肢関連
         for (int i = 0; i < eventData.Length; i++)
         {
             //選択肢用の配列の要素数を３までに制限
@@ -59,6 +75,13 @@ public class EventsData : Singleton<EventsData>
                 }
             }
         }
+    }
+
+    //戦闘シーンIDのプールの構造体
+    [System.Serializable]
+    public struct BattlIdPool
+    {
+        public int[] id;
     }
 
     //イベントの構造体

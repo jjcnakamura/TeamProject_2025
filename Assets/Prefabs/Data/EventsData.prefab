@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e620fd710edf1624c84c5ea857f69b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battlIdPool:
+  - id: 0000000001000000
   eventData:
   - name: "\u30E6\u30CB\u30C3\u30C8\u5165\u624B"
     catergory: 1
