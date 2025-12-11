@@ -67,6 +67,9 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
             Quaternion lookDir = new Quaternion(transform.rotation.x, targetDir.y, transform.rotation.z, targetDir.w);
             DirectionChange(lookDir);
 
+            //UŒ‚‚µ‚È‚¢ê‡‚Í–ß‚é
+            if (noAction) return;
+
             if (!isInterval)
             {
                 if (se_Action != null && se_Action.Length > 0) SoundManager.Instance.PlaySE_OneShot_Game(se_Action[0]);

@@ -74,7 +74,8 @@ public class UnitZone : MonoBehaviour
                             onMouseObj.SetActive(onMouse);
 
                             //ユニットの攻撃範囲の表示を開始
-                            if (BattleManager.Instance.battleUnitStatus[index] != null && 
+                            if (BattleManager.Instance.battleUnitStatus[index] != null &&
+                                BattleManager.Instance.battleUnitStatus[index].noAction == false &&
                                 BattleManager.Instance.battleUnitStatus[index].mesh_AttackZone != null && 
                                 BattleManager.Instance.battleUnitStatus[index].distance > 0)
                             {

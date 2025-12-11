@@ -35,9 +35,16 @@ public class UnitCollider_AttackZone : MonoBehaviour
         if (unit_Bomb != null)
         {
             //“G‚ªUŒ‚‚ÌË’ö“à‚É“ü‚Á‚½ê‡
-            if (other.transform.tag == "Enemy" && unit_Bomb.isExplosion)
+            if (other.transform.tag == "Enemy")
             {
-                unit_Bomb.Hit(other);
+                if (!unit_Bomb.isExplosion)
+                {
+                    unit_Bomb.Target(other);
+                }
+                else
+                {
+                    unit_Bomb.Hit(other);
+                }     
             }
         }
 

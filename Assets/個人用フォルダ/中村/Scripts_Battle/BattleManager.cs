@@ -289,7 +289,7 @@ public class BattleManager : Singleton<BattleManager>
                                                                        dragUnit.col_AttackZone.transform.localScale.y,
                                                                        ParameterManager.Instance.unitStatus[unitIndex].distance);
             dragUnit.col_AttackZone.enabled = false;
-            dragUnit.mesh_AttackZone.enabled = true;
+            if (!dragUnit.noAction) dragUnit.mesh_AttackZone.enabled = true;
         }
 
         //どこに配置出来るか
@@ -425,7 +425,7 @@ public class BattleManager : Singleton<BattleManager>
         if (nowEnemyNum <= 0) Clear();
     }
     //ステージクリア
-    void Clear()
+    public void Clear()
     {
         //クリアジングルを再生
         SoundManager.Instance.StopBGM();
@@ -453,7 +453,7 @@ public class BattleManager : Singleton<BattleManager>
         text_GetExp.text += (isNoDamage) ? exp.ToString() + "＋" + bonusExp.ToString() : exp.ToString();
     }
     //ゲームオーバー
-    void GameOver()
+    public void GameOver()
     {
         //ゲームオーバージングルを再生
         SoundManager.Instance.StopBGM();

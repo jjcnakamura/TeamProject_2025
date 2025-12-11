@@ -6,6 +6,10 @@ public class BattleUnit_Bomb : BattleUnit_Base
 {
     [Header("[BattleUnit_Bomb]")]
 
+    //UŒ‚‚Ì‘ÎÛ‚É‚µ‚Ä‚¢‚é“G
+    Collider targetEnemyCol;
+    Enemy_Base targetEnemy;
+
     //UŒ‚‚ª“–‚½‚Á‚½“G‚ÌƒŠƒXƒg
     List<Collider> hitEnemy = new List<Collider>();
 
@@ -23,6 +27,7 @@ public class BattleUnit_Bomb : BattleUnit_Base
         if (!isBattle || !BattleManager.Instance.isMainGame) return; //í“¬’†‚Å‚È‚¢ê‡‚Í–ß‚é
 
         Place();
+        Rotate();
         DeadCheck();
     }
 
@@ -40,11 +45,60 @@ public class BattleUnit_Bomb : BattleUnit_Base
     {
         if (!isStart && isBattle)
         {
-            col_AttackZone.enabled = false;
+            //col_AttackZone.enabled = false;
 
             isDeadCheck = false;
             isExplosion = false;
             isStart = true;
+        }
+    }
+
+    //“G‚ğƒ^[ƒQƒbƒgAƒ^[ƒQƒbƒg‰ğœ
+    public void Target(Collider targetCol = null)
+    {
+        if (!isBattle || !BattleManager.Instance.isMainGame) return; //í“¬’†‚Å‚È‚¢ê‡‚Í–ß‚é
+
+        if (!isTarget)
+        {
+            if (targetEnemyCol == null)
+            {
+                targetEnemyCol = targetCol;
+                targetEnemy = targetCol.transform.parent.GetComponent<Enemy_Base>();
+
+                isTarget = true;
+                isRotation = true;
+            }
+        }
+        else
+        {
+            if (targetCol == targetEnemyCol || targetCol == null)
+            {
+                targetEnemyCol = null;
+                targetEnemy = null;
+
+                isTarget = false;
+                isRotation = false;
+            }
+        }
+    }
+
+    //ƒ^[ƒQƒbƒg‚µ‚Ä‚¢‚é“G‚Ì•û‚ğŒü‚­
+    void Rotate()
+    {
+        if (isTarget)
+        {
+            if (targetEnemy != null)
+            {
+                //‘_‚¤“G‚Ì•ûŒü‚ğŒü‚­
+                Quaternion targetDir = Quaternion.LookRotation(targetEnemy.transform.position - transform.position);
+                Quaternion lookDir = new Quaternion(transform.rotation.x, targetDir.y, transform.rotation.z, targetDir.w);
+                DirectionChange(lookDir);
+            }
+            else
+            {
+                //“G‚ª‘¶İ‚µ‚È‚¢ê‡‚Íƒ^[ƒQƒbƒg‚ğ~‚ß‚é
+                Target();
+            } 
         }
     }
 

@@ -9,6 +9,10 @@ public class BattleUnit_Base : MonoBehaviour
 {
     [Header("[BattleUnit_Base]")]
 
+    public bool noAction;                  //UŒ‚‚È‚Ç‚Ìs“®‚ğ‚µ‚È‚¢
+
+    [Space(10)]
+
     public GameObject model;               //3Dƒ‚ƒfƒ‹
     public BoxCollider col_Body;           //‹ò‚ç‚¢”»’è‚ÌCollider
     public CapsuleCollider col_AttackZone; //UŒ‚”ÍˆÍ‚ÌCollider

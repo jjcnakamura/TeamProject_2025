@@ -175,7 +175,7 @@ MonoBehaviour:
     hp: 80
     value: 0
     interval: 5
-    distance: 0
+    distance: 4
     range: 0
     targetNum: 0
     lVUPStatus: 1
