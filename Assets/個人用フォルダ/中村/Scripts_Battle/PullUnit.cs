@@ -9,19 +9,23 @@ using TMPro;
 /// </summary>
 public class PullUnit : MonoBehaviour
 {
-    public int index;                      //どのユニットか
+    public int index;                                             //どのユニットか
 
     [Space(10)]
 
-    [SerializeField] float noClickOffsetY; //クリック不可能な場合にY軸を下げる
+    [SerializeField] float noClickOffsetY;                        //クリック不可能な場合にY軸を下げる　その値
     Vector3 defaultPos;
     Vector3 noClickPos;
+    [SerializeField] RectTransform rect;                          //参照する自身の位置
+    [SerializeField] Image[] images;                              //自身に含まれる画像コンポーネント
 
     [Space(10)]
 
-    [SerializeField] RectTransform rect;                          //参照する自身の位置
-    [SerializeField] Image[] images;                              //自身に含まれる画像コンポーネント
-    [SerializeField] TextMeshProUGUI[] texts;                     //自身に含まれるテキストコンポーネント
+    [SerializeField] Image unitImage;                             //ユニットの画像
+
+    [Space(10)]
+
+    [SerializeField] TextMeshProUGUI[] texts;                     //ユニット名のテキスト
     [SerializeField, Label("DownAlpha(0～255)")] float downAlpha; //非アクティブ時に下げる透明度(0～255)
     float[] alpha_Images, alpha_Texts;                            //各コンポーネントの初期透明度
 
@@ -64,21 +68,35 @@ public class PullUnit : MonoBehaviour
         }
         downAlpha = (Mathf.Min(downAlpha, 255) > 0) ? Mathf.Min(downAlpha, 255) / 255 : (Mathf.Min(downAlpha, 255) * -1) / 255;
 
-        //ユニット名を読み込み(仮)
+        //ユニットの画像を読み込み
+        unitImage.sprite = ParameterManager.Instance.unitStatus[index].sprite;
+
+        //ユニット名を読み込み
         for (int i = 0; i < texts.Length; i++)
         {
-            if (texts[i].text == "Unit\nImage")
+            if (texts[i].text == "ユニット名")
             {
                 texts[i].text = "";
                 string uName = ParameterManager.Instance.unitStatus[index].name;
-                int loop = (uName.Length / 4 > 0) ? (uName.Length / 4) + 1 : 0;
-                for (int j = 0; j < loop; j++)
+
+                //５文字を超える場合は改行
+                int maxNameLength = 5;
+                if (uName.Length >= maxNameLength)
                 {
-                    int removeNum = (uName.Length >= 4) ? 4 : uName.Length;
-                    texts[i].text += uName.Substring(0, removeNum);
-                    texts[i].text += (j < loop - 1) ? "\n" : "";
-                    uName = uName.Remove(0, removeNum);
+                    int loop = (uName.Length / maxNameLength > 0) ? (uName.Length / maxNameLength) + 1 : 0;
+                    for (int j = 0; j < loop; j++)
+                    {
+                        int removeNum = (uName.Length >= maxNameLength) ? maxNameLength : uName.Length;
+                        texts[i].text += uName.Substring(0, removeNum);
+                        texts[i].text += (j < loop - 1) ? "\n" : "";
+                        uName = uName.Remove(0, removeNum);
+                    }
                 }
+                else
+                {
+                    texts[i].text = uName;
+                }
+
                 break;
             }
         }
