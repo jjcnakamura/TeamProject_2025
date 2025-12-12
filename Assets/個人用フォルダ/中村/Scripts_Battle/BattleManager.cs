@@ -171,7 +171,7 @@ public class BattleManager : Singleton<BattleManager>
 
             //ユニットの最大配置数のテキスト
             text_SameMaxInstallation[i] = unitPullButton[i].text_SameMaxInstallation;
-            text_SameMaxInstallation[i].text = unitInstallationCount[i] + "/" + sameUnitMaxInstallation;
+            if (isMainGame && unitInstallationCount[i] < sameUnitMaxInstallation) text_SameMaxInstallation[i].text = unitInstallationCount[i] + "/" + sameUnitMaxInstallation;
         }
 
         //戦闘シーン開始時のみ実行する
