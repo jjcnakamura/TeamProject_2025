@@ -153,7 +153,7 @@ public class EnemySpawnPoint : MonoBehaviour
         float tolerance = blockScale / 2f;
         routeLineParent[index] = new GameObject();
 
-        for (int i = -1; i < routePoint[enemyStatus[index].routeIndex].pos.Length - 1; i++)
+        for (int i = 0; i < routePoint[enemyStatus[index].routeIndex].pos.Length - 1; i++)
         {
             float posX = (i >= 0) ? routePoint[enemyStatus[index].routeIndex].pos[i].x : spawnPos.x;
             float posZ = (i >= 0) ? routePoint[enemyStatus[index].routeIndex].pos[i].z : spawnPos.z;
