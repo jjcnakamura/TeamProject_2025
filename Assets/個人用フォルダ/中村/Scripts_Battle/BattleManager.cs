@@ -66,6 +66,7 @@ public class BattleManager : Singleton<BattleManager>
     int dragUnitIndex;                                              //ドラッグしているユニットの要素番号
     int[] unitInstallationCount;                                    //ユニットの配置数カウント
     public bool[] unitMaxInstallation { get; private set; }         //ユニットが最大配置数に達しているか
+    TextMeshProUGUI[] text_SameMaxInstallation;                     //同じユニットの最大配置数用テキスト
 
     [SerializeField] GameObject unitZoneParent;                     //ユニットの配置場所の親オブジェクト
     [SerializeField] GameObject floorParent;                        //敵が通る道の親オブジェクト
@@ -146,6 +147,7 @@ public class BattleManager : Singleton<BattleManager>
         unitPullButton = new PullUnit[battleUnitPrefab.Length];
         unitCost = new int[battleUnitPrefab.Length];
         unitRecast = new float[battleUnitPrefab.Length];
+        text_SameMaxInstallation = new TextMeshProUGUI[battleUnitPrefab.Length];
         for (int i = 0; i < battleUnitPrefab.Length; i++)
         {
             //インスタンスを生成
@@ -156,7 +158,7 @@ public class BattleManager : Singleton<BattleManager>
             RectTransform rect = unitPullButton[i].GetComponent<RectTransform>();
             rect.localPosition = new Vector3(rect.localPosition.x, rect.localPosition.y, 0);
             unitPullButton[i].transform.rotation = new Quaternion();
-            unitPullButton[i].transform.localScale = new Vector3(1, 1, 1);
+            unitPullButton[i].transform.localScale = unitPullButtonPrefab.transform.localScale;
 
             //キャラID、コスト、リキャストを割り当て
             unitPullButton[i].index = i;
@@ -166,6 +168,10 @@ public class BattleManager : Singleton<BattleManager>
 
             //ユニットの最大配置数が変化した場合は反映する
             if (isMainGame && unitInstallationCount[i] < sameUnitMaxInstallation) unitMaxInstallation[i] = false;
+
+            //ユニットの最大配置数のテキスト
+            text_SameMaxInstallation[i] = unitPullButton[i].text_SameMaxInstallation;
+            text_SameMaxInstallation[i].text = unitInstallationCount[i] + "/" + sameUnitMaxInstallation;
         }
 
         //戦闘シーン開始時のみ実行する
@@ -377,6 +383,9 @@ public class BattleManager : Singleton<BattleManager>
         unitInstallationCount[unitIndex] = Mathf.Min(unitInstallationCount[unitIndex] + 1, sameUnitMaxInstallation);
         if (unitInstallationCount[unitIndex] >= sameUnitMaxInstallation) unitMaxInstallation[unitIndex] = true;
 
+        //ユニットの最大配置数のテキスト
+        text_SameMaxInstallation[unitIndex].text = unitInstallationCount[unitIndex] + "/" + sameUnitMaxInstallation;
+
         //ユニットのコンポーネントを有効に
         battleUnitStatus[zoneIndex].isBattle = true;
 
@@ -492,6 +501,9 @@ public class BattleManager : Singleton<BattleManager>
         isMaxInstallation = (battleUnitNum >= maxInstallation) ? true : false;
         unitInstallationCount[battleUnitStatus[zoneIndex].unitIndex] = Mathf.Max(unitInstallationCount[0] - 1, 0);
         unitMaxInstallation[battleUnitStatus[zoneIndex].unitIndex] = false;
+
+        //ユニットの最大配置数のテキスト
+        text_SameMaxInstallation[battleUnitStatus[zoneIndex].unitIndex].text = unitInstallationCount[battleUnitStatus[zoneIndex].unitIndex] + "/" + sameUnitMaxInstallation;
 
         //ユニットを削除
         battleUnitStatus[zoneIndex].Out();

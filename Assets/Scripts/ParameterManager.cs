@@ -141,7 +141,7 @@ public class ParameterManager : Singleton<ParameterManager>
         public string name;         //ユニット名
         public int id;              //どのユニットかを示すID
         public int se_Place;        //設置時のSE
-        public int[] se_Action;       //戦闘中の行動時のSE
+        public int[] se_Action;     //戦闘中の行動時のSE
 
         public int lv;              //レベル
         public int exp;             //所持経験値

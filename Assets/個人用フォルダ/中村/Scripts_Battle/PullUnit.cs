@@ -16,12 +16,15 @@ public class PullUnit : MonoBehaviour
     [SerializeField] float noClickOffsetY;                        //クリック不可能な場合にY軸を下げる　その値
     Vector3 defaultPos;
     Vector3 noClickPos;
-    [SerializeField] RectTransform rect;                          //参照する自身の位置
-    [SerializeField] Image[] images;                              //自身に含まれる画像コンポーネント
 
     [Space(10)]
 
+    [SerializeField] Image image;                                 //画像の親
     [SerializeField] Image unitImage;                             //ユニットの画像
+
+    [Space(10)]
+
+    [SerializeField] Image[] images;                              //自身に含まれる画像コンポーネント
 
     [Space(10)]
 
@@ -31,11 +34,12 @@ public class PullUnit : MonoBehaviour
 
     [Space(10)]
 
-    public TextMeshProUGUI text_Cost;                 //コストを表すテキスト
-    [SerializeField] TextMeshProUGUI text_RecastTime; //リキャスト時間を表すテキスト
-    [SerializeField] GameObject noClickWindow;        //クリック不可能な場合に表示するオブジェクト
+    public TextMeshProUGUI text_Cost;                          //コストを表すテキスト
+    public TextMeshProUGUI text_SameMaxInstallation;           //同時に何体配置できるかを表すテキスト
+    [SerializeField] TextMeshProUGUI text_RecastTime;          //リキャスト時間を表すテキスト
+    [SerializeField] GameObject noClickWindow;                 //クリック不可能な場合に表示するオブジェクト
 
-    float timer_Recast;                               //リキャスト用タイマー
+    float timer_Recast;                                        //リキャスト用タイマー
 
     //状態を表すフラグ
     bool isNoPull, isRecast, isDrag, isEnabled;
@@ -48,7 +52,7 @@ public class PullUnit : MonoBehaviour
         col.size = new Vector3(rectT.sizeDelta.x, rectT.sizeDelta.y, 1);
 
         //クリック不可能時の位置を決める
-        defaultPos = rect.localPosition;
+        defaultPos = image.rectTransform.localPosition;
         noClickPos = new Vector3(defaultPos.x, defaultPos.y - noClickOffsetY, defaultPos.z);
 
         //クリック不可能オブジェクトを非表示
@@ -67,6 +71,9 @@ public class PullUnit : MonoBehaviour
             alpha_Texts[i] = texts[i].color.a;
         }
         downAlpha = (Mathf.Min(downAlpha, 255) > 0) ? Mathf.Min(downAlpha, 255) / 255 : (Mathf.Min(downAlpha, 255) * -1) / 255;
+
+        //背景の画像を読み込み
+        image.sprite = UnitsData.Instance.iconBackSprite[ParameterManager.Instance.unitStatus[index].role];
 
         //ユニットの画像を読み込み
         unitImage.sprite = ParameterManager.Instance.unitStatus[index].sprite;
@@ -117,14 +124,14 @@ public class PullUnit : MonoBehaviour
         //クリック不可能フラグが立っている場合は位置を下げ、クリック不可能オブジェクトを表示
         if (isNoPull && !noClickWindow.activeSelf || isRecast && !noClickWindow.activeSelf)
         {
-            rect.localPosition = noClickPos;
+            image.rectTransform.localPosition = noClickPos;
             noClickWindow.SetActive(true);
         }
         else if (!isNoPull && !isRecast && noClickWindow.activeSelf)
         {
             SoundManager.Instance.PlaySE_Game(5);
 
-            rect.localPosition = defaultPos;
+            image.rectTransform.localPosition = defaultPos;
             noClickWindow.SetActive(false);
         }
 
