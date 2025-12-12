@@ -186,6 +186,18 @@ public class EventWindowManager : Singleton<EventWindowManager>
 
         //プール番号に対応した戦闘IDをリストに格納
         List<int> pool = new List<int>(EventsData.Instance.battlIdPool[poolIndex].id);
+        List<int> tmpPool = pool;
+
+        //IDを抽選して配列に格納
+        for (int i = 0; i < result.Length; i++)
+        {
+            int randomId = tmpPool[UnityEngine.Random.Range(0, tmpPool.Count)];
+            result[i] = randomId;
+            tmpPool.RemoveAt(randomId);
+
+            //リストが空になったら再度IDをリストに格納
+            if (tmpPool.Count <= 0) tmpPool = pool;
+        }
 
         return result;
     }
