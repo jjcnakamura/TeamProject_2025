@@ -469,7 +469,7 @@ public class BattleManager : Singleton<BattleManager>
         SoundManager.Instance.PlaySE_Jingle(1);
 
         //ユニットをドラッグしていたら離す
-        LetgoUnit();
+        if (isUnitDrag) LetgoUnit();
 
         isSpeedUp = false;
         isMainGame = false;
