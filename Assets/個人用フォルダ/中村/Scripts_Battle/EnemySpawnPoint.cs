@@ -18,7 +18,8 @@ public class EnemySpawnPoint : MonoBehaviour
     float[] spawnTime; //敵の出現時間
     int spawnIndex;    //次に出現する敵
 
-    bool endSpawn;     //全ての敵が出現したか
+    //状態を表すフラグ
+    bool isSpawn,endSpawn;
 
     [Space(20)]
 
@@ -63,13 +64,18 @@ public class EnemySpawnPoint : MonoBehaviour
     {
         if (!BattleManager.Instance.isMainGame) return; //メインゲーム中でなければ戻る
 
-        if (!endSpawn && BattleManager.Instance.timer_EnemySpawn > spawnTime[spawnIndex]) StartCoroutine(Spawn());
+        if (!endSpawn && !isSpawn && BattleManager.Instance.timer_EnemySpawn > spawnTime[spawnIndex])
+        {
+            StartCoroutine(Spawn());
+        }
     }
 
     //敵を生成する
     IEnumerator Spawn()
     {
         if (endSpawn) yield break;
+
+        isSpawn = true;
 
         int index = spawnIndex;
         spawnIndex++;
@@ -100,19 +106,22 @@ public class EnemySpawnPoint : MonoBehaviour
         enemy.se_Action = enemyStatus[index].se_Action;
 
         //敵のルートを指定した秒数表示
-        SoundManager.Instance.PlaySE_Game(7, false);
-        GenerateRouteLine(index);
-        float mod = BattleManager.Instance.enemyRouteActiveTime % 1f;
-        for (int i = 0; i < BattleManager.Instance.enemyRouteActiveTime; i++)
+        if (!enemyStatus[index].noGenerateLine)
         {
-            routeLineParent[index].SetActive(true);
-            yield return new WaitForSeconds(0.5f);
+            SoundManager.Instance.PlaySE_Game(7, false);
+            GenerateRouteLine(index);
+            float mod = BattleManager.Instance.enemyRouteActiveTime % 1f;
+            for (int i = 0; i < BattleManager.Instance.enemyRouteActiveTime; i++)
+            {
+                routeLineParent[index].SetActive(true);
+                yield return new WaitForSeconds(0.5f);
+                routeLineParent[index].SetActive(false);
+                yield return new WaitForSeconds(0.5f);
+            }
             routeLineParent[index].SetActive(false);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(mod);
+            GenerateRouteLine(index, true);
         }
-        routeLineParent[index].SetActive(false);
-        yield return new WaitForSeconds(mod);
-        GenerateRouteLine(index, true);
         yield return new WaitForSeconds(BattleManager.Instance.preEnemySpawnTime - BattleManager.Instance.enemyRouteActiveTime);
 
         for (int i = 0; i < enemyStatus[index].spawnNum; i++)
@@ -133,6 +142,8 @@ public class EnemySpawnPoint : MonoBehaviour
             //一定時間待つ
             yield return new WaitForSeconds(enemyStatus[index].spawnInterval);
         }
+
+        isSpawn = false;
     }
     
     //敵のルートを表示する
@@ -213,6 +224,7 @@ public class EnemySpawnPoint : MonoBehaviour
     {
         [Label("敵のID")] public int id;
         [Label("どのルートを通るか")] public int routeIndex;
+        [Label("ルートの矢印を表示しない")] public bool noGenerateLine;
         [Label("出現までの時間")] public float spawnTime;
         [Label("出現する間隔")] public float spawnInterval;
         [Label("出現数")] public int spawnNum;
