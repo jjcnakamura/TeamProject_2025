@@ -86,6 +86,10 @@ public class Enemy_Base : MonoBehaviour
 
         rig.drag = minDrag;
 
+        //当たり判定を非アクティブに
+        col_Body.enabled = false;
+        col_AttackZone_Wall.enabled = false;
+
         //バフ、デバフ用のエフェクトを生成
         buffObj = Instantiate(effect_Buff);
         buffObj.transform.position = footPos.transform.position;
@@ -418,6 +422,13 @@ public class Enemy_Base : MonoBehaviour
                 //次のルートポイントへ
                 if (currentRoute < spawnPoint.routePoint[routeIndex].pos.Length - 1)
                 {
+                    //最初のマスに乗った場合は当たり判定をアクティブに
+                    if (currentRoute <= 0)
+                    {
+                        col_Body.enabled = true;
+                        col_AttackZone_Wall.enabled = true;
+                    }
+
                     currentRoute++;
                     //向きを変更
                     if (!isTarget)
