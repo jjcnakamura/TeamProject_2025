@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EnemySpawnPoint : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class EnemySpawnPoint : MonoBehaviour
     int spawnIndex;    //次に出現する敵
 
     //状態を表すフラグ
-    bool isSpawn,endSpawn;
+    bool endSpawn;
 
     [Space(20)]
 
@@ -58,31 +59,38 @@ public class EnemySpawnPoint : MonoBehaviour
 
         //出現時の位置を取得
         spawnPos = spawnPoint.transform.position;
+
+        //敵の生成を開始
+        StartCoroutine(SpawnSequence());
     }
 
-    void Update()
+    IEnumerator SpawnSequence()
     {
-        if (!BattleManager.Instance.isMainGame) return; //メインゲーム中でなければ戻る
-
-        if (!endSpawn && !isSpawn && BattleManager.Instance.timer_EnemySpawn > spawnTime[spawnIndex])
+        for (int i = 0; i < enemyStatus.Length; i++)
         {
-            StartCoroutine(Spawn());
+            yield return new WaitUntil(() => BattleManager.Instance.timer_EnemySpawn > spawnTime[i] && BattleManager.Instance.isMainGame);
+
+            yield return StartCoroutine(Spawn(i));
+
+            //クリアかゲームオーバー時は終了
+            if (BattleManager.Instance.isClear || BattleManager.Instance.isGameOver) yield break;
         }
     }
 
     //敵を生成する
-    IEnumerator Spawn()
+    IEnumerator Spawn(int index)
     {
+        /*
         if (endSpawn) yield break;
-
-        isSpawn = true;
 
         int index = spawnIndex;
         spawnIndex++;
         if (spawnIndex >= enemyStatus.Length) endSpawn = true;
+        */
 
         //敵のステータスを設定
-        Enemy_Base enemy = enemyStatus[index].prefab.GetComponent<Enemy_Base>();
+        Enemy_Base enemy = Instantiate(enemyStatus[index].prefab.GetComponent<Enemy_Base>());
+        enemy.gameObject.SetActive(false);
 
         //位置と角度を設定
         enemy.spawnPoint = this;
@@ -128,6 +136,7 @@ public class EnemySpawnPoint : MonoBehaviour
         {
             //敵のインスタンスを生成
             Enemy_Base instance = Instantiate(enemy);
+            instance.gameObject.SetActive(true);
             instance.transform.position = spawnPos;
             instance.transform.rotation = spawnDir;
 
@@ -143,7 +152,7 @@ public class EnemySpawnPoint : MonoBehaviour
             yield return new WaitForSeconds(enemyStatus[index].spawnInterval);
         }
 
-        isSpawn = false;
+        Destroy(enemy);
     }
     
     //敵のルートを表示する

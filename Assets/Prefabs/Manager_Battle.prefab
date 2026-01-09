@@ -46,12 +46,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exp: 10
   bonusExp: 2
+  bgmIndex: 0
   canvasParent: {fileID: 0}
   playerSide: {fileID: 0}
   text_Hp: {fileID: 0}
   text_UnitNum: {fileID: 0}
   text_SameMaxUnitNum: {fileID: 0}
   text_Point: {fileID: 0}
+  image_PointUp: {fileID: 0}
   text_EnemyNum: {fileID: 0}
   text_GetExp: {fileID: 0}
   text_Nodamage: {fileID: 0}
