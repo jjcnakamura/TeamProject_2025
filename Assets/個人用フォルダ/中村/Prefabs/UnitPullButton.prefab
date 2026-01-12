@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 646d8bffa27474a4788c5c6a8d47bb46, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1592,8 +1592,8 @@ MonoBehaviour:
   - {fileID: 949912947464804889}
   downAlpha: 128
   text_Cost: {fileID: 277440260424119517}
-  text_RecastTime: {fileID: 3671911606801932248}
   text_SameMaxInstallation: {fileID: 949912947464804889}
+  text_RecastTime: {fileID: 3671911606801932248}
   noClickWindow: {fileID: 769727829456880211}
 --- !u!65 &4032752939425431734
 BoxCollider:
