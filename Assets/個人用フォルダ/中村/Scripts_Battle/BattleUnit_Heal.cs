@@ -19,7 +19,7 @@ public class BattleUnit_Heal : BattleUnit_Base
     int healTargetIndex;
 
     //連続で回復する際の間隔
-    float healInterval = 0.5f;
+    float healInterval = 0.1f;
 
     //タイマー
     float timer_Interval;
@@ -154,17 +154,25 @@ public class BattleUnit_Heal : BattleUnit_Base
             }
         }
 
-        //回復する
+        //アニメーションを再生して回復弾を出す
         isHeal = true;
-        HealBullet(healTargetIndex);
+
+        //回復対象がいない場合はアニメーションを再生しない
+        if (healTarget.Count > 0)
+        {
+            if(animator != null) animator.Play(anim_Name);
+            isAnimation = true;
+        }
+        
+        Invoke("HealBullet", anim_Time);
     }
     //回復
-    void HealBullet(int index)
+    void HealBullet()
     {
         if (!isHeal) return;
 
         //回復弾を出す
-        if (healTarget.Count > 0 && healTarget[index] != null && healBullet != null)
+        if (healTarget.Count > 0 && healTarget[healTargetIndex] != null && healBullet != null)
         {
             if (se_Action != null && se_Action.Length > 1) SoundManager.Instance.PlaySE_OneShot_Game(se_Action[0]);
 
@@ -172,13 +180,15 @@ public class BattleUnit_Heal : BattleUnit_Base
             seIndex = (seIndex < 0 && se_Action != null && se_Action.Length > 0) ? se_Action[0] : seIndex;
             Bullet_Heal bullet = Instantiate(healBullet);
             bullet.transform.localScale = healBullet.transform.localScale;
-            bullet.Shot(defaultValue, transform.position, healTarget[index].footPos.transform.position, healTarget[index], seIndex, effect);
+            bullet.Shot(defaultValue, transform.position, healTarget[healTargetIndex].footPos.transform.position, healTarget[healTargetIndex], seIndex, effect);
+
+            isAnimation = false;
         }
     }
     //回復のインターバル
     void Interval()
     {
-        if (isHeal)
+        if (isHeal && !isAnimation)
         {
             if (timer_Interval < healInterval)
             {
@@ -189,15 +199,18 @@ public class BattleUnit_Heal : BattleUnit_Base
                 timer_Interval = 0;
                 healTargetIndex++;
 
+                //弾数が残っている場合は回復弾を出す
                 if (healTargetIndex < healTarget.Count)
                 {
-                    HealBullet(healTargetIndex);
+                    HealBullet();
                 }
                 else
                 {
                     healTargetIndex = 0;
 
                     isHeal = false;
+
+                    //インターバル開始
                     isInterval = true;
 
                     healTarget.Clear();
@@ -215,6 +228,7 @@ public class BattleUnit_Heal : BattleUnit_Base
             else
             {
                 timer_Interval = 0;
+                isAnimation = false;
                 isInterval = false;
             }
         }

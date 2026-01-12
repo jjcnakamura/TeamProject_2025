@@ -51,6 +51,8 @@ public class UnitsData : Singleton<UnitsData>
         public string name;                //キャラ名
         public int se_Place;               //設置時のSE
         public int[] se_Action;            //戦闘中の行動時のSE
+        public string anim_Name;           //戦闘中の行動時のアニメーション名
+        public float anim_Time;             //アニメーションから実際の行動が起こるまでの時間
 
         [Space(5)]
 

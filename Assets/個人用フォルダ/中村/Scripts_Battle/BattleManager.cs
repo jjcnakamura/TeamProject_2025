@@ -346,7 +346,15 @@ public class BattleManager : Singleton<BattleManager>
         battleUnitStatus[zoneIndex].range = ParameterManager.Instance.unitStatus[unitIndex].range;
         battleUnitStatus[zoneIndex].targetNum = ParameterManager.Instance.unitStatus[unitIndex].targetNum;
         battleUnitStatus[zoneIndex].se_Action = ParameterManager.Instance.unitStatus[unitIndex].se_Action;
+        battleUnitStatus[zoneIndex].anim_Name = ParameterManager.Instance.unitStatus[unitIndex].anim_Name;
+        battleUnitStatus[zoneIndex].anim_Time = ParameterManager.Instance.unitStatus[unitIndex].anim_Time;
 
+        //インターバルからアニメーション再生時間を引く
+        battleUnitStatus[zoneIndex].interval = Mathf.Max(battleUnitStatus[zoneIndex].interval - battleUnitStatus[zoneIndex].anim_Time, 0);
+
+        //Animatorを読み込み
+        battleUnitStatus[zoneIndex].animator = battleUnitStatus[zoneIndex].model.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
+        
         //HPバーを生成
         Hpbar battleUnitHpbar = Instantiate(hpbarPrefab).GetComponent<Hpbar>();
         battleUnitHpbar.transform.SetParent(hpbarParent.transform);

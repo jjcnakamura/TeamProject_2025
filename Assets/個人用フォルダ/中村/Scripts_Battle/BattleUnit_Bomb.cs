@@ -37,7 +37,7 @@ public class BattleUnit_Bomb : BattleUnit_Base
 
         if (!isBattle || !BattleManager.Instance.isMainGame) return; //戦闘中でない場合は戻る
 
-        Explosion();
+        NowExplosion();
     }
 
     //配置された時の処理
@@ -106,29 +106,40 @@ public class BattleUnit_Bomb : BattleUnit_Base
     void DeadCheck()
     {
         //死亡した瞬間に爆発する
-        if (!isExplosion && isDead && !isEnd)
+        if (!isExplosion && isDead && !isAnimation && !isEnd)
         {
-            if (se_Action != null && se_Action.Length > 0) SoundManager.Instance.PlaySE_OneShot_Game(se_Action[0]);
-
-            model.SetActive(false);
+            //エフェクトとHPバーを非表示に
             buffObj.SetActive(false);
             debuffObj.SetActive(false);
             hpbarObj.SetActive(false);
 
-            //エフェクトを生成
-            GameObject effectInstance = Instantiate(effect);
-            effectInstance.transform.position = transform.position;
-            effectInstance.transform.localScale = new Vector3(distance, distance, distance);
+            //アニメーション
+            if (animator != null) animator.Play(anim_Name);
+            isAnimation = true;
 
-            col_Body.enabled = false;
-            col_AttackZone.enabled = true;
-
-            isExplosion = true;
+            //アニメーション終了後に爆発する
+            Invoke("Explosion", anim_Time);
         }
     }
-
-    //爆発中の処理
+    //爆発
     void Explosion()
+    {
+        if (se_Action != null && se_Action.Length > 0) SoundManager.Instance.PlaySE_OneShot_Game(se_Action[0]);
+
+        model.SetActive(false);
+
+        //エフェクトを生成
+        GameObject effectInstance = Instantiate(effect);
+        effectInstance.transform.position = transform.position;
+        effectInstance.transform.localScale = new Vector3(distance, distance, distance);
+
+        col_Body.enabled = false;
+        col_AttackZone.enabled = true;
+
+        isExplosion = true;
+    }
+    //爆発中の処理
+    void NowExplosion()
     {
         if (!isExplosion) return;
 

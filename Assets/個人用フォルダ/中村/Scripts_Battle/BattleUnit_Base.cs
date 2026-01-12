@@ -41,6 +41,11 @@ public class BattleUnit_Base : MonoBehaviour
     //行動時に鳴らすSEの番号
     [System.NonSerialized] public int[] se_Action;
 
+    //アニメーションに関する変数
+    [System.NonSerialized] public Animator animator;
+    [System.NonSerialized] public string anim_Name;
+    [System.NonSerialized] public float anim_Time;
+
     //向く方向に関する変数
     float rotateSpeed = 8f;
     Quaternion dir;
@@ -60,7 +65,7 @@ public class BattleUnit_Base : MonoBehaviour
     [System.NonSerialized] public int beingTargetNum;
 
     //状態を表すフラグ
-    public bool isBattle, isRotation, isTarget, isBuff, isDebuff, isDeadCheck, isDead;
+    public bool isBattle, isAnimation, isRotation, isTarget, isBuff, isDebuff, isDeadCheck, isDead;
 
     protected virtual void Start()
     {

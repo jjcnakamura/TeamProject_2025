@@ -74,38 +74,59 @@ public class BattleUnit_LongAttack : BattleUnit_Base
             Quaternion lookDir = new Quaternion(transform.rotation.x, targetDir.y, transform.rotation.z, targetDir.w);
             DirectionChange(lookDir);
 
-            if (!isInterval)
+            if (!isInterval &&!isAnimation)
             {
-                //通常の弾を撃つ
-                if (normalBullet != null)
-                {
+                //アニメーション
+                if (animator != null) animator.Play(anim_Name);
+                isAnimation = true;
 
-                }
-                //広範囲に広がる弾を撃つ
-                else if (explosiveBullet != null)
-                {
-                    int seIndex = (se_Action != null && se_Action.Length > 0) ? se_Action[0] : -1;
-                    Bullet_Explosion bullet = Instantiate(explosiveBullet);
-                    bullet.transform.localScale = explosiveBullet.transform.localScale;
-                    bullet.Shot(value, range, transform.position, targetEnemy.transform.position, seIndex, effect);
-                }
-                //速度鈍化デバフの弾を撃つ
-                else if (speedDebuffBullet != null)
-                {
-                    int seIndex = (se_Action != null && se_Action.Length > 0) ? se_Action[0] : -1;
-                    Bullet_SpeedDebuff bullet = Instantiate(speedDebuffBullet);
-                    bullet.transform.localScale = speedDebuffBullet.transform.localScale;
-                    bullet.Shot(0.5f, defaultValue, range, transform.position, targetEnemy.transform.position, seIndex, effect);
-                }
-                else
-                {
-                    return;
-                }
-
-                //インターバル開始
-                timer_Interval = 0;
-                isInterval = true;
+                //アニメーション終了後に弾を撃つ
+                Invoke("Shot", anim_Time);
             }
+        }
+        else
+        {
+            //敵が存在しない場合はターゲットを止める
+            Target();
+        }
+    }
+    //弾を撃つ
+    void Shot()
+    {
+        if (!isTarget) return;
+
+        if (targetEnemy != null)
+        {
+            //通常の弾を撃つ
+            if (normalBullet != null)
+            {
+
+            }
+            //広範囲に広がる弾を撃つ
+            else if (explosiveBullet != null)
+            {
+                int seIndex = (se_Action != null && se_Action.Length > 0) ? se_Action[0] : -1;
+                Bullet_Explosion bullet = Instantiate(explosiveBullet);
+                bullet.transform.localScale = explosiveBullet.transform.localScale;
+                bullet.Shot(value, range, transform.position, targetEnemy.transform.position, seIndex, effect);
+            }
+            //速度鈍化デバフの弾を撃つ
+            else if (speedDebuffBullet != null)
+            {
+                int seIndex = (se_Action != null && se_Action.Length > 0) ? se_Action[0] : -1;
+                Bullet_SpeedDebuff bullet = Instantiate(speedDebuffBullet);
+                bullet.transform.localScale = speedDebuffBullet.transform.localScale;
+                bullet.Shot(0.5f, defaultValue, range, transform.position, targetEnemy.transform.position, seIndex, effect);
+            }
+            else
+            {
+                return;
+            }
+
+            //インターバル開始
+            timer_Interval = 0;
+            isAnimation = false;
+            isInterval = true;
         }
         else
         {

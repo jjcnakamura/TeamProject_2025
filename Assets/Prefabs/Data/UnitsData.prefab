@@ -56,6 +56,8 @@ MonoBehaviour:
     name: "\u9060\u8DDD\u96E2\u30DE\u30F3"
     se_Place: 1
     se_Action: 08000000
+    anim_Name: Crossbow Reload
+    anim_Time: 1
     role: 0
     cost: 16
     upCost: 6
@@ -84,6 +86,8 @@ MonoBehaviour:
     name: "\u8FD1\u8DDD\u96E2\u30DE\u30F3"
     se_Place: 0
     se_Action: 08000000
+    anim_Name: Melee Right Attack 01
+    anim_Time: 0.45
     role: 0
     cost: 12
     upCost: 6
@@ -112,6 +116,8 @@ MonoBehaviour:
     name: "\u7BC4\u56F2\u30DE\u30F3"
     se_Place: 4
     se_Action: 0b000000
+    anim_Name: Cast Spell
+    anim_Time: 0.4
     role: 0
     cost: 20
     upCost: 6
@@ -140,6 +146,8 @@ MonoBehaviour:
     name: "\u653B\u6483\u58C1\u30DE\u30F3"
     se_Place: 0
     se_Action: 08000000
+    anim_Name: Melee Right Attack 02
+    anim_Time: 0.45
     role: 1
     cost: 18
     upCost: 9
@@ -147,7 +155,7 @@ MonoBehaviour:
     hp: 50
     value: 1
     interval: 1
-    distance: 3
+    distance: 4
     range: 0
     targetNum: 1
     lVUPStatus: 1
@@ -168,6 +176,8 @@ MonoBehaviour:
     name: "\u9632\u5FA1\u58C1\u30DE\u30F3"
     se_Place: 2
     se_Action: 
+    anim_Name: Defend
+    anim_Time: 0
     role: 1
     cost: 18
     upCost: 9
@@ -196,6 +206,8 @@ MonoBehaviour:
     name: "\u7206\u5F3E\u30DE\u30F3"
     se_Place: 4
     se_Action: 0c000000
+    anim_Name: Cast Spell 02
+    anim_Time: 0.9
     role: 1
     cost: 30
     upCost: 9
@@ -224,6 +236,8 @@ MonoBehaviour:
     name: "\u30DD\u30A4\u30F3\u30C8\u30DE\u30F3"
     se_Place: 4
     se_Action: 0d000000
+    anim_Name: Cast Spell
+    anim_Time: 0.4
     role: 2
     cost: 6
     upCost: 3
@@ -252,6 +266,8 @@ MonoBehaviour:
     name: "\u56DE\u5FA9\u30DE\u30F3"
     se_Place: 4
     se_Action: 0e0000000f000000
+    anim_Name: Right Throw
+    anim_Time: 0.4
     role: 2
     cost: 14
     upCost: 6
@@ -280,6 +296,8 @@ MonoBehaviour:
     name: "\u920D\u5316\u30DE\u30F3"
     se_Place: 4
     se_Action: 11000000
+    anim_Name: Cast Spell
+    anim_Time: 0.4
     role: 2
     cost: 14
     upCost: 6

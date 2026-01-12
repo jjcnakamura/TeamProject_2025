@@ -16,6 +16,15 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
     //状態を表すフラグ
     public bool isInterval;
 
+    protected override void Update()
+    {
+        base.Update(); //基底クラスのUpdate
+
+        if (!isBattle || !BattleManager.Instance.isMainGame) return; //戦闘中でない場合は戻る
+
+        Defense();
+    }
+
     protected override void FixedUpdate()
     {
         base.FixedUpdate(); //基底クラスのFixedUpdate
@@ -70,21 +79,42 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
             //攻撃しない場合は戻る
             if (noAction) return;
 
-            if (!isInterval)
+            if (!isInterval && !isAnimation)
             {
-                if (se_Action != null && se_Action.Length > 0) SoundManager.Instance.PlaySE_OneShot_Game(se_Action[0]);
+                //アニメーション
+                if (animator != null) animator.Play(anim_Name);
+                isAnimation = true;
 
-                //攻撃
-                bool dead = targetEnemy.Damage(value);
-                //エフェクトを敵の位置に生成
-                Instantiate(effect).transform.position = targetEnemy.transform.position;
-                //インターバル開始
-                timer_Interval = 0;
-                isInterval = true;
-
-                //敵がダメージで死亡した場合はターゲットを止める
-                if (dead) Target();
+                //アニメーション終了後にダメージを与える
+                Invoke("ToDamage", anim_Time);
             }
+        }
+        else
+        {
+            //敵が存在しない場合はターゲットを止める
+            Target();
+        }
+    }
+    //攻撃でダメージを与える
+    void ToDamage()
+    {
+        if (!isTarget) return;
+
+        if (targetEnemy != null)
+        {
+            //SE
+            if (se_Action != null && se_Action.Length > 0) SoundManager.Instance.PlaySE_OneShot_Game(se_Action[0]);
+
+            //攻撃
+            bool dead = targetEnemy.Damage(value);
+            //エフェクトを敵の位置に生成
+            Instantiate(effect).transform.position = targetEnemy.transform.position;
+            //インターバル開始
+            timer_Interval = 0;
+            isInterval = true;
+
+            //敵がダメージで死亡した場合はターゲットを止める
+            if (dead) Target();
         }
         else
         {
@@ -104,8 +134,22 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
             else
             {
                 timer_Interval = 0;
+
+                isAnimation = false;
                 isInterval = false;
             }
+        }
+    }
+    //攻撃しない場合は盾を構えるアニメーションを再生する
+    void Defense()
+    {
+        if (!noAction || isAnimation) return;
+
+        if (isBattle)
+        {
+            //アニメーション
+            if (animator != null) animator.SetTrigger(anim_Name);
+            isAnimation = true;
         }
     }
 }

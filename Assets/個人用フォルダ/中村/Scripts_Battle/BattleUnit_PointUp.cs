@@ -15,26 +15,38 @@ public class BattleUnit_PointUp : BattleUnit_Base
 
         if (!isBattle || !BattleManager.Instance.isMainGame) return; //戦闘中でない場合は戻る
 
-        PointUp();
+        PointUpCount();
     }
 
-    //ポイント上昇
-    void PointUp()
+    //ポイント上昇の時間をカウント
+    void PointUpCount()
     {
         if (timer_Interval < interval)
         {
             timer_Interval += Time.fixedDeltaTime;
         }
-        else
+        else if (!isAnimation)
         {
-            if (se_Action != null && se_Action.Length > 0) SoundManager.Instance.PlaySE_OneShot_Game(se_Action[0]);
+            //アニメーション
+            if (animator != null) animator.SetTrigger(anim_Name);
+            isAnimation = true;
 
-            //ポイントを上昇
-            BattleManager.Instance.PointChange(defaultValue);
-            //エフェクトを自身の位置に生成
-            Instantiate(effect).transform.position = footPos.transform.position;
-            //インターバル開始
-            timer_Interval = 0;
+            //アニメーション終了後にポイントを上昇させる
+            Invoke("PointUp", anim_Time);
         }
+    }
+    //ポイント上昇
+    void PointUp()
+    {
+        if (se_Action != null && se_Action.Length > 0) SoundManager.Instance.PlaySE_OneShot_Game(se_Action[0]);
+
+        //ポイントを上昇
+        BattleManager.Instance.PointChange(defaultValue);
+        //エフェクトを自身の位置に生成
+        Instantiate(effect).transform.position = footPos.transform.position;
+        //インターバル開始
+        timer_Interval = 0;
+
+        isAnimation = false;
     }
 }

@@ -64,6 +64,8 @@ public class ParameterManager : Singleton<ParameterManager>
         unitStatus[index].id = id;                                                    //どのユニットかを示すID
         unitStatus[index].se_Place = UnitsData.Instance.unit[id].se_Place;            //設置時のSE
         unitStatus[index].se_Action = UnitsData.Instance.unit[id].se_Action;          //戦闘中の行動時のSE
+        unitStatus[index].anim_Name = UnitsData.Instance.unit[id].anim_Name;          //戦闘中の行動時のアニメーション名
+        unitStatus[index].anim_Time = UnitsData.Instance.unit[id].anim_Time;          //アニメーションから実際の行動が起こるまでの時間
 
         unitStatus[index].lv = 1;                                                      //レベル
         unitStatus[index].exp = 0;                                                     //所持経験値
@@ -142,6 +144,8 @@ public class ParameterManager : Singleton<ParameterManager>
         public int id;              //どのユニットかを示すID
         public int se_Place;        //設置時のSE
         public int[] se_Action;     //戦闘中の行動時のSE
+        public string anim_Name;    //戦闘中の行動時のアニメーション名
+        public float anim_Time;     //アニメーションから実際の行動が起こるまでの時間
 
         public int lv;              //レベル
         public int exp;             //所持経験値
