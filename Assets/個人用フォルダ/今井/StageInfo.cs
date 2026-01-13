@@ -13,7 +13,7 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
     [Header("ステージ中の情報")]
     public bool Start;
     public int Stage;//バトルかイベントか
-    public int namber;//中の種類
+    public int[] namber;//中の種類
     public string StageName;//テキストで何を行うか
     public string StageNaiyou;//ステージで何をするかイベント専用
     public int Enemyint;//敵の数
@@ -25,6 +25,15 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
     public GameObject targetUI;
     public bool i = false;
     public int indexint;
+
+    void Awake()
+    {
+        //EventWindowManager.Instance.BattleRandomChoice(int namber,int Stage);
+        if(StageName == "イベント")
+        {
+            namber = EventWindowManager.Instance.EventRandomChoice(1);
+        }
+    }
 
     void Update()
     {
@@ -101,7 +110,7 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         MapManager.Instance.GoNextStage();
     }
 
-    //マウスが重なった
+    //マウスが重なった時
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (targetUI != null)
