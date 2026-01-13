@@ -87,6 +87,7 @@ public class BattleUnit_Heal : BattleUnit_Base
             targetUnit.Clear();
 
             isTarget = false;
+            isAnimation = false;
         }
     }
 

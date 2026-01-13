@@ -58,6 +58,7 @@ public class BattleUnit_LongAttack : BattleUnit_Base
 
                 isTarget = false;
                 isRotation = false;
+                isAnimation = false;
             }
         }
     }

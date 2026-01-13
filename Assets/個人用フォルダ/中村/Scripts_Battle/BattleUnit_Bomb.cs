@@ -78,6 +78,7 @@ public class BattleUnit_Bomb : BattleUnit_Base
 
                 isTarget = false;
                 isRotation = false;
+                isAnimation = false;
             }
         }
     }

@@ -60,6 +60,7 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
 
                 isTarget = false;
                 isRotation = false;
+                isAnimation = false;
             }
         }
     }
