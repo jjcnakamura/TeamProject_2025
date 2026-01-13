@@ -501,7 +501,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &81939403
 Transform:
   m_ObjectHideFlags: 0
@@ -557,6 +557,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
+  isAnimation: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
@@ -833,6 +834,7 @@ MonoBehaviour:
   range: 4
   targetNum: 0
   isBattle: 0
+  isAnimation: 0
   isRotation: 0
   isTarget: 0
   isBuff: 0
@@ -1145,6 +1147,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
+  isAnimation: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
@@ -1343,6 +1346,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
+  isAnimation: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
@@ -2103,6 +2107,7 @@ MonoBehaviour:
   range: 4
   targetNum: 0
   isBattle: 0
+  isAnimation: 0
   isRotation: 0
   isTarget: 0
   isBuff: 0
@@ -3330,6 +3335,7 @@ MonoBehaviour:
   range: 0
   targetNum: 0
   isBattle: 0
+  isAnimation: 0
   isRotation: 0
   isTarget: 0
   isBuff: 0
@@ -3926,6 +3932,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
+  isAnimation: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
@@ -4212,6 +4219,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
+  isAnimation: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
@@ -5114,6 +5122,7 @@ MonoBehaviour:
   range: 5
   targetNum: 0
   isBattle: 0
+  isAnimation: 0
   isRotation: 0
   isTarget: 0
   isBuff: 0
@@ -6810,6 +6819,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
+  isAnimation: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
@@ -7326,6 +7336,7 @@ MonoBehaviour:
   range: 3
   targetNum: 0
   isBattle: 0
+  isAnimation: 0
   isRotation: 0
   isTarget: 0
   isBuff: 0
@@ -7556,6 +7567,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
+  isAnimation: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
@@ -7943,6 +7955,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
+  isAnimation: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
@@ -8220,6 +8233,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
+  isAnimation: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
@@ -8713,6 +8727,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
+  isAnimation: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
@@ -9636,6 +9651,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
+  isAnimation: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
@@ -10103,6 +10119,7 @@ MonoBehaviour:
   range: 0
   targetNum: 0
   isBattle: 0
+  isAnimation: 0
   isRotation: 0
   isTarget: 0
   isBuff: 0
@@ -10583,7 +10600,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1736576290
 Transform:
   m_ObjectHideFlags: 0
@@ -10639,6 +10656,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
+  isAnimation: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
@@ -10775,6 +10793,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
+  isAnimation: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
@@ -11455,6 +11474,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
+  isAnimation: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
@@ -12318,6 +12338,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
+  isAnimation: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
@@ -12454,6 +12475,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
+  isAnimation: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
@@ -12693,6 +12715,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
+  isAnimation: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
@@ -13295,6 +13318,7 @@ MonoBehaviour:
   range: 4
   targetNum: 0
   isBattle: 0
+  isAnimation: 0
   isRotation: 0
   isTarget: 0
   isBuff: 0
@@ -13405,6 +13429,7 @@ MonoBehaviour:
   range: 1
   targetNum: 0
   isBattle: 0
+  isAnimation: 0
   isRotation: 0
   isTarget: 0
   isBuff: 0
@@ -14727,6 +14752,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   routeIndex: 0
   currentRoute: 0
+  isAnimation: 0
   isMove: 1
   isRotation: 0
   isTarget: 0
@@ -14968,6 +14994,7 @@ MonoBehaviour:
   range: 2
   targetNum: 0
   isBattle: 0
+  isAnimation: 0
   isRotation: 0
   isTarget: 0
   isBuff: 0
