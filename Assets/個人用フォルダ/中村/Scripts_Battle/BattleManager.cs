@@ -352,7 +352,7 @@ public class BattleManager : Singleton<BattleManager>
         //インターバルからアニメーション再生時間を引く
         battleUnitStatus[zoneIndex].interval = Mathf.Max(battleUnitStatus[zoneIndex].interval - battleUnitStatus[zoneIndex].anim_Time, 0);
 
-        //Animatorを読み込み
+        //Animatorを取得
         battleUnitStatus[zoneIndex].animator = battleUnitStatus[zoneIndex].model.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
         
         //HPバーを生成

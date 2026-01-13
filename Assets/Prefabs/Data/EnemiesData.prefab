@@ -49,15 +49,27 @@ MonoBehaviour:
     sprite: {fileID: 0}
     name: "\u58C1\u6BBA\u3059\u3088"
     info: "\u30BF\u30F3\u30AF\u306E\u307F\u306B\u653B\u6483\u3059\u308B"
+    anim_A_Name: BiteAttack
+    anim_A_Time: 0.65
+    anim_D_Name: TakeDamage
   - prefab: {fileID: 6332577239119937932, guid: 0c7b3b83d3cbc92429687f6dc4355a27, type: 3}
     sprite: {fileID: 0}
     name: "\u4F55\u3067\u3082\u6BBA\u3059\u3088"
     info: "\u5168\u3066\u306E\u30E6\u30CB\u30C3\u30C8\u306B\u653B\u6483\u3059\u308B"
+    anim_A_Name: BiteAttack
+    anim_A_Time: 0.65
+    anim_D_Name: TakeDamage
   - prefab: {fileID: 6332577239119937932, guid: db6094087af33504ca658de4e41cfe6b, type: 3}
     sprite: {fileID: 0}
     name: "\u30D0\u30D5\u3059\u308B\u3088"
     info: "\u5468\u308A\u306E\u6575\u306E\u653B\u6483\u529B\u3092\u4E0A\u3052\u308B"
+    anim_A_Name: 
+    anim_A_Time: 0
+    anim_D_Name: TakeDamage
   - prefab: {fileID: 6332577239119937932, guid: 5a57bfb1793c42d458870d962200cfd5, type: 3}
     sprite: {fileID: 0}
     name: "\u30C7\u30D0\u30D5\u3059\u308B\u3088"
     info: "\u5468\u308A\u306E\u30E6\u30CB\u30C3\u30C8\u306E\u653B\u6483\u529B\u3092\u4E0B\u3052\u308B"
+    anim_A_Name: 
+    anim_A_Time: 0
+    anim_D_Name: TakeDamage

@@ -106,6 +106,8 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
             //SE
             if (se_Action != null && se_Action.Length > 0) SoundManager.Instance.PlaySE_OneShot_Game(se_Action[0]);
 
+            isAnimation = false;
+
             //攻撃
             bool dead = targetEnemy.Damage(value);
             //エフェクトを敵の位置に生成

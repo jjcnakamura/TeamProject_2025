@@ -113,6 +113,12 @@ public class EnemySpawnPoint : MonoBehaviour
 
         enemy.se_Action = enemyStatus[index].se_Action;
 
+        //アニメーション関連のコンポーネントを読み込み
+        string anim_A_Name = EnemiesData.Instance.enemy[enemyStatus[index].id].anim_A_Name;
+        float anim_A_Time = EnemiesData.Instance.enemy[enemyStatus[index].id].anim_A_Time;
+        string anim_D_Name = EnemiesData.Instance.enemy[enemyStatus[index].id].anim_D_Name;
+        enemy.interval = Mathf.Max(enemy.interval - enemy.anim_A_Time, 0);
+
         //敵のルートを指定した秒数表示
         if (!enemyStatus[index].noGenerateLine)
         {
@@ -139,6 +145,13 @@ public class EnemySpawnPoint : MonoBehaviour
             instance.gameObject.SetActive(true);
             instance.transform.position = spawnPos;
             instance.transform.rotation = spawnDir;
+
+            //アニメーション関連のコンポーネントを読み込み
+            instance.animator = instance.model.transform.GetChild(0).GetComponent<Animator>();
+            instance.anim_A_Name = EnemiesData.Instance.enemy[enemyStatus[index].id].anim_A_Name;
+            instance.anim_A_Time = EnemiesData.Instance.enemy[enemyStatus[index].id].anim_A_Time;
+            instance.anim_D_Name = EnemiesData.Instance.enemy[enemyStatus[index].id].anim_D_Name;
+            instance.interval = Mathf.Max(enemy.interval - enemy.anim_A_Time, 0);
 
             //HPバーを生成
             Hpbar hpbar = Instantiate(BattleManager.Instance.hpbarPrefab).GetComponent<Hpbar>();

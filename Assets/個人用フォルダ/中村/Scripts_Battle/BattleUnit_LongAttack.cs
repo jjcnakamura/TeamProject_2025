@@ -96,6 +96,8 @@ public class BattleUnit_LongAttack : BattleUnit_Base
     {
         if (!isTarget) return;
 
+        isAnimation = false;
+
         if (targetEnemy != null)
         {
             //’Êí‚Ì’e‚ğŒ‚‚Â

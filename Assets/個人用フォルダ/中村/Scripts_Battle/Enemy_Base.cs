@@ -37,6 +37,12 @@ public class Enemy_Base : MonoBehaviour
     //行動時に鳴らすSEの番号
     [System.NonSerialized] public int[] se_Action;
 
+    //アニメーションに関する変数
+    [System.NonSerialized] public Animator animator;
+    [System.NonSerialized] public string anim_A_Name;
+    [System.NonSerialized] public float anim_A_Time;
+    [System.NonSerialized] public string anim_D_Name;
+
     [Space(10)]
 
     //次に進む場所に関する変数
@@ -74,7 +80,7 @@ public class Enemy_Base : MonoBehaviour
     float timer_KnockBack, timer_MoveWait, timer_SpeedBuff, timer_SpeedDebuff;
 
     //状態を表すフラグ
-    public bool isMove, isRotation, isTarget, isKnockBack, isWait, isBuff, isDebuff, isSpeedBuff, isSpeedDebuff, isDeadCheck, isDead;
+    public bool isAnimation, isMove, isRotation, isTarget, isKnockBack, isWait, isBuff, isDebuff, isSpeedBuff, isSpeedDebuff, isDeadCheck, isDead;
 
     protected virtual void Start()
     {
@@ -127,6 +133,11 @@ public class Enemy_Base : MonoBehaviour
     {
         if (isDead) return true;
 
+        //アニメーション
+        Debug.Log(anim_D_Name);
+        if (animator != null && !isAnimation) animator.Play(anim_D_Name);
+        isAnimation = true;
+
         hp = Mathf.Max(hp - damage, 0);
         timer_KnockBack = 0;
         isKnockBack = true;
@@ -154,15 +165,17 @@ public class Enemy_Base : MonoBehaviour
             timer_KnockBack += Time.fixedDeltaTime;
 
             //仮のダメージモーション
-            model.transform.eulerAngles += new Vector3(0, 1000 * Time.fixedDeltaTime, 0);
+            //model.transform.eulerAngles += new Vector3(0, 1000 * Time.fixedDeltaTime, 0);
         }
         else
         {
-            //仮のダメージモーション
-            model.transform.eulerAngles = transform.eulerAngles;
-
             timer_KnockBack = 0;
+
+            isAnimation = false;
             isKnockBack = false;
+
+            //仮のダメージモーション
+            //model.transform.eulerAngles = transform.eulerAngles;
         }
     }
     //ステータスにバフかデバフをかける（同時にかかった場合は値が大きい方を優先）

@@ -26,9 +26,15 @@ public class EnemiesData : Singleton<EnemiesData>
     [System.Serializable]
     public struct Status
     {
-        public GameObject prefab; //敵のPrefab
-        public Sprite sprite;     //敵の画像
-        public string name;       //敵の名前
-        public string info;       //敵の情報
+        public GameObject prefab;  //敵のPrefab
+        public Sprite sprite;      //敵の画像
+        public string name;        //敵の名前
+        public string info;        //敵の情報
+
+        [Space(5)]
+
+        public string anim_A_Name; //攻撃のアニメーション名
+        public float anim_A_Time;  //攻撃のアニメーション時間
+        public string anim_D_Name; //ダメージのアニメーション名
     }
 }

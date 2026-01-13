@@ -125,6 +125,8 @@ public class BattleUnit_Bomb : BattleUnit_Base
     //”š”­
     void Explosion()
     {
+        if (isExplosion || isEnd) return;
+
         if (se_Action != null && se_Action.Length > 0) SoundManager.Instance.PlaySE_OneShot_Game(se_Action[0]);
 
         model.SetActive(false);

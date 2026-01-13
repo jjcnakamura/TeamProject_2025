@@ -81,6 +81,7 @@ public class Enemy_TargetAttack : Enemy_Base
                 else
                 {
                     targetUnitCol = null;
+                    isAnimation = false;
                     return;
                 }
 
@@ -123,6 +124,7 @@ public class Enemy_TargetAttack : Enemy_Base
 
                 isTarget = false;
                 isMove = true;
+                isAnimation = false;
             }
         }
     }
@@ -133,22 +135,44 @@ public class Enemy_TargetAttack : Enemy_Base
 
         if (targetUnit != null)
         {
-            if (!isInterval)
+            if (!isInterval && !isAnimation)
             {
-                int seIndex = (se_Action != null && se_Action.Length > 0) ? se_Action[0] : 8;
-                SoundManager.Instance.PlaySE_OneShot_Game(seIndex);
+                //アニメーション
+                if (animator != null) animator.Play(anim_A_Name);
+                isAnimation = true;
 
-                //攻撃
-                bool dead = targetUnit.Damage(value);
-                //エフェクトを攻撃ユニットの位置に生成
-                Instantiate(effect).transform.position = targetUnit.transform.position;
-                //インターバル開始
-                timer_Interval = 0;
-                isInterval = true;
-
-                //ユニットがダメージで死亡した場合はターゲットを止める
-                if (dead) Target();
+                //アニメーション終了後にダメージを与える
+                Invoke("ToDamage", anim_A_Time);
             }
+        }
+        else
+        {
+            //ユニットが存在しない場合はターゲットを止める
+            Target();
+        }
+    }
+    //攻撃でダメージを与える
+    void ToDamage()
+    {
+        if (!isTarget) return;
+
+        if (targetUnit != null)
+        {
+            int seIndex = (se_Action != null && se_Action.Length > 0) ? se_Action[0] : 8;
+            SoundManager.Instance.PlaySE_OneShot_Game(seIndex);
+
+            isAnimation = false;
+
+            //攻撃
+            bool dead = targetUnit.Damage(value);
+            //エフェクトを攻撃ユニットの位置に生成
+            Instantiate(effect).transform.position = targetUnit.transform.position;
+            //インターバル開始
+            timer_Interval = 0;
+            isInterval = true;
+
+            //ユニットがダメージで死亡した場合はターゲットを止める
+            if (dead) Target();
         }
         else
         {
@@ -168,6 +192,7 @@ public class Enemy_TargetAttack : Enemy_Base
             else
             {
                 timer_Interval = 0;
+                isAnimation = false;
                 isInterval = false;
             }
         }
