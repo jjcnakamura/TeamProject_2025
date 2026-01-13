@@ -35,7 +35,8 @@ public class MapManager : Singleton<MapManager>
     public Transform PlayerStartPos;
     public GameObject NextFloorButtonImage;
     public GameObject GameEndImage;
-    public toggle[] toggles;
+    public GameObject EventOBJ;
+
 
     void Awake()
     {
@@ -61,6 +62,7 @@ public class MapManager : Singleton<MapManager>
         if (Input.GetKeyDown(KeyCode.A)) worldLevel = 0;
         if (Input.GetKeyDown(KeyCode.S)) worldLevel = 1;
         if (Input.GetKeyDown(KeyCode.D)) worldLevel = 2;
+        if (Input.GetKeyDown(KeyCode.F)) GameEndCharaSelectButton();
 
         Transform[] transforms = new Transform[MapRoute.Length];
         for (int i = 0; i < MapRoute.Length; i++)
@@ -71,7 +73,7 @@ public class MapManager : Singleton<MapManager>
         Transform bossPis = nextStage.parent;
         Transform boss = bossPis.GetChild(0);
         StageInfo StageInfo = boss.GetComponent<StageInfo>();
-        if (StageInfo != null)
+        if (StageInfo != null)//ステージを進める際の次のフロアかゲームクリアか分けるところ
         {
             if (StageInfo.FloorEnd == true && StageInfo.StageEnd == true)
             {
@@ -87,7 +89,7 @@ public class MapManager : Singleton<MapManager>
 
         if (ParameterManager.Instance.isBattleClear == true)//クリアしたら勝手に次のステージに進むやつ
         {
-            Transform child = nextStage.GetChild(0);
+            Transform child = nextStage.parent;
             StageInfo stageInfo = child.GetComponent<StageInfo>();
             if (stageInfo != null)
             {
@@ -222,6 +224,7 @@ public class MapManager : Singleton<MapManager>
         }
     }
 
+    /*
     public void EventContDown()//設置時のコスト　(短縮系)
     {
         unitStatus.cost -= 1;//（仮）
@@ -270,10 +273,52 @@ public class MapManager : Singleton<MapManager>
             //音かテキストを出して出来ないことをしめす
         }
     }
+    */
 
     public void LoadScene(int i)//シーンを流す用　ボタン用
     {
         SceneManager.LoadScene(i);
+    }
+
+    public void ButtleLoadSceneAndEvent()//シーンを流す用　ボタン用
+    {
+        Transform bossPis = nextStage.parent;
+        if (bossPis != null)
+        {
+            StageInfo StageInfo = bossPis.GetComponent<StageInfo>();
+            if (StageInfo != null)
+            {
+                if (StageInfo.StageName == "バトル")
+                {
+                    int i = 0;
+                    StageInfo.namber[0] = i;
+                    SceneManager.LoadScene(i);
+                    Debug.Log("ステージは" + i + "をロードしたよ");
+                    return;
+                }
+                if(StageInfo.StageName == "イベント")
+                {
+                    int i = 0;
+                    StageInfo.namber[0] = i;
+                    EventWindowManager.Instance.CallEventAt(i);
+                    Debug.Log("ステージは" + i + "をロードしたよ");
+                    return;
+                }
+            }
+            Transform boss = bossPis.GetChild(0);
+            StageInfo stageInfo = boss.GetComponent<StageInfo>();
+            if (stageInfo != null)
+            {
+                if (stageInfo.StageName == "バトル")
+                {
+                    int i = 0;
+                    stageInfo.namber[0] = i;
+                    SceneManager.LoadScene(i);
+                    Debug.Log("ステージは" + i + "をロードしたよ");
+                }
+            }
+        }
+        
     }
 
     public void GameStart(GameObject i)//ゲームスタート　ボタン用
@@ -430,5 +475,22 @@ public class MapManager : Singleton<MapManager>
     public void GameEnd()
     {
         GameEndImage.SetActive(true);
+    }
+
+    public void GameEndCanvas()
+    {
+        var status = ParameterManager.Instance.unitStatus;
+        foreach (var ID in status)
+        {
+            //ID.id
+        }
+        unitStatus.id = 0;
+    }
+
+    public void GameEndCharaSelectButton()//仮
+    {
+        //EventOBJ.SetActive(true);
+        EventWindowManager.Instance.EventRandomChoice(4);
+        EventWindowManager.Instance.CallEventAt(4);
     }
 }
