@@ -8,6 +8,11 @@ using System;
 /// </summary>
 public class ParameterManager : Singleton<ParameterManager>
 {
+    //フロア(エリア)数
+    public int floorNum;
+
+    [Space(10)]
+
     //プレイヤーのステータスと初期値
     public int hp = 10;                     //プレイヤー（タワー）のHP
     public int maxHp = 100;                 //プレイヤー（タワー）の最大HP
