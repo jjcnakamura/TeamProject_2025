@@ -50,7 +50,7 @@ public class EventWindowManager : Singleton<EventWindowManager>
         //Canvasの表示
         for (int i = 0; i < canvas.Length; i++)
         {
-            canvas[i].SetActive(i <= 0);
+            canvas[i].SetActive(false);
         }
 
         //各ウィンドウを非表示に
