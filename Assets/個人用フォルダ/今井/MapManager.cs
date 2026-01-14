@@ -309,11 +309,11 @@ public class MapManager : Singleton<MapManager>
             StageInfo stageInfo = boss.GetComponent<StageInfo>();
             if (stageInfo != null)
             {
-                if (stageInfo.StageName == "バトル")
+                if (stageInfo.StageName == "ボス")
                 {
                     int i = 0;
-                    stageInfo.namber[0] = i;
-                    SceneManager.LoadScene(stageInfo.namber[0]);
+                    i = stageInfo.namber[0];
+                    SceneManager.LoadScene(i);
                     Debug.Log("ステージは" + i + "をロードしたよ");
                 }
             }
