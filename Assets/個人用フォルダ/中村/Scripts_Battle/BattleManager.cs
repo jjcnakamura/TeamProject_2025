@@ -244,6 +244,17 @@ public class BattleManager : Singleton<BattleManager>
             //フラグを設定
             isMainGame = true;
             isNoDamage = true;
+
+            //デバッグ用　クリアボタン
+            Transform child = canvas[0].transform.Find("DebugButton");
+            if (FindObjectOfType(System.Type.GetType("DebugScript")) != null)
+            {
+                if (child != null) child.GetComponent<Button>().onClick.AddListener(() => Clear());
+            }
+            else
+            {
+                if (child != null) child.gameObject.SetActive(false);
+            }
         }
     }
 
