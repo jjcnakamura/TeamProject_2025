@@ -93,7 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Start: 0
   Stage: 1
-  namber: 0
+  namber: 
   StageName: "\u30A4\u30D9\u30F3\u30C8"
   StageNaiyou: statusUP
   Enemyint: 0

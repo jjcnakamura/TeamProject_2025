@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.EventSystems;
+using System.Globalization;
 
 /// <summary>
 /// ステージの情報を積むスクリプト
@@ -35,11 +36,11 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         }
         if (StageName == "バトル")
         {
-            //namber = 2 + EventWindowManager.Instance.EventRandomChoice(1);
+            namber = EventWindowManager.Instance.BattleRandomChoice(1, MapManager.Instance.worldLevel);
         }
         if (StageName == "ボス")
         {
-            //namber = EventWindowManager.Instance.EventRandomChoice(1);
+            //namber[0] = MapManager.Instance.worldLevel + MapManager.Instance.floor;
         }
     }
 
@@ -177,6 +178,6 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
 
     public void ButtleIndex()
     {
-        //namber = 2 + 
+        
     }
 }

@@ -280,7 +280,7 @@ public class MapManager : Singleton<MapManager>
         SceneManager.LoadScene(i);
     }
 
-    public void ButtleLoadSceneAndEvent()//シーンを流す用　ボタン用
+    public void ButtleLoadSceneAndEvent()//バトルかイベントのシーンを流す　ボタン用
     {
         Transform bossPis = nextStage.parent;
         if (bossPis != null)
@@ -291,9 +291,9 @@ public class MapManager : Singleton<MapManager>
                 if (StageInfo.StageName == "バトル")
                 {
                     int i = 0;
-                    StageInfo.namber[0] = i + 2;
-                    SceneManager.LoadScene(StageInfo.namber[0]);
-                    Debug.Log("ステージは" + StageInfo.namber[0] + "をロードしたよ");
+                    i = StageInfo.namber[0] + 2;
+                    SceneManager.LoadScene(i);
+                    Debug.Log("ステージは" + i + "をロードしたよ");
                     return;
                 }
                 if(StageInfo.StageName == "イベント")
