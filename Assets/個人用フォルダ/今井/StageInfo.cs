@@ -33,6 +33,14 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         {
             namber = EventWindowManager.Instance.EventRandomChoice(1);
         }
+        if (StageName == "バトル")
+        {
+            //namber = 2 + EventWindowManager.Instance.EventRandomChoice(1);
+        }
+        if (StageName == "ボス")
+        {
+            //namber = EventWindowManager.Instance.EventRandomChoice(1);
+        }
     }
 
     void Update()
@@ -165,5 +173,10 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
             NextButton.SetActive(false);
         if (targetUI != null)
             targetUI.SetActive(false);
+    }
+
+    public void ButtleIndex()
+    {
+        //namber = 2 + 
     }
 }
