@@ -12,6 +12,42 @@ EditorBuildSettings:
     path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u4ECA\u4E95/SampleScene.unity"
     guid: f4899b41f5f6a654481a8f5400321b82
   - enabled: 1
-    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u4E2D\u6751/BatteTest.unity"
-    guid: e882380cbce45c145813ca0f5ad44bf1
+    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u5C0F\u5C71/\u521D\u7D1A\uFF11.unity"
+    guid: 963f4147c4373ea4d9289fbef939d79d
+  - enabled: 1
+    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u5C0F\u5C71/\u521D\u7D1A\uFF12.unity"
+    guid: 90193f8d2322ffd4c8604a7e91258d4d
+  - enabled: 1
+    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u5C0F\u5C71/\u521D\u7D1A\uFF13.unity"
+    guid: 42b9dae7c17f2e34690d4a9798fab21b
+  - enabled: 1
+    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u5C0F\u5C71/\u521D\u7D1A\uFF14.unity"
+    guid: 3e53b124cca1bb64aa5a0a48698a4769
+  - enabled: 1
+    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u5C0F\u5C71/\u521D\u7D1A\uFF15.unity"
+    guid: 13b4f5bcdae93cc43af0f071d8f768e5
+  - enabled: 1
+    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u5C0F\u5C71/\u521D\u7D1A\uFF16.unity"
+    guid: 52cf6a8df0061f24585dbb60f3b98a6e
+  - enabled: 1
+    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u5C0F\u5C71/\u521D\u7D1A\uFF17.unity"
+    guid: 43c6b55999588414b9ef1ae9f2a4a146
+  - enabled: 1
+    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u5C0F\u5C71/\u521D\u7D1A\uFF18.unity"
+    guid: c29e42bbddfaca94192b1f0b7230b781
+  - enabled: 1
+    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u5C0F\u5C71/\u521D\u7D1A\uFF19.unity"
+    guid: 3886ac4be43e3554bad3fd87c41721d5
+  - enabled: 1
+    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u5C0F\u5C71/\u521D\u7D1A\uFF11\uFF10.unity"
+    guid: 1952919e992d0424db7ae050cda3a271
+  - enabled: 1
+    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u4E2D\u6751/Stage/Stage_\u521D\u7D1A\u30DC\u30B9_1.unity"
+    guid: 975c9ab4cd3499d408b32c3f7e4f19ad
+  - enabled: 1
+    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u4E2D\u6751/Stage/Stage_\u521D\u7D1A\u30DC\u30B9_2.unity"
+    guid: b7beadfa899e30746a01e17ef2b2aeac
+  - enabled: 1
+    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u4E2D\u6751/Stage/Stage_\u521D\u7D1A\u30DC\u30B9_3.unity"
+    guid: c452075b2436ff94c89319ae02c6564a
   m_configObjects: {}
