@@ -149,6 +149,19 @@ public class TitleManager : Singleton<TitleManager>
         }
     }
 
+    public void WorldLevelEasy()
+    {
+        MapManager.Instance.worldLevel = 0;
+    }
+    public void WorldLevelNormal()
+    {
+        MapManager.Instance.worldLevel = 1;
+    }
+    public void WorldLevelExtra()
+    {
+        MapManager.Instance.worldLevel = 2;
+    }
+
     public void Exit()
     {
         //UnityEditorã‚ÅƒvƒŒƒC‚ğI—¹‚·‚éê‡

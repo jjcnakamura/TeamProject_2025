@@ -18,7 +18,7 @@ public class MapEvent : MonoBehaviour
             {
                 int[] num = EventWindowManager.Instance.EventRandomChoice(4);
                 int i = num[UnityEngine.Random.Range(0, num.Length)];
-                if (Events[i] == false)
+                if (Events[i] == true)
                 {
                     GoEvent();
                     return;
