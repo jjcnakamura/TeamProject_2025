@@ -292,14 +292,14 @@ public class MapManager : Singleton<MapManager>
                 {
                     int i = 0;
                     StageInfo.namber[0] = i + 2;
-                    SceneManager.LoadScene(i);
-                    Debug.Log("ステージは" + i + "をロードしたよ");
+                    SceneManager.LoadScene(StageInfo.namber[0]);
+                    Debug.Log("ステージは" + StageInfo.namber[0] + "をロードしたよ");
                     return;
                 }
                 if(StageInfo.StageName == "イベント")
                 {
                     int i = 0;
-                    StageInfo.namber[0] = i;
+                    i = StageInfo.namber[0];
                     EventWindowManager.Instance.CallEventAt(i);
                     Debug.Log("ステージは" + i + "をロードしたよ");
                     return;
@@ -313,7 +313,7 @@ public class MapManager : Singleton<MapManager>
                 {
                     int i = 0;
                     stageInfo.namber[0] = i;
-                    SceneManager.LoadScene(i);
+                    SceneManager.LoadScene(stageInfo.namber[0]);
                     Debug.Log("ステージは" + i + "をロードしたよ");
                 }
             }
