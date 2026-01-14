@@ -277,6 +277,7 @@ public class EventWindowManager : Singleton<EventWindowManager>
 
         canvas[0].SetActive(false);
 
+        MapManager.Instance.DebugStageEnd();
         isEvent = false;
     }
 
