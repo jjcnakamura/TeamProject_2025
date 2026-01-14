@@ -114,7 +114,7 @@ public class MapManager : Singleton<MapManager>
     public void NextFloor()//ƒtƒƒA‚ği‚ß‚éˆ—
     {
         y = 0;
-        x = 0;
+        x = 1;
         Nextfloorbool = false;
         floor += 1;
         ParameterManager.Instance.hp += 3;
