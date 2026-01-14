@@ -84,6 +84,7 @@ MonoBehaviour:
   isUnitDrag: 0
   isUnitPlace: 0
   isOnMouseUnitZone: 0
+  lightingDataAsset: {fileID: 112000000, guid: 2389c73e15921ef48b1d5dd93e410622, type: 2}
 --- !u!1 &625484019729943670
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEditor;
 using TMPro;
 
 /// <summary>
@@ -22,6 +23,11 @@ public class BattleManager : Singleton<BattleManager>
     //各Canvas
     [SerializeField] GameObject canvasParent;
     GameObject[] canvas;
+
+    [Space(10)]
+
+    //エディター上でのLighting
+    [SerializeField] LightingDataAsset lightingDataAsset;
 
     [Space(10)]
 
@@ -177,6 +183,9 @@ public class BattleManager : Singleton<BattleManager>
         //戦闘シーン開始時のみ実行する
         if (!isMainGame && !isClear && !isGameOver)
         {
+            //エディター上でLightingDataAssetを読み込み
+            if (lightingDataAsset != null) Lightmapping.lightingDataAsset = lightingDataAsset;
+
             //BGMを再生
             SoundManager.Instance.PlayBGM_Battle(bgmIndex);
 
