@@ -658,5 +658,7 @@ public class BattleManager : Singleton<BattleManager>
 
         //マップシーンに戻る
         FadeManager.Instance.LoadSceneIndex(1, 0.5f);
+
+        MapManager.Instance.DebugStageEnd();
     }
 }

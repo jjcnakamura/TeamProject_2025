@@ -7232,8 +7232,8 @@ MonoBehaviour:
   worldLevel: 0
   EasyworldBoss:
   - {fileID: 1272424673369549997, guid: d9d9db70a3d78f44f869347e578acf94, type: 3}
-  - {fileID: 1272424673369549997, guid: d9d9db70a3d78f44f869347e578acf94, type: 3}
-  - {fileID: 1272424673369549997, guid: d9d9db70a3d78f44f869347e578acf94, type: 3}
+  - {fileID: 1952304125731385587, guid: 4a7931c19ae5d5349857447fdede01ad, type: 3}
+  - {fileID: 5227857700782153409, guid: 5d843d361db22cd498b775fbe5cc6a9b, type: 3}
   NormalworldBoss:
   - {fileID: 1272424673369549997, guid: d9d9db70a3d78f44f869347e578acf94, type: 3}
   - {fileID: 1272424673369549997, guid: d9d9db70a3d78f44f869347e578acf94, type: 3}
