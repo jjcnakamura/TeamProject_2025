@@ -291,7 +291,7 @@ public class MapManager : Singleton<MapManager>
                 if (StageInfo.StageName == "バトル")
                 {
                     int i = 0;
-                    StageInfo.namber[0] = i;
+                    StageInfo.namber[0] = i + 2;
                     SceneManager.LoadScene(i);
                     Debug.Log("ステージは" + i + "をロードしたよ");
                     return;
