@@ -55,7 +55,7 @@ public class EventsData : Singleton<EventsData>
             //戦闘IDをタイトル、マップのシーン番号を飛ばしたものにする
             for (int j = 0; j < battlIdPool[i].id.Length; j++)
             {
-                battlIdPool[i].id[j] = Mathf.Max(Mathf.Min(battlIdPool[i].id[j] + 2, SceneManager.sceneCount + 2), 0);
+                battlIdPool[i].id[j] = Mathf.Max(Mathf.Min(battlIdPool[i].id[j] + 2, SceneManager.sceneCountInBuildSettings + 2), 2);
             }
         }
 
