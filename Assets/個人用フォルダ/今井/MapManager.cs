@@ -93,7 +93,7 @@ public class MapManager : Singleton<MapManager>
             StageInfo stageInfo = child.GetComponent<StageInfo>();
             if (stageInfo != null)
             {
-                stageInfo.StageEnd = true;
+                //stageInfo.StageEnd = true;
                 ParameterManager.Instance.isBattleClear = false;
             }
         }
