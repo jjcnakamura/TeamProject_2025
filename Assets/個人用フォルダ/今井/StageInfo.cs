@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.EventSystems;
-using System.Globalization;
 
 /// <summary>
 /// ステージの情報を積むスクリプト
@@ -47,7 +46,18 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
     void Update()
     {
         if (StageInfoText[0] != null) StageInfoText[0].text = StageName.ToString(); //何をするかをテキストで反映
-        if (StageInfoText[1] != null) StageInfoText[1].text = StageNaiyou.ToString();//内容
+        if (StageInfoText[1] != null)
+        {
+            if(StageName == "イベント")
+            {
+                StageInfoText[1].text = EventsData.Instance.eventData[namber[0]].name;//内容
+            }
+            if (StageName == "バトル")
+            {
+                StageInfoText[1].text = Enemyint.ToString();
+            }
+        }
+            
         if (StageName == "バトル")//バトルステージの時は表示
         {
             if (StageInfoText[1] != null) StageInfoText[1].text = Enemyint.ToString();
