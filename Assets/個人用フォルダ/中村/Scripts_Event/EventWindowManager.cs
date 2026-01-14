@@ -191,9 +191,10 @@ public class EventWindowManager : Singleton<EventWindowManager>
         //ID‚ð’Š‘I‚µ‚Ä”z—ñ‚ÉŠi”[
         for (int i = 0; i < result.Length; i++)
         {
-            int randomId = tmpPool[UnityEngine.Random.Range(0, tmpPool.Count)];
+            int index = UnityEngine.Random.Range(0, tmpPool.Count);
+            int randomId = tmpPool[index];
             result[i] = randomId;
-            tmpPool.RemoveAt(randomId);
+            tmpPool.RemoveAt(index);
 
             //ƒŠƒXƒg‚ª‹ó‚É‚È‚Á‚½‚çÄ“xID‚ðƒŠƒXƒg‚ÉŠi”[
             if (tmpPool.Count <= 0) tmpPool = pool;
@@ -221,9 +222,10 @@ public class EventWindowManager : Singleton<EventWindowManager>
         //ID‚ð’Š‘I‚µ‚Ä”z—ñ‚ÉŠi”[
         for (int i = 0; i < result.Length; i++)
         {
-            int randomId = tmpPool[UnityEngine.Random.Range(0, tmpPool.Count)];
+            int index = UnityEngine.Random.Range(0, tmpPool.Count);
+            int randomId = tmpPool[index];
             result[i] = randomId;
-            tmpPool.RemoveAt(randomId);
+            tmpPool.RemoveAt(index);
 
             //ƒŠƒXƒg‚ª‹ó‚É‚È‚Á‚½‚çÄ“xID‚ðƒŠƒXƒg‚ÉŠi”[
             if (tmpPool.Count <= 0) tmpPool = pool;
