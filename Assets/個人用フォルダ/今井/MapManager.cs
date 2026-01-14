@@ -330,7 +330,6 @@ public class MapManager : Singleton<MapManager>
 
     public void BossMake()//難易度参照のボス
     {
-        Debug.Log("通ってるよ");
         if (worldLevel == 0)
         {
             int i = floor - 1;
