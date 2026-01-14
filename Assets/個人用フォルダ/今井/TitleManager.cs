@@ -129,6 +129,26 @@ public class TitleManager : Singleton<TitleManager>
         }
     }
 
+    //デバッグモード開始
+    public void Debug()
+    {
+        //デバッグ画面を開く
+        if (!canvas[3].activeSelf)
+        {
+            SoundManager.Instance.PlaySE_Sys(0);
+
+            canvas[3].SetActive(true);
+            DebugMode.Instance.DebugStart();
+        }
+        //デバッグ画面を閉じる
+        else
+        {
+            SoundManager.Instance.PlaySE_Sys(2);
+
+            canvas[3].SetActive(false);
+        }
+    }
+
     public void Exit()
     {
         //UnityEditor上でプレイを終了する場合
