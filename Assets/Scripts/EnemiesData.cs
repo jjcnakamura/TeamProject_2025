@@ -33,6 +33,7 @@ public class EnemiesData : Singleton<EnemiesData>
 
         [Space(5)]
 
+        public string anim_W_Name; //移動のアニメーション名
         public string anim_A_Name; //攻撃のアニメーション名
         public float anim_A_Time;  //攻撃のアニメーション時間
         public string anim_D_Name; //ダメージのアニメーション名

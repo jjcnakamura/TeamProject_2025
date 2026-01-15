@@ -39,6 +39,7 @@ public class Enemy_Base : MonoBehaviour
 
     //アニメーションに関する変数
     [System.NonSerialized] public Animator animator;
+    [System.NonSerialized] public string anim_W_Name;
     [System.NonSerialized] public string anim_A_Name;
     [System.NonSerialized] public float anim_A_Time;
     [System.NonSerialized] public string anim_D_Name;
@@ -319,6 +320,18 @@ public class Enemy_Base : MonoBehaviour
                 }
             }
         }
+    }
+    //立ち止まる
+    public void Idle()
+    {
+        //アニメーション
+        if (animator != null) animator.ResetTrigger(anim_W_Name);
+    }
+    //アニメーションを終了させて歩きモーションに戻る
+    public void AnimEnd()
+    {
+        if (animator != null) animator.SetTrigger(anim_W_Name);
+        isAnimation = false;
     }
     //移動速度にバフかデバフをかける（同時にかかった場合は値が大きい方を優先）
     public void SpeedChange(float val, float time)

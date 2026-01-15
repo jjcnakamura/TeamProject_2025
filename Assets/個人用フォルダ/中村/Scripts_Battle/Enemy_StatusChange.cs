@@ -157,6 +157,8 @@ public class Enemy_StatusChange : Enemy_Base
                 isCollisionWallUnit = true;
                 isTarget = true;
                 isMove = false;
+
+                Idle();
             }
         }
         else
@@ -185,6 +187,8 @@ public class Enemy_StatusChange : Enemy_Base
                 isCollisionWallUnit = false;
                 isTarget = false;
                 isMove = true;
+
+                AnimEnd();
             }
         }
     }

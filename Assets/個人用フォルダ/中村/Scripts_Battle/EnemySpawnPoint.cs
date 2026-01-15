@@ -148,10 +148,12 @@ public class EnemySpawnPoint : MonoBehaviour
 
             //アニメーション関連のコンポーネントを読み込み
             instance.animator = instance.model.transform.GetChild(0).GetComponent<Animator>();
+            instance.anim_W_Name = EnemiesData.Instance.enemy[enemyStatus[index].id].anim_W_Name;
             instance.anim_A_Name = EnemiesData.Instance.enemy[enemyStatus[index].id].anim_A_Name;
             instance.anim_A_Time = EnemiesData.Instance.enemy[enemyStatus[index].id].anim_A_Time;
             instance.anim_D_Name = EnemiesData.Instance.enemy[enemyStatus[index].id].anim_D_Name;
             instance.interval = Mathf.Max(enemy.interval - enemy.anim_A_Time, 0);
+            instance.AnimEnd();
 
             //HPバーを生成
             Hpbar hpbar = Instantiate(BattleManager.Instance.hpbarPrefab).GetComponent<Hpbar>();

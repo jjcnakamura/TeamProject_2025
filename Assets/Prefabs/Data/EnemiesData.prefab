@@ -47,33 +47,161 @@ MonoBehaviour:
   enemy:
   - prefab: {fileID: 6332577239119937932, guid: a1566b8f749366a47837da8ddb9d6134, type: 3}
     sprite: {fileID: 0}
-    name: "\u58C1\u6BBA\u3059\u3088"
+    name: "\u30AD\u30CE\u30B3"
     info: "\u30BF\u30F3\u30AF\u306E\u307F\u306B\u653B\u6483\u3059\u308B"
     anim_W_Name: Walk Forward
-    anim_A_Name: BiteAttack
+    anim_A_Name: Punch Attack
     anim_A_Time: 0.65
-    anim_D_Name: TakeDamage
+    anim_D_Name: Take Damage
+  - prefab: {fileID: 6332577239119937932, guid: 19df631452445704fa186e5d89217f3c, type: 3}
+    sprite: {fileID: 0}
+    name: "\u30D0\u30C3\u30C8"
+    info: "\u30BF\u30F3\u30AF\u306E\u307F\u306B\u653B\u6483\u3059\u308B"
+    anim_W_Name: Walk Forward
+    anim_A_Name: Punch Attack
+    anim_A_Time: 0.65
+    anim_D_Name: Take Damage
+  - prefab: {fileID: 6332577239119937932, guid: 3e58504fda151c34ba29881fab604bd7, type: 3}
+    sprite: {fileID: 0}
+    name: "\u30B4\u30FC\u30B9\u30C8"
+    info: "\u30BF\u30F3\u30AF\u306E\u307F\u306B\u653B\u6483\u3059\u308B"
+    anim_W_Name: Walk Forward
+    anim_A_Name: Punch Attack
+    anim_A_Time: 0.65
+    anim_D_Name: Take Damage
+  - prefab: {fileID: 6332577239119937932, guid: 53b327367640b8e4ca7bcbbcc90a3633, type: 3}
+    sprite: {fileID: 0}
+    name: "\u30B9\u30E9\u30A4\u30E0"
+    info: "\u30BF\u30F3\u30AF\u306E\u307F\u306B\u653B\u6483\u3059\u308B"
+    anim_W_Name: Walk Forward
+    anim_A_Name: Punch Attack
+    anim_A_Time: 0.65
+    anim_D_Name: Take Damage
+  - prefab: {fileID: 6332577239119937932, guid: 7aac6c81cff23ab4eb9260364b792fef, type: 3}
+    sprite: {fileID: 0}
+    name: "\u30B9\u30B1\u30EB\u30C8\u30F3"
+    info: "\u30BF\u30F3\u30AF\u306E\u307F\u306B\u653B\u6483\u3059\u308B"
+    anim_W_Name: Walk Forward
+    anim_A_Name: Punch Attack
+    anim_A_Time: 0.65
+    anim_D_Name: Take Damage
+  - prefab: {fileID: 6332577239119937932, guid: dc4b1aa95a4161d40b4a4d0d8a4f9a7b, type: 3}
+    sprite: {fileID: 0}
+    name: "\u30CA\u30A4\u30C8"
+    info: "\u30BF\u30F3\u30AF\u306E\u307F\u306B\u653B\u6483\u3059\u308B"
+    anim_W_Name: Walk Forward
+    anim_A_Name: Punch Attack
+    anim_A_Time: 0.65
+    anim_D_Name: Take Damage
+  - prefab: {fileID: 6332577239119937932, guid: 8a2bbd001a77e3d418718a0615c61ad8, type: 3}
+    sprite: {fileID: 0}
+    name: "\u30C4\u30EA\u30FC"
+    info: "\u30BF\u30F3\u30AF\u306E\u307F\u306B\u653B\u6483\u3059\u308B"
+    anim_W_Name: Walk Forward
+    anim_A_Name: Punch Attack
+    anim_A_Time: 0.65
+    anim_D_Name: Take Damage
+  - prefab: {fileID: 6332577239119937932, guid: 25b873c2f4e873e40804dd972e08abbb, type: 3}
+    sprite: {fileID: 0}
+    name: "\u30B9\u30B3\u30FC\u30D4\u30AA\u30F3"
+    info: "\u30BF\u30F3\u30AF\u306E\u307F\u306B\u653B\u6483\u3059\u308B"
+    anim_W_Name: Walk Forward
+    anim_A_Name: Punch Attack
+    anim_A_Time: 0.65
+    anim_D_Name: Take Damage
+  - prefab: {fileID: 6332577239119937932, guid: d36d2f7f3e190dd4f94aa94c8f90a919, type: 3}
+    sprite: {fileID: 0}
+    name: "\u30B4\u30FC\u30EC\u30E0"
+    info: "\u30BF\u30F3\u30AF\u306E\u307F\u306B\u653B\u6483\u3059\u308B"
+    anim_W_Name: Walk Forward
+    anim_A_Name: Punch Attack
+    anim_A_Time: 0.65
+    anim_D_Name: Take Damage
   - prefab: {fileID: 6332577239119937932, guid: 0c7b3b83d3cbc92429687f6dc4355a27, type: 3}
     sprite: {fileID: 0}
-    name: "\u4F55\u3067\u3082\u6BBA\u3059\u3088"
+    name: "\u30AD\u30CE\u30B3"
     info: "\u5168\u3066\u306E\u30E6\u30CB\u30C3\u30C8\u306B\u653B\u6483\u3059\u308B"
     anim_W_Name: Walk Forward
-    anim_A_Name: BiteAttack
+    anim_A_Name: Punch Attack
     anim_A_Time: 0.65
-    anim_D_Name: TakeDamage
+    anim_D_Name: Take Damage
+  - prefab: {fileID: 6332577239119937932, guid: 63e9f9c37a388874da2c0e51e1283725, type: 3}
+    sprite: {fileID: 0}
+    name: "\u30D0\u30C3\u30C8"
+    info: "\u5168\u3066\u306E\u30E6\u30CB\u30C3\u30C8\u306B\u653B\u6483\u3059\u308B"
+    anim_W_Name: Walk Forward
+    anim_A_Name: Punch Attack
+    anim_A_Time: 0.65
+    anim_D_Name: Take Damage
+  - prefab: {fileID: 6332577239119937932, guid: 9f499930d07e4c34fa4c87d2d77a25aa, type: 3}
+    sprite: {fileID: 0}
+    name: "\u30B4\u30FC\u30B9\u30C8"
+    info: "\u5168\u3066\u306E\u30E6\u30CB\u30C3\u30C8\u306B\u653B\u6483\u3059\u308B"
+    anim_W_Name: Walk Forward
+    anim_A_Name: Punch Attack
+    anim_A_Time: 0.65
+    anim_D_Name: Take Damage
+  - prefab: {fileID: 6332577239119937932, guid: 8fab3a75e3e6b4f4890ba7dfd029736a, type: 3}
+    sprite: {fileID: 0}
+    name: "\u30B9\u30E9\u30A4\u30E0"
+    info: "\u5168\u3066\u306E\u30E6\u30CB\u30C3\u30C8\u306B\u653B\u6483\u3059\u308B"
+    anim_W_Name: Walk Forward
+    anim_A_Name: Punch Attack
+    anim_A_Time: 0.65
+    anim_D_Name: Take Damage
+  - prefab: {fileID: 6332577239119937932, guid: f5f01bb9477c088488a322173f1591c4, type: 3}
+    sprite: {fileID: 0}
+    name: "\u30B9\u30B1\u30EB\u30C8\u30F3"
+    info: "\u5168\u3066\u306E\u30E6\u30CB\u30C3\u30C8\u306B\u653B\u6483\u3059\u308B"
+    anim_W_Name: Walk Forward
+    anim_A_Name: Punch Attack
+    anim_A_Time: 0.65
+    anim_D_Name: Take Damage
+  - prefab: {fileID: 6332577239119937932, guid: b083926f79bc46745a42758edb42c457, type: 3}
+    sprite: {fileID: 0}
+    name: "\u30CA\u30A4\u30C8"
+    info: "\u5168\u3066\u306E\u30E6\u30CB\u30C3\u30C8\u306B\u653B\u6483\u3059\u308B"
+    anim_W_Name: Walk Forward
+    anim_A_Name: Punch Attack
+    anim_A_Time: 0.65
+    anim_D_Name: Take Damage
+  - prefab: {fileID: 6332577239119937932, guid: d61f4eb1c0ffad4448bd221341fee3e4, type: 3}
+    sprite: {fileID: 0}
+    name: "\u30C4\u30EA\u30FC"
+    info: "\u5168\u3066\u306E\u30E6\u30CB\u30C3\u30C8\u306B\u653B\u6483\u3059\u308B"
+    anim_W_Name: Walk Forward
+    anim_A_Name: Punch Attack
+    anim_A_Time: 0.65
+    anim_D_Name: Take Damage
+  - prefab: {fileID: 6332577239119937932, guid: 62046b493e8a49b4ea9bb3555ae1ee34, type: 3}
+    sprite: {fileID: 0}
+    name: "\u30B9\u30B3\u30FC\u30D4\u30AA\u30F3"
+    info: "\u5168\u3066\u306E\u30E6\u30CB\u30C3\u30C8\u306B\u653B\u6483\u3059\u308B"
+    anim_W_Name: Walk Forward
+    anim_A_Name: Punch Attack
+    anim_A_Time: 0.65
+    anim_D_Name: Take Damage
+  - prefab: {fileID: 6332577239119937932, guid: f4cf4bd4f1ea7b94fb979c425f69479e, type: 3}
+    sprite: {fileID: 0}
+    name: "\u30B4\u30FC\u30EC\u30E0"
+    info: "\u5168\u3066\u306E\u30E6\u30CB\u30C3\u30C8\u306B\u653B\u6483\u3059\u308B"
+    anim_W_Name: Walk Forward
+    anim_A_Name: Punch Attack
+    anim_A_Time: 0.65
+    anim_D_Name: Take Damage
   - prefab: {fileID: 6332577239119937932, guid: db6094087af33504ca658de4e41cfe6b, type: 3}
     sprite: {fileID: 0}
-    name: "\u30D0\u30D5\u3059\u308B\u3088"
-    info: "\u5468\u308A\u306E\u6575\u306E\u653B\u6483\u529B\u3092\u4E0A\u3052\u308B"
+    name: "\u30E1\u30A4\u30B8"
+    info: "\u4ED6\u306E\u6575\u306E\u653B\u6483\u529B\u3092\u4E0A\u3052\u308B"
     anim_W_Name: Walk Forward
-    anim_A_Name: 
-    anim_A_Time: 0
-    anim_D_Name: TakeDamage
+    anim_A_Name: Punch Attack
+    anim_A_Time: 0.65
+    anim_D_Name: Take Damage
   - prefab: {fileID: 6332577239119937932, guid: 5a57bfb1793c42d458870d962200cfd5, type: 3}
     sprite: {fileID: 0}
-    name: "\u30C7\u30D0\u30D5\u3059\u308B\u3088"
+    name: "\u30C0\u30FC\u30AF\u30E1\u30A4\u30B8"
     info: "\u5468\u308A\u306E\u30E6\u30CB\u30C3\u30C8\u306E\u653B\u6483\u529B\u3092\u4E0B\u3052\u308B"
     anim_W_Name: Walk Forward
-    anim_A_Name: 
-    anim_A_Time: 0
-    anim_D_Name: TakeDamage
+    anim_A_Name: Punch Attack
+    anim_A_Time: 0.65
+    anim_D_Name: Take Damage

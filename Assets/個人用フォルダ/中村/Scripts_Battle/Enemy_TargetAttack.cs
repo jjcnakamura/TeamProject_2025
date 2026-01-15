@@ -92,6 +92,8 @@ public class Enemy_TargetAttack : Enemy_Base
 
                 isTarget = true;
                 isMove = false;
+
+                Idle();
             }
         }
         else
@@ -124,7 +126,8 @@ public class Enemy_TargetAttack : Enemy_Base
 
                 isTarget = false;
                 isMove = true;
-                isAnimation = false;
+
+                AnimEnd();
             }
         }
     }
