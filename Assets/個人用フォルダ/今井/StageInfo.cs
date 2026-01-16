@@ -35,7 +35,16 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         }
         if (StageName == "バトル")
         {
-            namber = EventWindowManager.Instance.BattleRandomChoice(1, MapManager.Instance.worldLevel);
+            //namber = EventWindowManager.Instance.BattleRandomChoice(1, MapManager.Instance.worldLevel);
+            if (MapManager.Instance.floor <= 2)
+            {
+                namber[0] = ((MapManager.Instance.floor - 1) * 3) + Random.Range(1, 4);
+            }
+            else
+            {
+                namber[0] = Random.Range(7, 11);
+            }
+            
         }
         if (StageName == "ボス")
         {
