@@ -35,8 +35,6 @@ public class MapManager : Singleton<MapManager>
     public Transform PlayerStartPos;
     public GameObject NextFloorButtonImage;
     public GameObject GameEndImage;
-    public GameObject EventOBJ;
-
 
     void Awake()
     {
@@ -117,11 +115,7 @@ public class MapManager : Singleton<MapManager>
         x = 1;
         Nextfloorbool = false;
         floor += 1;
-        ParameterManager.Instance.hp += 3;
-        if(ParameterManager.Instance.hp > 10)
-        {
-            ParameterManager.Instance.hp = 10;
-        }
+        //ParameterManager.Instance.hp += 3;
 
         foreach (GameObject parent in MapRoute)
         {
@@ -489,7 +483,22 @@ public class MapManager : Singleton<MapManager>
     public void GameEndCharaSelectButton()//仮
     {
         //EventOBJ.SetActive(true);
-        EventWindowManager.Instance.EventRandomChoice(4);
-        EventWindowManager.Instance.CallEventAt(4);
+    }
+
+    public void WorldReset()//ワールドリセット
+    {
+        NextFloor();
+        floor = 0;
+        foreach (GameObject parent in MapRoute)//ルートを消すやつ
+        {
+            if (parent == null) continue;
+
+            foreach (Transform child in parent.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        ParameterManager.Instance.StatusInit();
+        GameEndImage.SetActive(false);
     }
 }
