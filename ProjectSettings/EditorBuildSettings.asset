@@ -42,12 +42,12 @@ EditorBuildSettings:
     path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u5C0F\u5C71/\u521D\u7D1A/\u521D\u7D1A\uFF11\uFF10.unity"
     guid: 1952919e992d0424db7ae050cda3a271
   - enabled: 1
-    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u4E2D\u6751/Stage/Stage_\u521D\u7D1A\u30DC\u30B9_1.unity"
+    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u4E2D\u6751/Stage/\u521D\u7D1A\u30DC\u30B9_1.unity"
     guid: 975c9ab4cd3499d408b32c3f7e4f19ad
   - enabled: 1
-    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u4E2D\u6751/Stage/Stage_\u521D\u7D1A\u30DC\u30B9_2.unity"
+    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u4E2D\u6751/Stage/\u521D\u7D1A\u30DC\u30B9_2.unity"
     guid: b7beadfa899e30746a01e17ef2b2aeac
   - enabled: 1
-    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u4E2D\u6751/Stage/Stage_\u521D\u7D1A\u30DC\u30B9_3.unity"
+    path: "Assets/\u500B\u4EBA\u7528\u30D5\u30A9\u30EB\u30C0/\u4E2D\u6751/Stage/\u521D\u7D1A\u30DC\u30B9_3.unity"
     guid: c452075b2436ff94c89319ae02c6564a
   m_configObjects: {}
