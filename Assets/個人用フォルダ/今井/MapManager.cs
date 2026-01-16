@@ -36,6 +36,7 @@ public class MapManager : Singleton<MapManager>
     public GameObject NextFloorButtonImage;
     public GameObject GameEndImage;
     [SerializeField] private List<Toggle> toggles; // 9個のToggleを登録
+    public GameObject CharaStatus;
 
     void Awake()
     {
@@ -57,11 +58,9 @@ public class MapManager : Singleton<MapManager>
         if (worldLevel == 1) max = 4;
         if (worldLevel == 2) max = 5;
 
-        var status = ParameterManager.Instance.unitStatus;
         if (Input.GetKeyDown(KeyCode.A)) worldLevel = 0;
         if (Input.GetKeyDown(KeyCode.S)) worldLevel = 1;
         if (Input.GetKeyDown(KeyCode.D)) worldLevel = 2;
-        if (Input.GetKeyDown(KeyCode.F)) GameEndCharaSelectButton();
 
         Transform[] transforms = new Transform[MapRoute.Length];
         for (int i = 0; i < MapRoute.Length; i++)
@@ -466,12 +465,12 @@ public class MapManager : Singleton<MapManager>
         }
     }
 
-    public void GameEnd()
+    public void GameEnd()//使用中
     {
         GameEndImage.SetActive(true);
     }
 
-    public void GameEndCanvas()
+    public void GameEndCanvas()//仮
     {
         var status = ParameterManager.Instance.unitStatus;
         foreach (var ID in status)
@@ -481,9 +480,9 @@ public class MapManager : Singleton<MapManager>
         unitStatus.id = 0;
     }
 
-    public void GameEndCharaSelectButton()//仮
+    public void StartCharaStatus(bool i)//最初のキャラクター選択画面のキャラクターのステータスが見れる所
     {
-        //EventOBJ.SetActive(true);
+        CharaStatus.SetActive(i);
     }
 
     public void WorldReset(GameObject i)//ワールドリセット
@@ -514,5 +513,10 @@ public class MapManager : Singleton<MapManager>
 
         ParameterManager.Instance.StatusInit();
         GameEndImage.SetActive(false);
+    }
+
+    public void StartCharaSelectStatus(int i)
+    {
+        EventWindowManager.Instance.ViewStatus(i);
     }
 }
