@@ -119,6 +119,7 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
 
     public void GoNextStageButton()
     {
+        SoundManager.Instance.PlaySE_Sys(1);
         int index = GetParentIndexOf(this.transform);
         Debug.Log("Ÿ‚Ìƒ‹[ƒg‚Í" + index);
         MapManager.Instance.x = index;
