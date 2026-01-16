@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -866,7 +866,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &167451690
 GameObject:
@@ -5057,6 +5057,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1491130880533612837}
         m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
+        m_MethodName: WorldReset
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 4559151976112485278}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1491130880533612837}
+        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
         m_MethodName: LoadScene
         m_Mode: 3
         m_Arguments:
@@ -7284,11 +7296,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee9c74f6646e5ef43a6e25344910fd54, type: 3}
---- !u!1 &1809204607 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1969579703256106683, guid: 4274ca89d66ad5b4e80056dfd9ae65d0, type: 3}
-  m_PrefabInstance: {fileID: 1026458541}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1814580895
 GameObject:
   m_ObjectHideFlags: 0
@@ -8670,7 +8677,16 @@ MonoBehaviour:
   PlayerStartPos: {fileID: 469154127}
   NextFloorButtonImage: {fileID: 1572411645}
   GameEndImage: {fileID: 1731598112}
-  EventOBJ: {fileID: 1809204607}
+  toggles:
+  - {fileID: 7047499638866406447}
+  - {fileID: 6608029792571893518}
+  - {fileID: 2255656798390425535}
+  - {fileID: 8935752674534636668}
+  - {fileID: 2052323898948919417}
+  - {fileID: 5224449098615909088}
+  - {fileID: 1465442536274619343}
+  - {fileID: 9016346672550134663}
+  - {fileID: 2418103789237174983}
 --- !u!114 &1646387642318684017
 MonoBehaviour:
   m_ObjectHideFlags: 0
