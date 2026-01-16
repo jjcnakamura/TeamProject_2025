@@ -35,6 +35,7 @@ public class MapManager : Singleton<MapManager>
     public Transform PlayerStartPos;
     public GameObject NextFloorButtonImage;
     public GameObject GameEndImage;
+    [SerializeField] private List<Toggle> toggles; // 9個のToggleを登録
 
     void Awake()
     {
@@ -485,9 +486,8 @@ public class MapManager : Singleton<MapManager>
         //EventOBJ.SetActive(true);
     }
 
-    public void WorldReset()//ワールドリセット
+    public void WorldReset(GameObject i)//ワールドリセット
     {
-        NextFloor();
         floor = 0;
         foreach (GameObject parent in MapRoute)//ルートを消すやつ
         {
@@ -498,6 +498,20 @@ public class MapManager : Singleton<MapManager>
                 Destroy(child.gameObject);
             }
         }
+        nextStage.SetParent(PlayerStartPos, true);
+        nextStage.localPosition = Vector3.zero;
+
+        Transform bossPos = BossEnemy.GetChild(0);
+        Destroy(bossPos.gameObject);
+
+        i.SetActive(true);
+        Map.SetActive(false);
+
+        foreach (Toggle t in toggles)
+        {
+            t.isOn = false;
+        }
+
         ParameterManager.Instance.StatusInit();
         GameEndImage.SetActive(false);
     }
