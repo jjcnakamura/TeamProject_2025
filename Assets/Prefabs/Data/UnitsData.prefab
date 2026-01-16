@@ -48,6 +48,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 06c8a816d5e91cd45ac8324fedcde21d, type: 3}
   - {fileID: 21300000, guid: f7af1b4ee2dd14c44addb2824a0cfb42, type: 3}
   - {fileID: 21300000, guid: b33d2f94e4b7aba4882b12d75d4f1217, type: 3}
+  levelUpExp: 000000000a00000019000000320000005000000082000000c80000002c01000090010000f401000058020000bc0200002003000084030000e80300004c040000b00400001405000078050000dc050000
   maxUnitPossession: 5
   unit:
   - prefab: {fileID: 2482288343578748128, guid: d81ebf3a60f6cab499f289573ad871fc, type: 3}
@@ -154,7 +155,7 @@ MonoBehaviour:
     recast: 20
     hp: 50
     value: 1
-    interval: 1
+    interval: 5
     distance: 4
     range: 0
     targetNum: 1

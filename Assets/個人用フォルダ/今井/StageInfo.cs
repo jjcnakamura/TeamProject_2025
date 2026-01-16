@@ -54,13 +54,9 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
             }
             if (StageName == "バトル")
             {
-                StageInfoText[1].text = Enemyint.ToString();
+                //StageInfoText[1].text = Enemyint.ToString();
+                StageInfoText[1].text = namber[0].ToString();
             }
-        }
-            
-        if (StageName == "バトル")//バトルステージの時は表示
-        {
-            if (StageInfoText[1] != null) StageInfoText[1].text = Enemyint.ToString();
         }
         if (StageEnd == true && Start == true)//自分のステージが終わったら消える処理
         {
@@ -123,6 +119,7 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
 
     public void GoNextStageButton()
     {
+        SoundManager.Instance.PlaySE_Sys(1);
         int index = GetParentIndexOf(this.transform);
         Debug.Log("次のルートは" + index);
         MapManager.Instance.x = index;
@@ -157,9 +154,9 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         }
 
         Transform ThisObject = this.transform;
-        if (ThisObject.childCount >= 4)
+        if (ThisObject.childCount >= 6)
         {
-            Transform player = this.transform.GetChild(2);
+            Transform player = this.transform.GetChild(5);
             if (player != null)
             {
                 targetUI.SetActive(false);

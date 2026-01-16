@@ -35,8 +35,7 @@ public class MapManager : Singleton<MapManager>
     public Transform PlayerStartPos;
     public GameObject NextFloorButtonImage;
     public GameObject GameEndImage;
-    public GameObject EventOBJ;
-
+    [SerializeField] private List<Toggle> toggles; // 9個のToggleを登録
 
     void Awake()
     {
@@ -117,11 +116,7 @@ public class MapManager : Singleton<MapManager>
         x = 1;
         Nextfloorbool = false;
         floor += 1;
-        ParameterManager.Instance.hp += 3;
-        if(ParameterManager.Instance.hp > 10)
-        {
-            ParameterManager.Instance.hp = 10;
-        }
+        //ParameterManager.Instance.hp += 3;
 
         foreach (GameObject parent in MapRoute)
         {
@@ -489,7 +484,35 @@ public class MapManager : Singleton<MapManager>
     public void GameEndCharaSelectButton()//仮
     {
         //EventOBJ.SetActive(true);
-        EventWindowManager.Instance.EventRandomChoice(4);
-        EventWindowManager.Instance.CallEventAt(4);
+    }
+
+    public void WorldReset(GameObject i)//ワールドリセット
+    {
+        floor = 0;
+        foreach (GameObject parent in MapRoute)//ルートを消すやつ
+        {
+            if (parent == null) continue;
+
+            foreach (Transform child in parent.transform)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+        nextStage.SetParent(PlayerStartPos, true);
+        nextStage.localPosition = Vector3.zero;
+
+        Transform bossPos = BossEnemy.GetChild(0);
+        Destroy(bossPos.gameObject);
+
+        i.SetActive(true);
+        Map.SetActive(false);
+
+        foreach (Toggle t in toggles)
+        {
+            t.isOn = false;
+        }
+
+        ParameterManager.Instance.StatusInit();
+        GameEndImage.SetActive(false);
     }
 }

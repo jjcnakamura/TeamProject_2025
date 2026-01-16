@@ -115,6 +115,7 @@ public class BattleManager : Singleton<BattleManager>
 
     void Awake()
     {
+        /*
         //デバッグ用　初期ステータスを設定
         if (ParameterManager.Instance.unitStatus.Length <= 0 && FindObjectOfType(System.Type.GetType("DebugScript")) == null)
         {
@@ -127,6 +128,7 @@ public class BattleManager : Singleton<BattleManager>
             ParameterManager.Instance.AddUnit(8);
             ParameterManager.Instance.AddUnit(6);
         }
+        */
     }
 
     public void Start()
