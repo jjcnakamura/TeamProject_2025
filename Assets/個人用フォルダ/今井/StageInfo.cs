@@ -54,13 +54,9 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
             }
             if (StageName == "バトル")
             {
-                StageInfoText[1].text = Enemyint.ToString();
+                //StageInfoText[1].text = Enemyint.ToString();
+                StageInfoText[1].text = namber[0].ToString();
             }
-        }
-            
-        if (StageName == "バトル")//バトルステージの時は表示
-        {
-            if (StageInfoText[1] != null) StageInfoText[1].text = Enemyint.ToString();
         }
         if (StageEnd == true && Start == true)//自分のステージが終わったら消える処理
         {
