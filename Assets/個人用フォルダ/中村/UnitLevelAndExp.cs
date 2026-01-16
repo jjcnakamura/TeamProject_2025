@@ -93,7 +93,7 @@ public class UnitLevelAndExp : Singleton<UnitLevelAndExp>
         //レベルアップした場合は演出を入れる
         if (levelup)
         {
-            SoundManager.Instance.PlaySE_Sys(3);
+            SoundManager.Instance.PlaySE_Sys(2);
         }
         else
         {
