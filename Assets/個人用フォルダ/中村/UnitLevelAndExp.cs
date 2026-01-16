@@ -121,6 +121,8 @@ public class UnitLevelAndExp : Singleton<UnitLevelAndExp>
     /// </summary>
     public void Exit()
     {
+        SoundManager.Instance.PlaySE_Sys(3);
+
         NewStatus();
         window.SetActive(false);
     }
