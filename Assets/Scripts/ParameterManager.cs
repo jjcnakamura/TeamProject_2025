@@ -51,6 +51,32 @@ public class ParameterManager : Singleton<ParameterManager>
     }
 
     /// <summary>
+    /// 全てのステータスを初期化する
+    /// </summary>
+    public void StatusInit()
+    {
+        //フロア(エリア)数
+        floorNum = 0;
+
+        //プレイヤーのステータス
+        hp = 10;                     //プレイヤー（タワー）のHP
+        maxHp = 100;                 //プレイヤー（タワー）の最大HP
+
+        maxUnitPossession = 3;       //最大ユニット所持数
+
+        point = 6;                   //初期ポイント数
+        maxInstallation = 4;         //ユニット最大配置数
+        sameUnitMaxInstallation = 1; //同じユニットの最大配置数
+
+        //ユニットのステータス
+        Array.Resize(ref unitStatus, 0);
+        Array.Resize(ref battleUnitId, 0);
+
+        //獲得した経験値
+        getExp = 0;
+    }
+
+    /// <summary>
     /// ユニットを新しく入手する　引数でユニットのIDを指定
     /// </summary>
     public void AddUnit(int id)
