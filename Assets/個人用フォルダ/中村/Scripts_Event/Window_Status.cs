@@ -254,8 +254,8 @@ public class Window_Status : MonoBehaviour
                 text_Info.text = UnitsData.Instance.unit[ParameterManager.Instance.unitStatus[index].id].info;
                 text_Lv.text = "レベル    " + ParameterManager.Instance.unitStatus[index].lv.ToString();
                 text_Exp.text = "経験値：" + ParameterManager.Instance.unitStatus[index].exp.ToString();
-                // ※ 経験値の計算は仮
-                text_NextExp.text = "経験値残り：" + Mathf.Max((ParameterManager.Instance.unitStatus[index].lv * 10) - ParameterManager.Instance.unitStatus[index].exp, 0).ToString();
+                //経験値の計算
+                text_NextExp.text = "経験値残り：" + (UnitsData.Instance.levelUpExp[ParameterManager.Instance.unitStatus[index].lv] - ParameterManager.Instance.unitStatus[index].exp).ToString();
                 text_Cost.text = "　コスト：" + ParameterManager.Instance.unitStatus[index].cost.ToString();
                 text_Recast.text = "　再配置：" + ParameterManager.Instance.unitStatus[index].recast.ToString() + "秒";
 

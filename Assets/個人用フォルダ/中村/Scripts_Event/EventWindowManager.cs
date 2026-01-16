@@ -284,10 +284,12 @@ public class EventWindowManager : Singleton<EventWindowManager>
     }
 
     /// <summary>
-    /// ステータスを表示する　引数でIDを指定すると初期ステータスを表示する
+    /// ユニットのステータスを表示する　引数でIDを指定すると初期ステータスを表示する
     /// </summary>
     public void ViewStatus(int id = -1)
     {
+        canvas[0].SetActive(true);
+
         //ID指定をする場合
         if (id >= 0)
         {
@@ -300,6 +302,13 @@ public class EventWindowManager : Singleton<EventWindowManager>
             else
             {
                 window_Status.ViewUnits();
+
+                //イベント中でない場合はそのままCanvasを閉じる
+                if (!isEvent)
+                {
+                    window_Status.ViewUnits();
+                    canvas[0].SetActive(false);
+                }
             }
         }
         //ID指定をしない場合
@@ -313,6 +322,63 @@ public class EventWindowManager : Singleton<EventWindowManager>
             else
             {
                 window_Status.ViewUnits();
+
+                //イベント中でない場合はそのままCanvasを閉じる
+                if (!isEvent)
+                {
+                    window_Status.ViewUnits();
+                    canvas[0].SetActive(false);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 持っているユニットのステータスを表示する
+    /// </summary>
+    public void ViewStatusIndex(int index = -1)
+    {
+        canvas[0].SetActive(true);
+
+        //Index指定をする場合
+        if (index >= 0)
+        {
+            if (!window_Status.gameObject.activeSelf)
+            {
+                window_Status.gameObject.SetActive(true);
+                window_Status.ViewUnits();
+                window_Status.ViewStatus(index);
+            }
+            else
+            {
+                window_Status.ViewUnits();
+
+                //イベント中でない場合はそのままCanvasを閉じる
+                if (!isEvent)
+                {
+                    window_Status.ViewUnits();
+                    canvas[0].SetActive(false);
+                }
+            }
+        }
+        //Index指定をしない場合
+        else
+        {
+            if (!window_Status.gameObject.activeSelf)
+            {
+                window_Status.gameObject.SetActive(true);
+                window_Status.ViewStatus();
+            }
+            else
+            {
+                window_Status.ViewUnits();
+
+                //イベント中でない場合はそのままCanvasを閉じる
+                if (!isEvent)
+                {
+                    window_Status.ViewUnits();
+                    canvas[0].SetActive(false);
+                }
             }
         }
     }
