@@ -157,9 +157,9 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         }
 
         Transform ThisObject = this.transform;
-        if (ThisObject.childCount >= 4)
+        if (ThisObject.childCount >= 6)
         {
-            Transform player = this.transform.GetChild(2);
+            Transform player = this.transform.GetChild(5);
             if (player != null)
             {
                 targetUI.SetActive(false);
