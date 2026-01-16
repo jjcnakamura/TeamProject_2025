@@ -8,11 +8,15 @@ using System;
 /// </summary>
 public class UnitsData : Singleton<UnitsData>
 {
-    public Sprite[] iconBackSprite;   //ユニットのアイコンの背景
+    public Sprite[] iconBackSprite;    //ユニットのアイコンの背景
 
     [Space(10)]
 
-    public int maxUnitPossession = 5; //ユニットの所持数の最大
+    public int[] levelUpExp;           //各レベルごとの必要経験値(レベル1なら配列の1番目)
+
+    [Space(10)]
+
+    public int maxUnitPossession = 5;  //ユニットの所持数の最大
 
     [Space(10)]
 
