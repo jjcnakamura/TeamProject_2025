@@ -3914,6 +3914,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1902592495492689803}
     - target: {fileID: 555269271734246, guid: 14520eb36974d2346929bc53afefce1b, type: 3}
+      propertyPath: bgmIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 555269271734246, guid: 14520eb36974d2346929bc53afefce1b, type: 3}
       propertyPath: playerSide
       value: 
       objectReference: {fileID: 927903836}
