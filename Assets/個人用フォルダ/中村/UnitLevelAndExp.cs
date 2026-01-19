@@ -12,6 +12,7 @@ public class UnitLevelAndExp : Singleton<UnitLevelAndExp>
     [SerializeField] TextMeshProUGUI text_GetExp;
     [SerializeField] TextMeshProUGUI[] text_Lv;
     [SerializeField] TextMeshProUGUI[] text_Exp;
+    [SerializeField] TextMeshProUGUI[] text_NeedExp;
 
     /// <summary>
     /// 選択されたユニットの経験値割り振りとステータスの項目を表示する
@@ -160,8 +161,10 @@ public class UnitLevelAndExp : Singleton<UnitLevelAndExp>
                 units[i].SetActive(true);
             }
 
-            text_Lv[i].text = "LV  " + ParameterManager.Instance.unitStatus[i].lv.ToString();
-            text_Exp[i].text = (ParameterManager.Instance.unitStatus[i].lv < UnitsData.Instance.levelUpExp.Length) ? "EXP " + ParameterManager.Instance.unitStatus[i].exp.ToString() : "EXP...Max"; 
+            //経験値関連のテキスト
+            text_Lv[i].text = "LV   " + ParameterManager.Instance.unitStatus[i].lv.ToString();
+            text_Exp[i].text = (ParameterManager.Instance.unitStatus[i].lv < UnitsData.Instance.levelUpExp.Length) ? "EXP  " + ParameterManager.Instance.unitStatus[i].exp.ToString() : "EXP  Max"; 
+            text_NeedExp[i].text = "残り " + (UnitsData.Instance.levelUpExp[ParameterManager.Instance.unitStatus[i].lv] - ParameterManager.Instance.unitStatus[i].exp).ToString();
         }
         for (int i = ParameterManager.Instance.unitStatus.Length; i < units.Length; i++)
         {
