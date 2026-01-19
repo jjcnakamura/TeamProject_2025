@@ -50,7 +50,7 @@ MonoBehaviour:
   floorNum: 0
   hp: 10
   maxHp: 100
-  maxUnitPossession: 3
+  maxUnitPossession: 5
   point: 6
   maxInstallation: 4
   sameUnitMaxInstallation: 1

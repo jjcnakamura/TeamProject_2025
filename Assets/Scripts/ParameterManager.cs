@@ -62,7 +62,7 @@ public class ParameterManager : Singleton<ParameterManager>
         hp = 10;                     //プレイヤー（タワー）のHP
         maxHp = 100;                 //プレイヤー（タワー）の最大HP
 
-        maxUnitPossession = 3;       //最大ユニット所持数
+        maxUnitPossession = 5;       //最大ユニット所持数
 
         point = 6;                   //初期ポイント数
         maxInstallation = 4;         //ユニット最大配置数
