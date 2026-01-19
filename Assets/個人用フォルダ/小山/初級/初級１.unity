@@ -583,7 +583,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
-  m_LocalPosition: {x: 0.6, y: 21, z: -9.5}
+  m_LocalPosition: {x: 0.6, y: 19.38, z: -5.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1676,27 +1676,27 @@ PrefabInstance:
     - target: {fileID: 6008059518009088167, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
       propertyPath: routePoint.Array.data[1].pointObj.Array.data[2]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 613049156797805157}
     - target: {fileID: 6008059518009088167, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
       propertyPath: routePoint.Array.data[1].pointObj.Array.data[3]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1457392408}
     - target: {fileID: 6008059518009088167, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
       propertyPath: routePoint.Array.data[2].pointObj.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 613049156797805156}
     - target: {fileID: 6008059518009088167, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
       propertyPath: routePoint.Array.data[2].pointObj.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1800408305}
     - target: {fileID: 6008059518009088167, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
       propertyPath: routePoint.Array.data[2].pointObj.Array.data[2]
       value: 
-      objectReference: {fileID: 1800408305}
+      objectReference: {fileID: 613049156797805155}
     - target: {fileID: 6008059518009088167, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
       propertyPath: routePoint.Array.data[2].pointObj.Array.data[3]
       value: 
-      objectReference: {fileID: 1457392408}
+      objectReference: {fileID: 358780558}
     - target: {fileID: 6255789800762164186, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
       propertyPath: m_LocalPosition.z
       value: -2
@@ -1813,6 +1813,21 @@ PrefabInstance:
       addedObject: {fileID: 1615127385}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
+--- !u!1 &613049156797805155 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8714550599086201958, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
+  m_PrefabInstance: {fileID: 613049156797805154}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &613049156797805156 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3119659385623677030, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
+  m_PrefabInstance: {fileID: 613049156797805154}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &613049156797805157 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8744896022021718099, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
+  m_PrefabInstance: {fileID: 613049156797805154}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &816980971507113498 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5014525256706254967, guid: c596595266602b748830db3452564867, type: 3}
