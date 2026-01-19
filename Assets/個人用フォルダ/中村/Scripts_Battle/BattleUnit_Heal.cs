@@ -229,8 +229,9 @@ public class BattleUnit_Heal : BattleUnit_Base
             else
             {
                 timer_Interval = 0;
-                isAnimation = false;
                 isInterval = false;
+
+                isAnimation = false;
             }
         }
     }

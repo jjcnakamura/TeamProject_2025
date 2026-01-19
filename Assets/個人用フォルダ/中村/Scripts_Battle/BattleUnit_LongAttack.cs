@@ -96,8 +96,6 @@ public class BattleUnit_LongAttack : BattleUnit_Base
     {
         if (!isTarget) return;
 
-        isAnimation = false;
-
         if (targetEnemy != null)
         {
             //通常の弾を撃つ
@@ -128,8 +126,9 @@ public class BattleUnit_LongAttack : BattleUnit_Base
 
             //インターバル開始
             timer_Interval = 0;
-            isAnimation = false;
             isInterval = true;
+
+            isAnimation = false;
         }
         else
         {
