@@ -164,8 +164,6 @@ public class Enemy_TargetAttack : Enemy_Base
             int seIndex = (se_Action != null && se_Action.Length > 0) ? se_Action[0] : 8;
             SoundManager.Instance.PlaySE_OneShot_Game(seIndex);
 
-            isAnimation = false;
-
             //攻撃
             bool dead = targetUnit.Damage(value);
             //エフェクトを攻撃ユニットの位置に生成
@@ -173,6 +171,8 @@ public class Enemy_TargetAttack : Enemy_Base
             //インターバル開始
             timer_Interval = 0;
             isInterval = true;
+
+            isAnimation = false;
 
             //ユニットがダメージで死亡した場合はターゲットを止める
             if (dead) Target();
@@ -195,8 +195,9 @@ public class Enemy_TargetAttack : Enemy_Base
             else
             {
                 timer_Interval = 0;
-                isAnimation = false;
                 isInterval = false;
+
+                isAnimation = false;
             }
         }
     }
