@@ -30,7 +30,7 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] LightingDataAsset lightingDataAsset;
 
     //マップ
-    MapManager mapManager;
+    public MapManager mapManager { get; private set; }
 
     [Space(10)]
 
@@ -234,6 +234,12 @@ public class BattleManager : Singleton<BattleManager>
                 canvas[i].SetActive(i <= 1);
             }
             canvasParent.SetActive(true);
+
+            //ユニットの最大同時配置数のテキスト
+            for (int i = 0; i < battleUnitPrefab.Length; i++)
+            {
+                text_SameMaxInstallation[i].text = unitInstallationCount[i] + "/" + sameUnitMaxInstallation;
+            }  
 
             //ポイント上昇アニメーション用の設定
             image_PointUp.rectTransform.sizeDelta = new Vector2(image_PointUp.rectTransform.sizeDelta.x, 0);
@@ -518,23 +524,6 @@ public class BattleManager : Singleton<BattleManager>
 
         //ゲームオーバー画面を表示
         canvas[3].SetActive(true);
-    }
-
-    /// <summary>
-    /// あきらめるボタン
-    /// </summary>
-    public void Giveup()
-    {
-        if (!canvas[5].activeSelf)
-        {
-            SoundManager.Instance.PlaySE_Sys(1);
-            canvas[5].SetActive(true);
-        }
-        else
-        {
-            SoundManager.Instance.PlaySE_Sys(2);
-            canvas[5].SetActive(false);
-        }
     }
 
     /// <summary>
