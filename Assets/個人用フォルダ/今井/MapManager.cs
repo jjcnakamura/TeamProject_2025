@@ -50,6 +50,11 @@ public class MapManager : Singleton<MapManager>
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        SoundManager.Instance.PlayBGM(1);
+    }
+
     void Update()
     {
         MapText[0].text = floor.ToString();
