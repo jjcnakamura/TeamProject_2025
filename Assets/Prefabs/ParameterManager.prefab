@@ -52,7 +52,7 @@ MonoBehaviour:
   maxHp: 100
   maxUnitPossession: 5
   point: 6
-  maxInstallation: 4
+  maxInstallation: 10
   sameUnitMaxInstallation: 1
   unitStatus: []
   battleUnitId: 

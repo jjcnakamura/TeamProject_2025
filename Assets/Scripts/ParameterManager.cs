@@ -20,7 +20,7 @@ public class ParameterManager : Singleton<ParameterManager>
     public int maxUnitPossession = 5;       //最大ユニット所持数
 
     public int point = 6;                   //初期ポイント数
-    public int maxInstallation = 4;         //ユニット最大配置数
+    public int maxInstallation = 10;        //ユニット最大配置数
     public int sameUnitMaxInstallation = 1; //同じユニットの最大配置数
 
     [Space(10)]
@@ -65,7 +65,7 @@ public class ParameterManager : Singleton<ParameterManager>
         maxUnitPossession = 5;       //最大ユニット所持数
 
         point = 6;                   //初期ポイント数
-        maxInstallation = 4;         //ユニット最大配置数
+        maxInstallation = 10;        //ユニット最大配置数
         sameUnitMaxInstallation = 1; //同じユニットの最大配置数
 
         //ユニットのステータス
