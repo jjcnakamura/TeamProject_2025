@@ -44,6 +44,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8680b206fe8a6a1419c31f68bb71feba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageExp:
+  - exp: 0
+    bonusExp: 0
+  - exp: 10
+    bonusExp: 2
+  - exp: 10
+    bonusExp: 2
+  - exp: 10
+    bonusExp: 2
+  - exp: 10
+    bonusExp: 2
+  - exp: 10
+    bonusExp: 2
+  - exp: 10
+    bonusExp: 2
+  - exp: 10
+    bonusExp: 2
+  - exp: 10
+    bonusExp: 2
+  - exp: 10
+    bonusExp: 2
+  - exp: 10
+    bonusExp: 2
+  - exp: 10
+    bonusExp: 2
+  - exp: 10
+    bonusExp: 2
   enemy:
   - prefab: {fileID: 6332577239119937932, guid: a1566b8f749366a47837da8ddb9d6134, type: 3}
     sprite: {fileID: 0}

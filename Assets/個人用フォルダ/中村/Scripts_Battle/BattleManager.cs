@@ -499,9 +499,13 @@ public class BattleManager : Singleton<BattleManager>
         text_Nodamage.gameObject.SetActive(isNoDamage);
 
         //経験値を獲得
-        ParameterManager.Instance.getExp += (isNoDamage) ? exp + bonusExp : exp;
+        int battleId = Mathf.Max(Mathf.Min(SceneManager.GetActiveScene().buildIndex - 2, SceneManager.sceneCountInBuildSettings - 2) , 0);
+        int getExp = EnemiesData.Instance.stageExp[battleId].exp;
+        int getBonusExp = EnemiesData.Instance.stageExp[battleId].bonusExp;
+
+        ParameterManager.Instance.getExp += (isNoDamage) ? getExp + getBonusExp : getExp;
         text_GetExp.text = "経験値＋";
-        text_GetExp.text += (isNoDamage) ? exp.ToString() + "＋" + bonusExp.ToString() : exp.ToString();
+        text_GetExp.text += (isNoDamage) ? getExp.ToString() + "＋" + getBonusExp.ToString() : getExp.ToString();
     }
     //ゲームオーバー
     public void GameOver()

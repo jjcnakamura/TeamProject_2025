@@ -8,6 +8,10 @@ using System;
 /// </summary>
 public class EnemiesData : Singleton<EnemiesData>
 {
+    public StageExp[] stageExp; //各ステージクリア時の獲得経験値
+
+    [Space(10)]
+
     public Status[] enemy;
 
     void Awake()
@@ -37,5 +41,13 @@ public class EnemiesData : Singleton<EnemiesData>
         public string anim_A_Name; //攻撃のアニメーション名
         public float anim_A_Time;  //攻撃のアニメーション時間
         public string anim_D_Name; //ダメージのアニメーション名
+    }
+
+    //各ステージクリア時の獲得経験値
+    [System.Serializable]
+    public struct StageExp
+    {
+        public int exp;
+        public int bonusExp; //ノーダメージ時のボーナス経験値
     }
 }
