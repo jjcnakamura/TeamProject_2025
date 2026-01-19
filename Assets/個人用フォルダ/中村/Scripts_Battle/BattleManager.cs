@@ -29,6 +29,9 @@ public class BattleManager : Singleton<BattleManager>
     //エディター上でのLighting
     [SerializeField] LightingDataAsset lightingDataAsset;
 
+    //マップ
+    MapManager mapManager;
+
     [Space(10)]
 
     //プレイヤーのパラメーター用変数
@@ -135,7 +138,10 @@ public class BattleManager : Singleton<BattleManager>
     {
         //マップを非表示に
         if (FindObjectOfType(System.Type.GetType("MapManager")) != null)
-        MapManager.Instance.gameObject.SetActive(false);
+        {
+            mapManager = MapManager.Instance;
+            mapManager.gameObject.SetActive(false);
+        }
         
         //ユニット設置関連の初期パラメーターを設定
         maxInstallation = ParameterManager.Instance.maxInstallation;
@@ -540,7 +546,7 @@ public class BattleManager : Singleton<BattleManager>
 
         //全てのステータスをリセット
         ParameterManager.Instance.StatusInit();
-        Destroy(MapManager.Instance.gameObject);
+        if (mapManager != null) Destroy(mapManager.gameObject);
 
         FadeManager.Instance.LoadSceneIndex(0, 0.5f);
     }
