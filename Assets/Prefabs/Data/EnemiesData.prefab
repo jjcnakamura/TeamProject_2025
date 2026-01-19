@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageExp:
-  - exp: 0
-    bonusExp: 0
+  - exp: 10
+    bonusExp: 2
   - exp: 10
     bonusExp: 2
   - exp: 10

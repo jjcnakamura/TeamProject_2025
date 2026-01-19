@@ -56,14 +56,6 @@ MonoBehaviour:
     - type: 3
       text: "\u30E6\u30CB\u30C3\u30C8\u3092\u9078\u3076"
       value: 3
-  - name: "\u30E6\u30CB\u30C3\u30C8\u6240\u6301\u6570\u5897\u52A0"
-    catergory: 1
-    sprite: {fileID: 21300000, guid: 897c166ae3c3144409f5257ee01f9810, type: 3}
-    text: "\u9023\u308C\u3066\u884C\u3051\u308B\u30E6\u30CB\u30C3\u30C8\u306E\u6570\u304C\u5897\u3048\u308B\uFF01"
-    choice:
-    - type: 4
-      text: "\u6240\u6301\u6700\u5927\u6570\u3092\u5897\u52A0"
-      value: 1
   - name: "\u540C\u30E6\u30CB\u30C3\u30C8\u914D\u7F6E\u6570\u5897\u52A0"
     catergory: 1
     sprite: {fileID: 21300000, guid: 897c166ae3c3144409f5257ee01f9810, type: 3}
