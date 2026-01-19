@@ -66,6 +66,10 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
                 //StageInfoText[1].text = Enemyint.ToString();
                 StageInfoText[1].text = namber[0].ToString();
             }
+            if (StageName == "ボス")
+            {
+                StageInfoText[1].text = namber[0].ToString();
+            }
         }
         if (StageEnd == true && Start == true)//自分のステージが終わったら消える処理
         {

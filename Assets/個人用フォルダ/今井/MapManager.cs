@@ -14,7 +14,6 @@ public class MapManager : Singleton<MapManager>
     public Transform[] RouteChildren;
     public int x; //マップのルートのint
     public int y; // マップの進行度
-    public GameObject[] MapEnterButton;//マップにあるエンターボタン
     public Transform nextStage;//現在のステージを進めるための場所
     public Transform BossEnemy;//そのフロアのボス
 
@@ -37,6 +36,7 @@ public class MapManager : Singleton<MapManager>
     public GameObject GameEndImage;
     [SerializeField] private List<Toggle> toggles; // 9個のToggleを登録
     public GameObject CharaStatus;
+    public GameObject StartCharaEnterCanvas;
 
     void Awake()
     {
@@ -50,7 +50,7 @@ public class MapManager : Singleton<MapManager>
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start()
+    private void Start()    
     {
         SoundManager.Instance.PlayBGM(1);
     }
@@ -223,57 +223,6 @@ public class MapManager : Singleton<MapManager>
         }
     }
 
-    /*
-    public void EventContDown()//設置時のコスト　(短縮系)
-    {
-        unitStatus.cost -= 1;//（仮）
-    }
-
-    public void EventrecastDown()//再配置までの時間　(短縮系)
-    {
-       unitStatus.recast -= 1;//（仮）
-    }
-
-    public void EventmaxInstallationUp()//ユニット最大配置数　(増加系)
-    {
-        ParameterManager.Instance.maxInstallation += 1;//（仮）
-    }
-
-    public void EventmaxUnitPossessionUp()//最大ユニット所持数　(増加系)
-    {
-        ParameterManager.Instance.maxUnitPossession += 1;//（仮）
-    }
-
-    public void EventsameUnitMaxInstallationUp()//同じユニットの最大配置数　(増加系)
-    {
-        ParameterManager.Instance.sameUnitMaxInstallation += 1;//（仮）
-    }
-
-    public void Event()//HP回復する（回復）
-    {
-        ParameterManager.Instance.hp += 1;//（仮）
-    }
-
-    public void UnitLevelUpBottun(int i)//キャラクターのレベルあげる所
-    {
-        //i はParameterのunitStatusのidを元に動かすもの
-        if(ParameterManager.Instance.getExp > 0)
-        {
-            ParameterManager.Instance.unitStatus[i].exp += 1;
-            ParameterManager.Instance.getExp -= 1;
-            if (ParameterManager.Instance.unitStatus[i].exp >= 10 * ParameterManager.Instance.unitStatus[i].lv)
-            {
-                ParameterManager.Instance.LevelUp(i);
-            }
-            UnitLevelAndExp.Instance.NewStatus();
-        }
-        else
-        {
-            //音かテキストを出して出来ないことをしめす
-        }
-    }
-    */
-
     public void LoadScene(int i)//シーンを流す用　ボタン用
     {
         SceneManager.LoadScene(i);
@@ -320,10 +269,10 @@ public class MapManager : Singleton<MapManager>
         
     }
 
-    public void GameStart(GameObject i)//ゲームスタート　ボタン用
+    public void GameStart()//ゲームスタート　ボタン用
     {
         Map.SetActive(true);
-        i.gameObject.SetActive(false);
+        StartCharaEnterCanvas.gameObject.SetActive(false);
         NextFloor();
     }
 
@@ -402,6 +351,7 @@ public class MapManager : Singleton<MapManager>
                 MapTextStageImage.SetActive(false);
             }
         }
+        MapText[4].text = ParameterManager.Instance.hp.ToString();
     }
 
     public void MapTextUpdetaButton()//マップのステージのメニューを一時的に閉じるやつ
