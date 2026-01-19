@@ -62,10 +62,15 @@ public class UnitLevelAndExp : Singleton<UnitLevelAndExp>
         if (value <= 0 || ParameterManager.Instance.getExp <= 0 ||
             ParameterManager.Instance.unitStatus[index].lv >= UnitsData.Instance.levelUpExp.Length) return;
 
+        //レベルアップしたかを判定
         bool levelup = false;
 
+        //ループ数が多すぎる場合に強制終了する
+        int loopCount = 0;
+
         //割り振る経験値が0になるまで繰り返す
-        while (value > 0)
+        while (value > 0 && ParameterManager.Instance.getExp > 0 &&
+               ParameterManager.Instance.unitStatus[index].lv < UnitsData.Instance.levelUpExp.Length)
         {
             int now_GetExp = ParameterManager.Instance.getExp;
             int now_Level = ParameterManager.Instance.unitStatus[index].lv;
@@ -86,6 +91,14 @@ public class UnitLevelAndExp : Singleton<UnitLevelAndExp>
             ParameterManager.Instance.getExp -= giveValue;
             ParameterManager.Instance.unitStatus[index].exp += giveValue;
             value -= giveValue;
+
+            loopCount++;
+
+            if (loopCount >= 500)
+            {
+                Debug.Log("無限ループのためループを強制終了しました");
+                break;
+            }
         }
         
         Instance.NewStatus(false);
@@ -93,7 +106,7 @@ public class UnitLevelAndExp : Singleton<UnitLevelAndExp>
         //レベルアップした場合は演出を入れる
         if (levelup)
         {
-            SoundManager.Instance.PlaySE_Sys(2);
+            SoundManager.Instance.PlaySE_Sys(3);
         }
         else
         {
@@ -121,7 +134,7 @@ public class UnitLevelAndExp : Singleton<UnitLevelAndExp>
     /// </summary>
     public void Exit()
     {
-        SoundManager.Instance.PlaySE_Sys(3);
+        SoundManager.Instance.PlaySE_Sys(2);
 
         NewStatus();
         window.SetActive(false);
