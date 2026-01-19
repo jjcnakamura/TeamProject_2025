@@ -514,6 +514,37 @@ public class BattleManager : Singleton<BattleManager>
         canvas[3].SetActive(true);
     }
 
+    /// <summary>
+    /// あきらめるボタン
+    /// </summary>
+    public void Giveup()
+    {
+        if (!canvas[5].activeSelf)
+        {
+            SoundManager.Instance.PlaySE_Sys(1);
+            canvas[5].SetActive(true);
+        }
+        else
+        {
+            SoundManager.Instance.PlaySE_Sys(2);
+            canvas[5].SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// タイトルに戻る(データは保存されない)
+    /// </summary>
+    public void BackTitle()
+    {
+        SoundManager.Instance.PlaySE_Sys(1);
+
+        //全てのステータスをリセット
+        ParameterManager.Instance.StatusInit();
+        Destroy(MapManager.Instance.gameObject);
+
+        FadeManager.Instance.LoadSceneIndex(0, 0.5f);
+    }
+
     //配置されているユニットを削除
     public void OutUnit(int zoneIndex)
     {

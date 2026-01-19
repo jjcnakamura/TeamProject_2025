@@ -263,6 +263,7 @@ public class EventWindowManager : Singleton<EventWindowManager>
         if (window_Status.gameObject.activeSelf)
         {
             window_Status.isViewStatus = false;
+            window_Status.isViewStatusId = false;
             window_Status.ViewUnits();
         }
 
@@ -306,7 +307,7 @@ public class EventWindowManager : Singleton<EventWindowManager>
                 //イベント中でない場合はそのままCanvasを閉じる
                 if (!isEvent)
                 {
-                    window_Status.ViewUnits();
+                    if (window_Status.isActive) window_Status.ViewUnits();
                     canvas[0].SetActive(false);
                 }
             }
@@ -326,7 +327,7 @@ public class EventWindowManager : Singleton<EventWindowManager>
                 //イベント中でない場合はそのままCanvasを閉じる
                 if (!isEvent)
                 {
-                    window_Status.ViewUnits();
+                    if (window_Status.isActive) window_Status.ViewUnits();
                     canvas[0].SetActive(false);
                 }
             }
@@ -356,7 +357,7 @@ public class EventWindowManager : Singleton<EventWindowManager>
                 //イベント中でない場合はそのままCanvasを閉じる
                 if (!isEvent)
                 {
-                    window_Status.ViewUnits();
+                    if (window_Status.isActive) window_Status.ViewUnits();
                     canvas[0].SetActive(false);
                 }
             }
@@ -376,7 +377,7 @@ public class EventWindowManager : Singleton<EventWindowManager>
                 //イベント中でない場合はそのままCanvasを閉じる
                 if (!isEvent)
                 {
-                    window_Status.ViewUnits();
+                    if (window_Status.isActive) window_Status.ViewUnits();
                     canvas[0].SetActive(false);
                 }
             }
