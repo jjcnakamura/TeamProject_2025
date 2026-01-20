@@ -76,7 +76,7 @@ public class UnitLevelAndExp : Singleton<UnitLevelAndExp>
                     choiceWindow[i].SetActive(false);
 
                     //レベルアップ可能な場合の表示
-                    lvupObj[i].gameObject.SetActive(ParameterManager.Instance.getExp >= UnitsData.Instance.levelUpExp[ParameterManager.Instance.unitStatus[i].lv] - ParameterManager.Instance.unitStatus[i].exp);
+                    if (i < ParameterManager.Instance.unitStatus.Length) lvupObj[i].gameObject.SetActive(ParameterManager.Instance.getExp >= UnitsData.Instance.levelUpExp[ParameterManager.Instance.unitStatus[i].lv] - ParameterManager.Instance.unitStatus[i].exp);
 
                 }
 
@@ -91,7 +91,7 @@ public class UnitLevelAndExp : Singleton<UnitLevelAndExp>
                 choiceWindow[index].SetActive(false);
 
                 //レベルアップ可能な場合の表示
-                lvupObj[index].gameObject.SetActive(ParameterManager.Instance.getExp >= UnitsData.Instance.levelUpExp[ParameterManager.Instance.unitStatus[index].lv] - ParameterManager.Instance.unitStatus[index].exp);
+                if (index < ParameterManager.Instance.unitStatus.Length) lvupObj[index].gameObject.SetActive(ParameterManager.Instance.getExp >= UnitsData.Instance.levelUpExp[ParameterManager.Instance.unitStatus[index].lv] - ParameterManager.Instance.unitStatus[index].exp);
             }
         }
         else
@@ -105,7 +105,7 @@ public class UnitLevelAndExp : Singleton<UnitLevelAndExp>
                 choiceWindow[i].SetActive(false);
 
                 //レベルアップ可能な場合の表示
-                lvupObj[i].gameObject.SetActive(ParameterManager.Instance.getExp >= UnitsData.Instance.levelUpExp[ParameterManager.Instance.unitStatus[i].lv] - ParameterManager.Instance.unitStatus[i].exp);
+                if (i < ParameterManager.Instance.unitStatus.Length) lvupObj[i].gameObject.SetActive(ParameterManager.Instance.getExp >= UnitsData.Instance.levelUpExp[ParameterManager.Instance.unitStatus[i].lv] - ParameterManager.Instance.unitStatus[i].exp);
             }
 
             if (playSe) SoundManager.Instance.PlaySE_Sys(2);
