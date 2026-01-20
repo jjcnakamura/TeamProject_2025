@@ -117,7 +117,7 @@ public class BattleUnit_LongAttack : BattleUnit_Base
                 int seIndex = (se_Action != null && se_Action.Length > 0) ? se_Action[0] : -1;
                 Bullet_SpeedDebuff bullet = Instantiate(speedDebuffBullet);
                 bullet.transform.localScale = speedDebuffBullet.transform.localScale;
-                bullet.Shot(0.5f, defaultValue, range, transform.position, targetEnemy.transform.position, seIndex, effect);
+                bullet.Shot(0f, defaultValue, range, transform.position, targetEnemy.transform.position, seIndex, effect);
             }
             else
             {
