@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7507,6 +7507,14 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1074046077804830477, guid: 90ae7f15507645e41bcb7064f18184a6, type: 3}
+      propertyPath: battlIdPool.Array.data[0].id.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1074046077804830477, guid: 90ae7f15507645e41bcb7064f18184a6, type: 3}
+      propertyPath: battlIdPool.Array.data[0].id.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1074046077804830477, guid: 90ae7f15507645e41bcb7064f18184a6, type: 3}
       propertyPath: battlIdPool.Array.data[0].id.Array.data[2]
       value: 2
       objectReference: {fileID: 0}
@@ -9103,8 +9111,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 949485828}
-        m_TargetAssemblyTypeName: EventWindowManager, Assembly-CSharp
+      - m_Target: {fileID: 1491130880533612837}
+        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
         m_MethodName: Pause
         m_Mode: 1
         m_Arguments:

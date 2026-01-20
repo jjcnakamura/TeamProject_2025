@@ -11,6 +11,7 @@ public class BattleClearCheck : MonoBehaviour
         {
             //マップを再表示
             MapManager.Instance.gameObject.SetActive(true);
+            SoundManager.Instance.PlayBGM(1);
         }
     }
 }

@@ -239,7 +239,7 @@ public class MapManager : Singleton<MapManager>
                 if (StageInfo.StageName == "バトル")
                 {
                     int i = 0;
-                    i = StageInfo.namber[0] + 2;
+                    i = StageInfo.namber[0] + 1;
                     SceneManager.LoadScene(i);
                     Debug.Log("ステージは" + i + "をロードしたよ");
                     return;
@@ -473,5 +473,10 @@ public class MapManager : Singleton<MapManager>
     public void StartCharaSelectStatus(int i)
     {
         EventWindowManager.Instance.ViewStatus(i);
+    }
+
+    public void Pause()
+    {
+        EventWindowManager.Instance.Pause();
     }
 }
