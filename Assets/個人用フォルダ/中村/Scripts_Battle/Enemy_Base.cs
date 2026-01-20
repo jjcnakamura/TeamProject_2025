@@ -69,6 +69,8 @@ public class Enemy_Base : MonoBehaviour
     int maxBuffValue, minDebuffValue;
     int buffNum, deBuffNum;
 
+    Vector3 buffExOffset = new Vector3(0, -0.5f, 0);
+
     float speedBuffValue = 1f, speedDebuffValue = 1f;
     float speedBuffTime, speedDebuffTime;
 
@@ -99,12 +101,12 @@ public class Enemy_Base : MonoBehaviour
 
         //バフ、デバフ用のエフェクトを生成
         buffObj = Instantiate(effect_Buff);
-        buffObj.transform.position = footPos.transform.position;
+        buffObj.transform.position = footPos.transform.position + buffExOffset;
         buffObj.transform.SetParent(transform);
         buffObj.transform.localScale = effect_Buff.transform.localScale;
         buffObj.SetActive(false);
         debuffObj = Instantiate(effect_Debuff);
-        debuffObj.transform.position = footPos.transform.position;
+        debuffObj.transform.position = footPos.transform.position + buffExOffset;
         debuffObj.transform.SetParent(transform);
         debuffObj.transform.localScale = effect_Debuff.transform.localScale;
         debuffObj.SetActive(false);
