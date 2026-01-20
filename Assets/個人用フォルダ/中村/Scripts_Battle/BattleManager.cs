@@ -568,6 +568,8 @@ public class BattleManager : Singleton<BattleManager>
     {
         if (!isMainGame) return;
 
+        SoundManager.Instance.PlaySE_Game(8);
+
         isNoDamage = false;
 
         playerHp = Mathf.Max(playerHp - 1, 0);
