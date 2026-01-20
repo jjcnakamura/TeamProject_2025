@@ -354,7 +354,7 @@ public class Enemy_Base : MonoBehaviour
                 moveSpeed = Mathf.Max(defaultMoveSpeed * val * speedBuffValue, 0.1f);
             }
             //現在のデバフ残り時間より大きい場合は更新
-            if (time < speedDebuffTime - timer_SpeedDebuff || timer_SpeedDebuff <= 0)
+            if (time > speedDebuffTime - timer_SpeedDebuff || timer_SpeedDebuff <= 0)
             {
                 speedDebuffTime = time;
                 timer_SpeedDebuff = 0;
