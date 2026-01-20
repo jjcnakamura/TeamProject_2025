@@ -24,10 +24,10 @@ public class BattleManager : Singleton<BattleManager>
     [SerializeField] GameObject canvasParent;
     GameObject[] canvas;
 
-    [Space(10)]
-
+#if UNITY_EDITOR
     //エディター上でのLighting
-    [SerializeField] LightingDataAsset lightingDataAsset;
+    [Space(10), SerializeField] LightingDataAsset lightingDataAsset;
+#endif
 
     //マップ
     public MapManager mapManager { get; private set; }
@@ -191,8 +191,10 @@ public class BattleManager : Singleton<BattleManager>
         //戦闘シーン開始時のみ実行する
         if (!isMainGame && !isClear && !isGameOver)
         {
+#if UNITY_EDITOR
             //エディター上でLightingDataAssetを読み込み
             if (lightingDataAsset != null) Lightmapping.lightingDataAsset = lightingDataAsset;
+#endif
 
             //BGMを再生
             SoundManager.Instance.PlayBGM_Battle(bgmIndex);
