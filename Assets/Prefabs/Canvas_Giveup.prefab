@@ -1207,8 +1207,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Giveup, Assembly-CSharp
+      - m_Target: {fileID: 1341259217934563683}
+        m_TargetAssemblyTypeName: GiveupManager, Assembly-CSharp
         m_MethodName: GiveupWindow
         m_Mode: 1
         m_Arguments:
