@@ -74,6 +74,9 @@ public class ParameterManager : Singleton<ParameterManager>
 
         //獲得した経験値
         getExp = 0;
+
+        //スピードアップ
+        isSpeedUp = false;
     }
 
     /// <summary>

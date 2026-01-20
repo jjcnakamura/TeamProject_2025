@@ -491,8 +491,7 @@ public class BattleManager : Singleton<BattleManager>
 
         //時間の速さを等速に
         Time.timeScale = 1f;
-        isSpeedUp = false;
-        ParameterManager.Instance.isSpeedUp = false;
+        //ParameterManager.Instance.isSpeedUp = false;
 
         //ステージクリア画面を表示
         canvas[2].SetActive(true);
@@ -523,25 +522,10 @@ public class BattleManager : Singleton<BattleManager>
 
         //時間の速さを等速に
         Time.timeScale = 1f;
-        isSpeedUp = false;
-        ParameterManager.Instance.isSpeedUp = false;
+        //ParameterManager.Instance.isSpeedUp = false;
 
         //ゲームオーバー画面を表示
         canvas[3].SetActive(true);
-    }
-
-    /// <summary>
-    /// タイトルに戻る(データは保存されない)
-    /// </summary>
-    public void BackTitle()
-    {
-        SoundManager.Instance.PlaySE_Sys(1);
-
-        //全てのステータスをリセット
-        ParameterManager.Instance.StatusInit();
-        if (mapManager != null) Destroy(mapManager.gameObject);
-
-        FadeManager.Instance.LoadSceneIndex(0, 0.5f);
     }
 
     //配置されているユニットを削除
@@ -692,5 +676,19 @@ public class BattleManager : Singleton<BattleManager>
         FadeManager.Instance.LoadSceneIndex(1, 0.5f);
 
         MapManager.Instance.DebugStageEnd();
+    }
+
+    /// <summary>
+    /// タイトルに戻る(データは保存されない)
+    /// </summary>
+    public void BackTitle()
+    {
+        SoundManager.Instance.PlaySE_Sys(1);
+
+        //全てのステータスをリセット
+        ParameterManager.Instance.StatusInit();
+        if (mapManager != null) Destroy(mapManager.gameObject);
+
+        FadeManager.Instance.LoadSceneIndex(0, 0.5f);
     }
 }
