@@ -8,33 +8,107 @@ public class UnitLevelAndExp : Singleton<UnitLevelAndExp>
 {
     [SerializeField] GameObject window;
     [SerializeField] GameObject[] units;
+    [SerializeField] RectTransform[] lvupObj;
     [SerializeField] GameObject[] choiceWindow;
     [SerializeField] TextMeshProUGUI text_GetExp;
     [SerializeField] TextMeshProUGUI[] text_Lv;
     [SerializeField] TextMeshProUGUI[] text_Exp;
     [SerializeField] TextMeshProUGUI[] text_NeedExp;
 
+    Vector3[] lvupObjDefaultPos, lvupObjMovePos;
+    Vector3 lvupObjMoveOffset = new Vector3(-2.5f, 0f);
+    float lvupObjMoveTime = 0.5f;
+    float timer_LvupObj;
+
+    void Awake()
+    {
+        lvupObjDefaultPos = new Vector3[lvupObj.Length];
+        lvupObjMovePos = new Vector3[lvupObj.Length];
+        for (int i = 0; i < lvupObj.Length; i++)
+        {
+            lvupObjDefaultPos[i] = lvupObj[i].position;
+            lvupObjMovePos[i] = lvupObjDefaultPos[i] + lvupObjMoveOffset;
+        }
+    }
+
+    void FixedUpdate()
+    {
+        //経験値画面表示中はレベルアップ可能オブジェクトをアニメーションさせる
+        if (window.activeSelf)
+        {
+            if (timer_LvupObj < lvupObjMoveTime)
+            {
+                timer_LvupObj += Time.fixedDeltaTime;
+            }
+            else
+            {
+                for (int i = 0; i < lvupObj.Length; i++)
+                {
+                    if (lvupObj[i].position == lvupObjDefaultPos[i])
+                    {
+                        lvupObj[i].position = lvupObjMovePos[i];
+                    }
+                    else
+                    {
+                        lvupObj[i].position = lvupObjDefaultPos[i];
+                    }
+                }
+
+                timer_LvupObj = 0;
+            }
+        }
+    }
+
     /// <summary>
     /// 選択されたユニットの経験値割り振りとステータスの項目を表示する
     /// </summary>
     public void ChoiceUnit(int index)
     {
-        if (!choiceWindow[index].activeSelf)
+        if (index >= 0 && index < choiceWindow.Length)
         {
-            SoundManager.Instance.PlaySE_Sys(0);
-
-            //他のウィンドウを閉じる
-            for (int i = 0; i < choiceWindow.Length; i++)
+            if (!choiceWindow[index].activeSelf)
             {
-                choiceWindow[i].SetActive(false);
-            }
+                SoundManager.Instance.PlaySE_Sys(0);
 
-            choiceWindow[index].SetActive(true);
+                //他のウィンドウを閉じる
+                for (int i = 0; i < choiceWindow.Length; i++)
+                {
+                    choiceWindow[i].SetActive(false);
+
+                    //レベルアップ可能な場合の表示
+                    lvupObj[i].gameObject.SetActive(ParameterManager.Instance.getExp >= UnitsData.Instance.levelUpExp[ParameterManager.Instance.unitStatus[i].lv] - ParameterManager.Instance.unitStatus[i].exp);
+
+                }
+
+                choiceWindow[index].SetActive(true);
+
+                //レベルアップ可能な場合の表示を消す
+                lvupObj[index].gameObject.SetActive(false);
+            }
+            else
+            {
+                SoundManager.Instance.PlaySE_Sys(2);
+                choiceWindow[index].SetActive(false);
+
+                //レベルアップ可能な場合の表示
+                lvupObj[index].gameObject.SetActive(ParameterManager.Instance.getExp >= UnitsData.Instance.levelUpExp[ParameterManager.Instance.unitStatus[index].lv] - ParameterManager.Instance.unitStatus[index].exp);
+            }
         }
         else
         {
-            SoundManager.Instance.PlaySE_Sys(2);
-            choiceWindow[index].SetActive(false);
+            bool playSe = false;
+
+            //全てのウィンドウを閉じる
+            for (int i = 0; i < choiceWindow.Length; i++)
+            {
+                if (choiceWindow[i].activeSelf) playSe = true;
+                choiceWindow[i].SetActive(false);
+
+                //レベルアップ可能な場合の表示
+                lvupObj[i].gameObject.SetActive(ParameterManager.Instance.getExp >= UnitsData.Instance.levelUpExp[ParameterManager.Instance.unitStatus[i].lv] - ParameterManager.Instance.unitStatus[i].exp);
+            }
+
+            if (playSe) SoundManager.Instance.PlaySE_Sys(2);
         }
     }
 
@@ -160,6 +234,9 @@ public class UnitLevelAndExp : Singleton<UnitLevelAndExp>
                 choiceWindow[i].SetActive(false);
                 units[i].SetActive(true);
             }
+
+            //レベルアップ可能な場合の表示
+            lvupObj[i].gameObject.SetActive(!choiceWindow[i].activeSelf && ParameterManager.Instance.getExp >= UnitsData.Instance.levelUpExp[ParameterManager.Instance.unitStatus[i].lv] - ParameterManager.Instance.unitStatus[i].exp);
 
             //経験値関連のテキスト
             text_Lv[i].text = "LV   " + ParameterManager.Instance.unitStatus[i].lv.ToString();
