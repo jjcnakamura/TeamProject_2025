@@ -6105,6 +6105,10 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3758895083802619517, guid: 5465bbd4fd01cc6419dd783268c538c4, type: 3}
+      propertyPath: m_Spacing.x
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5095594212978378818, guid: 5465bbd4fd01cc6419dd783268c538c4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
