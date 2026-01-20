@@ -24,7 +24,8 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
     public GameObject IgnoreImage;
     public GameObject targetUI;
     public bool i = false;
-    public int indexint;
+    public int indexint;//ルートの進行度
+    public int index;//ルートの道の番号
 
     void Awake()
     {
@@ -81,7 +82,7 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         }
         if(FloorEnd == false)
         {
-            int index = GetParentIndexOf(this.transform);//親から見て何番目の子か
+            index = GetParentIndexOf(this.transform);//親から見て何番目の子か
 
             indexint = transform.GetSiblingIndex();
             
@@ -97,6 +98,14 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
             {
                 IgnoreImage.SetActive(false);
             }
+        }
+        if(MapManager.Instance.y + 1 <= indexint)
+        {
+            IgnoreImage.SetActive(true);
+        }
+        if (MapManager.Instance.y == indexint && (MapManager.Instance.x == index || MapManager.Instance.x == index + 1 || MapManager.Instance.x == index -1))
+        {
+            IgnoreImage.SetActive(false);
         }
     }
 
@@ -124,7 +133,7 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         return -1;
     }
 
-    public void GetStageIndex()//今の親ルートのステージが何番目か
+    public void GetStageIndex()//今の親ルートのステージが何番目か　使ってない
     {
         int indexint = transform.GetSiblingIndex();
         MapManager.Instance.y = indexint;
@@ -196,7 +205,7 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
             targetUI.SetActive(false);
     }
 
-    public void ButtleIndex()
+    public void ButtleIndex()//tukoutenai
     {
         
     }

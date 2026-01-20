@@ -422,6 +422,8 @@ public class MapManager : Singleton<MapManager>
 
     public void GameEnd()//Žg—p’†
     {
+        SoundManager.Instance.StopBGM();
+        SoundManager.Instance.PlaySE_Jingle(0);
         GameEndImage.SetActive(true);
     }
 
