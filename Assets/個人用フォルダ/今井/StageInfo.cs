@@ -85,28 +85,34 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
             index = GetParentIndexOf(this.transform);//e‚©‚çŒ©‚Ä‰½”Ô–Ú‚ÌŽq‚©
 
             indexint = transform.GetSiblingIndex();
-            
-        }
-        if (FloorEnd == true)
-        {
-            indexint = MapManager.Instance.worldLevel + 3;
-        }
-        if (MapManager.Instance.y > indexint)
-        {
-            IgnoreImage.SetActive(true);
-            if(StageEnd == true)
+
+            if (MapManager.Instance.y > indexint)
+            {
+                IgnoreImage.SetActive(true);
+                if (StageEnd == true)
+                {
+                    IgnoreImage.SetActive(false);
+                }
+            }
+            if (MapManager.Instance.y + 1 <= indexint)
+            {
+                IgnoreImage.SetActive(true);
+            }
+            if (MapManager.Instance.y == indexint && (MapManager.Instance.x == index || MapManager.Instance.x == index + 1 || MapManager.Instance.x == index - 1))
             {
                 IgnoreImage.SetActive(false);
             }
         }
-        if(MapManager.Instance.y + 1 <= indexint)
+        if (FloorEnd == true)
         {
             IgnoreImage.SetActive(true);
+            indexint = MapManager.Instance.worldLevel + 3;
+            if(MapManager.Instance.y == indexint)
+            {
+                IgnoreImage.SetActive(false);
+            }
         }
-        if (MapManager.Instance.y == indexint && (MapManager.Instance.x == index || MapManager.Instance.x == index + 1 || MapManager.Instance.x == index -1))
-        {
-            IgnoreImage.SetActive(false);
-        }
+        
     }
 
     public void StageEndDebug()
