@@ -300,7 +300,7 @@ MonoBehaviour:
     anim_Name: Cast Spell
     anim_Time: 0.4
     role: 2
-    cost: 14
+    cost: 12
     upCost: 6
     recast: 30
     hp: 10
