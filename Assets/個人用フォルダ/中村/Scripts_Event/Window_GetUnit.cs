@@ -13,6 +13,9 @@ public class Window_GetUnit : MonoBehaviour
     [SerializeField] GameObject unitButtonParent;
     [SerializeField] Button unitButtonPredab;
 
+    //ユニット入手のスキップ画面
+    [SerializeField] GameObject window_Skip;
+
     //状態を表すフラグ
     public bool isActive;
 
@@ -38,6 +41,9 @@ public class Window_GetUnit : MonoBehaviour
 
             //ユニットをnum体表示
             GenerateUnitButton(num);
+
+            //ユニット入手のスキップ画面を閉じる
+            window_Skip.SetActive(false);
 
             //フラグを設定
             isActive = true;
@@ -89,6 +95,45 @@ public class Window_GetUnit : MonoBehaviour
         {
             EventWindowManager.Instance.window_Event.Result(1, "これ以上ユニットを増やせない！", "");
         } 
+    }
+
+    /// <summary>
+    /// ユニット入手をスキップするか選択する
+    /// </summary>
+    public void SkipWindow()
+    {
+        if (!isActive) return; 
+
+        //スキップ画面を表示
+        if (!window_Skip.activeSelf)
+        {
+            SoundManager.Instance.PlaySE_Sys(0);
+
+            window_Skip.SetActive(true);
+        }
+        //スキップをキャンセル
+        else
+        {
+            SoundManager.Instance.PlaySE_Sys(2);
+
+            window_Skip.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// ユニットを入手せずにスキップする
+    /// </summary>
+    public void Skip()
+    {
+        if (!isActive) return;
+
+        SoundManager.Instance.PlaySE_Sys(1);
+
+        //ユニット入手画面を閉じる
+        ViewUnits();
+
+        //リザルトを表示
+        EventWindowManager.Instance.window_Event.Result(1, "ユニットを仲間にしなかった", "");
     }
 
     //持っていないユニットの中から抽選してボタンを生成する　引数でボタンの数を指定
