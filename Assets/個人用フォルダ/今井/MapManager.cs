@@ -297,6 +297,8 @@ public class MapManager : Singleton<MapManager>
 
     public void CharaLevelCanvas(bool i)
     {
+        SoundManager.Instance.PlaySE_Sys(0);
+
         charaLevelCanvas.SetActive(i);
         UnitLevelAndExp.Instance.NewStatus();
     }
