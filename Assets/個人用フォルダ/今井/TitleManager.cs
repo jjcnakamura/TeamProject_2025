@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class TitleManager : Singleton<TitleManager>
 {
@@ -13,6 +14,7 @@ public class TitleManager : Singleton<TitleManager>
     [SerializeField] GameObject manual_NextButton;
     [SerializeField] GameObject manual_PreButton;
     [SerializeField] GameObject manual_PageParent;
+    [SerializeField] TextMeshProUGUI manual_Text_PageNum;
     GameObject[] manual_Pages;
     int manual_PageIndex;
 
@@ -81,11 +83,16 @@ public class TitleManager : Singleton<TitleManager>
         {
             SoundManager.Instance.PlaySE_Sys(0);
 
-            manual_Pages[manual_PageIndex].SetActive(false);
-            manual_Pages[0].SetActive(true);
+            for (int i = 0; i < manual_Pages.Length; i++)
+            {
+                manual_Pages[i].SetActive(i <= 0);
+            }
+
             manual_NextButton.SetActive(true);
             manual_PreButton.SetActive(false);
             manual_PageIndex = 0;
+
+            manual_Text_PageNum.text = (manual_PageIndex + 1) + "/" + manual_Pages.Length;
 
             canvas[2].SetActive(true);
         }
@@ -127,6 +134,9 @@ public class TitleManager : Singleton<TitleManager>
             if (manual_PageIndex <= 0) manual_PreButton.SetActive(false);
             manual_NextButton.SetActive(true);
         }
+
+        //ページ数のテキストを更新
+        manual_Text_PageNum.text = (manual_PageIndex + 1) + "/" + manual_Pages.Length;
     }
 
     //デバッグモード開始
