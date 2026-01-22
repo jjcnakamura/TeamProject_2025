@@ -218,6 +218,13 @@ public class SoundManager : Singleton<SoundManager>
 
         bgmVolText.text = ((int)bgmVolSlider.value * 10).ToString() + "%";
     }
+    public string BgmVolumeChange(int value)
+    {
+        mixer.SetFloat("BGVol", vol_BGM[value]);
+        bgmVol = vol_BGM[value];
+
+        return (value * 10).ToString() + "%";
+    }
 
     //SilderによるSE音量の調整
     public void SeVolumeChange()
@@ -225,6 +232,12 @@ public class SoundManager : Singleton<SoundManager>
         mixer.SetFloat("SEVol", vol_SE[(int)seVolSlider.value]);
 
         seVolText.text = ((int)seVolSlider.value * 10).ToString() + "%";
+    }
+    public string SeVolumeChange(int value)
+    {
+        mixer.SetFloat("SEVol", vol_SE[value]);
+
+        return (value * 10).ToString() + "%";
     }
 
     //画面がフェードアウトする時

@@ -139,15 +139,34 @@ public class TitleManager : Singleton<TitleManager>
         manual_Text_PageNum.text = (manual_PageIndex + 1) + "/" + manual_Pages.Length;
     }
 
+    //オプション画面を開く
+    public void Option()
+    {
+        //オプション画面を開く
+        if (!canvas[3].activeSelf)
+        {
+            SoundManager.Instance.PlaySE_Sys(1);
+
+            canvas[3].SetActive(true);
+        }
+        //オプション画面を閉じる
+        else
+        {
+            SoundManager.Instance.PlaySE_Sys(2);
+
+            canvas[3].SetActive(false);
+        }
+    }
+
     //デバッグモード開始
     public void Debug()
     {
         //デバッグ画面を開く
-        if (!canvas[3].activeSelf)
+        if (!canvas[4].activeSelf)
         {
             SoundManager.Instance.PlaySE_Sys(0);
 
-            canvas[3].SetActive(true);
+            canvas[4].SetActive(true);
             DebugMode.Instance.DebugStart();
         }
         //デバッグ画面を閉じる
@@ -155,7 +174,7 @@ public class TitleManager : Singleton<TitleManager>
         {
             SoundManager.Instance.PlaySE_Sys(2);
 
-            canvas[3].SetActive(false);
+            canvas[4].SetActive(false);
         }
     }
 
