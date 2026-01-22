@@ -109,14 +109,14 @@ public class BattleUnit_Bomb : BattleUnit_Base
         //死亡した瞬間に爆発する
         if (!isExplosion && isDead && !isAnimation && !isEnd)
         {
+            //アニメーション
+            isAnimation = true;
+            if (animator != null) animator.Play(anim_Name);
+
             //エフェクトとHPバーを非表示に
             buffObj.SetActive(false);
             debuffObj.SetActive(false);
             hpbarObj.SetActive(false);
-
-            //アニメーション
-            if (animator != null) animator.Play(anim_Name);
-            isAnimation = true;
 
             //アニメーション終了後に爆発する
             Invoke("Explosion", anim_Time);

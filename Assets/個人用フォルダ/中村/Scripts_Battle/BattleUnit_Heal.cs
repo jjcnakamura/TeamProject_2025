@@ -34,6 +34,7 @@ public class BattleUnit_Heal : BattleUnit_Base
         if (!isBattle || !BattleManager.Instance.isMainGame) return; //戦闘中でない場合は戻る
 
         Place();
+        StartHeal();
     }
 
     protected override void FixedUpdate()
@@ -42,7 +43,6 @@ public class BattleUnit_Heal : BattleUnit_Base
 
         if (!isBattle || !BattleManager.Instance.isMainGame) return; //戦闘中でない場合は戻る
 
-        StartHeal();
         Interval();
     }
 
@@ -161,8 +161,8 @@ public class BattleUnit_Heal : BattleUnit_Base
         //回復対象がいない場合はアニメーションを再生しない
         if (healTarget.Count > 0)
         {
-            if(animator != null) animator.Play(anim_Name);
             isAnimation = true;
+            if (animator != null) animator.Play(anim_Name); 
         }
         
         Invoke("HealBullet", anim_Time);

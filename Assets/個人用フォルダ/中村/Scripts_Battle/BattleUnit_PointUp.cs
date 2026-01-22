@@ -28,8 +28,8 @@ public class BattleUnit_PointUp : BattleUnit_Base
         else if (!isAnimation)
         {
             //アニメーション
-            if (animator != null) animator.SetTrigger(anim_Name);
             isAnimation = true;
+            if (animator != null) animator.SetTrigger(anim_Name);
 
             //アニメーション終了後にポイントを上昇させる
             Invoke("PointUp", anim_Time);

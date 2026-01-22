@@ -22,6 +22,7 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
 
         if (!isBattle || !BattleManager.Instance.isMainGame) return; //戦闘中でない場合は戻る
 
+        Attack();
         Defense();
     }
 
@@ -31,7 +32,6 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
 
         if (!isBattle || !BattleManager.Instance.isMainGame) return; //戦闘中でない場合は戻る
 
-        Attack();
         Interval();
     }
 
@@ -82,9 +82,10 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
 
             if (!isInterval && !isAnimation)
             {
+                isAnimation = true;
+
                 //アニメーション
                 if (animator != null) animator.Play(anim_Name);
-                isAnimation = true;
 
                 Debug.Log("こうげき");
 

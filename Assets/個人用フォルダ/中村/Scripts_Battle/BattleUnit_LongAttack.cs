@@ -23,13 +23,21 @@ public class BattleUnit_LongAttack : BattleUnit_Base
     //状態を表すフラグ
     public bool isStart, isInterval;
 
+    protected override void Update()
+    {
+        base.Update(); //基底クラスのUpdate
+
+        if (!isBattle || !BattleManager.Instance.isMainGame) return; //戦闘中でない場合は戻る
+
+        Attack();
+    }
+
     protected override void FixedUpdate()
     {
         base.FixedUpdate(); //基底クラスのFixedUpdate
 
         if (!isBattle || !BattleManager.Instance.isMainGame) return; //戦闘中でない場合は戻る
 
-        Attack();
         Interval();
     }
 

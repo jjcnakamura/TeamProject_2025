@@ -30,13 +30,19 @@ public class Enemy_TargetAttack : Enemy_Base
         col_AttackZone.transform.localScale = new Vector3(distance, col_AttackZone.transform.localScale.y, distance);
     }
 
+    protected override void Update()
+    {
+        base.Update(); //基底クラスのUpdate
+
+        Attack();
+    }
+
     protected override void FixedUpdate()
     {
         base.FixedUpdate(); //基底クラスのFixedUpdate
 
         if (!BattleManager.Instance.isMainGame) return; //メインゲーム中でなければ戻る
 
-        Attack();
         Interval();
     }
 
@@ -141,8 +147,8 @@ public class Enemy_TargetAttack : Enemy_Base
             if (!isInterval && !isAnimation)
             {
                 //アニメーション
-                if (animator != null) animator.Play(anim_A_Name);
                 isAnimation = true;
+                if (animator != null) animator.Play(anim_A_Name); 
 
                 //アニメーション終了後にダメージを与える
                 Invoke("ToDamage", anim_A_Time);
