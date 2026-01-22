@@ -37,6 +37,8 @@ public class MapManager : Singleton<MapManager>
     [SerializeField] private List<Toggle> toggles; // 9ŒÂ‚ÌToggle‚ð“o˜^
     public GameObject CharaStatus;
     public GameObject StartCharaEnterCanvas;
+    public GameObject[] ExpCharaImage;
+
 
     void Awake()
     {
@@ -101,6 +103,27 @@ public class MapManager : Singleton<MapManager>
             }
         }
         MapTextUpdeta();
+
+        foreach (var n in ParameterManager.Instance.unitStatus)
+        {
+            //if (5 < ParameterManager.Instance.unitStatus.Length) lvupObj[i].gameObject.SetActive(ParameterManager.Instance.getExp >= UnitsData.Instance.levelUpExp[ParameterManager.Instance.unitStatus[i].lv] - ParameterManager.Instance.unitStatus[i].exp);
+
+            if (ParameterManager.Instance.getExp >= UnitsData.Instance.levelUpExp[n.lv])//if (n.exp >= UnitsData.Instance.levelUpExp[n.lv])
+            {
+                float i = 0;
+                i += Time.deltaTime;
+                if (i >= 1)
+                {
+                    ExpCharaImage[0].SetActive(!ExpCharaImage[0]);
+                    i = 0;
+                }
+                if (ExpCharaImage[0])
+                {
+                    ExpCharaImage[1].SetActive(ExpCharaImage[0]);
+                    ExpCharaImage[2].SetActive(!ExpCharaImage[0]);
+                }
+            }
+        }
     }
 
     public void ButtonNextStage(int i)
