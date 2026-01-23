@@ -489,51 +489,32 @@ public class MapManager : Singleton<MapManager>
 
     public void Levelboombutton()
     {
-        int pow = 0;
-        if(pow == 0)
+        bool Levelup = false;
+        float x = 0;
+        ExpCharaImage[0].SetActive(false);//Image
+        ExpCharaImage[1].SetActive(true);//レベルアップテキスト
+        ExpCharaImage[2].SetActive(false);//ステータス確認
+        for (int i = 0; i < ParameterManager.Instance.unitStatus.Length; i++)
         {
-            pow = 1;
-            ExpCharaImage[0].SetActive(false);
-            ExpCharaImage[1].SetActive(true);
-            ExpCharaImage[2].SetActive(false);
-            for (int i = 0; i < ParameterManager.Instance.unitStatus.Length; i++)
+            if(ParameterManager.Instance.getExp >= UnitsData.Instance.levelUpExp[ParameterManager.Instance.unitStatus[i].lv] - ParameterManager.Instance.unitStatus[i].exp)
             {
-                if (UnitsData.Instance.levelUpExp[ParameterManager.Instance.unitStatus[i].lv] >= ParameterManager.Instance.getExp)
+                Levelup = true;
+                
+                ExpCharaImage[1].SetActive(true);//レベルアップテキスト
+                ExpCharaImage[2].SetActive(!ExpCharaImage[1]);//ステータス確認
+                x += Time.deltaTime;
+                if (i >= 1)
                 {
-                    ExpCharaImage[1].SetActive(true);//レベルアップテキスト
-                    ExpCharaImage[2].SetActive(!ExpCharaImage[1]);//ステータス確認
-                    float x = 0;
-                    x += Time.deltaTime;
-                    if (i >= 1)
-                    {
-                        ExpCharaImage[0].SetActive(!ExpCharaImage[0]);//Image
-                        i = 0;
-                    }
-                    //Debug.Log("うんこここここここここここここここここ");
-                    //if (ParameterManager.Instance.unitStatus[i].lv >= ParameterManager.Instance.getExp)
+                    ExpCharaImage[0].SetActive(!ExpCharaImage[0]);//Image
+                    i = 0;
                 }
-                foreach (var n in ParameterManager.Instance.unitStatus)
-                {
-                    //if (5 < ParameterManager.Instance.unitStatus.Length) lvupObj[i].gameObject.SetActive(ParameterManager.Instance.getExp >= UnitsData.Instance.levelUpExp[ParameterManager.Instance.unitStatus[i].lv] - ParameterManager.Instance.unitStatus[i].exp);
 
-                    //エラーが起きていたのでコメントアウトしたぜベイベー
-                    ExpCharaImage[0].SetActive(false);
-                    ExpCharaImage[1].SetActive(true);
-                    ExpCharaImage[2].SetActive(false);
-                    if (UnitsData.Instance.levelUpExp[i] >= ParameterManager.Instance.getExp)//if (n.exp >= UnitsData.Instance.levelUpExp[n.lv])
-                    {
-                        ExpCharaImage[1].SetActive(true);//レベルアップテキスト
-                        ExpCharaImage[2].SetActive(!ExpCharaImage[1]);//ステータス確認
-                        float x = 0;
-                        x += Time.deltaTime;
-                        if (i >= 1)
-                        {
-                            ExpCharaImage[0].SetActive(!ExpCharaImage[0]);//Image
-                            i = 0;
-                        }
-                    }
-
-                }
+            }
+            else
+            {
+                ExpCharaImage[0].SetActive(false);//Image
+                ExpCharaImage[1].SetActive(false);//レベルアップテキスト
+                ExpCharaImage[2].SetActive(true);//ステータス確認
             }
         }
     }
