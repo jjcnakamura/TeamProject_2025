@@ -78,7 +78,10 @@ public class Bullet_Explosion : MonoBehaviour
                 {
                     GameObject effectObj = Instantiate(effect);
                     effectObj.transform.position = transform.position;
-                    effectObj.transform.localScale = new Vector3(range, range, range);
+
+                    //攻撃範囲に合わせてエフェクトの大きさを変える
+                    float scale = range / 2;
+                    effectObj.transform.localScale = new Vector3(scale, scale, scale);
                 }
 
                 transform.localScale = new Vector3(range, transform.localScale.y, range);

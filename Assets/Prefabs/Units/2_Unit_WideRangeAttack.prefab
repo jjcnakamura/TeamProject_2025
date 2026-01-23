@@ -99,12 +99,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b53775e7a774a44990064e9882fc7f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noAction: 0
   model: {fileID: 4318132627793925815}
   col_Body: {fileID: 8413363649107456905}
   col_AttackZone: {fileID: 4989877675903946812}
   mesh_AttackZone: {fileID: 445474188667735585}
   footPos: {fileID: 4917406993290216096}
-  effect: {fileID: 1575721338728490, guid: 614798357ad983e40b76f694cd8b443a, type: 3}
+  effect: {fileID: 8215723289594761513, guid: 4af5bba920ef4d24eb5d7a120ed072e3, type: 3}
   effect_Buff: {fileID: 1881552412633134, guid: cd2212416cb1fc84e945d11655f1b6e5, type: 3}
   effect_Debuff: {fileID: 1881552412633134, guid: ac6cc6f0170229b41addd57a34c0f181, type: 3}
   unitIndex: 0
@@ -119,6 +120,7 @@ MonoBehaviour:
   range: 0
   targetNum: 0
   isBattle: 0
+  isAnimation: 0
   isRotation: 0
   isTarget: 0
   isBuff: 0
@@ -127,6 +129,7 @@ MonoBehaviour:
   isDead: 0
   normalBullet: {fileID: 0}
   explosiveBullet: {fileID: 677911660841938838, guid: 4dae4096812832542adb8c3a04a8f35c, type: 3}
+  speedDebuffBullet: {fileID: 0}
   isStart: 0
   isInterval: 0
 --- !u!1 &4318132627793925815 stripped
