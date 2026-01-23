@@ -125,7 +125,7 @@ MonoBehaviour:
     recast: 20
     hp: 10
     value: 4
-    interval: 3
+    interval: 4
     distance: 10
     range: 2
     targetNum: 1
