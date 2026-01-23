@@ -98,12 +98,12 @@ public class MapManager : Singleton<MapManager>
             StageInfo stageInfo = child.GetComponent<StageInfo>();
             if (stageInfo != null)
             {
+                Levelboombutton();
                 //stageInfo.StageEnd = true;
                 ParameterManager.Instance.isBattleClear = false;
             }
         }
         MapTextUpdeta();
-        Levelboombutton();
     }
 
     public void ButtonNextStage(int i)
@@ -490,10 +490,6 @@ public class MapManager : Singleton<MapManager>
     public void Levelboombutton()
     {
         bool Levelup = false;
-        float x = 0;
-        ExpCharaImage[0].SetActive(false);//Image
-        ExpCharaImage[1].SetActive(true);//レベルアップテキスト
-        ExpCharaImage[2].SetActive(false);//ステータス確認
         for (int i = 0; i < ParameterManager.Instance.unitStatus.Length; i++)
         {
             if(ParameterManager.Instance.getExp >= UnitsData.Instance.levelUpExp[ParameterManager.Instance.unitStatus[i].lv] - ParameterManager.Instance.unitStatus[i].exp)
@@ -501,14 +497,7 @@ public class MapManager : Singleton<MapManager>
                 Levelup = true;
                 
                 ExpCharaImage[1].SetActive(true);//レベルアップテキスト
-                ExpCharaImage[2].SetActive(!ExpCharaImage[1]);//ステータス確認
-                x += Time.deltaTime;
-                if (i >= 1)
-                {
-                    ExpCharaImage[0].SetActive(!ExpCharaImage[0]);//Image
-                    i = 0;
-                }
-
+                ExpCharaImage[2].SetActive(false);//ステータス確認
             }
             else
             {
