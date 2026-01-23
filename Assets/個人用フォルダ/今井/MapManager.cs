@@ -322,7 +322,16 @@ public class MapManager : Singleton<MapManager>
                 MapTextStageImage.SetActive(true);
                 MapText[1].text = stageinfo.StageName.ToString();
                 MapText[2].text = stageinfo.StageNaiyou.ToString();
-                MapText[3].text = stageinfo.Enemyint.ToString();
+                if(stageinfo.StageName == "ƒCƒxƒ“ƒg")
+                {
+                    MapText[2].text = EventsData.Instance.eventData[stageinfo.namber[0]].name;
+                    MapText[3].text = " ";
+                }
+                else
+                {
+                    MapText[3].text = stageinfo.Enemyint.ToString();
+                }
+                
                 MapStageMenuButton.SetActive(true);
             }
 
