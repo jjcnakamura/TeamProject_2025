@@ -8302,8 +8302,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 0
-      - m_Target: {fileID: 985390155}
-        m_TargetAssemblyTypeName: GiveupManager, Assembly-CSharp
+      - m_Target: {fileID: 1491130880533612837}
+        m_TargetAssemblyTypeName: MapManager, Assembly-CSharp
         m_MethodName: BackTitle
         m_Mode: 1
         m_Arguments:
@@ -14114,7 +14114,10 @@ MonoBehaviour:
   - {fileID: 2418103789237174983}
   CharaStatus: {fileID: 1815777401}
   StartCharaEnterCanvas: {fileID: 4559151976112485278}
-  ExpCharaImage: []
+  ExpCharaImage:
+  - {fileID: 1507135512}
+  - {fileID: 967419752}
+  - {fileID: 663145331}
 --- !u!114 &1646387642318684017
 MonoBehaviour:
   m_ObjectHideFlags: 0
