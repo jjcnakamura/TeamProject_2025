@@ -10014,8 +10014,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1909019518}
   - {fileID: 686056582}
+  - {fileID: 1909019518}
   m_Father: {fileID: 1877251901}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -11887,7 +11887,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1877251901
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14114,6 +14114,7 @@ MonoBehaviour:
   - {fileID: 2418103789237174983}
   CharaStatus: {fileID: 1815777401}
   StartCharaEnterCanvas: {fileID: 4559151976112485278}
+  ExpCharaImage: []
 --- !u!114 &1646387642318684017
 MonoBehaviour:
   m_ObjectHideFlags: 0
