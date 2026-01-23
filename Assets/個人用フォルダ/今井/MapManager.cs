@@ -108,6 +108,8 @@ public class MapManager : Singleton<MapManager>
         {
             //if (5 < ParameterManager.Instance.unitStatus.Length) lvupObj[i].gameObject.SetActive(ParameterManager.Instance.getExp >= UnitsData.Instance.levelUpExp[ParameterManager.Instance.unitStatus[i].lv] - ParameterManager.Instance.unitStatus[i].exp);
 
+            //エラーが起きていたのでコメントアウトしたぜベイベー
+            /*
             if (ParameterManager.Instance.getExp >= UnitsData.Instance.levelUpExp[n.lv])//if (n.exp >= UnitsData.Instance.levelUpExp[n.lv])
             {
                 float i = 0;
@@ -123,6 +125,7 @@ public class MapManager : Singleton<MapManager>
                     ExpCharaImage[2].SetActive(!ExpCharaImage[0]);
                 }
             }
+            */
         }
     }
 
