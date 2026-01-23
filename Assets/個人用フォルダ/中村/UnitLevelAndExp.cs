@@ -211,6 +211,8 @@ public class UnitLevelAndExp : Singleton<UnitLevelAndExp>
     {
         SoundManager.Instance.PlaySE_Sys(2);
 
+        if (FindObjectOfType(System.Type.GetType("MapManager")) != null) MapManager.Instance.Levelboombutton();
+
         NewStatus();
         window.SetActive(false);
     }
