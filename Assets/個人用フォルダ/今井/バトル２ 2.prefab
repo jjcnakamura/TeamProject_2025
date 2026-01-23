@@ -384,7 +384,7 @@ MonoBehaviour:
   namber: 00000000
   StageName: "\u30D0\u30C8\u30EB"
   StageNaiyou: "\u6575\u3092\u5168\u3066\u5012\u305B\uFF01"
-  Enemyint: 101
+  Enemyint: 100
   StageInfoText:
   - {fileID: 9037371270237401589}
   - {fileID: 810944174223105949}
