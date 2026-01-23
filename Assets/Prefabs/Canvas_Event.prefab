@@ -1697,6 +1697,14 @@ MonoBehaviour:
   window_Event: {fileID: 5974237522419182604}
   window_GetUnit: {fileID: 3230006364015004529}
   window_Status: {fileID: 234399075419844574}
+  statusViewInacticeObj:
+  - {fileID: 6720486378284409152}
+  - {fileID: 424733178921684216}
+  - {fileID: 8567353777867620320}
+  - {fileID: 2885041625492436049}
+  - {fileID: 2570098786555520443}
+  - {fileID: 5103485560959174710}
+  - {fileID: 3808315189923622927}
   isEvent: 0
 --- !u!1 &2885041625492436049
 GameObject:

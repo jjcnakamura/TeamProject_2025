@@ -21,6 +21,11 @@ public class EventWindowManager : Singleton<EventWindowManager>
 
     [Space(10)]
 
+    [SerializeField] GameObject[] statusViewInacticeObj;
+    bool[] statusViewInacticeObj_PreActive;
+
+    [Space(10)]
+
     public bool isEvent;
 
     void Awake()
@@ -46,6 +51,8 @@ public class EventWindowManager : Singleton<EventWindowManager>
             transform.rotation = new Quaternion();
             transform.localScale = new Vector3();
         }
+
+        statusViewInacticeObj_PreActive = new bool[statusViewInacticeObj.Length];
 
         //Canvasの表示
         for (int i = 0; i < canvas.Length; i++)
@@ -296,6 +303,16 @@ public class EventWindowManager : Singleton<EventWindowManager>
         {
             if (!window_Status.gameObject.activeSelf)
             {
+                //イベント中でない場合はイベントの背景のオブジェクトを非アクティブに
+                if (!isEvent)
+                {
+                    for (int i = 0; i < statusViewInacticeObj.Length; i++)
+                    {
+                        statusViewInacticeObj_PreActive[i] = statusViewInacticeObj[i].activeSelf;
+                        statusViewInacticeObj[i].SetActive(false);
+                    }
+                }
+
                 window_Status.gameObject.SetActive(true);
                 window_Status.ViewUnits();
                 window_Status.ViewStatusId(id);
@@ -308,6 +325,12 @@ public class EventWindowManager : Singleton<EventWindowManager>
                 if (!isEvent)
                 {
                     if (window_Status.isActive) window_Status.ViewUnits();
+
+                    for (int i = 0; i < statusViewInacticeObj.Length; i++)
+                    {
+                        statusViewInacticeObj[i].SetActive(statusViewInacticeObj_PreActive[i]);
+                    }
+
                     canvas[0].SetActive(false);
                 }
             }
@@ -317,6 +340,16 @@ public class EventWindowManager : Singleton<EventWindowManager>
         {
             if (!window_Status.gameObject.activeSelf)
             {
+                //イベント中でない場合はイベントの背景のオブジェクトを非アクティブに
+                if (!isEvent)
+                {
+                    for (int i = 0; i < statusViewInacticeObj.Length; i++)
+                    {
+                        statusViewInacticeObj_PreActive[i] = statusViewInacticeObj[i].activeSelf;
+                        statusViewInacticeObj[i].SetActive(false);
+                    }
+                }
+
                 window_Status.gameObject.SetActive(true);
                 window_Status.ViewUnits();
             }
@@ -328,6 +361,12 @@ public class EventWindowManager : Singleton<EventWindowManager>
                 if (!isEvent)
                 {
                     if (window_Status.isActive) window_Status.ViewUnits();
+
+                    for (int i = 0; i < statusViewInacticeObj.Length; i++)
+                    {
+                        statusViewInacticeObj[i].SetActive(statusViewInacticeObj_PreActive[i]);
+                    }
+
                     canvas[0].SetActive(false);
                 }
             }
@@ -346,6 +385,16 @@ public class EventWindowManager : Singleton<EventWindowManager>
         {
             if (!window_Status.gameObject.activeSelf)
             {
+                //イベント中でない場合はイベントの背景のオブジェクトを非アクティブに
+                if (!isEvent)
+                {
+                    for (int i = 0; i < statusViewInacticeObj.Length; i++)
+                    {
+                        statusViewInacticeObj_PreActive[i] = statusViewInacticeObj[i].activeSelf;
+                        statusViewInacticeObj[i].SetActive(false);
+                    }
+                }
+
                 window_Status.gameObject.SetActive(true);
                 window_Status.ViewUnits();
                 window_Status.ViewStatus(index);
@@ -358,6 +407,12 @@ public class EventWindowManager : Singleton<EventWindowManager>
                 if (!isEvent)
                 {
                     if (window_Status.isActive) window_Status.ViewUnits();
+
+                    for (int i = 0; i < statusViewInacticeObj.Length; i++)
+                    {
+                        statusViewInacticeObj[i].SetActive(statusViewInacticeObj_PreActive[i]);
+                    }
+
                     canvas[0].SetActive(false);
                 }
             }
@@ -367,6 +422,16 @@ public class EventWindowManager : Singleton<EventWindowManager>
         {
             if (!window_Status.gameObject.activeSelf)
             {
+                //イベント中でない場合はイベントの背景のオブジェクトを非アクティブに
+                if (!isEvent)
+                {
+                    for (int i = 0; i < statusViewInacticeObj.Length; i++)
+                    {
+                        statusViewInacticeObj_PreActive[i] = statusViewInacticeObj[i].activeSelf;
+                        statusViewInacticeObj[i].SetActive(false);
+                    }
+                }
+
                 window_Status.gameObject.SetActive(true);
                 window_Status.ViewStatus();
             }
@@ -378,6 +443,12 @@ public class EventWindowManager : Singleton<EventWindowManager>
                 if (!isEvent)
                 {
                     if (window_Status.isActive) window_Status.ViewUnits();
+
+                    for (int i = 0; i < statusViewInacticeObj.Length; i++)
+                    {
+                        statusViewInacticeObj[i].SetActive(statusViewInacticeObj_PreActive[i]);
+                    }
+
                     canvas[0].SetActive(false);
                 }
             }
