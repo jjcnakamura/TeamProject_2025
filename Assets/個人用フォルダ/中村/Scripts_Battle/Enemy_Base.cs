@@ -137,8 +137,11 @@ public class Enemy_Base : MonoBehaviour
         if (isDead) return true;
 
         //アニメーション
-        isAnimation = true;
-        if (animator != null && !isAnimation) animator.Play(anim_D_Name);
+        if (animator != null && !isAnimation)
+        {
+            isAnimation = true;
+            animator.Play(anim_D_Name);
+        }
 
         hp = Mathf.Max(hp - damage, 0);
         timer_KnockBack = 0;

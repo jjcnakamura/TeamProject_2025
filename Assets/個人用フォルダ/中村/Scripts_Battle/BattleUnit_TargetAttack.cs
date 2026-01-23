@@ -87,8 +87,6 @@ public class BattleUnit_TargetAttack : BattleUnit_Base
                 //アニメーション
                 if (animator != null) animator.Play(anim_Name);
 
-                Debug.Log("こうげき");
-
                 //アニメーション終了後にダメージを与える
                 Invoke("ToDamage", anim_Time);
             }
