@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 /// <summary>
 /// ステージの情報を積むスクリプト
@@ -33,6 +34,29 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         if(StageName == "イベント")
         {
             namber = EventWindowManager.Instance.EventRandomChoice(1);
+
+            //イベントによってアイコンを変える
+            GameObject cventChild = transform.GetChild(0).gameObject;
+            if (cventChild != null)
+            {
+                Image eventImage = cventChild.GetComponent<Image>();
+                if (eventImage != null)
+                {
+                    eventImage.sprite = EventsData.Instance.eventData[namber[0]].sprite;
+
+                    //回復イベントの場合は背景色を変える
+                    if (EventsData.Instance.eventData[namber[0]].catergory == EventsData.Catergory.回復)
+                    {
+                        Image eventBackImage = GetComponent<Image>();
+                        if (eventBackImage != null) eventBackImage.color = new Color(0.2796013f, 0.7924528f, 0.3254963f);
+
+                        //アイコンのサイズを調整
+                        eventImage.transform.localScale = new Vector3(eventImage.transform.localScale.x * 0.85f,
+                                                                      eventImage.transform.localScale.y * 0.85f,
+                                                                      eventImage.transform.localScale.z * 0.85f);
+                    }
+                }
+            }
         }
         if (StageName == "バトル")
         {
