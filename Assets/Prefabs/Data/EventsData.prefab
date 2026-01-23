@@ -56,15 +56,15 @@ MonoBehaviour:
     - type: 3
       text: "\u30E6\u30CB\u30C3\u30C8\u3092\u9078\u3076"
       value: 3
-  - name: "\u540C\u30E6\u30CB\u30C3\u30C8\u914D\u7F6E\u6570\u5897\u52A0"
+  - name: "\u914D\u7F6E\u6570\u5897\u52A0"
     catergory: 1
     sprite: {fileID: 21300000, guid: 897c166ae3c3144409f5257ee01f9810, type: 3}
-    text: "\u30E6\u30CB\u30C3\u30C8\u306E\u914D\u7F6E\u6570\u3092\u5897\u3084\u305B\u308B\uFF01"
+    text: "\u500D\u3005\u30DD\u30FC\u30B7\u30E7\u30F3\u3092\u898B\u3064\u3051\u305F\uFF01\n\u30E6\u30CB\u30C3\u30C8\u306E\u914D\u7F6E\u6570\u3092\u5897\u3084\u305B\u308B\uFF01"
     choice:
     - type: 5
       text: "\u540C\u30E6\u30CB\u30C3\u30C8\u914D\u7F6E\u6570\u5897\u52A0"
       value: 1
-  - name: "\u30B3\u30B9\u30C8 or \u518D\u914D\u7F6E\u6642\u9593"
+  - name: "\u30E6\u30CB\u30C3\u30C8\u77ED\u7E2E"
     catergory: 0
     sprite: {fileID: 21300000, guid: 705578036c81e4d9183c53c72a19a105, type: 3}
     text: "\u77ED\u7E2E\u30BF\u30A4\u30DE\u30FC\u3092\u898B\u3064\u3051\u305F\uFF01\n\u3069\u3046\u3059\u308B\uFF1F"
