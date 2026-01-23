@@ -6205,7 +6205,7 @@ GameObject:
   - component: {fileID: 497350049}
   - component: {fileID: 497350048}
   - component: {fileID: 497350047}
-  - component: {fileID: 497350050}
+  - component: {fileID: 497350051}
   m_Layer: 5
   m_Name: "\u30AA\u30D7\u30B7\u30E7\u30F3"
   m_TagString: Untagged
@@ -6326,7 +6326,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 497350045}
   m_CullTransparentMesh: 1
---- !u!114 &497350050
+--- !u!114 &497350051
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6335,7 +6335,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 497350045}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Script: {fileID: 11500000, guid: afb1317bad4864845bd0bd72f1e9126e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_EffectColor: {r: 0.4, g: 0.28235295, b: 0, a: 1}
@@ -8093,7 +8093,7 @@ GameObject:
   - component: {fileID: 724059103}
   - component: {fileID: 724059102}
   - component: {fileID: 724059101}
-  - component: {fileID: 724059100}
+  - component: {fileID: 724059104}
   m_Layer: 5
   m_Name: OptionButton
   m_TagString: Untagged
@@ -8120,21 +8120,6 @@ RectTransform:
   m_AnchoredPosition: {x: 50, y: -50}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &724059100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 724059098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EffectColor: {r: 0.4, g: 0.28235295, b: 0, a: 1}
-  m_EffectDistance: {x: 4, y: -4}
-  m_UseGraphicAlpha: 1
 --- !u!114 &724059101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8229,6 +8214,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 724059098}
   m_CullTransparentMesh: 1
+--- !u!114 &724059104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724059098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afb1317bad4864845bd0bd72f1e9126e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0.4, g: 0.28235295, b: 0, a: 1}
+  m_EffectDistance: {x: 4, y: -4}
+  m_UseGraphicAlpha: 1
 --- !u!1 &729239742
 GameObject:
   m_ObjectHideFlags: 0
