@@ -64,7 +64,7 @@ MonoBehaviour:
     upCost: 6
     recast: 20
     hp: 10
-    value: 4
+    value: 6
     interval: 2
     distance: 12
     range: 0
@@ -94,7 +94,7 @@ MonoBehaviour:
     upCost: 6
     recast: 20
     hp: 10
-    value: 6
+    value: 8
     interval: 2
     distance: 6
     range: 0
@@ -153,8 +153,8 @@ MonoBehaviour:
     cost: 18
     upCost: 9
     recast: 20
-    hp: 40
-    value: 1
+    hp: 60
+    value: 2
     interval: 4
     distance: 4
     range: 0
@@ -183,7 +183,7 @@ MonoBehaviour:
     cost: 18
     upCost: 9
     recast: 30
-    hp: 80
+    hp: 120
     value: 0
     interval: 5
     distance: 4
