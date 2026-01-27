@@ -2088,6 +2088,22 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6008059518009088167, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
+      propertyPath: enemyStatus.Array.data[0].hp
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6008059518009088167, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
+      propertyPath: enemyStatus.Array.data[0].id
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6008059518009088167, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
+      propertyPath: enemyStatus.Array.data[1].hp
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6008059518009088167, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
+      propertyPath: enemyStatus.Array.data[1].id
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6008059518009088167, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
       propertyPath: enemyStatus.Array.data[2].hp
       value: 8
       objectReference: {fileID: 0}

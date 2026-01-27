@@ -3526,6 +3526,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6008059518009088167, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
+      propertyPath: enemyStatus.Array.data[4].distance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6008059518009088167, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
       propertyPath: enemyStatus.Array.data[4].interval
       value: 2
       objectReference: {fileID: 0}
@@ -3540,6 +3544,10 @@ PrefabInstance:
     - target: {fileID: 6008059518009088167, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
       propertyPath: enemyStatus.Array.data[5].spawnNum
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6008059518009088167, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
+      propertyPath: enemyStatus.Array.data[6].distance
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6008059518009088167, guid: 63feadd5717b2b1498f05d43641aaf12, type: 3}
       propertyPath: enemyStatus.Array.data[6].interval
