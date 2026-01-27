@@ -71,6 +71,32 @@ MonoBehaviour:
     bonusExp: 5
   - exp: 25
     bonusExp: 5
+  - exp: 30
+    bonusExp: 5
+  - exp: 30
+    bonusExp: 5
+  - exp: 30
+    bonusExp: 5
+  - exp: 35
+    bonusExp: 5
+  - exp: 35
+    bonusExp: 5
+  - exp: 35
+    bonusExp: 5
+  - exp: 40
+    bonusExp: 5
+  - exp: 40
+    bonusExp: 5
+  - exp: 40
+    bonusExp: 5
+  - exp: 40
+    bonusExp: 5
+  - exp: 30
+    bonusExp: 5
+  - exp: 35
+    bonusExp: 5
+  - exp: 40
+    bonusExp: 5
   enemy:
   - prefab: {fileID: 6332577239119937932, guid: a1566b8f749366a47837da8ddb9d6134, type: 3}
     sprite: {fileID: 0}
