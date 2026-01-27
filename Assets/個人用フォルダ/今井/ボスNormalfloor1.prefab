@@ -456,7 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Start: 0
   Stage: 0
-  namber: 0e000000
+  namber: 19000000
   StageName: "\u30DC\u30B9"
   StageNaiyou: 
   Enemyint: 100

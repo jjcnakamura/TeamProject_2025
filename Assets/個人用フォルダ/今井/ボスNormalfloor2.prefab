@@ -456,7 +456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Start: 0
   Stage: 0
-  namber: 0e000000
+  namber: 1a000000
   StageName: "\u30DC\u30B9"
   StageNaiyou: 
   Enemyint: 100
@@ -470,6 +470,7 @@ MonoBehaviour:
   targetUI: {fileID: 4908152820272143409}
   i: 0
   indexint: 0
+  index: 0
 --- !u!1 &6885282036478001715
 GameObject:
   m_ObjectHideFlags: 0
