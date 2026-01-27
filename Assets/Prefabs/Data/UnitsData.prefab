@@ -94,7 +94,7 @@ MonoBehaviour:
     upCost: 6
     recast: 20
     hp: 10
-    value: 8
+    value: 7
     interval: 2
     distance: 6
     range: 0
