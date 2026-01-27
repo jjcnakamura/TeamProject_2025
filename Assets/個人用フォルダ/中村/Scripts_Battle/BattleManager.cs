@@ -140,6 +140,7 @@ public class BattleManager : Singleton<BattleManager>
         if (FindObjectOfType(System.Type.GetType("MapManager")) != null)
         {
             mapManager = MapManager.Instance;
+            mapManager.transform.GetChild(0).gameObject.SetActive(true);
             mapManager.gameObject.SetActive(false);
         }
         
@@ -662,6 +663,13 @@ public class BattleManager : Singleton<BattleManager>
     public void Retry()
     {
         SoundManager.Instance.PlaySE_Sys(1);
+
+        //MapManager‚ð—LŒø‚É
+        if (mapManager != null)
+        {
+            mapManager.transform.GetChild(0).gameObject.SetActive(false);
+            mapManager.gameObject.SetActive(true);
+        }
 
         FadeManager.Instance.LoadSceneIndex(SceneManager.GetActiveScene().buildIndex, 0.5f);
     }
