@@ -85,4 +85,23 @@ public class DebugMode : Singleton<DebugMode>
             TitleManager.Instance.LoadS(id);
         }
     }
+
+    //ウィンドウ切り替え
+    public void WindowChange()
+    {
+        if (window[0].activeSelf) return;
+
+        SoundManager.Instance.PlaySE_Sys(0);
+
+        if (!window[1].activeSelf)
+        {
+            window[2].SetActive(false);
+            window[1].SetActive(true);
+        }
+        else if (!window[2].activeSelf)
+        {
+            window[1].SetActive(false);
+            window[2].SetActive(true);
+        }
+    }
 }
