@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34c7642e964254046acfd32e6547c013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorNum: 0
+  difficultyLevel: 0
   hp: 10
   maxHp: 100
   maxUnitPossession: 5

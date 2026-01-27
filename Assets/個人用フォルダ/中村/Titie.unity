@@ -710,7 +710,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: -1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2398,10 +2398,10 @@ RectTransform:
   - {fileID: 1945344646}
   m_Father: {fileID: 1240727154}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 725, y: -350}
-  m_SizeDelta: {x: 250, y: 300}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &205173160
 MonoBehaviour:
@@ -2454,7 +2454,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 5
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -6646,7 +6646,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &488557154
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6720,7 +6720,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 10
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -6858,7 +6858,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &490379367
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14229,7 +14229,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u30D5\u30ED\u30A2\u6570\u3092\u9078\u629E"
+  m_text: "\u96E3\u6613\u5EA6\u3092\u9078\u629E"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c81b52ec0c6f3b044a8d738e3de1efea, type: 2}
   m_sharedMaterial: {fileID: -1750227140918227298, guid: c81b52ec0c6f3b044a8d738e3de1efea, type: 2}
@@ -15716,7 +15716,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u521D\u7D1A"
+  m_text: "\u30A4\u30FC\u30B8\u30FC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 56c969fcd486f4148bad2d8b04706556, type: 2}
   m_sharedMaterial: {fileID: 7794656502420722210, guid: 56c969fcd486f4148bad2d8b04706556, type: 2}
@@ -15743,8 +15743,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -16252,7 +16252,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u4E2D\u7D1A"
+  m_text: "\u30CE\u30FC\u30DE\u30EB"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 56c969fcd486f4148bad2d8b04706556, type: 2}
   m_sharedMaterial: {fileID: 7794656502420722210, guid: 56c969fcd486f4148bad2d8b04706556, type: 2}
@@ -16279,8 +16279,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -17834,7 +17834,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 250, y: 300}
-  m_Spacing: {x: 100, y: 0}
+  m_Spacing: {x: 180, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!222 &1240727157
@@ -19715,10 +19715,10 @@ RectTransform:
   - {fileID: 905676993}
   m_Father: {fileID: 1240727154}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 375, y: -350}
-  m_SizeDelta: {x: 250, y: 300}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1360416140
 MonoBehaviour:
@@ -19771,7 +19771,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -19905,7 +19905,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: -1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

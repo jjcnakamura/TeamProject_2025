@@ -39,10 +39,10 @@ public class TitleManager : Singleton<TitleManager>
         }
     }
 
-    //ステージ(難易度)を選ぶ画面を表示する
-    public void ChoiceStage(int num = -1)
+    //難易度を選ぶ画面を表示する
+    public void ChoiceStage(int level = -1)
     {
-        if (num <= 0)
+        if (level < 0)
         {
             //選択画面を開く
             if (!canvas[1].activeSelf)
@@ -63,8 +63,8 @@ public class TitleManager : Singleton<TitleManager>
         {
             SoundManager.Instance.PlaySE_Sys(1);
 
-            //フロア数を保持してマップシーンへ遷移
-            ParameterManager.Instance.floorNum = num;
+            //難易度選択を保持してマップシーンへ遷移
+            ParameterManager.Instance.difficultyLevel = level;
             LoadS(1);
         }
     }

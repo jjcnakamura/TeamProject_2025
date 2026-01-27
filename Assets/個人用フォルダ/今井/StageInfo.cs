@@ -60,6 +60,11 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         }
         if (StageName == "バトル")
         {
+            //ステージ番号の抽選方法を変更しました
+            namber[0] = EventWindowManager.Instance.BattleRandomChoice(1, MapManager.Instance.floor - 1)[0] - 1;
+
+            //旧処理
+            /*
             //namber = EventWindowManager.Instance.BattleRandomChoice(1, MapManager.Instance.worldLevel);
             if (MapManager.Instance.floor <= 2)
             {
@@ -69,7 +74,8 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
             {
                 namber[0] = Random.Range(7, 11);
             }
-            
+            */
+
         }
         if (StageName == "ボス")
         {
@@ -93,7 +99,7 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
             }
             if (StageName == "ボス")
             {
-                StageInfoText[1].text = namber[0].ToString();
+                StageInfoText[1].text = (namber[0] - 1).ToString();
             }
         }
         if (StageEnd == true && Start == true)//自分のステージが終わったら消える処理
@@ -129,12 +135,23 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
         }
         if (FloorEnd == true)
         {
+            //フロア終了の判定をMapManagerの変数maxを参照する形にしました
+            IgnoreImage.SetActive(true);
+            indexint = MapManager.Instance.max;
+            if (MapManager.Instance.y == indexint)
+            {
+                IgnoreImage.SetActive(false);
+            }
+
+            //旧処理
+            /*
             IgnoreImage.SetActive(true);
             indexint = MapManager.Instance.worldLevel + 3;
             if(MapManager.Instance.y == indexint)
             {
                 IgnoreImage.SetActive(false);
             }
+            */
         }
         
     }

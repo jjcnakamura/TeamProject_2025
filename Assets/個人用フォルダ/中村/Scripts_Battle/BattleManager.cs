@@ -501,6 +501,7 @@ public class BattleManager : Singleton<BattleManager>
 
         //ŒoŒ±’l‚ðŠl“¾
         int battleId = Mathf.Max(Mathf.Min(SceneManager.GetActiveScene().buildIndex - 2, SceneManager.sceneCountInBuildSettings - 2) , 0);
+        battleId = Mathf.Min(battleId, EnemiesData.Instance.stageExp.Length - 1);
         int getExp = EnemiesData.Instance.stageExp[battleId].exp;
         int getBonusExp = EnemiesData.Instance.stageExp[battleId].bonusExp;
 

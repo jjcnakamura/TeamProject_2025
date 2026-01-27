@@ -191,6 +191,8 @@ public class EventWindowManager : Singleton<EventWindowManager>
     {
         int[] result = new int[num];
 
+        poolIndex = Mathf.Min(poolIndex, EventsData.Instance.battlIdPool.Length - 1);
+
         //プール番号に対応した戦闘IDをリストに格納
         List<int> pool = new List<int>(EventsData.Instance.battlIdPool[poolIndex].id);
         List<int> tmpPool = pool;

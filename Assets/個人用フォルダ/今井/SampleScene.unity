@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7650,62 +7650,6 @@ PrefabInstance:
       propertyPath: battleUnitId.Array.data[3]
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1074046077804830477, guid: 90ae7f15507645e41bcb7064f18184a6, type: 3}
-      propertyPath: battlIdPool.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1074046077804830477, guid: 90ae7f15507645e41bcb7064f18184a6, type: 3}
-      propertyPath: battlIdPool.Array.data[0].id.Array.size
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1074046077804830477, guid: 90ae7f15507645e41bcb7064f18184a6, type: 3}
-      propertyPath: battlIdPool.Array.data[1].id.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1074046077804830477, guid: 90ae7f15507645e41bcb7064f18184a6, type: 3}
-      propertyPath: battlIdPool.Array.data[0].id.Array.data[0]
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1074046077804830477, guid: 90ae7f15507645e41bcb7064f18184a6, type: 3}
-      propertyPath: battlIdPool.Array.data[0].id.Array.data[1]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1074046077804830477, guid: 90ae7f15507645e41bcb7064f18184a6, type: 3}
-      propertyPath: battlIdPool.Array.data[0].id.Array.data[2]
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1074046077804830477, guid: 90ae7f15507645e41bcb7064f18184a6, type: 3}
-      propertyPath: battlIdPool.Array.data[0].id.Array.data[3]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1074046077804830477, guid: 90ae7f15507645e41bcb7064f18184a6, type: 3}
-      propertyPath: battlIdPool.Array.data[0].id.Array.data[4]
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1074046077804830477, guid: 90ae7f15507645e41bcb7064f18184a6, type: 3}
-      propertyPath: battlIdPool.Array.data[0].id.Array.data[5]
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1074046077804830477, guid: 90ae7f15507645e41bcb7064f18184a6, type: 3}
-      propertyPath: battlIdPool.Array.data[0].id.Array.data[6]
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1074046077804830477, guid: 90ae7f15507645e41bcb7064f18184a6, type: 3}
-      propertyPath: battlIdPool.Array.data[0].id.Array.data[7]
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1074046077804830477, guid: 90ae7f15507645e41bcb7064f18184a6, type: 3}
-      propertyPath: battlIdPool.Array.data[0].id.Array.data[8]
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1074046077804830477, guid: 90ae7f15507645e41bcb7064f18184a6, type: 3}
-      propertyPath: battlIdPool.Array.data[0].id.Array.data[9]
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1074046077804830477, guid: 90ae7f15507645e41bcb7064f18184a6, type: 3}
-      propertyPath: battlIdPool.Array.data[1].id.Array.data[1]
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6232713011055238563, guid: 90ae7f15507645e41bcb7064f18184a6, type: 3}
       propertyPath: m_Name
       value: ParameterManager (1)
@@ -14124,7 +14068,8 @@ MonoBehaviour:
   - {fileID: 1272424673369549997, guid: d9d9db70a3d78f44f869347e578acf94, type: 3}
   - {fileID: 1952304125731385587, guid: 4a7931c19ae5d5349857447fdede01ad, type: 3}
   - {fileID: 5227857700782153409, guid: 5d843d361db22cd498b775fbe5cc6a9b, type: 3}
-  - {fileID: 1272424673369549997, guid: d9d9db70a3d78f44f869347e578acf94, type: 3}
+  - {fileID: 5227857700782153409, guid: 565b8fa385b49a7408ebd1701e2c57c2, type: 3}
+  - {fileID: 5227857700782153409, guid: 6df844b21e13ff54383f74d13efd6944, type: 3}
   ExtraworldBoss:
   - {fileID: 1272424673369549997, guid: d9d9db70a3d78f44f869347e578acf94, type: 3}
   - {fileID: 1952304125731385587, guid: 4a7931c19ae5d5349857447fdede01ad, type: 3}

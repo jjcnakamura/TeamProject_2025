@@ -8,8 +8,8 @@ using System;
 /// </summary>
 public class ParameterManager : Singleton<ParameterManager>
 {
-    //フロア(エリア)数
-    public int floorNum;
+    //難易度
+    public int difficultyLevel = 0;
 
     [Space(10)]
 
@@ -55,8 +55,8 @@ public class ParameterManager : Singleton<ParameterManager>
     /// </summary>
     public void StatusInit()
     {
-        //フロア(エリア)数
-        floorNum = 0;
+        //難易度
+        difficultyLevel = 0;
 
         //プレイヤーのステータス
         hp = 10;                     //プレイヤー（タワー）のHP

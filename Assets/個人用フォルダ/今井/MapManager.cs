@@ -55,15 +55,22 @@ public class MapManager : Singleton<MapManager>
     private void Start()    
     {
         SoundManager.Instance.PlayBGM(1);
+
+        //タイトルで選択した難易度を読み込み
+        worldLevel = ParameterManager.Instance.difficultyLevel;
+        max = EasyworldBoss.Length;
     }
 
     void Update()
     {
         MapText[0].text = floor.ToString();
 
+        //旧処理
+        /*
         if (worldLevel == 0) max = 3;
         if (worldLevel == 1) max = 4;
         if (worldLevel == 2) max = 5;
+        */
 
         if (Input.GetKeyDown(KeyCode.A)) worldLevel = 0;
         if (Input.GetKeyDown(KeyCode.S)) worldLevel = 1;
@@ -82,6 +89,26 @@ public class MapManager : Singleton<MapManager>
         {
             if (StageInfo.FloorEnd == true && StageInfo.StageEnd == true)
             {
+                //難易度によって最後のフロア番号が変わるようにしました
+                int maxFloorNum = 3;
+                if (worldLevel == 1) maxFloorNum = 5;
+                else if (worldLevel >= 2) maxFloorNum = 10;
+
+                //最大フロア数を決定
+                if (worldLevel == 0) max = 3;
+                else if (floor >= max && worldLevel == 1) max = 4;
+                else if (floor >= max && worldLevel >= 2) max = 5;
+
+                NextFloorButtonImage.SetActive(true);
+                if (floor >= maxFloorNum)
+                {
+                    NextFloorButtonImage.SetActive(false);
+                    GameEnd();
+                    return;
+                }
+
+                //旧処理
+                /*
                 NextFloorButtonImage.SetActive(true);
                 if(floor > worldLevel + 2)
                 {
@@ -89,6 +116,7 @@ public class MapManager : Singleton<MapManager>
                     GameEnd();
                     return;
                 }
+                */
             }
         }
 
@@ -144,7 +172,9 @@ public class MapManager : Singleton<MapManager>
         {
             transforms[i] = MapRoute[i].transform;
         }
-        if(y > (worldLevel + 2))//ボスに行く処理
+        //if(y > (worldLevel + 2)) 旧if文
+        //フロア終了の判定を変数maxを参照する形にしました
+        if (y >= max)//ボスに行く処理
         {
             Debug.Log("わわわわわわわわわわわ");
             nextStage.SetParent(BossEnemy, true);
