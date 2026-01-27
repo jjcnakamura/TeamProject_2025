@@ -51,6 +51,7 @@ MonoBehaviour:
   bgmClip:
   - {fileID: 8300000, guid: d5b3723a25e57e34ba58512bd764866f, type: 3}
   - {fileID: 8300000, guid: af1ee5e6b35acc74e96099d47d631fd4, type: 3}
+  - {fileID: 8300000, guid: da9f6d25b218bf542bd16ade29ad1cff, type: 3}
   bgm_BattleClip:
   - {fileID: 8300000, guid: 3bba5f8aeba80e44f9e54b174f27c9ef, type: 3}
   - {fileID: 8300000, guid: be7595a8b3fdc4e4f8000967dabac3c9, type: 3}

@@ -39,6 +39,8 @@ public class MapManager : Singleton<MapManager>
     public GameObject StartCharaEnterCanvas;
     public GameObject[] ExpCharaImage;
 
+    public bool gameClear; //ゲームクリアフラグ
+
 
     void Awake()
     {
@@ -466,8 +468,20 @@ public class MapManager : Singleton<MapManager>
 
     public void GameEnd()//使用中
     {
-        SoundManager.Instance.StopBGM();
-        SoundManager.Instance.PlaySE_Jingle(0);
+        if (gameClear) return;
+
+        //デバッグモードでクリアした場合はBGMを再生
+        if (SceneManager.GetActiveScene().buildIndex <= 1)
+        {
+            SoundManager.Instance.StopBGM();
+            SoundManager.Instance.PlayBGM(2);
+        }
+
+        //クリアフラグを立てる
+        gameClear = true;
+
+        //SoundManager.Instance.StopBGM();
+        //SoundManager.Instance.PlaySE_Jingle(0);
         GameEndImage.SetActive(true);
     }
 
