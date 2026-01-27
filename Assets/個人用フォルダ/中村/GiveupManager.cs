@@ -70,9 +70,11 @@ public class GiveupManager : Singleton<GiveupManager>
 
         //全てのステータスをリセット
         ParameterManager.Instance.StatusInit();
-        if (mapManager != null) Destroy(mapManager.gameObject);
-        else if (FindObjectOfType(System.Type.GetType("MapManager")) != null) Destroy(MapManager.Instance.gameObject);
-        else if (FindObjectOfType(System.Type.GetType("BattleManager")) != null && BattleManager.Instance.mapManager) Destroy(BattleManager.Instance.mapManager.gameObject);
+
+        //タイトルに戻った時にMapManagerを消すためにアクティブにしておく
+        if (mapManager != null) mapManager.gameObject.SetActive(true);
+        else if (FindObjectOfType(System.Type.GetType("MapManager")) != null) MapManager.Instance.gameObject.SetActive(true);
+        else if (FindObjectOfType(System.Type.GetType("BattleManager")) != null && BattleManager.Instance.mapManager) BattleManager.Instance.mapManager.gameObject.SetActive(true);
 
         FadeManager.Instance.LoadSceneIndex(0, 0.5f);
     }

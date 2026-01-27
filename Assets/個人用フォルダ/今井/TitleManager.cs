@@ -18,6 +18,15 @@ public class TitleManager : Singleton<TitleManager>
     GameObject[] manual_Pages;
     int manual_PageIndex;
 
+    void Awake()
+    {
+        //MapManager‚ª‚ ‚éê‡‚ÍÁ‚·
+        if (FindObjectOfType(System.Type.GetType("MapManager")) != null)
+        {
+            Destroy(MapManager.Instance.gameObject);
+        }
+    }
+
     void Start()
     {
         SoundManager.Instance.PlayBGM(0);
