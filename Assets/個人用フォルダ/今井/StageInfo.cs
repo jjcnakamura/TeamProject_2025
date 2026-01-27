@@ -95,7 +95,8 @@ public class StageInfo : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandle
             if (StageName == "バトル")
             {
                 //StageInfoText[1].text = Enemyint.ToString();
-                StageInfoText[1].text = namber[0].ToString();
+                string minusText = (namber[0] <= 13) ? namber[0].ToString() : (namber[0] - 3).ToString(); //初級ボス以降は-3する
+                StageInfoText[1].text = minusText;
             }
             if (StageName == "ボス")
             {
