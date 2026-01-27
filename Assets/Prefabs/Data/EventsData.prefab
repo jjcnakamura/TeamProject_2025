@@ -53,7 +53,7 @@ MonoBehaviour:
   eventData:
   - name: "\u30E6\u30CB\u30C3\u30C8\u5165\u624B"
     catergory: 1
-    sprite: {fileID: 21300000, guid: 897c166ae3c3144409f5257ee01f9810, type: 3}
+    sprite: {fileID: 21300000, guid: 282a3f891d46d4ddba1ca0fc718bb34b, type: 3}
     text: "\u65B0\u305F\u306A\u30E6\u30CB\u30C3\u30C8\u304C\u4EF2\u9593\u306B\u306A\u308B\uFF01"
     choice:
     - type: 3
